@@ -1,0 +1,90 @@
+import { Facebook, Instagram } from "lucide-react";
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="bg-card border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
+          {/* Brand */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-accent to-gold-light rounded-lg flex items-center justify-center">
+                <svg
+                  className="w-6 h-6 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
+                </svg>
+              </div>
+              <span className="text-lg font-bold text-foreground">
+                Virginia Laser Specialists
+              </span>
+            </div>
+            <p className="text-muted-foreground">
+              Expert laser hair removal in a welcoming space where ALL are welcome.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {["About Us", "Services", "Pricing", "Gallery", "Specials", "Contact"].map(
+                (link) => (
+                  <li key={link}>
+                    <a
+                      href={`#${link.toLowerCase().replace(" ", "-")}`}
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+
+          {/* Contact & Social */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Connect With Us</h3>
+            <div className="space-y-3 text-muted-foreground">
+              <p>Vienna, VA</p>
+              <p>
+                <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
+                  703-547-4499
+                </a>
+              </p>
+              <div className="flex gap-4 pt-2">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-border pt-8 text-center text-muted-foreground text-sm">
+          <p>
+            © {currentYear} Virginia Laser Specialists. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
