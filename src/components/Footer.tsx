@@ -51,22 +51,28 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Connect With Us</h3>
             <div className="space-y-3 text-muted-foreground">
-              <p>Tysons, VA</p>
+              <p>8100 Boone Blvd, Suite 270</p>
+              <p>Vienna, VA 22182</p>
               <p>
                 <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
                   703-547-4499
                 </a>
               </p>
+              <p className="text-sm">Tue-Fri: 10am-6pm | Sat: 9am-1pm</p>
               <div className="flex gap-4 pt-2">
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=61573588844302"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/virginialaserspecialists/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
                   aria-label="Instagram"
                 >

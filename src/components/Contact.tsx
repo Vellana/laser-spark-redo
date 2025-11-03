@@ -13,20 +13,20 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      details: "Vienna, VA",
-      link: "#",
+      details: "8100 Boone Blvd, Suite 270, Vienna, VA 22182",
+      link: "https://maps.google.com/?q=8100+Boone+Boulevard+Suite+270+Vienna+VA+22182",
     },
     {
       icon: Clock,
       title: "Hours",
-      details: "By Appointment",
+      details: "Tue-Fri: 10am-6pm, Sat: 9am-1pm",
       link: "#",
     },
     {
       icon: Mail,
       title: "Email",
-      details: "info@virginialaser.com",
-      link: "mailto:info@virginialaser.com",
+      details: "Book Online",
+      link: "https://www.vagaro.com/virginialaserspecialists/services",
     },
   ];
 

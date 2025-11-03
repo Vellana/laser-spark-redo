@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
+import aboutImage from "@/assets/about-facility.avif";
 
 const About = () => {
   const values = [
@@ -17,7 +18,7 @@ const About = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-medium">
               <img
-                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053"
+                src={aboutImage}
                 alt="Modern laser treatment facility"
                 className="w-full h-[600px] object-cover"
               />
