@@ -22,12 +22,12 @@ const Hero = () => {
           </div>
           
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
-            Expert Laser,<br />
-            <span className="text-accent">Effortless Beauty</span>
+            Advanced Laser & <br />
+            <span className="text-accent">Cool Peel Technology</span>
           </h1>
           
           <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light">
-            Experience the difference of expert care in a comfortable space where ALL are welcome.
+            Premier laser hair removal and revolutionary Cool Peel treatments in the heart of Tysons.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
@@ -35,14 +35,14 @@ const Hero = () => {
               size="lg" 
               className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8 py-6 text-lg shadow-gold transition-all hover:scale-105"
             >
-              Book Appointment
+              Book Free Consultation
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg transition-all"
             >
-              View Services
+              View Pricing
             </Button>
           </div>
 
@@ -54,7 +54,7 @@ const Hero = () => {
             <span className="hidden sm:inline text-white/50">|</span>
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5" />
-              <span className="font-medium">Vienna, VA</span>
+              <span className="font-medium">Tysons, VA</span>
             </div>
           </div>
         </div>

@@ -6,11 +6,10 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "About Us", href: "#about" },
-    { name: "Services", href: "#services" },
+    { name: "Cool Peel", href: "#cool-peel" },
+    { name: "Laser Hair Removal", href: "#laser-hair-removal" },
     { name: "Pricing", href: "#pricing" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Specials", href: "#specials" },
+    { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -55,7 +54,7 @@ const Navigation = () => {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold shadow-gold">
-              Book Now
+              Free Consultation
             </Button>
           </div>
 

@@ -32,11 +32,11 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {["About Us", "Services", "Pricing", "Gallery", "Specials", "Contact"].map(
+              {["Cool Peel", "Laser Hair Removal", "Pricing", "About", "Contact"].map(
                 (link) => (
                   <li key={link}>
                     <a
-                      href={`#${link.toLowerCase().replace(" ", "-")}`}
+                      href={`#${link.toLowerCase().replace(/ /g, "-")}`}
                       className="text-muted-foreground hover:text-accent transition-colors"
                     >
                       {link}
@@ -51,7 +51,7 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Connect With Us</h3>
             <div className="space-y-3 text-muted-foreground">
-              <p>Vienna, VA</p>
+              <p>Tysons, VA</p>
               <p>
                 <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
                   703-547-4499
