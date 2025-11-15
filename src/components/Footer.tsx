@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-accent to-gold-light rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-lg flex items-center justify-center">
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="currentColor"
@@ -32,18 +32,23 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {["Cool Peel", "Laser Hair Removal", "Pricing", "About", "Contact"].map(
-                (link) => (
-                  <li key={link}>
-                    <a
-                      href={`#${link.toLowerCase().replace(/ /g, "-")}`}
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                )
-              )}
+              {[
+                { name: "Cool Peel", href: "#cool-peel" },
+                { name: "Laser Hair Removal", href: "#laser-hair-removal" },
+                { name: "Pricing", href: "/pricing" },
+                { name: "Gallery", href: "/gallery" },
+                { name: "About", href: "#about" },
+                { name: "Contact", href: "#contact" },
+              ].map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-muted-foreground hover:text-accent transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
