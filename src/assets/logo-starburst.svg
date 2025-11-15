@@ -1,0 +1,28 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(20, 20)">
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="2" fill="#D4AF37"/>
+    
+    <!-- Main rays (8 long rays) -->
+    <path d="M 0,-15 L 0.5,-2 L -0.5,-2 Z" fill="#D4AF37"/>
+    <path d="M 15,0 L 2,0.5 L 2,-0.5 Z" fill="#D4AF37"/>
+    <path d="M 0,15 L 0.5,2 L -0.5,2 Z" fill="#D4AF37"/>
+    <path d="M -15,0 L -2,0.5 L -2,-0.5 Z" fill="#D4AF37"/>
+    
+    <!-- Diagonal long rays -->
+    <path d="M 10.6,-10.6 L 1.4,-1.4 L 0.7,-2.1 Z" fill="#D4AF37"/>
+    <path d="M 10.6,10.6 L 1.4,1.4 L 2.1,0.7 Z" fill="#D4AF37"/>
+    <path d="M -10.6,10.6 L -1.4,1.4 L -0.7,2.1 Z" fill="#D4AF37"/>
+    <path d="M -10.6,-10.6 L -1.4,-1.4 L -2.1,-0.7 Z" fill="#D4AF37"/>
+    
+    <!-- Shorter rays (between the main ones) -->
+    <path d="M 5.5,-13.5 L 1,-1.8 L 0.3,-2.2 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M 13.5,-5.5 L 1.8,-1 L 2.2,-0.3 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M 13.5,5.5 L 1.8,1 L 2.2,0.3 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M 5.5,13.5 L 1,1.8 L 0.3,2.2 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M -5.5,13.5 L -1,1.8 L -0.3,2.2 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M -13.5,5.5 L -1.8,1 L -2.2,0.3 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M -13.5,-5.5 L -1.8,-1 L -2.2,-0.3 Z" fill="#D4AF37" opacity="0.8"/>
+    <path d="M -5.5,-13.5 L -1,-1.8 L -0.3,-2.2 Z" fill="#D4AF37" opacity="0.8"/>
+  </g>
+</svg>

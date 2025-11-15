@@ -19,25 +19,21 @@ const Navigation = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-lg flex items-center justify-center">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-              </svg>
-            </div>
+          <a href="/" className="flex items-center space-x-3">
+            <img 
+              src="/src/assets/logo-starburst.svg" 
+              alt="Virginia Laser Specialists Logo" 
+              className="w-10 h-10"
+            />
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-primary leading-tight">
+              <span className="text-xl font-bold text-accent leading-tight">
                 Virginia Laser Specialists
               </span>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">
                 Experienced Hair Removal
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
