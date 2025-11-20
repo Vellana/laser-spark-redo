@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logoStarburst from "@/assets/logo-starburst.svg";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const Navigation = () => {
           {/* Logo */}
           <a href="/" className="flex items-center space-x-3">
             <img 
-              src="/src/assets/logo-starburst.svg" 
+              src={logoStarburst} 
               alt="Virginia Laser Specialists Logo" 
               className="w-10 h-10"
             />

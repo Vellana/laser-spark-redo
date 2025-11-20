@@ -8,6 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import amyImage from "@/assets/amy.png";
+import hollyImage from "@/assets/holly.png";
 
 const Team = () => {
   const team = [
@@ -15,15 +17,15 @@ const Team = () => {
       name: "Amy O'Brien Kirschner",
       title: "Licensed Esthetician & Certified Laser Technician",
       bio: "Amy O'Brien Kirschner is a dedicated licensed esthetician and certified laser hair removal technician with over 12 years of experience in the skincare industry.",
-      fullBio: "Amy O'Brien Kirschner is a dedicated licensed esthetician and certified laser hair removal technician with over 12 years of experience in the skincare industry. Her passion for aesthetics began early in her career, driven by a commitment to helping clients achieve healthy, radiant skin through advanced treatments and personalized care. Amy specializes in laser hair removal and has built a reputation for her meticulous attention to detail, gentle approach, and exceptional results. She stays current with the latest industry trends and technologies, ensuring her clients receive the most effective and safe treatments available. Her warm demeanor and expertise create a comfortable environment where clients feel confident and well-cared for throughout their skincare journey.",
-      image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=2070",
+      fullBio: "Amy O'Brien Kirschner is a dedicated licensed esthetician and certified laser hair removal technician with over 12 years of experience in the skincare industry. Passionate about enhancing her clients natural beauty, Amy offers a knowledgeable, personalized approach to skincare and hair removal that prioritizes safety and comfort. Specializing in the use of advanced laser technology, Amy utilizes the Lutronic Clarity II laser along with other leading devices including the Picoway and Cynosure Elite lasers– the gold standard for both hair and tattoo removal treatments. Her expertise in these cutting-edge tools allows her to provide effective solutions for stubborn hair growth and tattoo removal on all areas of the body. Having lived and worked in the DMV area for over 20 years, Amy has built strong relationships with her clients, who appreciate her calm and engaging demeanor. She takes the time to conduct thorough consultations to educate clients about the laser hair removal process and assess their individual needs, ensuring they set realistic expectations for their results.",
+      image: amyImage,
     },
     {
       name: "Holly Schuster",
-      title: "Co-Founder",
+      title: "Owner/Operator",
       bio: "With more than 20 years of dynamic experience as a small business owner across the hospitality, real estate, and consulting sectors, Holly developed a rich and diverse skill set that has shaped her professional journey.",
-      fullBio: "With more than 20 years of dynamic experience as a small business owner across the hospitality, real estate, and consulting sectors, Holly developed a rich and diverse skill set that has shaped her professional journey. Her multifaceted background has equipped her with a deep understanding of operational excellence, client relations, and strategic business development. Holly's entrepreneurial spirit and dedication to creating meaningful customer experiences led her to co-found Virginia Laser Specialists, where she brings her business acumen and passion for wellness together. She is committed to building a welcoming, inclusive practice that prioritizes client comfort, satisfaction, and outstanding results. Holly's vision for Virginia Laser Specialists is rooted in authenticity, professionalism, and a genuine desire to help every client feel confident and beautiful.",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2088",
+      fullBio: "With more than 20 years of dynamic experience as a small business owner across the hospitality, real estate, and consulting sectors, Holly developed a rich and diverse skill set that has shaped her professional journey. She received a degree in architecture from Catholic University in Washington, DC, giving her a robust foundation that has fueled various endeavors and creative pursuits. She has taken her commitment to excellence further by completing extensive training in laser hair removal and earning certification from Cynosure/Lutronic. As the Owner/Operator of Virginia Laser Specialists, she is passionate about creating a results-driven customer experience that consistently exceeds clients' expectations. Her unwavering focus on excellence guarantees that every client receives exceptional care and individualized attention. She is committed to cultivating an environment where all clients feel valued!",
+      image: hollyImage,
     },
   ];
 
