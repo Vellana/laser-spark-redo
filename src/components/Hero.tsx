@@ -34,7 +34,8 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Button 
               size="lg" 
-              className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8 py-6 text-lg shadow-gold transition-all hover:scale-105"
+              variant="accent"
+              className="px-8 py-6 text-lg transition-all hover:scale-105"
             >
               Book Free Consultation
             </Button>
