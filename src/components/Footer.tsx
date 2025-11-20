@@ -1,5 +1,5 @@
 import { Facebook, Instagram } from "lucide-react";
-import logoStarburst from "@/assets/logo-starburst.svg";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <img 
-                src={logoStarburst} 
+                src={logo} 
                 alt="Virginia Laser Specialists Logo" 
                 className="w-10 h-10"
               />
