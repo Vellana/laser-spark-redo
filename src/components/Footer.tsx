@@ -1,4 +1,5 @@
 import { Facebook, Instagram } from "lucide-react";
+import logoStarburst from "@/assets/logo-starburst.svg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,15 +11,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-primary"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                </svg>
-              </div>
+              <img 
+                src={logoStarburst} 
+                alt="Virginia Laser Specialists Logo" 
+                className="w-10 h-10"
+              />
               <span className="text-lg font-bold text-foreground">
                 Virginia Laser Specialists
               </span>
