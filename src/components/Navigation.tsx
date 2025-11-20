@@ -51,7 +51,7 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold shadow-gold">
+            <Button variant="accent">
               Free Consultation
             </Button>
           </div>
@@ -83,7 +83,7 @@ const Navigation = () => {
               </a>
             ))}
             <div className="pt-2">
-              <Button className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold">
+              <Button variant="accent" className="w-full">
                 Book Now
               </Button>
             </div>
