@@ -71,12 +71,14 @@ const Contact = () => {
         </div>
 
         <div className="text-center space-y-6">
-          <Button
-            size="lg"
-            className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"
-          >
-            Book Your Appointment Now
-          </Button>
+          <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"
+            >
+              Book Your Appointment Now
+            </Button>
+          </a>
           <p className="text-white/80 text-sm">
             We accept most insurance plans and offer flexible payment options
           </p>
