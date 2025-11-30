@@ -1,46 +1,115 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import {
+  Sparkles,
+  Hand,
+  Footprints,
+  Shield,
+  Smile,
+  ScanFace,
+  Circle,
+  Target,
+  Move,
+  User,
+} from "lucide-react";
 
 const services = [
   {
     name: "Brazilian",
     description: "Complete and comfortable hair removal for intimate areas.",
-    image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=2070",
+    icon: Target,
+    color: "text-pink-500 bg-pink-500/10",
   },
   {
     name: "Underarm",
     description: "Say goodbye to daily shaving with smooth, lasting results.",
-    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070",
+    icon: Hand,
+    color: "text-blue-500 bg-blue-500/10",
   },
   {
     name: "Legs",
     description: "Full or half leg treatments for silky smooth skin.",
-    image: "https://images.unsplash.com/photo-1560750513-5c65a8efc56f?q=80&w=2070",
+    icon: Footprints,
+    color: "text-purple-500 bg-purple-500/10",
   },
   {
     name: "Back",
     description: "Professional treatment for smooth, hair-free back.",
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070",
+    icon: Shield,
+    color: "text-green-500 bg-green-500/10",
   },
   {
     name: "Chin",
     description: "Precise facial hair removal for a confident appearance.",
-    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=2070",
+    icon: Smile,
+    color: "text-yellow-500 bg-yellow-500/10",
   },
   {
     name: "Face",
     description: "Gentle and effective treatment for facial hair.",
-    image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=2071",
+    icon: ScanFace,
+    color: "text-orange-500 bg-orange-500/10",
   },
   {
     name: "Arms",
     description: "Smooth, hair-free arms with lasting results.",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020",
+    icon: Hand,
+    color: "text-indigo-500 bg-indigo-500/10",
   },
   {
     name: "Chest",
     description: "Professional chest hair removal for all skin types.",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070",
+    icon: Circle,
+    color: "text-red-500 bg-red-500/10",
+  },
+  {
+    name: "Abdomen",
+    description: "Targeted treatment for smooth abdominal area.",
+    icon: Circle,
+    color: "text-teal-500 bg-teal-500/10",
+  },
+  {
+    name: "Bikini Line",
+    description: "Precise and comfortable bikini area treatment.",
+    icon: Target,
+    color: "text-fuchsia-500 bg-fuchsia-500/10",
+  },
+  {
+    name: "Neck",
+    description: "Front and back neck hair removal.",
+    icon: Move,
+    color: "text-rose-500 bg-rose-500/10",
+  },
+  {
+    name: "Sideburns",
+    description: "Clean, precise sideburn shaping and removal.",
+    icon: ScanFace,
+    color: "text-cyan-500 bg-cyan-500/10",
+  },
+  {
+    name: "Upper Lip",
+    description: "Gentle and precise upper lip hair removal.",
+    icon: Smile,
+    color: "text-amber-500 bg-amber-500/10",
+  },
+  {
+    name: "Shoulders",
+    description: "Smooth shoulder area treatment.",
+    icon: Shield,
+    color: "text-lime-500 bg-lime-500/10",
+  },
+  {
+    name: "Hands",
+    description: "Hair removal for hands and fingers.",
+    icon: Hand,
+    color: "text-sky-500 bg-sky-500/10",
+  },
+  {
+    name: "Feet",
+    description: "Hair removal for feet and toes.",
+    icon: Footprints,
+    color: "text-violet-500 bg-violet-500/10",
   },
 ];
 
@@ -61,23 +130,18 @@ const Services = () => {
           {services.map((service) => (
             <Card
               key={service.name}
-              className="group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+              className="group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50"
             >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={`${service.name} laser hair removal`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-xl font-bold text-white group-hover:text-accent transition-colors">
+              <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
+                <div className={`w-16 h-16 rounded-full ${service.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                  <service.icon className="w-8 h-8" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors mb-2">
                     {service.name}
                   </h3>
+                  <p className="text-sm text-muted-foreground">{service.description}</p>
                 </div>
-              </div>
-              <CardContent className="p-4">
-                <p className="text-sm text-muted-foreground">{service.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -91,12 +155,14 @@ const Services = () => {
             <p className="text-muted-foreground mb-6">
               Schedule a free consultation with our experts to discuss your goals and create a personalized treatment plan.
             </p>
-            <Button
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8 shadow-gold"
-            >
-              Book Free Consultation
-            </Button>
+            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8 shadow-gold"
+              >
+                Book Free Consultation
+              </Button>
+            </a>
           </div>
         </div>
       </div>

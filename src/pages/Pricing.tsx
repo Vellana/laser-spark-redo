@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Pricing = () => {
   const laserHairRemovalPricing = [
@@ -77,9 +78,8 @@ const Pricing = () => {
                       {laserHairRemovalPricing.map((item, index) => (
                         <tr
                           key={item.area}
-                          className={`border-b border-border/50 ${
-                            index % 2 === 0 ? "bg-secondary/20" : ""
-                          }`}
+                          className={`border-b border-border/50 ${index % 2 === 0 ? "bg-secondary/20" : ""
+                            }`}
                         >
                           <td className="py-4 px-4 text-foreground font-medium">
                             {item.area}
@@ -96,26 +96,118 @@ const Pricing = () => {
                   </table>
                 </div>
                 <div className="mt-8 text-center">
-                  <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
-                    Book Free Consultation
-                  </Button>
+                  <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                    <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
+                      Book Free Consultation
+                    </Button>
+                  </a>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Cool Peel Coming Soon */}
-            <Card className="max-w-4xl mx-auto bg-secondary/30">
+            {/* Laser Resurfacing Pricing */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {/* CoolPeel Pricing */}
+              <Card className="border-accent/40">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">
+                    CoolPeel Pricing
+                  </CardTitle>
+                  <p className="text-center text-muted-foreground">
+                    Series of 3 treatments, spaced 1 month apart
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Full Face</span>
+                      <div className="text-right">
+                        <div className="text-accent font-semibold">Contact for Quote</div>
+                        <div className="text-sm text-muted-foreground">Per session</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Neck</span>
+                      <div className="text-right">
+                        <div className="text-accent font-semibold">Contact for Quote</div>
+                        <div className="text-sm text-muted-foreground">Per session</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Décolletage</span>
+                      <div className="text-right">
+                        <div className="text-accent font-semibold">Contact for Quote</div>
+                        <div className="text-sm text-muted-foreground">Per session</div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Hands</span>
+                      <div className="text-right">
+                        <div className="text-accent font-semibold">Contact for Quote</div>
+                        <div className="text-sm text-muted-foreground">Per session</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6 p-4 bg-accent/10 rounded-lg">
+                    <p className="text-sm text-foreground text-center">
+                      <strong>Package Discount:</strong> Save when you purchase all 3 sessions
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Deka Pulse Pricing */}
+              <Card className="border-primary/40">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">
+                    Deka Pulse Pricing
+                  </CardTitle>
+                  <p className="text-center text-muted-foreground">
+                    Single intensive treatment
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Full Face</span>
+                      <div className="text-accent font-semibold">Contact for Quote</div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Neck</span>
+                      <div className="text-accent font-semibold">Contact for Quote</div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Décolletage</span>
+                      <div className="text-accent font-semibold">Contact for Quote</div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
+                      <span className="font-medium text-foreground">Full Face + Neck</span>
+                      <div className="text-accent font-semibold">Contact for Quote</div>
+                    </div>
+                  </div>
+                  <div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                    <p className="text-sm text-foreground text-center">
+                      <strong>Note:</strong> Deeper treatment with 5-10 days downtime
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Contact CTA */}
+            <Card className="max-w-4xl mx-auto mt-8 bg-secondary/30">
               <CardContent className="py-12 text-center space-y-4">
                 <h3 className="text-2xl font-bold text-foreground">
-                  Tetra (Cool Peel) Offerings
+                  Ready to Learn More?
                 </h3>
                 <p className="text-lg text-muted-foreground">
-                  Pricing coming soon. Contact us for more information about our
-                  advanced Cool Peel treatments.
+                  Contact us for detailed pricing and to discuss which treatment is right for you.
                 </p>
-                <Button variant="outline" className="mt-4">
-                  Contact Us
-                </Button>
+                <Link to="/contact">
+                  <Button className="mt-4 bg-accent hover:bg-accent/90 text-primary font-semibold">
+                    Get Pricing Information
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>

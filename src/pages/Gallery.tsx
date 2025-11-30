@@ -1,10 +1,12 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import aboutFacility from "@/assets/about-facility.avif";
+import { useState } from "react";
 
 const Gallery = () => {
+  const [activeTab, setActiveTab] = useState<"office" | "exterior" | "beforeAfter">("office");
+
   const galleryImages = {
     office: [
       { src: aboutFacility, alt: "Treatment Room" },
@@ -36,15 +38,41 @@ const Gallery = () => {
               </p>
             </div>
 
-            <Tabs defaultValue="office" className="max-w-6xl mx-auto">
-              <TabsList className="grid w-full grid-cols-3 mb-12">
-                <TabsTrigger value="office">Our Office</TabsTrigger>
-                <TabsTrigger value="exterior">Building Exterior</TabsTrigger>
-                <TabsTrigger value="beforeAfter">Before & After</TabsTrigger>
-              </TabsList>
+            {/* Custom Button Selector */}
+            <div className="flex justify-center gap-4 mb-12 flex-wrap">
+              <button
+                onClick={() => setActiveTab("office")}
+                className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "office"
+                    ? "border-accent bg-accent/10 text-accent shadow-md"
+                    : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
+                  }`}
+              >
+                Our Office
+              </button>
+              <button
+                onClick={() => setActiveTab("exterior")}
+                className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "exterior"
+                    ? "border-accent bg-accent/10 text-accent shadow-md"
+                    : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
+                  }`}
+              >
+                Building Exterior
+              </button>
+              <button
+                onClick={() => setActiveTab("beforeAfter")}
+                className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "beforeAfter"
+                    ? "border-accent bg-accent/10 text-accent shadow-md"
+                    : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
+                  }`}
+              >
+                Before & After
+              </button>
+            </div>
 
-              <TabsContent value="office" className="space-y-8">
-                <div className="grid md:grid-cols-3 gap-6">
+            {/* Gallery Content */}
+            <div className="max-w-6xl mx-auto">
+              {activeTab === "office" && (
+                <div className="grid md:grid-cols-3 gap-6 animate-in fade-in duration-300">
                   {galleryImages.office.map((image, index) => (
                     <Card key={index} className="overflow-hidden group cursor-pointer">
                       <div className="relative aspect-square overflow-hidden">
@@ -57,10 +85,10 @@ const Gallery = () => {
                     </Card>
                   ))}
                 </div>
-              </TabsContent>
+              )}
 
-              <TabsContent value="exterior" className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-6">
+              {activeTab === "exterior" && (
+                <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-300">
                   {galleryImages.exterior.map((image, index) => (
                     <Card key={index} className="overflow-hidden group cursor-pointer">
                       <div className="relative aspect-video overflow-hidden">
@@ -73,10 +101,10 @@ const Gallery = () => {
                     </Card>
                   ))}
                 </div>
-              </TabsContent>
+              )}
 
-              <TabsContent value="beforeAfter" className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-6">
+              {activeTab === "beforeAfter" && (
+                <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-300">
                   {galleryImages.beforeAfter.map((image, index) => (
                     <Card key={index} className="overflow-hidden group cursor-pointer">
                       <div className="relative aspect-video overflow-hidden">
@@ -89,8 +117,8 @@ const Gallery = () => {
                     </Card>
                   ))}
                 </div>
-              </TabsContent>
-            </Tabs>
+              )}
+            </div>
           </div>
         </section>
       </main>

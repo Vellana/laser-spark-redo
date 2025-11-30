@@ -1,18 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
+import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 
 const ServiceCategories = () => {
   const categories = [
     {
       title: "Laser Hair Removal",
-      description: "Permanent hair reduction for all body areas with advanced laser technology.",
-      image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070",
+      description: "Long lasting hair reduction for all body areas with advanced laser technology.",
+      image: clarityImage,
       link: "#laser-hair-removal",
     },
     {
-      title: "Cool Peel",
-      description: "Revolutionary skin rejuvenation with minimal downtime and maximum results.",
-      image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070",
+      title: "Laser Skin Resurfacing - CoolPeel and Deka Pulse",
+      description: "Revolutionary skin rejuvenation with customizable intensity levels to match your downtime needs.",
+      image: coolPeelImage,
       link: "#cool-peel",
       featured: true,
     },
@@ -26,7 +28,7 @@ const ServiceCategories = () => {
             Our Treatments
           </h2>
           <p className="text-lg text-muted-foreground">
-            Choose from our two specialized treatment categories
+            Choose from our specialized treatment categories
           </p>
         </div>
 
@@ -34,16 +36,15 @@ const ServiceCategories = () => {
           {categories.map((category) => (
             <div
               key={category.title}
-              className={`group relative overflow-hidden rounded-2xl shadow-medium hover:shadow-lg transition-all duration-300 hover:-translate-y-2 ${
-                category.featured ? "ring-2 ring-accent" : ""
-              }`}
+              className={`group relative overflow-hidden rounded-2xl shadow-medium hover:shadow-lg transition-all duration-300 hover:-translate-y-2 ${category.featured ? "ring-2 ring-accent" : ""
+                }`}
             >
               {category.featured && (
                 <div className="absolute top-4 right-4 z-20 bg-accent text-primary px-4 py-2 rounded-full text-sm font-semibold">
                   Featured
                 </div>
               )}
-              
+
               <div className="relative h-80 overflow-hidden">
                 <img
                   src={category.image}
@@ -52,7 +53,7 @@ const ServiceCategories = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
               </div>
-              
+
               <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
                 <h3 className="text-3xl font-bold mb-3 group-hover:text-accent transition-colors">
                   {category.title}

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import aboutImage from "@/assets/about-facility.avif";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const values = [
@@ -35,14 +36,14 @@ const About = () => {
                 About Our Practice
               </span>
               <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-                Excellence in Laser Hair Removal
+                Excellence in Laser Technology, Tailored to You
               </h2>
             </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              At Virginia Laser Specialists we strive to provide safe and effective 
-              treatments in a comfortable space where ALL are welcome. We are committed 
-              to delivering exceptional results, building lasting relationships with our 
+              At Virginia Laser Specialists we strive to provide safe and effective
+              treatments in a comfortable space where ALL are welcome. We are committed
+              to delivering exceptional results, building lasting relationships with our
               clients, and ensuring transparency in every aspect of their experience.
             </p>
 
@@ -56,12 +57,14 @@ const About = () => {
             </div>
 
             <div className="pt-6">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-8"
-              >
-                Learn More About Us
-              </Button>
+              <Link to="/about">
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-white font-semibold px-8"
+                >
+                  Learn More About Us
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

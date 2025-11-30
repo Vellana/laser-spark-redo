@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Phone, MapPin } from "lucide-react";
-import heroImage from "@/assets/hero-1.avif";
+import heroImage from "@/assets/Homepage_mainphoto.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${heroImage})`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/85 to-primary/75" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary/60 to-primary/50" />
       </div>
 
       {/* Content */}
@@ -21,31 +22,35 @@ const Hero = () => {
           <div className="inline-block">
             <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
           </div>
-          
+
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
             Advanced Laser & <br />
             <span className="text-accent">Cool Peel Technology</span>
           </h1>
-          
+
           <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light">
             Premier laser hair removal and revolutionary Cool Peel treatments in the heart of Tysons.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button 
-              size="lg" 
-              variant="accent"
-              className="px-8 py-6 text-lg transition-all hover:scale-105"
-            >
-              Book Free Consultation
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg transition-all"
-            >
-              View Pricing
-            </Button>
+            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                variant="accent"
+                className="px-8 py-6 text-lg transition-all hover:scale-105"
+              >
+                Book Free Consultation
+              </Button>
+            </a>
+            <Link to="/pricing">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg transition-all"
+              >
+                View Pricing
+              </Button>
+            </Link>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8 text-white/90">

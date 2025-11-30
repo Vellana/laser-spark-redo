@@ -2,17 +2,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Cool Peel", href: "#cool-peel" },
-    { name: "Laser Hair Removal", href: "#laser-hair-removal" },
+    { name: "Cool Peel", href: "/#cool-peel" },
+    { name: "Laser Hair Removal", href: "/#laser-hair-removal" },
     { name: "Pricing", href: "/pricing" },
     { name: "Gallery", href: "/gallery" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -21,9 +22,9 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-3">
-            <img 
-              src={logo} 
-              alt="Virginia Laser Specialists Logo" 
+            <img
+              src={logo}
+              alt="Virginia Laser Specialists Logo"
               className="w-10 h-10"
             />
             <div className="flex flex-col">
@@ -51,9 +52,11 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <Button variant="accent">
-              Free Consultation
-            </Button>
+            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+              <Button variant="accent">
+                Free Consultation
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,9 +86,11 @@ const Navigation = () => {
               </a>
             ))}
             <div className="pt-2">
-              <Button variant="accent" className="w-full">
-                Book Now
-              </Button>
+              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                <Button variant="accent" className="w-full">
+                  Book Now
+                </Button>
+              </a>
             </div>
           </div>
         )}
