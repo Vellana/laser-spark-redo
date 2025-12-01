@@ -46,10 +46,10 @@ const InstagramFeed = () => {
             <Button
               size="lg"
               variant="accent"
-              className="font-semibold px-8 shadow-lg transition-all hover:scale-105"
+              className="font-semibold px-6 sm:px-8 shadow-lg transition-all hover:scale-105"
             >
               <Instagram className="w-5 h-5 mr-2" />
-              Follow @virginialaserspecialists
+              <span className="hidden sm:inline">Follow </span>@virginialaserspecialists
             </Button>
           </a>
         </div>

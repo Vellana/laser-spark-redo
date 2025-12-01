@@ -22,12 +22,6 @@ const Contact = () => {
       details: "Tue-Fri: 10am-6pm, Sat: 9am-1pm",
       link: "#",
     },
-    {
-      icon: Mail,
-      title: "Email",
-      details: "Book Online",
-      link: "https://www.vagaro.com/virginialaserspecialists/services",
-    },
   ];
 
   return (
@@ -46,7 +40,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {contactInfo.map((info) => (
             <Card
               key={info.title}

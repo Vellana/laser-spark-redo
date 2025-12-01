@@ -207,34 +207,19 @@ const Contact = () => {
 
                                         <div className="flex items-start gap-4">
                                             <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <Mail className="w-6 h-6 text-accent" />
-                                            </div>
-                                            <div>
-                                                <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                                                <a
-                                                    href="mailto:info@virginialaser.com"
-                                                    className="text-muted-foreground hover:text-accent transition-colors"
-                                                >
-                                                    info@virginialaser.com
-                                                </a>
-                                                <p className="text-sm text-muted-foreground mt-1">
-                                                    (Placeholder - Update with actual email)
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex items-start gap-4">
-                                            <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
                                                 <MapPin className="w-6 h-6 text-accent" />
                                             </div>
                                             <div>
                                                 <h3 className="font-semibold text-foreground mb-1">Location</h3>
-                                                <p className="text-muted-foreground">
-                                                    Tysons, VA
-                                                </p>
-                                                <p className="text-sm text-muted-foreground mt-1">
-                                                    (Full address coming soon)
-                                                </p>
+                                                <a
+                                                    href="https://maps.google.com/?q=8100+Boone+Boulevard+Suite+270+Vienna+VA+22182"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-muted-foreground hover:text-accent transition-colors"
+                                                >
+                                                    8100 Boone Blvd, Suite 270<br />
+                                                    Vienna, VA 22182
+                                                </a>
                                             </div>
                                         </div>
 
@@ -244,10 +229,8 @@ const Contact = () => {
                                             </div>
                                             <div>
                                                 <h3 className="font-semibold text-foreground mb-1">Hours</h3>
-                                                <p className="text-muted-foreground">By Appointment Only</p>
-                                                <p className="text-sm text-muted-foreground mt-1">
-                                                    Call to schedule your consultation
-                                                </p>
+                                                <p className="text-muted-foreground">Tue-Fri: 10am-6pm</p>
+                                                <p className="text-muted-foreground">Sat: 9am-1pm</p>
                                             </div>
                                         </div>
 
@@ -258,16 +241,13 @@ const Contact = () => {
                                             <div>
                                                 <h3 className="font-semibold text-foreground mb-1">Follow Us</h3>
                                                 <a
-                                                    href="https://instagram.com"
+                                                    href="https://www.instagram.com/virginialaserspecialists/"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="text-muted-foreground hover:text-accent transition-colors"
                                                 >
-                                                    @virginialaser
+                                                    @virginialaserspecialists
                                                 </a>
-                                                <p className="text-sm text-muted-foreground mt-1">
-                                                    (Placeholder - Update with actual handle)
-                                                </p>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -280,9 +260,6 @@ const Contact = () => {
                                             <div className="text-center space-y-2">
                                                 <MapPin className="w-12 h-12 text-muted-foreground mx-auto" />
                                                 <p className="text-muted-foreground">Map Coming Soon</p>
-                                                <p className="text-sm text-muted-foreground">
-                                                    Google Maps integration pending
-                                                </p>
                                             </div>
                                         </div>
                                     </CardContent>
