@@ -1,7 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
-import aboutFacility from "@/assets/about-facility.avif";
+import interiorReception from "@/assets/interior-reception.jpg";
+import interiorWaiting from "@/assets/interior-waiting.jpg";
+import interiorTreatmentRoom from "@/assets/interior-treatment-room.jpg";
+import interiorConsultation from "@/assets/interior-consultation.jpg";
+import interiorLaserRoom from "@/assets/interior-laser-room.jpg";
+import exteriorBuilding1 from "@/assets/exterior-building-1.jpg";
+import exteriorBuilding2 from "@/assets/exterior-building-2.jpg";
 import { useState } from "react";
 
 const Gallery = () => {
@@ -9,17 +15,15 @@ const Gallery = () => {
 
   const galleryImages = {
     office: [
-      { src: aboutFacility, alt: "Treatment Room" },
-      { src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2068", alt: "Reception Area" },
-      { src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053", alt: "Waiting Lounge" },
+      { src: interiorReception, alt: "Reception Area" },
+      { src: interiorWaiting, alt: "Waiting Area" },
+      { src: interiorTreatmentRoom, alt: "Treatment Room" },
+      { src: interiorConsultation, alt: "Consultation Room" },
+      { src: interiorLaserRoom, alt: "Laser Treatment Room" },
     ],
     exterior: [
-      { src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070", alt: "Building Exterior" },
-      { src: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070", alt: "Entrance" },
-    ],
-    beforeAfter: [
-      { src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070", alt: "Laser Treatment Results" },
-      { src: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070", alt: "Skin Treatment Progress" },
+      { src: exteriorBuilding1, alt: "Building Exterior" },
+      { src: exteriorBuilding2, alt: "Building Entrance" },
     ],
   };
 
@@ -43,8 +47,8 @@ const Gallery = () => {
               <button
                 onClick={() => setActiveTab("office")}
                 className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "office"
-                    ? "border-accent bg-accent/10 text-accent shadow-md"
-                    : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
+                  ? "border-accent bg-accent/10 text-accent shadow-md"
+                  : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
                   }`}
               >
                 Our Office
@@ -52,8 +56,8 @@ const Gallery = () => {
               <button
                 onClick={() => setActiveTab("exterior")}
                 className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "exterior"
-                    ? "border-accent bg-accent/10 text-accent shadow-md"
-                    : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
+                  ? "border-accent bg-accent/10 text-accent shadow-md"
+                  : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
                   }`}
               >
                 Building Exterior
@@ -61,8 +65,8 @@ const Gallery = () => {
               <button
                 onClick={() => setActiveTab("beforeAfter")}
                 className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "beforeAfter"
-                    ? "border-accent bg-accent/10 text-accent shadow-md"
-                    : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
+                  ? "border-accent bg-accent/10 text-accent shadow-md"
+                  : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
                   }`}
               >
                 Before & After
@@ -72,7 +76,7 @@ const Gallery = () => {
             {/* Gallery Content */}
             <div className="max-w-6xl mx-auto">
               {activeTab === "office" && (
-                <div className="grid md:grid-cols-3 gap-6 animate-in fade-in duration-300">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
                   {galleryImages.office.map((image, index) => (
                     <Card key={index} className="overflow-hidden group cursor-pointer">
                       <div className="relative aspect-square overflow-hidden">
@@ -104,18 +108,23 @@ const Gallery = () => {
               )}
 
               {activeTab === "beforeAfter" && (
-                <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-300">
-                  {galleryImages.beforeAfter.map((image, index) => (
-                    <Card key={index} className="overflow-hidden group cursor-pointer">
-                      <div className="relative aspect-video overflow-hidden">
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
-                    </Card>
-                  ))}
+                <div className="text-center py-20 animate-in fade-in duration-300">
+                  <div className="max-w-2xl mx-auto space-y-6">
+                    <div className="w-24 h-24 bg-accent/20 rounded-full flex items-center justify-center mx-auto">
+                      <svg className="w-12 h-12 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                    </div>
+                    <h3 className="text-3xl sm:text-4xl font-bold text-foreground">
+                      Before & After Gallery
+                    </h3>
+                    <p className="text-2xl font-semibold text-accent">
+                      COMING SOON!
+                    </p>
+                    <p className="text-lg text-muted-foreground">
+                      We're working on compiling amazing results from our clients. Check back soon to see the transformative power of our laser treatments.
+                    </p>
+                  </div>
                 </div>
               )}
             </div>

@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, Zap, Heart, Clock, TrendingUp, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import tetraProLogo from "@/assets/tetra-pro-logo.png";
 
 const CoolPeel = () => {
   const [activeTab, setActiveTab] = useState<"coolpeel" | "dekapulse">("coolpeel");
@@ -95,11 +96,11 @@ const CoolPeel = () => {
 
           {/* Image Side */}
           <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-medium">
+            <div className="relative rounded-2xl overflow-hidden shadow-medium bg-white/95 p-12 flex items-center justify-center">
               <img
-                src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070"
-                alt="CO2 laser resurfacing treatment"
-                className="w-full h-[600px] object-cover"
+                src={tetraProLogo}
+                alt="Tetra Pro CO2 Laser by Cartessa"
+                className="w-full max-w-md h-auto object-contain"
               />
             </div>
             {/* Decorative Element */}
