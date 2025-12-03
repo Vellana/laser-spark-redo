@@ -55,7 +55,7 @@ const Navigation = () => {
           <div className="hidden lg:block">
             <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
               <Button variant="accent">
-                Free Consultation
+                Book Now
               </Button>
             </a>
           </div>
