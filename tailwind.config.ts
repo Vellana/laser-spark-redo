@@ -82,17 +82,19 @@ export default {
         },
         "pulse-subtle": {
           "0%, 100%": {
-            boxShadow: "0 0 0 0 hsl(var(--accent) / 0.4)",
+            boxShadow: "0 0 0 0 hsl(var(--accent) / 0.5)",
+            transform: "scale(1)",
           },
           "50%": {
-            boxShadow: "0 0 20px 4px hsl(var(--accent) / 0.3)",
+            boxShadow: "0 0 25px 8px hsl(var(--accent) / 0.4)",
+            transform: "scale(1.03)",
           },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-subtle": "pulse-subtle 3s ease-in-out infinite",
+        "pulse-subtle": "pulse-subtle 2.5s ease-in-out infinite",
       },
     },
   },
