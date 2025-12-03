@@ -2,13 +2,158 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Zap, Shield, Users, Clock } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { CheckCircle2, Zap, Shield, Users, Clock, Droplets, Sun, Bath, Snowflake } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 
+interface TreatmentArea {
+  name: string;
+  description: string;
+  pricing: string;
+  treatments: string;
+}
+
+const treatmentAreas: TreatmentArea[] = [
+  {
+    name: "Brazilian / Brozilian",
+    description: "Removes all or most pubic hair from front, sides and back, including the labia and area between the buttocks; Brozilian includes scrotum, perineum and around anus.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $300; Package of 5 $1,125 (25% off)"
+  },
+  {
+    name: "Underarms",
+    description: "Includes both underarms for smooth, lasting results.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $150; Package of 5 $562.50 (25% off)"
+  },
+  {
+    name: "Legs (Half/Full)",
+    description: "Includes both legs, front and back (half or full leg options available).",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Half-leg single $350; Package of 5 $1,312.50. Full-leg single $500; Package of 5 $1,875 (25% off)"
+  },
+  {
+    name: "Back (Half/Full)",
+    description: "Includes upper or lower back; full back covers the entire back area.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Half-back single $250; Package of 5 $937.50. Full-back single $400; Package of 5 $1,500 (25% off)"
+  },
+  {
+    name: "Chin",
+    description: "Includes front and under chin (not the neck).",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375 (25% off)"
+  },
+  {
+    name: "Face",
+    description: "Includes upper lip, chin, cheeks, sideburns, forehead and hairline.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $250; Package of 5 $937.50 (25% off)"
+  },
+  {
+    name: "Arms (Half/Full)",
+    description: "Includes both arms front and back (half or full arm options available).",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Half-arms single $300; Package of 5 $1,125. Full-arms single $400; Package of 5 $1,500 (25% off)"
+  },
+  {
+    name: "Chest",
+    description: "Includes upper torso (doesn't include shoulders or abdomen).",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $250; Package of 5 $937.50"
+  },
+  {
+    name: "Abdomen",
+    description: "Includes lower torso (doesn't include chest).",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $250; Package of 5 $937.50"
+  },
+  {
+    name: "Bikini Line",
+    description: "Removes hair along and outside the top and sides of the bikini line.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $250; Package of 5 $937.50"
+  },
+  {
+    name: "Neck (Front or Back)",
+    description: "Front or back of neck (nape) but not chin.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Sideburns",
+    description: "Removes hair in front of the ears, extending down toward the jawline.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Upper Lip",
+    description: "Removes hair from the upper lip and corners of mouth.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Shoulders",
+    description: "Removes hair from base of neck to top of upper arms and back.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Hands",
+    description: "Removes hair from wrist to top of fingers.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Feet",
+    description: "Removes hair from ankle to toes.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Breasts",
+    description: "Removes hair on breasts including areolas.",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $100; Package of 5 $375"
+  },
+  {
+    name: "Full Body",
+    description: "Removes hair from all desired areas (arms, legs, underarms, back, face, hands, feet).",
+    treatments: "8–10 treatments every 6–8 weeks",
+    pricing: "Single $1,850; Package of 5 $6,937.50"
+  }
+];
+
+const aftercareInstructions = [
+  {
+    icon: Sun,
+    title: "Avoid Sun Exposure",
+    description: "Stay out of direct sunlight for 48-72 hours after treatment. Always use SPF 30+ on treated areas."
+  },
+  {
+    icon: Droplets,
+    title: "Keep Area Clean",
+    description: "Gently cleanse the treated area and avoid harsh products for 24-48 hours."
+  },
+  {
+    icon: Snowflake,
+    title: "Cool Compresses",
+    description: "Apply cool compresses if you experience any redness or mild swelling."
+  },
+  {
+    icon: Bath,
+    title: "Avoid Heat",
+    description: "Skip hot showers, saunas, and intense exercise for 24-48 hours post-treatment."
+  }
+];
+
 const LaserHairRemoval = () => {
+  const [selectedArea, setSelectedArea] = useState<TreatmentArea | null>(null);
+
   const benefits = [
     {
       icon: Shield,
@@ -32,12 +177,6 @@ const LaserHairRemoval = () => {
     }
   ];
 
-  const treatmentAreas = [
-    "Face & Chin", "Upper Lip", "Underarms", "Arms (Half/Full)",
-    "Legs (Half/Full)", "Bikini Line", "Brazilian", "Back",
-    "Chest", "Abdomen", "Shoulders", "Neck"
-  ];
-
   return (
     <div className="min-h-screen">
       <SEO 
@@ -50,35 +189,35 @@ const LaserHairRemoval = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-primary/10 to-background overflow-hidden">
+        <section className="relative py-16 sm:py-20 bg-gradient-to-br from-primary/10 to-background overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <span className="bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="space-y-6 text-center lg:text-left">
+                <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
                   Gold Standard Technology
                 </span>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
                   Laser Hair Removal
                 </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
                   Experience permanent hair reduction with the Lutronic Clarity II laser—the gold standard 
                   in laser hair removal. Our dual wavelength system is safe for all skin types and tones, 
                   delivering exceptional results with minimal discomfort.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-                    <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
+                    <Button size="lg" className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
                       Book Free Consultation
                     </Button>
                   </a>
                   <Link to="/pricing">
-                    <Button size="lg" variant="outline" className="border-2 font-semibold px-8">
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 font-semibold px-8">
                       View Pricing
                     </Button>
                   </Link>
                 </div>
               </div>
-              <div className="relative">
+              <div className="relative mx-auto lg:mx-0 max-w-md lg:max-w-none">
                 <img 
                   src={clarityImage}
                   alt="Patient receiving laser hair removal treatment with Lutronic Clarity II at Virginia Laser Specialists"
@@ -90,13 +229,13 @@ const LaserHairRemoval = () => {
         </section>
 
         {/* Technology Section */}
-        <section className="py-16 bg-secondary/30">
+        <section className="py-12 sm:py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
                 The Lutronic Clarity II Difference
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                 The Lutronic Clarity II laser is the gold standard for laser hair removal. Its dual wavelength 
                 system means that it is safe for use on all skin types and tones. It is also exceptionally 
                 capable of treating a variety of skin issues, from hyperpigmentation to spider veins to 
@@ -107,12 +246,12 @@ const LaserHairRemoval = () => {
         </section>
 
         {/* Benefits Grid */}
-        <section className="py-16 bg-background">
+        <section className="py-12 sm:py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
               Why Choose Us for Laser Hair Removal
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {benefits.map((benefit) => (
                 <Card key={benefit.title} className="text-center">
                   <CardContent className="pt-6 space-y-4">
@@ -129,18 +268,25 @@ const LaserHairRemoval = () => {
         </section>
 
         {/* Treatment Areas */}
-        <section className="py-16 bg-secondary/30">
+        <section className="py-12 sm:py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-foreground mb-8">
-                Treatment Areas
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-8 sm:mb-12">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                  Treatment Areas
+                </h2>
+                <p className="text-muted-foreground">Click on any area to see details and pricing</p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
                 {treatmentAreas.map((area) => (
-                  <div key={area} className="flex items-center gap-2 bg-background p-3 rounded-lg">
-                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="text-foreground">{area}</span>
-                  </div>
+                  <button
+                    key={area.name}
+                    onClick={() => setSelectedArea(area)}
+                    className="flex items-center gap-2 bg-background p-3 sm:p-4 rounded-lg hover:shadow-medium hover:border-accent/50 border border-border transition-all duration-300 hover:-translate-y-1 cursor-pointer text-left group"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="text-sm sm:text-base text-foreground font-medium">{area.name}</span>
+                  </button>
                 ))}
               </div>
               <p className="text-center text-muted-foreground mt-6">
@@ -150,14 +296,79 @@ const LaserHairRemoval = () => {
           </div>
         </section>
 
+        {/* Treatment Area Dialog */}
+        <Dialog open={!!selectedArea} onOpenChange={() => setSelectedArea(null)}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold text-foreground">
+                {selectedArea?.name}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <DialogDescription className="text-base text-muted-foreground leading-relaxed">
+                {selectedArea?.description}
+              </DialogDescription>
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-foreground">Recommended Schedule</p>
+                    <p className="text-sm text-muted-foreground">{selectedArea?.treatments}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Zap className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-foreground">Pricing</p>
+                    <p className="text-sm text-muted-foreground">{selectedArea?.pricing}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-4">
+                <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold">
+                    Book This Treatment
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Aftercare Section */}
+        <section className="py-12 sm:py-16 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
+                Laser Hair Removal Aftercare
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                {aftercareInstructions.map((instruction) => (
+                  <Card key={instruction.title} className="border-border">
+                    <CardContent className="p-4 sm:p-6 flex items-start gap-4">
+                      <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <instruction.icon className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">{instruction.title}</h3>
+                        <p className="text-sm text-muted-foreground">{instruction.description}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-primary/10 to-accent/5">
+        <section className="py-12 sm:py-16 bg-gradient-to-br from-primary/10 to-accent/5">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto space-y-6">
-              <h2 className="text-3xl font-bold text-foreground">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
                 Ready for Smooth, Hair-Free Skin?
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base sm:text-lg text-muted-foreground">
                 Schedule your free consultation to discuss your goals and create a personalized treatment plan.
               </p>
               <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
