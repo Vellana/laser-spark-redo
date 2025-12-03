@@ -66,7 +66,7 @@ const About = () => {
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <span className="text-accent font-semibold text-sm uppercase tracking-wider">
-                                        About Our Practice
+                                        ABOUT OUR STUDIO
                                     </span>
                                     <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
                                         Excellence in Laser Technology, Tailored to You
