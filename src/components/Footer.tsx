@@ -21,7 +21,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-muted-foreground">
-              Expert laser hair removal in a welcoming space where ALL are welcome.
+              Expert laser treatments in a space where all are welcome.
             </p>
           </div>
 
