@@ -94,7 +94,7 @@ const CoolPeel = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+            <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center items-center">
               <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"
