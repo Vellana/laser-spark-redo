@@ -49,7 +49,7 @@ const CoolPeel = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Content Side */}
           <div className="space-y-6">
-            <div className="inline-block">
+            <div className="flex justify-center">
               <span className="bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
                 Featured Technology
               </span>
