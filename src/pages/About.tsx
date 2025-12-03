@@ -19,7 +19,7 @@ const About = () => {
         },
         {
             name: "Holly Schuster",
-            title: "Owner/Operator",
+            title: "Owner/ Operator/ Certified Laser Technician",
             bio: "With more than 20 years of dynamic experience as a small business owner across the hospitality, real estate, and consulting sectors, Holly developed a rich and diverse skill set that has shaped her professional journey.",
             fullBio: "With more than 20 years of dynamic experience as a small business owner across the hospitality, real estate, and consulting sectors, Holly developed a rich and diverse skill set that has shaped her professional journey. She received a degree in architecture from Catholic University in Washington, DC, giving her a robust foundation that has fueled various endeavors and creative pursuits. She has taken her commitment to excellence further by completing extensive training in laser hair removal and earning certification from Cynosure/Lutronic. As the Owner/Operator of Virginia Laser Specialists, she is passionate about creating a results-driven customer experience that consistently exceeds clients' expectations. Her unwavering focus on excellence guarantees that every client receives exceptional care and individualized attention. She is committed to cultivating an environment where all clients feel valued!",
             image: hollyImage,
