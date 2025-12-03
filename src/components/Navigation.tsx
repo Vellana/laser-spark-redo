@@ -54,7 +54,7 @@ const Navigation = () => {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-              <Button variant="accent">
+              <Button variant="accent" className="animate-pulse-subtle">
                 Book Now
               </Button>
             </a>
