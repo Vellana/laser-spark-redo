@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -19,14 +19,6 @@ const SpecialsPopup = () => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300">
-        <button
-          onClick={() => setIsVisible(false)}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors"
-          aria-label="Close popup"
-        >
-          <X className="w-5 h-5 text-muted-foreground" />
-        </button>
-
         <div className="text-center space-y-4">
           <div className="w-16 h-16 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
             <Sparkles className="w-8 h-8 text-accent" />
