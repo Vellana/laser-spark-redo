@@ -3,8 +3,6 @@ import Hero from "@/components/Hero";
 import ServiceCategories from "@/components/ServiceCategories";
 import CoolPeel from "@/components/CoolPeel";
 import Services from "@/components/Services";
-import Technology from "@/components/Technology";
-import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
 import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
@@ -21,8 +19,6 @@ const Index = () => {
         <ServiceCategories />
         <CoolPeel />
         <Services />
-        <Technology />
-        <Team />
         <Testimonials />
         <InstagramFeed />
         <Contact />
