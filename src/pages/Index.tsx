@@ -6,7 +6,6 @@ import Services from "@/components/Services";
 import Technology from "@/components/Technology";
 import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
-import About from "@/components/About";
 import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -25,7 +24,6 @@ const Index = () => {
         <Technology />
         <Team />
         <Testimonials />
-        <About />
         <InstagramFeed />
         <Contact />
       </main>
