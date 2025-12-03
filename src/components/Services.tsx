@@ -184,6 +184,61 @@ const Services = () => {
           ))}
         </div>
 
+        {/* Aftercare Section */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <Card className="border-border">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6">
+                Laser Hair Removal Aftercare
+              </h3>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Apply cool compresses to soothe pain and minimize swelling; hold for 5–10 minutes several times a day.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Wear loose-fitting clothing on the day of treatment to avoid friction on treated areas.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Use only cool or lukewarm water for 48 hours; avoid hot showers or baths.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid sun exposure, saunas and hot baths for several days; if outdoors, apply SPF 30+ sunscreen.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid tanning lotions and fragranced lotions for 48 hours.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Do not rub, scratch, scrub, tweeze, wax or apply pressure to the treated area; avoid body scrubs for 48 hours.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid swimming pools, lakes or oceans for at least 48 hours.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid cosmetic treatments (chemical peels, IPL, microdermabrasion) on the treated area for two weeks.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Contact your medical provider if you experience burns, blisters, skin discoloration, swelling lasting more than three days, uncontrolled pain, or signs of infection.</span>
+                </li>
+              </ul>
+
+              <div className="mt-8 pt-6 border-t border-border">
+                <p className="text-muted-foreground leading-relaxed">
+                  The Lutronic Clarity II laser is the gold standard for laser hair removal. Its dual-wavelength system is safe for use on all skin types and tones and can also treat conditions such as hyperpigmentation, spider veins, angiomas, and broken capillaries.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="text-center space-y-6">
           <div className="bg-secondary/50 border border-border rounded-xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-foreground mb-4">
