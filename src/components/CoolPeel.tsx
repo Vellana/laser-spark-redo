@@ -7,29 +7,38 @@ import tetraProLogo from "@/assets/tetra-pro-logo.png";
 
 const CoolPeel = () => {
   const [activeTab, setActiveTab] = useState<"coolpeel" | "dekapulse">("coolpeel");
+  const [expandedBenefit, setExpandedBenefit] = useState<string | null>(null);
 
   const benefits = [
     {
       icon: Sparkles,
       title: "Revolutionary Technology",
       description: "Advanced CO2 laser resurfaces skin with customizable intensity",
+      details: "The Tetra Pro CO2 platform resurfacing technology allows customizable intensity and offers two modes—CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing—to stimulate collagen production and rejuvenate skin.",
     },
     {
       icon: Zap,
       title: "Quick Treatment",
       description: "Sessions typically take 30 minutes or less",
+      details: "Most resurfacing sessions take about 30 minutes or less, providing convenience for busy schedules.",
     },
     {
       icon: Heart,
       title: "Safe & Effective",
       description: "Suitable for all skin types with proven results",
+      details: "The Tetra laser has proven safety for all skin types and produces lasting results by stimulating collagen and improving skin texture.",
     },
     {
       icon: Clock,
       title: "Flexible Recovery",
       description: "Choose your downtime: minimal (CoolPeel) or moderate (Deka Pulse)",
+      details: "Patients can choose between minimal downtime (CoolPeel) and moderate downtime (Deka Pulse) depending on the desired results and lifestyle.",
     },
   ];
+
+  const toggleBenefit = (title: string) => {
+    setExpandedBenefit(expandedBenefit === title ? null : title);
+  };
 
   return (
     <section id="cool-peel" className="py-20 bg-gradient-to-br from-accent/5 to-background relative overflow-hidden">
@@ -59,16 +68,28 @@ const CoolPeel = () => {
 
             <div className="grid sm:grid-cols-2 gap-4 pt-4">
               {benefits.map((benefit) => (
-                <div key={benefit.title} className="flex gap-3">
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
-                      <benefit.icon className="w-5 h-5 text-accent" />
+                <div key={benefit.title} className="space-y-2">
+                  <button
+                    onClick={() => toggleBenefit(benefit.title)}
+                    className="flex gap-3 w-full text-left group"
+                  >
+                    <div className="flex-shrink-0">
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${expandedBenefit === benefit.title ? "bg-accent text-primary" : "bg-accent/20 text-accent group-hover:bg-accent/30"}`}>
+                        <benefit.icon className="w-5 h-5" />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">{benefit.title}</h3>
-                    <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                  </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1 group-hover:text-accent transition-colors">{benefit.title}</h3>
+                      <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                    </div>
+                  </button>
+                  {expandedBenefit === benefit.title && (
+                    <div className="ml-13 pl-[52px] animate-in fade-in slide-in-from-top-2 duration-200">
+                      <p className="text-sm text-muted-foreground bg-secondary/50 p-3 rounded-lg border border-border">
+                        {benefit.details}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -249,6 +270,97 @@ const CoolPeel = () => {
               </Card>
             )}
           </div>
+        </div>
+
+        {/* Aftercare Sections */}
+        <div className="mt-20 grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* CoolPeel Aftercare */}
+          <Card className="border-accent/40">
+            <CardContent className="p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                  <Heart className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">CoolPeel Aftercare</h3>
+              </div>
+              <ul className="space-y-3 text-muted-foreground text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Keep a thin layer of Aquaphor or approved ointment on the treated area for up to three days to keep skin moist.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Avoid makeup and sunscreen for the first 48 hours.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Sleep with a clean pillowcase and keep your head elevated for the first night.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Avoid applying active skincare ingredients (retinol, exfoliants) for one week.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Avoid direct sunlight for 48 hours; then apply broad-spectrum SPF 50 daily.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Resume retinol products after seven days once skin has fully healed.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Avoid strenuous exercise, hot tubs, steam rooms, or saunas for at least 24 hours.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent mt-0.5">•</span>
+                  <span>Use clean face masks for the first 72 hours and watch for signs of infection, such as increased redness, swelling, or fever, and contact your provider if they occur.</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Deka Pulse Aftercare */}
+          <Card className="border-primary/40">
+            <CardContent className="p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">Deka Pulse Aftercare</h3>
+              </div>
+              <ul className="space-y-3 text-muted-foreground text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Apply cold compresses and keep the treated area moisturized with a gentle, fragrance-free moisturizer.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Cleanse the skin gently with a mild cleanser; avoid scrubbing or exfoliating.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Avoid sun exposure, heat, hot showers, and workouts for at least 24 hours; for deeper resurfacing, avoid these activities for 7–10 days.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Do not pick at peeling or flaking skin; allow it to shed naturally.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Avoid swimming pools, hot tubs, and saunas until the skin has fully healed.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Wait 7-10 days before resuming makeup or active skincare products.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>Contact your provider if you experience signs of infection or unusual discomfort.</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
