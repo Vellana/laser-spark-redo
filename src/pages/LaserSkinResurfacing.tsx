@@ -179,21 +179,140 @@ const LaserSkinResurfacing = () => {
           </div>
         </section>
 
-        {/* Aftercare Note */}
+        {/* CoolPeel Aftercare */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto">
-                <Clock className="w-8 h-8 text-accent" />
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-8 h-8 text-accent" />
+                </div>
+                <h2 className="text-3xl font-bold text-foreground">
+                  CoolPeel Post-Treatment Guide
+                </h2>
               </div>
-              <h2 className="text-3xl font-bold text-foreground">
-                Customized Aftercare
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Every patient receives personalized aftercare instructions tailored to their treatment type. 
-                Our team provides detailed guidance for optimal healing and results, including product 
-                recommendations and follow-up support.
-              </p>
+              <Card className="border-accent/40">
+                <CardContent className="p-8">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">Day of Treatment</h3>
+                      <p className="text-muted-foreground">
+                        You may feel a warm/sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, 
+                        and mild to moderate sunburn sensation are common (1-3 days). Use a cool misting spray 
+                        or sterile cool compress (not ice) to reduce the sensation of heat.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">After Treatment</h3>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Do not use any exfoliants or other products/procedures to address the texture for 5-7 days.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Wash with a mild cleanser (AM & PM), blot dry, and do not scrub.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Use zinc/titanium-based sunblock after 24 hours.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Minimize alcohol intake throughout recovery.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Sleep with your head slightly elevated; use a clean pillowcase and change it frequently.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Wash hands often and avoid touching the treated area.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Avoid exercise, sweating, excessive heat, saunas, hot tubs for 2-4 days.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>Mineral makeup may be applied after 2-5 days.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* DEKA Pulse Aftercare */}
+        <section className="py-16 bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-foreground">
+                  Moderate/Aggressive CO₂ Post-Treatment Guide
+                </h2>
+              </div>
+              <Card className="border-primary/40">
+                <CardContent className="p-8">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">Day of Treatment</h3>
+                      <p className="text-muted-foreground">
+                        You may feel a hot/sunburn sensation for 2-6+ hours post-treatment. During recovery, 
+                        swelling, redness, and mild to moderate sunburn sensation are expected along with 
+                        pinpoint bleeding, weeping, or oozing. Use a cool misting spray or sterile cool compress 
+                        (not ice) to reduce the sensation of heat. Gently apply a thin layer of Vaseline or 
+                        provider recommended product after the sunburn sensation fades to keep the area moisturized.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">Days 1-3</h3>
+                      <p className="text-muted-foreground">
+                        Apply vinegar-soaked pads (1 cup water + 1 TBS white distilled vinegar) to help prevent 
+                        or soften crusting from the weeping/oozing. Can be repeated as often as every 2 hours. 
+                        Store in the refrigerator between uses to aid in the cooling effect.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">Days 1-5+</h3>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>Wash with a mild cleanser (AM & PM), blot dry, and do not scrub.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>Do not use any exfoliants or other products/procedures to address dry skin/texture for 2-4 weeks.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>Once weeping/bleeding/oozing/crusting stops, change to a lighter/less occlusive product.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>Avoid sun exposure for 2-4 weeks. Once skin is intact, use zinc/titanium-based sunblock.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>Avoid exercise, sweating, excessive heat, saunas, hot tubs for 5-7 days.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>Mineral makeup may be applied after a few days, once the skin is intact.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                    <p className="text-sm text-foreground text-center">
+                      <strong>Please contact your provider with any questions/concerns during your recovery period.</strong>
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
