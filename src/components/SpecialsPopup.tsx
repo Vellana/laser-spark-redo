@@ -3,16 +3,30 @@ import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+const POPUP_SHOWN_KEY = "specials_popup_shown";
+
 const SpecialsPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Check if popup has already been shown this session
+    const hasBeenShown = sessionStorage.getItem(POPUP_SHOWN_KEY);
+    
+    if (hasBeenShown) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       setIsVisible(true);
+      sessionStorage.setItem(POPUP_SHOWN_KEY, "true");
     }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleClose = () => {
+    setIsVisible(false);
+  };
 
   if (!isVisible) return null;
 
@@ -34,14 +48,14 @@ const SpecialsPopup = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Link to="/specials" className="flex-1">
-              <Button variant="accent" className="w-full" onClick={() => setIsVisible(false)}>
+              <Button variant="accent" className="w-full" onClick={handleClose}>
                 View Specials
               </Button>
             </Link>
             <Button
               variant="outline"
               className="flex-1"
-              onClick={() => setIsVisible(false)}
+              onClick={handleClose}
             >
               Maybe Later
             </Button>
