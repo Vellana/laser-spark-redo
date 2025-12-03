@@ -8,10 +8,18 @@ import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SpecialsPopup from "@/components/SpecialsPopup";
+import SEO from "@/components/SEO";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Virginia Laser Specialists | Laser Hair Removal & Skin Resurfacing in Tysons, VA"
+        description="Advanced laser hair removal with Clarity II & revolutionary CoolPeel and DEKA skin resurfacing in Fairfax/Tysons. Experienced providers, all skin types welcome."
+        canonicalUrl="/"
+      />
+      <LocalBusinessSchema />
       <Navigation />
       <SpecialsPopup />
       <main>

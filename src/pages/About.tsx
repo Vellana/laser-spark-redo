@@ -7,6 +7,8 @@ import amyImage from "@/assets/amy.png";
 import hollyImage from "@/assets/holly.png";
 import aboutImage from "@/assets/about-facility.avif";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const About = () => {
     const team = [
@@ -28,6 +30,12 @@ const About = () => {
 
     return (
         <div className="min-h-screen">
+            <SEO 
+                title="About Us | Virginia Laser Specialists - Tysons, VA"
+                description="Meet our expert team of licensed estheticians and certified laser technicians. Over 12 years experience with Lutronic Clarity II and Tetra Pro CO2 technology."
+                canonicalUrl="/about"
+            />
+            <LocalBusinessSchema />
             <Navigation />
             <main className="pt-20">
                 {/* Hero Section */}
@@ -53,7 +61,7 @@ const About = () => {
                                 <div className="relative rounded-2xl overflow-hidden shadow-medium">
                                     <img
                                         src={aboutImage}
-                                        alt="Modern laser treatment facility"
+                                        alt="Virginia Laser Specialists modern treatment facility interior"
                                         className="w-full h-[600px] object-cover"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />

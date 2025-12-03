@@ -2,6 +2,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Calendar, ArrowRight } from "lucide-react";
+import SEO from "@/components/SEO";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const Specials = () => {
   const specials = [
@@ -25,6 +27,12 @@ const Specials = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Current Specials & Promotions | Virginia Laser Specialists"
+        description="Save on laser hair removal and skin resurfacing treatments. New client discounts, package savings, and referral rewards. Limited-time offers in Tysons, VA."
+        canonicalUrl="/specials"
+      />
+      <LocalBusinessSchema />
       <Navigation />
 
       <main className="pt-20">

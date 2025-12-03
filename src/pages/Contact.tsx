@@ -15,6 +15,8 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Phone, Mail, MapPin, Clock, Instagram } from "lucide-react";
 import { useState } from "react";
+import SEO from "@/components/SEO";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -35,6 +37,12 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen">
+            <SEO 
+                title="Contact Us | Virginia Laser Specialists - Tysons, VA"
+                description="Schedule your free consultation at Virginia Laser Specialists. Call 703-547-4499 or visit us at 8230 Boone Blvd, Tysons, VA. Laser hair removal & skin resurfacing."
+                canonicalUrl="/contact"
+            />
+            <LocalBusinessSchema />
             <Navigation />
             <main className="pt-20">
                 {/* Hero Section */}

@@ -120,7 +120,7 @@ const CoolPeel = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-medium bg-white/95 p-12 flex items-center justify-center">
               <img
                 src={tetraProLogo}
-                alt="Tetra Pro CO2 Laser by Cartessa"
+                alt="Cartessa Tetra Pro CO2 laser system for CoolPeel and DEKA Pulse skin resurfacing treatments"
                 className="w-full max-w-md h-auto object-contain"
               />
             </div>
