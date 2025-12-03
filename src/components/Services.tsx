@@ -212,35 +212,14 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
-          {services.slice(0, -2).map((service) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+          {services.map((service, index) => (
             <Card
               key={service.name}
               onClick={() => setSelectedService(service)}
-              className="group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50"
-            >
-              <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-                <div className={`w-16 h-16 rounded-full ${service.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
-                  <service.icon className="w-8 h-8" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors mb-2">
-                    {service.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{service.description}</p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Centered last row - matching grid column widths */}
-        <div className="flex justify-center gap-6 mb-12">
-          {services.slice(-2).map((service) => (
-            <Card
-              key={service.name}
-              onClick={() => setSelectedService(service)}
-              className="group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50 w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)]"
+              className={`group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50 ${
+                index === services.length - 2 ? 'lg:col-start-2' : ''
+              }`}
             >
               <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
                 <div className={`w-16 h-16 rounded-full ${service.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
