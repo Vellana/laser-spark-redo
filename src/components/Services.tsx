@@ -35,7 +35,7 @@ const services = [
   },
   {
     name: "Back",
-    description: "Professional treatment for smooth, hair-free back.",
+    description: "Full or half back treatments for silky smooth skin.",
     icon: Shield,
     color: "text-green-500 bg-green-500/10",
   },
