@@ -12,6 +12,7 @@ import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 
 interface TreatmentArea {
   name: string;
+  summary: string;
   description: string;
   pricing: string;
   treatments: string;
@@ -20,108 +21,126 @@ interface TreatmentArea {
 const treatmentAreas: TreatmentArea[] = [
   {
     name: "Brazilian / Brozilian",
+    summary: "Includes entire bikini area front, sides and back (labia and butt strip) – 8‑10 treatments recommended.",
     description: "Removes all or most pubic hair from front, sides and back, including the labia and area between the buttocks; Brozilian includes scrotum, perineum and around anus.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $300; Package of 5 $1,125 (25% off)"
   },
   {
     name: "Underarms",
+    summary: "Both underarms – 8‑10 treatments recommended.",
     description: "Includes both underarms for smooth, lasting results.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $150; Package of 5 $562.50 (25% off)"
   },
   {
     name: "Legs (Half/Full)",
+    summary: "Both legs, front and back (half or full) – 8‑10 treatments recommended.",
     description: "Includes both legs, front and back (half or full leg options available).",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Half-leg single $350; Package of 5 $1,312.50. Full-leg single $500; Package of 5 $1,875 (25% off)"
   },
   {
     name: "Back (Half/Full)",
+    summary: "Half or full back – 8‑10 treatments recommended.",
     description: "Includes upper or lower back; full back covers the entire back area.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Half-back single $250; Package of 5 $937.50. Full-back single $400; Package of 5 $1,500 (25% off)"
   },
   {
     name: "Chin",
+    summary: "Front and under the chin – 8‑10 treatments recommended.",
     description: "Includes front and under chin (not the neck).",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375 (25% off)"
   },
   {
     name: "Face",
+    summary: "Upper lip, chin, cheeks, sideburns, forehead and hairline – 8‑10 treatments recommended.",
     description: "Includes upper lip, chin, cheeks, sideburns, forehead and hairline.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $250; Package of 5 $937.50 (25% off)"
   },
   {
     name: "Arms (Half/Full)",
+    summary: "Both arms, front and back (half or full) – 8‑10 treatments recommended.",
     description: "Includes both arms front and back (half or full arm options available).",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Half-arms single $300; Package of 5 $1,125. Full-arms single $400; Package of 5 $1,500 (25% off)"
   },
   {
     name: "Chest",
+    summary: "Upper torso (excludes shoulders and abdomen) – 8‑10 treatments recommended.",
     description: "Includes upper torso (doesn't include shoulders or abdomen).",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $250; Package of 5 $937.50"
   },
   {
     name: "Abdomen",
+    summary: "Lower torso – 8‑10 treatments recommended.",
     description: "Includes lower torso (doesn't include chest).",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $250; Package of 5 $937.50"
   },
   {
     name: "Bikini Line",
+    summary: "Hair removal along the top and sides of the bikini line – 8‑10 treatments recommended.",
     description: "Removes hair along and outside the top and sides of the bikini line.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $250; Package of 5 $937.50"
   },
   {
     name: "Neck (Front or Back)",
+    summary: "Front or back of the neck – 8‑10 treatments recommended.",
     description: "Front or back of neck (nape) but not chin.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Sideburns",
+    summary: "Area in front of the ears, extending down toward the jawline – 8‑10 treatments recommended.",
     description: "Removes hair in front of the ears, extending down toward the jawline.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Upper Lip",
+    summary: "Upper lip and corners of the mouth – 8‑10 treatments recommended.",
     description: "Removes hair from the upper lip and corners of mouth.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Shoulders",
+    summary: "Base of the neck to top of the upper arms and back – 8‑10 treatments recommended.",
     description: "Removes hair from base of neck to top of upper arms and back.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Hands",
+    summary: "Wrist to the tops of the fingers – 8‑10 treatments recommended.",
     description: "Removes hair from wrist to top of fingers.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Feet",
+    summary: "Ankle to the tip of the toes – 8‑10 treatments recommended.",
     description: "Removes hair from ankle to toes.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Breasts",
+    summary: "Breast area, including the areolas – 8‑10 treatments recommended.",
     description: "Removes hair on breasts including areolas.",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Full Body",
+    summary: "All desired areas from head to toe – 8‑10 treatments recommended.",
     description: "Removes hair from all desired areas (arms, legs, underarms, back, face, hands, feet).",
     treatments: "8–10 treatments every 6–8 weeks",
     pricing: "Single $1,850; Package of 5 $6,937.50"
@@ -277,15 +296,20 @@ const LaserHairRemoval = () => {
                 </h2>
                 <p className="text-muted-foreground">Click on any area to see details and pricing</p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {treatmentAreas.map((area) => (
                   <button
                     key={area.name}
                     onClick={() => setSelectedArea(area)}
-                    className="flex items-center gap-2 bg-background p-3 sm:p-4 rounded-lg hover:shadow-medium hover:border-accent/50 border border-border transition-all duration-300 hover:-translate-y-1 cursor-pointer text-left group"
+                    className="flex flex-col items-start bg-background p-4 sm:p-5 rounded-lg hover:shadow-medium hover:border-accent/50 border border-border transition-all duration-300 hover:-translate-y-1 cursor-pointer text-left group h-full"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-sm sm:text-base text-foreground font-medium">{area.name}</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm sm:text-base text-foreground font-semibold">{area.name}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {area.summary}
+                    </p>
                   </button>
                 ))}
               </div>
