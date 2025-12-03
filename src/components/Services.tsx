@@ -234,13 +234,13 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Centered last row */}
-        <div className="flex justify-center gap-6 mb-12">
+        {/* Centered last row - matching grid column widths */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-[calc(50%+0.75rem)] md:max-w-[calc(66.666%+0.75rem)] lg:max-w-[calc(50%+0.75rem)] mx-auto">
           {services.slice(-2).map((service) => (
             <Card
               key={service.name}
               onClick={() => setSelectedService(service)}
-              className="group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50 w-full max-w-[calc(25%-1.125rem)] min-w-[150px]"
+              className="group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50"
             >
               <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
                 <div className={`w-16 h-16 rounded-full ${service.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
