@@ -221,15 +221,15 @@ const Services = () => {
                 index === services.length - 2 ? 'lg:col-start-2' : ''
               }`}
             >
-              <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-                <div className={`w-16 h-16 rounded-full ${service.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
-                  <service.icon className="w-8 h-8" />
+              <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center space-y-3 sm:space-y-4 h-full">
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full ${service.color} flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110`}>
+                  <service.icon className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors mb-2">
+                <div className="flex flex-col flex-grow">
+                  <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-accent transition-colors mb-1 sm:mb-2">
                     {service.name}
                   </h3>
-                  <p className="text-sm text-muted-foreground">{service.description}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3">{service.description}</p>
                 </div>
               </CardContent>
             </Card>
