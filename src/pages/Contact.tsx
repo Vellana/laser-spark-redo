@@ -261,15 +261,19 @@ const Contact = () => {
                                     </CardContent>
                                 </Card>
 
-                                {/* Map Placeholder */}
-                                <Card>
+                                {/* Map */}
+                                <Card className="overflow-hidden">
                                     <CardContent className="p-0">
-                                        <div className="w-full h-64 bg-secondary/30 rounded-lg flex items-center justify-center">
-                                            <div className="text-center space-y-2">
-                                                <MapPin className="w-12 h-12 text-muted-foreground mx-auto" />
-                                                <p className="text-muted-foreground">Map Coming Soon</p>
-                                            </div>
-                                        </div>
+                                        <iframe
+                                            src="https://maps.google.com/maps?q=8100+Boone+Blvd+Suite+270+Vienna+VA+22182&output=embed"
+                                            width="100%"
+                                            className="h-64 sm:h-80"
+                                            style={{ border: 0 }}
+                                            allowFullScreen
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                            title="Virginia Laser Specialists Location - 8100 Boone Blvd, Suite 270, Vienna, VA 22182"
+                                        />
                                     </CardContent>
                                 </Card>
                             </div>
