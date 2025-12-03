@@ -111,6 +111,18 @@ const services = [
     icon: Footprints,
     color: "text-violet-500 bg-violet-500/10",
   },
+  {
+    name: "Breasts",
+    description: "Gentle and precise treatment for the chest area.",
+    icon: Circle,
+    color: "text-pink-400 bg-pink-400/10",
+  },
+  {
+    name: "Full Body",
+    description: "Complete head-to-toe hair removal for smooth, lasting results.",
+    icon: User,
+    color: "text-emerald-500 bg-emerald-500/10",
+  },
 ];
 
 const Services = () => {
