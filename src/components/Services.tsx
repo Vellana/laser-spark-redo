@@ -22,7 +22,7 @@ const services = [
     color: "text-pink-500 bg-pink-500/10",
   },
   {
-    name: "Underarm",
+    name: "Underarms",
     description: "Say goodbye to daily shaving with smooth, lasting results.",
     icon: Hand,
     color: "text-blue-500 bg-blue-500/10",
