@@ -9,26 +9,34 @@ import interiorLaserRoom from "@/assets/interior-laser-room.jpg";
 import exteriorBuilding1 from "@/assets/exterior-building-1.jpg";
 import exteriorBuilding2 from "@/assets/exterior-building-2.jpg";
 import { useState } from "react";
+import SEO from "@/components/SEO";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const Gallery = () => {
   const [activeTab, setActiveTab] = useState<"office" | "exterior" | "beforeAfter">("office");
 
   const galleryImages = {
     office: [
-      { src: interiorReception, alt: "Reception Area" },
-      { src: interiorWaiting, alt: "Waiting Area" },
-      { src: interiorTreatmentRoom, alt: "Treatment Room" },
-      { src: interiorConsultation, alt: "Consultation Room" },
-      { src: interiorLaserRoom, alt: "Laser Treatment Room" },
+      { src: interiorReception, alt: "Virginia Laser Specialists welcoming reception area with modern decor" },
+      { src: interiorWaiting, alt: "Comfortable waiting area at Virginia Laser Specialists in Tysons" },
+      { src: interiorTreatmentRoom, alt: "Professional laser treatment room with advanced equipment" },
+      { src: interiorConsultation, alt: "Private consultation room for discussing laser treatment options" },
+      { src: interiorLaserRoom, alt: "State-of-the-art laser room featuring Lutronic Clarity II technology" },
     ],
     exterior: [
-      { src: exteriorBuilding1, alt: "Building Exterior" },
-      { src: exteriorBuilding2, alt: "Building Entrance" },
+      { src: exteriorBuilding1, alt: "Virginia Laser Specialists building exterior in Tysons, VA" },
+      { src: exteriorBuilding2, alt: "Entrance to Virginia Laser Specialists office building" },
     ],
   };
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Gallery | Virginia Laser Specialists Facility - Tysons, VA"
+        description="Tour our modern laser treatment facility in Tysons, VA. State-of-the-art treatment rooms, welcoming reception area, and professional consultation spaces."
+        canonicalUrl="/gallery"
+      />
+      <LocalBusinessSchema />
       <Navigation />
       <main className="pt-20">
         <section className="py-20 bg-background">

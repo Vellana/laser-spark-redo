@@ -1,0 +1,38 @@
+import { Helmet } from "react-helmet-async";
+
+interface SEOProps {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  type?: string;
+  image?: string;
+}
+
+const SEO = ({ title, description, canonicalUrl, type = "website", image }: SEOProps) => {
+  const baseUrl = "https://virginialaserspecialists.com";
+  const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
+  const defaultImage = `${baseUrl}/favicon.png`;
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <link rel="canonical" href={fullCanonicalUrl} />
+      
+      {/* Open Graph */}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content={type} />
+      <meta property="og:url" content={fullCanonicalUrl} />
+      <meta property="og:image" content={image || defaultImage} />
+      
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image || defaultImage} />
+    </Helmet>
+  );
+};
+
+export default SEO;

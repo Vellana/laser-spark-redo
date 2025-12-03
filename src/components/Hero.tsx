@@ -7,12 +7,12 @@ const Hero = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-        }}
-      >
+      <div className="absolute inset-0">
+        <img 
+          src={heroImage} 
+          alt="Virginia Laser Specialists treatment room with advanced laser equipment for hair removal and skin resurfacing" 
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary/60 to-primary/50" />
       </div>
 

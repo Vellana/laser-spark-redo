@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const Pricing = () => {
   const laserHairRemovalPricing = [
@@ -38,6 +40,12 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Laser Treatment Pricing | Virginia Laser Specialists - Tysons, VA"
+        description="Transparent pricing for laser hair removal, CoolPeel, and DEKA Pulse treatments. Single sessions and package discounts available. Book your free consultation."
+        canonicalUrl="/pricing"
+      />
+      <LocalBusinessSchema />
       <Navigation />
       <main className="pt-20">
         <section className="py-20 bg-background">
