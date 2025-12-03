@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Award, Users, Heart, Shield } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import amyImage from "@/assets/amy.png";
 import hollyImage from "@/assets/holly.png";
 import aboutImage from "@/assets/about-facility.avif";
@@ -26,29 +26,6 @@ const About = () => {
         },
     ];
 
-    const values = [
-        {
-            icon: Shield,
-            title: "Safe & Effective",
-            description: "FDA-approved technology and certified technicians ensure your safety and optimal results.",
-        },
-        {
-            icon: Users,
-            title: "Welcoming Space for ALL",
-            description: "We've created a comfortable, inclusive environment where everyone feels welcome.",
-        },
-        {
-            icon: Heart,
-            title: "Lasting Relationships",
-            description: "We build trust through expert care, transparency, and genuine client relationships.",
-        },
-        {
-            icon: Award,
-            title: "Advanced Technology",
-            description: "We invest in the latest laser systems to provide the best treatments available.",
-        },
-    ];
-
     return (
         <div className="min-h-screen">
             <Navigation />
@@ -67,66 +44,57 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Mission Section */}
-                <section className="py-20 bg-background">
+                {/* About Our Practice Section */}
+                <section className="py-20 bg-secondary/30">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                            {/* Image Side */}
                             <div className="relative">
                                 <div className="relative rounded-2xl overflow-hidden shadow-medium">
                                     <img
                                         src={aboutImage}
                                         alt="Modern laser treatment facility"
-                                        className="w-full h-[500px] object-cover"
+                                        className="w-full h-[600px] object-cover"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
                                 </div>
+                                {/* Decorative Element */}
                                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent rounded-2xl -z-10" />
                             </div>
 
+                            {/* Content Side */}
                             <div className="space-y-6">
-                                <h2 className="text-4xl font-bold text-foreground">
-                                    Our Mission
-                                </h2>
+                                <div className="space-y-2">
+                                    <span className="text-accent font-semibold text-sm uppercase tracking-wider">
+                                        About Our Practice
+                                    </span>
+                                    <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
+                                        Excellence in Laser Technology, Tailored to You
+                                    </h2>
+                                </div>
+
                                 <p className="text-lg text-muted-foreground leading-relaxed">
-                                    At Virginia Laser Specialists, we strive to provide safe and effective
+                                    At Virginia Laser Specialists we strive to provide safe and effective
                                     treatments in a comfortable space where ALL are welcome. We are committed
                                     to delivering exceptional results, building lasting relationships with our
                                     clients, and ensuring transparency in every aspect of their experience.
                                 </p>
+
                                 <p className="text-lg text-muted-foreground leading-relaxed">
                                     With over 12 years of combined experience and the most advanced laser
                                     technology available, we offer personalized treatment plans tailored to
                                     your unique skin type, concerns, and goals.
                                 </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                {/* Values Section */}
-                <section className="py-20 bg-secondary/30">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-4xl font-bold text-foreground mb-4">
-                                Why Choose Us
-                            </h2>
-                            <p className="text-lg text-muted-foreground">
-                                Our commitment to excellence goes beyond just treatments
-                            </p>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                            {values.map((value) => (
-                                <Card key={value.title} className="text-center">
-                                    <CardContent className="p-6 space-y-4">
-                                        <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto">
-                                            <value.icon className="w-8 h-8 text-accent" />
+                                <div className="space-y-4 pt-4">
+                                    {["Safe and effective treatments", "Comfortable, welcoming space for ALL", "Expert care with lasting relationships", "Complete transparency in every step"].map((value) => (
+                                        <div key={value} className="flex items-start gap-3">
+                                            <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                                            <span className="text-foreground font-medium">{value}</span>
                                         </div>
-                                        <h3 className="text-xl font-bold text-foreground">{value.title}</h3>
-                                        <p className="text-muted-foreground">{value.description}</p>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
