@@ -48,8 +48,8 @@ const CoolPeel = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Content Side */}
-          <div className="space-y-6">
-            <div className="flex justify-center">
+          <div className="space-y-6 text-center lg:text-left">
+            <div className="flex justify-center lg:justify-start">
               <span className="bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
                 Featured Technology
               </span>
@@ -94,7 +94,7 @@ const CoolPeel = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center lg:justify-start items-center">
               <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"

@@ -30,7 +30,7 @@ const About = () => {
           </div>
 
           {/* Content Side */}
-          <div className="space-y-6">
+          <div className="space-y-6 text-center lg:text-left">
             <div className="space-y-2">
               <span className="text-accent font-semibold text-sm uppercase tracking-wider">
                 About Our Practice
@@ -47,7 +47,7 @@ const About = () => {
               clients, and ensuring transparency in every aspect of their experience.
             </p>
 
-            <div className="space-y-4 pt-4">
+            <div className="space-y-4 pt-4 inline-block text-left">
               {values.map((value) => (
                 <div key={value} className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
