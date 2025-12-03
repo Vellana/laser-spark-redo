@@ -24,8 +24,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
-            Advanced Laser & <br />
-            <span className="text-accent">Cool Peel Technology</span>
+            Advanced Laser Technology
           </h1>
 
           <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light">
