@@ -16,7 +16,7 @@ import {
 
 const services = [
   {
-    name: "Brazilian",
+    name: "Brazilian/ Brozilian",
     description: "Complete and comfortable hair removal for intimate areas.",
     icon: Target,
     color: "text-pink-500 bg-pink-500/10",
