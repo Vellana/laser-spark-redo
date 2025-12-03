@@ -31,7 +31,7 @@ const About = () => {
             <Navigation />
             <main className="pt-20">
                 {/* Hero Section */}
-                <section className="py-20 bg-gradient-to-br from-primary/10 to-background">
+                <section className="py-12 bg-gradient-to-br from-primary/10 to-background">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center max-w-4xl mx-auto space-y-6">
                             <h1 className="text-5xl sm:text-6xl font-bold text-foreground">
