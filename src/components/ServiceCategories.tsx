@@ -16,7 +16,6 @@ const ServiceCategories = () => {
       description: "Revolutionary skin rejuvenation with customizable intensity levels to match your downtime needs.",
       image: coolPeelImage,
       link: "#cool-peel",
-      featured: true,
     },
   ];
 
@@ -36,14 +35,8 @@ const ServiceCategories = () => {
           {categories.map((category) => (
             <div
               key={category.title}
-              className={`group relative overflow-hidden rounded-2xl shadow-medium hover:shadow-lg transition-all duration-300 hover:-translate-y-2 ${category.featured ? "ring-2 ring-accent" : ""
-                }`}
+              className="group relative overflow-hidden rounded-2xl shadow-medium hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
             >
-              {category.featured && (
-                <div className="absolute top-4 right-4 z-20 bg-accent text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                  Featured
-                </div>
-              )}
 
               <div className="relative h-80 overflow-hidden">
                 <img

@@ -10,6 +10,7 @@ const Navigation = () => {
   const navLinks = [
     { name: "Cool Peel", href: "/#cool-peel" },
     { name: "Laser Hair Removal", href: "/#laser-hair-removal" },
+    { name: "Specials", href: "/specials" },
     { name: "Pricing", href: "/pricing" },
     { name: "Gallery", href: "/gallery" },
     { name: "About", href: "/about" },

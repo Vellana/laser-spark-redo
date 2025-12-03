@@ -10,11 +10,13 @@ import About from "@/components/About";
 import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import SpecialsPopup from "@/components/SpecialsPopup";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
+      <SpecialsPopup />
       <main>
         <Hero />
         <ServiceCategories />
