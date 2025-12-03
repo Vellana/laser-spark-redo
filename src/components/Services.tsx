@@ -53,7 +53,7 @@ const services = [
   },
   {
     name: "Arms",
-    description: "Smooth, hair-free arms with lasting results.",
+    description: "Full or half arm treatments for silky smooth skin.",
     icon: Hand,
     color: "text-indigo-500 bg-indigo-500/10",
   },
