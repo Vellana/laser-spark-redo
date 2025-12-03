@@ -8,7 +8,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Cool Peel", href: "/#cool-peel" },
+    { name: "Laser Skin Resurfacing", href: "/#cool-peel" },
     { name: "Laser Hair Removal", href: "/#laser-hair-removal" },
     { name: "Specials", href: "/specials" },
     { name: "Pricing", href: "/pricing" },
