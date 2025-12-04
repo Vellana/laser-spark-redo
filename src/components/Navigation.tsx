@@ -28,14 +28,9 @@ const Navigation = () => {
               alt="Virginia Laser Specialists Logo"
               className="w-10 h-10"
             />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-accent leading-tight">
-                Virginia Laser Specialists
-              </span>
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                Experienced Hair Removal
-              </span>
-            </div>
+            <span className="text-xl font-bold text-accent">
+              Virginia Laser Specialists
+            </span>
           </a>
 
           {/* Desktop Navigation */}
