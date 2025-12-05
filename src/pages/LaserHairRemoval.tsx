@@ -3,10 +3,10 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle2, Zap, Shield, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
@@ -354,32 +354,41 @@ const LaserHairRemoval = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Pre & Post Treatment Guide */}
+        {/* Pre & Post Treatment Care Guide with Tabs */}
         <section className="py-12 sm:py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
-                Laser Hair Removal Care Guide
-              </h2>
-              <p className="text-center text-muted-foreground mb-8">
-                For your safety and the best results, please follow these instructions:
-              </p>
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-8 h-8 text-accent" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+                  Laser Hair Removal Care Guide
+                </h2>
+                <p className="text-muted-foreground">
+                  For your safety and the best results, please follow these instructions
+                </p>
+              </div>
               
-              <Tabs defaultValue="pre" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-6">
-                  <TabsTrigger value="pre" className="text-sm sm:text-base">Pre-Treatment</TabsTrigger>
-                  <TabsTrigger value="post" className="text-sm sm:text-base">Post-Treatment</TabsTrigger>
+              <Tabs defaultValue="pre-treatment" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6 h-12">
+                  <TabsTrigger value="pre-treatment" className="text-sm sm:text-base font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
+                    Pre-Treatment
+                  </TabsTrigger>
+                  <TabsTrigger value="post-treatment" className="text-sm sm:text-base font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
+                    Post-Treatment
+                  </TabsTrigger>
                 </TabsList>
                 
-                <TabsContent value="pre">
-                  <Card className="border-border">
+                <TabsContent value="pre-treatment">
+                  <Card className="border-accent/40">
                     <CardContent className="p-6 sm:p-8">
-                      <h3 className="font-semibold text-foreground mb-4">Before Your Treatment:</h3>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">Before Your Treatment:</h3>
                       <ul className="space-y-4">
                         {preTreatmentInstructions.map((instruction, index) => (
                           <li key={index} className="flex items-start gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                            <span className="text-muted-foreground">{instruction}</span>
+                            <span className="text-accent font-bold mt-0.5">•</span>
+                            <span className="text-muted-foreground leading-relaxed">{instruction}</span>
                           </li>
                         ))}
                       </ul>
@@ -387,21 +396,18 @@ const LaserHairRemoval = () => {
                   </Card>
                 </TabsContent>
                 
-                <TabsContent value="post">
-                  <Card className="border-border">
+                <TabsContent value="post-treatment">
+                  <Card className="border-primary/40">
                     <CardContent className="p-6 sm:p-8">
-                      <h3 className="font-semibold text-foreground mb-4">After Your Treatment:</h3>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">After Your Treatment:</h3>
                       <ul className="space-y-4">
                         {postTreatmentInstructions.map((instruction, index) => (
                           <li key={index} className="flex items-start gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                            <span className="text-muted-foreground">{instruction}</span>
+                            <span className="text-primary font-bold mt-0.5">•</span>
+                            <span className="text-muted-foreground leading-relaxed">{instruction}</span>
                           </li>
                         ))}
                       </ul>
-                      <p className="text-center text-muted-foreground mt-6">
-                        Questions, concerns or appointment scheduling: <a href="tel:703-547-4499" className="text-accent hover:underline">703-547-4499</a>
-                      </p>
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -411,25 +417,21 @@ const LaserHairRemoval = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 sm:py-16 bg-gradient-to-br from-primary/10 to-accent/5">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto space-y-6">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Ready for Smooth, Hair-Free Skin?
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground">
-                Schedule your free consultation to discuss your goals and create a personalized treatment plan.
-              </p>
-              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                  Book Free Consultation
-                </Button>
-              </a>
-            </div>
+        <section className="py-12 sm:py-16 bg-primary text-primary-foreground">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Get Started?</h2>
+            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+              Book your free consultation today and take the first step toward smooth, hair-free skin.
+            </p>
+            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
+                Book Free Consultation
+              </Button>
+            </a>
           </div>
         </section>
       </main>
-      
+
       <Footer />
     </div>
   );
