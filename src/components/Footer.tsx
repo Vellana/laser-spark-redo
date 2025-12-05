@@ -73,7 +73,7 @@ const Footer = () => {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://www.instagram.com/virginialaserspecialists/"
+                  href="https://www.instagram.com/virginialaserspecialists?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
