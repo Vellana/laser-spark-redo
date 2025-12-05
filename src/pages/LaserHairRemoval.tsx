@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { CheckCircle2, Zap, Shield, Users, Clock, Droplets, Sun, Bath, Snowflake } from "lucide-react";
+import { CheckCircle2, Zap, Shield, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEO from "@/components/SEO";
@@ -148,46 +148,15 @@ const treatmentAreas: TreatmentArea[] = [
 ];
 
 const pretreatmentInstructions = [
-  "Avoid sun exposure to the treated area by covering or using sunscreen for a minimum of 2-4 weeks prior to treatment.",
+  "Avoid sun exposure to the treated area by covering or using sunscreen for a minimum of 2-4 weeks prior and post treatment.",
   "Avoid using spray tans or self-tanner for a minimum of 2 weeks prior to treatment.",
   "Please ensure the treatment area is hair-free before your appointment by shaving with a traditional razor (recommended within 24 hours of appointment).",
-  "Avoid tweezing, sugaring, waxing, or electrolysis for 4-6 weeks prior to treatment.",
-  "The treatment area should be clean-shaven and thoroughly cleansed, removing any makeup, creams, oils, topical anesthetics, or bronzing products before treatment.",
-  "Avoid skin care products with irritants such as Glycolic Acid or Retin-A on the treatment area for about 1-2 weeks before treatment.",
+  "Avoid tweezing, sugaring, waxing, or electrolysis for 4-6 weeks prior to treatment. Shaving is fine 48 hours after treatment.",
+  "The treatment area should be clean-shaven and thoroughly cleansed, removing any makeup, creams, oils, topical anesthetics, or bronzing products before treatment. Avoid skin care products with irritants such as Glycolic Acid or Retin-A on the treatment area for about 1-2 weeks before treatment.",
+  "Avoid excessive heat, including hot water, saunas, hot tubs, for 48 hours post-treatment.",
+  "Do not exercise rigorously for 24 hours post-treatment.",
+  "Do not apply topical beauty products, including deodorant for 24 hours post-treatment.",
   "Please call before your appointment if you are taking a new medication that may cause photosensitivity, especially acne medication."
-];
-
-const aftercareInstructions = [
-  {
-    icon: Sun,
-    title: "Avoid Sun Exposure",
-    description: "Avoid sun exposure to the treated area for 2-4 weeks post-treatment. Always use SPF 30+ on treated areas."
-  },
-  {
-    icon: Bath,
-    title: "Avoid Excessive Heat",
-    description: "Avoid hot water, hot tubs, saunas, or anything that heats up the skin for 48 hours post-treatment."
-  },
-  {
-    icon: Zap,
-    title: "No Strenuous Exercise",
-    description: "Avoid exercise or activities that cause excessive perspiration for 24 hours post-treatment."
-  },
-  {
-    icon: Droplets,
-    title: "Avoid Topical Products",
-    description: "No topical beauty products, including deodorant, for 24 hours post-treatment."
-  },
-  {
-    icon: Snowflake,
-    title: "Cool Compresses",
-    description: "Apply cool compresses if you experience any redness or mild swelling."
-  },
-  {
-    icon: Clock,
-    title: "Shaving is Fine",
-    description: "Shaving is fine 48 hours after treatment. Do not wax, tweeze, or use depilatories between treatments."
-  }
 ];
 
 const LaserHairRemoval = () => {
@@ -379,13 +348,16 @@ const LaserHairRemoval = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Pre-Treatment Section */}
+        {/* Pre & Post Treatment Guide */}
         <section className="py-12 sm:py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
-                Pre-Treatment Guide
+                Laser Hair Removal After Care
               </h2>
+              <p className="text-center text-muted-foreground mb-8">
+                For your safety and the best results after your laser hair removal treatment, please follow these instructions:
+              </p>
               <Card className="border-border">
                 <CardContent className="p-6 sm:p-8">
                   <ul className="space-y-4">
@@ -396,34 +368,11 @@ const LaserHairRemoval = () => {
                       </li>
                     ))}
                   </ul>
+                  <p className="text-center text-muted-foreground mt-6">
+                    Questions, concerns or appointment scheduling: <a href="tel:703-547-4499" className="text-accent hover:underline">703-547-4499</a>
+                  </p>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Aftercare Section */}
-        <section className="py-12 sm:py-16 bg-secondary/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
-                Laser Hair Removal Aftercare
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {aftercareInstructions.map((instruction) => (
-                  <Card key={instruction.title} className="border-border">
-                    <CardContent className="p-4 sm:p-6 flex items-start gap-4">
-                      <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
-                        <instruction.icon className="w-6 h-6 text-accent" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">{instruction.title}</h3>
-                        <p className="text-sm text-muted-foreground">{instruction.description}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
             </div>
           </div>
         </section>
