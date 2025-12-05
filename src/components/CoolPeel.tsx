@@ -38,33 +38,39 @@ const CoolPeel = () => {
   ];
 
   const preTreatmentInstructions = [
-    "Avoid sun exposure and tanning beds for at least 2 weeks before treatment.",
-    "Discontinue retinoids, glycolic acids, and other exfoliating products 5-7 days prior.",
-    "Arrive with clean, makeup-free skin.",
-    "Inform your provider of any medications, supplements, or recent skin treatments.",
-    "Avoid aspirin, ibuprofen, and blood-thinning supplements for 1 week before treatment.",
-    "Stay well-hydrated in the days leading up to your appointment.",
+    "Stop retinols or products that may dehydrate the skin (2-7 days prior to treatment)",
+    "Discontinue use of all exfoliating products 1 week prior to treatment",
+    "Avoid sun exposure (2+ weeks) and use a sunscreen that protects against UVA and UVB rays with a SPF of 30+",
+    "Stop Accutane® (3+ months – or as directed by your provider)",
+    "No aspirin or supplements that may thin the blood (7 days or as directed by your provider)",
+    "Start antiviral prophylactic treatment for those with a history of viral infection / cold sores",
+    "For patients that are prone to hyperpigmentation, consider pre-treating with a melanin suppressing agent 2x daily for 2 weeks (or an appropriate length of time) before the treatment",
   ];
 
   const coolPeelPostInstructions = [
-    "Keep a thin layer of Aquaphor or approved ointment on the treated area for up to three days to keep skin moist.",
-    "Avoid makeup and sunscreen for the first 48 hours.",
-    "Sleep with a clean pillowcase and keep your head elevated for the first night.",
-    "Avoid applying active skincare ingredients (retinol, exfoliants) for one week.",
-    "Avoid direct sunlight for 48 hours; then apply broad-spectrum SPF 50 daily.",
-    "Resume retinol products after seven days once skin has fully healed.",
-    "Avoid strenuous exercise, hot tubs, steam rooms, or saunas for at least 24 hours.",
-    "Use clean face masks for the first 72 hours and watch for signs of infection, such as increased redness, swelling, or fever, and contact your provider if they occur.",
+    "Do not use any exfoliants or other products/procedures to address the texture for 5-7 days.",
+    "Wash with a mild cleanser (AM & PM), blot dry, and do not scrub.",
+    "Use zinc/titanium-based sunblock after 24 hours.",
+    "Minimize alcohol intake (throughout recovery).",
+    "Sleep with your head slightly elevated; use a clean pillowcase and change it frequently.",
+    "Wash hands often and avoid touching the treated area.",
+    "Do not expose the treated area to anything that may cause complications (dirt, pets, etc.) as advised by your provider.",
+    "Mineral makeup may be applied after 2-5 days.",
+    "Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. 2-4 days.",
   ];
 
   const dekaPostInstructions = [
-    "Apply cold compresses and keep the treated area moisturized with a gentle, fragrance-free moisturizer.",
-    "Cleanse the skin gently with a mild cleanser; avoid scrubbing or exfoliating.",
-    "Avoid sun exposure, heat, hot showers, and workouts for at least 24 hours; for deeper resurfacing, avoid these activities for 7–10 days.",
-    "Do not pick at peeling or flaking skin; allow it to shed naturally.",
-    "Avoid swimming pools, hot tubs, and saunas until the skin has fully healed.",
-    "Wait 7-10 days before resuming makeup or active skincare products.",
-    "Contact your provider if you experience signs of infection or unusual discomfort.",
+    "For the first 24-72 hours, do not wash the treated area with water.",
+    "Apply ointment every 2-4 hours to avoid crusting; keep the area moist to promote healing and avoid potential scarring from compromised skin barrier.",
+    "After 3 days, gently wash the face with a gentle cleanser (diluted with sterile water for the first washes). Do not scrub. Pat dry.",
+    "Use only lukewarm or cool (not hot) water.",
+    "Use a new/clean towel each time you pat dry (paper towels are acceptable).",
+    "Reapply ointment immediately after cleansing.",
+    "Apply ointment after cleansing for 7-10+ days (or as directed by your provider) and keep the area moist.",
+    "Avoid exercise, sweating, excessive heat, saunas, hot tubs, pools (2-4 weeks).",
+    "Avoid direct sun exposure; use SPF 30+ (zinc or titanium based), hat, and limit time outdoors.",
+    "Makeup may be used after 10-14 days.",
+    "Skin will remain pink for several weeks and will be sensitive for 2-4 weeks after treatment.",
   ];
 
   const toggleBenefit = (title: string) => {
@@ -361,6 +367,21 @@ const CoolPeel = () => {
                       {activeTab === "coolpeel" ? "CoolPeel" : "Deka Pulse"} Post-Treatment Care
                     </h4>
                   </div>
+                  
+                  {activeTab === "coolpeel" ? (
+                    <>
+                      <h5 className="font-semibold text-foreground mb-3">Day of treatment:</h5>
+                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (1-3 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
+                      <h5 className="font-semibold text-foreground mb-3">After the treatment:</h5>
+                    </>
+                  ) : (
+                    <>
+                      <h5 className="font-semibold text-foreground mb-3">Day of treatment:</h5>
+                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (3-7 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
+                      <h5 className="font-semibold text-foreground mb-3">After the treatment:</h5>
+                    </>
+                  )}
+                  
                   <ul className="space-y-3 text-muted-foreground">
                     {(activeTab === "coolpeel" ? coolPeelPostInstructions : dekaPostInstructions).map((instruction, index) => (
                       <li key={index} className="flex items-start gap-2">
@@ -369,6 +390,8 @@ const CoolPeel = () => {
                       </li>
                     ))}
                   </ul>
+                  
+                  <p className="text-foreground font-semibold mt-6">PLEASE CONTACT YOUR PROVIDER WITH ANY QUESTIONS/CONCERNS DURING YOUR RECOVERY PERIOD</p>
                 </CardContent>
               </Card>
             </TabsContent>
