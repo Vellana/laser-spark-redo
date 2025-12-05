@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { CheckCircle2, Zap, Shield, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
@@ -147,16 +148,20 @@ const treatmentAreas: TreatmentArea[] = [
   }
 ];
 
-const aftercareInstructions = [
+const preTreatmentInstructions = [
   "Avoid sun exposure to the treated area by covering or using sunscreen for a minimum of 2-4 weeks prior and post treatment.",
   "Avoid using spray tans or self-tanner for a minimum of 2 weeks prior to treatment.",
   "Please ensure the treatment area is hair-free before your appointment by shaving with a traditional razor (recommended within 24 hours of appointment).",
   "Avoid tweezing, sugaring, waxing, or electrolysis for 4-6 weeks prior to treatment. Shaving is fine 48 hours after treatment.",
   "The treatment area should be clean-shaven and thoroughly cleansed, removing any makeup, creams, oils, topical anesthetics, or bronzing products before treatment. Avoid skin care products with irritants such as Glycolic Acid or Retin-A on the treatment area for about 1-2 weeks before treatment.",
+  "Please call before your appointment if you are taking a new medication that may cause photosensitivity, especially acne medication."
+];
+
+const postTreatmentInstructions = [
+  "Avoid sun exposure to the treated area by covering or using sunscreen for a minimum of 2-4 weeks prior and post treatment.",
   "Avoid excessive heat, including hot water, saunas, hot tubs, for 48 hours post-treatment.",
   "Do not exercise rigorously for 24 hours post-treatment.",
   "Do not apply topical beauty products, including deodorant for 24 hours post-treatment.",
-  "Please call before your appointment if you are taking a new medication that may cause photosensitivity, especially acne medication.",
   "Questions, concerns or appointment scheduling: 703-547-4499"
 ];
 
@@ -354,26 +359,53 @@ const LaserHairRemoval = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
-                Laser Hair Removal After Care
+                Laser Hair Removal Care Guide
               </h2>
               <p className="text-center text-muted-foreground mb-8">
-                For your safety and the best results after your laser hair removal treatment, please follow these instructions:
+                For your safety and the best results, please follow these instructions:
               </p>
-              <Card className="border-border">
-                <CardContent className="p-6 sm:p-8">
-                  <ul className="space-y-4">
-                    {aftercareInstructions.map((instruction, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{instruction}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-center text-muted-foreground mt-6">
-                    Questions, concerns or appointment scheduling: <a href="tel:703-547-4499" className="text-accent hover:underline">703-547-4499</a>
-                  </p>
-                </CardContent>
-              </Card>
+              
+              <Tabs defaultValue="pre" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="pre" className="text-sm sm:text-base">Pre-Treatment</TabsTrigger>
+                  <TabsTrigger value="post" className="text-sm sm:text-base">Post-Treatment</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="pre">
+                  <Card className="border-border">
+                    <CardContent className="p-6 sm:p-8">
+                      <h3 className="font-semibold text-foreground mb-4">Before Your Treatment:</h3>
+                      <ul className="space-y-4">
+                        {preTreatmentInstructions.map((instruction, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                            <span className="text-muted-foreground">{instruction}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                
+                <TabsContent value="post">
+                  <Card className="border-border">
+                    <CardContent className="p-6 sm:p-8">
+                      <h3 className="font-semibold text-foreground mb-4">After Your Treatment:</h3>
+                      <ul className="space-y-4">
+                        {postTreatmentInstructions.map((instruction, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                            <span className="text-muted-foreground">{instruction}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="text-center text-muted-foreground mt-6">
+                        Questions, concerns or appointment scheduling: <a href="tel:703-547-4499" className="text-accent hover:underline">703-547-4499</a>
+                      </p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         </section>
