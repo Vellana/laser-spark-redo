@@ -243,9 +243,52 @@ const LaserSkinResurfacing = () => {
               </div>
               <Card className="border-accent/40">
                 <CardContent className="p-8">
-                  <p className="text-muted-foreground leading-relaxed">
-                    Immediately after treatment you will feel a warm or sunburn-like sensation for 2‑4+ hours and see swelling and redness for 1–3 days. Use a cool misting spray or sterile cool compresses for comfort. Keep a thin layer of Aquaphor or a light moisturizer (e.g. Vaseline, Alastin balm) on the treated area and reapply every 3–4 hours during the first day to prevent dryness. Avoid exfoliating products for 5–7 days and do not pick or peel flaking skin. After 24 hours, gently wash with a mild cleanser and continue using a hydrating barrier cream. You may apply a mineral sunscreen (zinc/titanium dioxide) after 24 hours if you must go outside; otherwise avoid sun exposure for 2 days. Minimize alcohol intake, keep your head elevated while sleeping, and avoid heavy exercise, hot tubs, saunas or very hot showers for 2–4 days.
-                  </p>
+                  <h3 className="font-semibold text-foreground mb-4">What to Expect</h3>
+                  <ul className="space-y-3 text-muted-foreground mb-6">
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Warm or sunburn-like sensation for 2–4+ hours</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Swelling and redness for 1–3 days</span>
+                    </li>
+                  </ul>
+                  <h3 className="font-semibold text-foreground mb-4">Aftercare Instructions</h3>
+                  <ul className="space-y-3 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Use a cool misting spray or sterile cool compresses for comfort</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Keep a thin layer of Aquaphor or a light moisturizer (Vaseline, Alastin balm) on the treated area; reapply every 3–4 hours during the first day</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Avoid exfoliating products for 5–7 days</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Do <strong>not</strong> pick or peel flaking skin</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>After 24 hours, gently wash with a mild cleanser and continue using a hydrating barrier cream</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Apply a mineral sunscreen (zinc/titanium dioxide) after 24 hours if you must go outside; otherwise avoid sun exposure for 2 days</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Minimize alcohol intake and keep your head elevated while sleeping</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-accent mt-1">•</span>
+                      <span>Avoid heavy exercise, hot tubs, saunas, or very hot showers for 2–4 days</span>
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>
@@ -263,9 +306,64 @@ const LaserSkinResurfacing = () => {
               </div>
               <Card className="border-primary/40">
                 <CardContent className="p-8">
-                  <p className="text-muted-foreground leading-relaxed">
-                    After treatment you may experience a hot or sunburn sensation for 2–6+ hours, swelling, redness, pinpoint bleeding, and clear fluid or weeping. Use a cool misting spray or sterile cool compresses for comfort. Once the burning sensation subsides (usually 4–6 hours), apply a light layer of Aquaphor or Vaseline, and take an antihistamine as directed for swelling. For the first 1–3 days, perform vinegar soaks (1 tablespoon white vinegar in 8 oz of water) by gently pressing soaked gauze pads on the treated area to soften crusting; after each soak reapply Vaseline. Once the weeping stops, switch to the lighter post-treatment moisturizer recommended by your provider. Gently wash twice daily with a mild cleanser; do <strong>not</strong> use retinols, exfoliants or other active products for at least 2–4 weeks. Avoid sun exposure for 2–4 weeks, wear a zinc/titanium sunscreen when going outdoors, and avoid swimming, hot tubs, saunas, exercise or any heat exposure for 5–7 days. Sleep with your head elevated and minimize alcohol. Contact us if you develop a fever or signs of infection.
-                  </p>
+                  <h3 className="font-semibold text-foreground mb-4">What to Expect</h3>
+                  <ul className="space-y-3 text-muted-foreground mb-6">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Hot or sunburn sensation for 2–6+ hours</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Swelling, redness, pinpoint bleeding, and clear fluid or weeping</span>
+                    </li>
+                  </ul>
+                  <h3 className="font-semibold text-foreground mb-4">Aftercare Instructions</h3>
+                  <ul className="space-y-3 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Use a cool misting spray or sterile cool compresses for comfort</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Once burning subsides (4–6 hours), apply a light layer of Aquaphor or Vaseline</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Take an antihistamine as directed for swelling</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>For the first 1–3 days, perform vinegar soaks (1 tbsp white vinegar in 8 oz water) by gently pressing soaked gauze pads on the treated area to soften crusting; reapply Vaseline after each soak</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Once weeping stops, switch to the lighter post-treatment moisturizer recommended by your provider</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Gently wash twice daily with a mild cleanser</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Do <strong>not</strong> use retinols, exfoliants, or other active products for at least 2–4 weeks</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Avoid sun exposure for 2–4 weeks; wear zinc/titanium sunscreen when going outdoors</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Avoid swimming, hot tubs, saunas, exercise, or any heat exposure for 5–7 days</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Sleep with your head elevated and minimize alcohol</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Contact us if you develop a fever or signs of infection</span>
+                    </li>
+                  </ul>
                   <div className="mt-6 p-4 bg-primary/10 rounded-lg">
                     <p className="text-sm text-foreground text-center">
                       <strong>Please contact your provider with any questions/concerns during your recovery period.</strong>
