@@ -147,16 +147,36 @@ const treatmentAreas: TreatmentArea[] = [
   }
 ];
 
+const pretreatmentInstructions = [
+  "Avoid sun exposure to the treated area by covering or using sunscreen for a minimum of 2-4 weeks prior to treatment.",
+  "Avoid using spray tans or self-tanner for a minimum of 2 weeks prior to treatment.",
+  "Please ensure the treatment area is hair-free before your appointment by shaving with a traditional razor (recommended within 24 hours of appointment).",
+  "Avoid tweezing, sugaring, waxing, or electrolysis for 4-6 weeks prior to treatment.",
+  "The treatment area should be clean-shaven and thoroughly cleansed, removing any makeup, creams, oils, topical anesthetics, or bronzing products before treatment.",
+  "Avoid skin care products with irritants such as Glycolic Acid or Retin-A on the treatment area for about 1-2 weeks before treatment.",
+  "Please call before your appointment if you are taking a new medication that may cause photosensitivity, especially acne medication."
+];
+
 const aftercareInstructions = [
   {
     icon: Sun,
     title: "Avoid Sun Exposure",
-    description: "Stay out of direct sunlight for 48-72 hours after treatment. Always use SPF 30+ on treated areas."
+    description: "Avoid sun exposure to the treated area for 2-4 weeks post-treatment. Always use SPF 30+ on treated areas."
+  },
+  {
+    icon: Bath,
+    title: "Avoid Excessive Heat",
+    description: "Avoid hot water, hot tubs, saunas, or anything that heats up the skin for 48 hours post-treatment."
+  },
+  {
+    icon: Zap,
+    title: "No Strenuous Exercise",
+    description: "Avoid exercise or activities that cause excessive perspiration for 24 hours post-treatment."
   },
   {
     icon: Droplets,
-    title: "Keep Area Clean",
-    description: "Gently cleanse the treated area and avoid harsh products for 24-48 hours."
+    title: "Avoid Topical Products",
+    description: "No topical beauty products, including deodorant, for 24 hours post-treatment."
   },
   {
     icon: Snowflake,
@@ -164,9 +184,9 @@ const aftercareInstructions = [
     description: "Apply cool compresses if you experience any redness or mild swelling."
   },
   {
-    icon: Bath,
-    title: "Avoid Heat",
-    description: "Skip hot showers, saunas, and intense exercise for 24-48 hours post-treatment."
+    icon: Clock,
+    title: "Shaving is Fine",
+    description: "Shaving is fine 48 hours after treatment. Do not wax, tweeze, or use depilatories between treatments."
   }
 ];
 
@@ -359,14 +379,37 @@ const LaserHairRemoval = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Aftercare Section */}
+        {/* Pre-Treatment Section */}
         <section className="py-12 sm:py-16 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
+                Pre-Treatment Guide
+              </h2>
+              <Card className="border-border">
+                <CardContent className="p-6 sm:p-8">
+                  <ul className="space-y-4">
+                    {pretreatmentInstructions.map((instruction, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{instruction}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Aftercare Section */}
+        <section className="py-12 sm:py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-8 sm:mb-12">
                 Laser Hair Removal Aftercare
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {aftercareInstructions.map((instruction) => (
                   <Card key={instruction.title} className="border-border">
                     <CardContent className="p-4 sm:p-6 flex items-start gap-4">
