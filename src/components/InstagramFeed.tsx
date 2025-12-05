@@ -38,7 +38,7 @@ const InstagramFeed = () => {
             See our latest treatments, results, and behind-the-scenes moments on Instagram
           </p>
           <a
-            href="https://www.instagram.com/virginialaserspecialists/"
+            href="https://www.instagram.com/virginialaserspecialists?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block"
