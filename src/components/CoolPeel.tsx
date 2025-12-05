@@ -310,28 +310,34 @@ const CoolPeel = () => {
           </h3>
 
           <Tabs defaultValue="pre-treatment" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="pre-treatment" className="text-base py-3">
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-secondary/50 p-1 rounded-lg h-auto">
+              <TabsTrigger 
+                value="pre-treatment" 
+                className="text-base py-3 px-6 data-[state=active]:bg-accent data-[state=active]:text-primary data-[state=active]:shadow-md rounded-md transition-all"
+              >
                 Pre-Treatment
               </TabsTrigger>
-              <TabsTrigger value="post-treatment" className="text-base py-3">
+              <TabsTrigger 
+                value="post-treatment" 
+                className="text-base py-3 px-6 data-[state=active]:bg-accent data-[state=active]:text-primary data-[state=active]:shadow-md rounded-md transition-all"
+              >
                 Post-Treatment
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="pre-treatment" className="animate-in fade-in duration-300">
-              <Card className={activeTab === "coolpeel" ? "border-accent/40" : "border-primary/40"}>
+              <Card className="border-accent/40">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${activeTab === "coolpeel" ? "bg-accent/20" : "bg-primary/20"}`}>
-                      <Clock className={`w-5 h-5 ${activeTab === "coolpeel" ? "text-accent" : "text-primary"}`} />
+                    <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-accent" />
                     </div>
                     <h4 className="text-xl font-bold text-foreground">Pre-Treatment Instructions</h4>
                   </div>
                   <ul className="space-y-3 text-muted-foreground">
                     {preTreatmentInstructions.map((instruction, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <span className={`mt-0.5 ${activeTab === "coolpeel" ? "text-accent" : "text-primary"}`}>•</span>
+                        <span className="text-accent mt-0.5">•</span>
                         <span>{instruction}</span>
                       </li>
                     ))}
@@ -344,7 +350,7 @@ const CoolPeel = () => {
               <Card className={activeTab === "coolpeel" ? "border-accent/40" : "border-primary/40"}>
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${activeTab === "coolpeel" ? "bg-accent/20" : "bg-primary/20"}`}>
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${activeTab === "coolpeel" ? "bg-accent/20" : "bg-primary/20"}`}>
                       {activeTab === "coolpeel" ? (
                         <Heart className="w-5 h-5 text-accent" />
                       ) : (
