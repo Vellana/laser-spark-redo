@@ -57,7 +57,7 @@ const InstagramFeed = () => {
         </div>
 
         {/* Official Instagram Embed */}
-        <div className="flex justify-center max-w-xl mx-auto">
+        <div className="flex justify-center max-w-3xl mx-auto w-full">
           <blockquote 
             className="instagram-media" 
             data-instgrm-permalink="https://www.instagram.com/virginialaserspecialists/?utm_source=ig_embed&utm_campaign=loading" 
@@ -68,10 +68,10 @@ const InstagramFeed = () => {
               borderRadius: '3px', 
               boxShadow: '0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15)', 
               margin: '1px', 
-              maxWidth: '540px', 
-              minWidth: '326px', 
+              maxWidth: '800px', 
+              minWidth: '400px', 
               padding: 0, 
-              width: '99.375%'
+              width: '100%'
             }}
           >
             <div style={{ padding: '16px' }}>
