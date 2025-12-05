@@ -179,56 +179,6 @@ const LaserSkinResurfacing = () => {
           </div>
         </section>
 
-        {/* Pre-Treatment Section */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-8 h-8 text-accent" />
-                </div>
-                <h2 className="text-3xl font-bold text-foreground">
-                  Pre‑Treatment for Skin Resurfacing
-                </h2>
-              </div>
-              <Card className="border-accent/40">
-                <CardContent className="p-8">
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Stop retinols or products that may dehydrate the skin 2‑7 days prior to treatment.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Discontinue all exfoliating products 1 week prior to treatment.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Avoid sun exposure for at least 2 weeks before treatment and use a broad-spectrum sunscreen (SPF 30+).</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Stop Accutane® at least 3 months before treatment (or as directed by your provider).</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Avoid aspirin or supplements that may thin the blood for 7 days before treatment (or as directed by your provider).</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Start antiviral prophylactic medication if you have a history of cold sores or viral infections.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>If you are prone to hyperpigmentation, pre-treat with a melanin-suppressing agent twice daily for 2 weeks (or as directed) prior to your treatment.</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
         {/* CoolPeel Aftercare */}
         <section className="py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
