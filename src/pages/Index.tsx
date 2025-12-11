@@ -16,7 +16,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SEO 
         title="Virginia Laser Specialists | Laser Hair Removal & Skin Resurfacing in Tysons, VA"
-        description="Advanced laser hair removal with Clarity II & revolutionary CoolPeel and DEKA skin resurfacing in Fairfax/Tysons. Experienced providers, all skin types welcome."
+        description="Boutique laser studio in Tysons, Virginia offering long‑lasting laser hair removal with the Lutronic Clarity II (YAG and Alexandrite) and customizable Cartessa Tetra Pro CoolPeel & DEKA CO₂ skin resurfacing with cryogen cooling. Transparent pricing, minimal downtime, serving Tysons, McLean, Falls Church and Arlington."
         canonicalUrl="/"
       />
       <LocalBusinessSchema />

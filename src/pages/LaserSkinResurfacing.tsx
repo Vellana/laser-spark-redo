@@ -14,8 +14,8 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CoolPeel & DEKA CO₂ Laser Resurfacing in Fairfax, VA | Virginia Laser Specialists"
-        description="Tetra Pro CO₂ platform offers CoolPeel (minimal downtime) and DEKA Pulse (deeper treatment) for skin rejuvenation. Customized aftercare, experienced providers in Tysons."
+        title="CoolPeel & DEKA CO₂ Laser Resurfacing in Tysons, VA | Tetra Pro"
+        description="Revolutionary skin rejuvenation using the Cartessa Tetra Pro CoolPeel and DEKA Pulse CO₂ lasers – pick your own downtime and reduce fine lines and wrinkles. Transparent pricing and minimal downtime; serving Tysons and Northern Virginia."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
@@ -54,7 +54,7 @@ const LaserSkinResurfacing = () => {
               <div className="relative mx-auto lg:mx-0">
                 <img 
                   src={coolPeelImage}
-                  alt="CoolPeel laser skin resurfacing treatment demonstration at Virginia Laser Specialists"
+                  alt="CoolPeel and DEKA CO₂ laser skin resurfacing with minimal downtime at Virginia Laser Specialists in Tysons"
                   className="rounded-2xl shadow-medium w-full h-auto object-cover"
                 />
               </div>
