@@ -10,7 +10,7 @@ const Hero = () => {
       <div className="absolute inset-0">
         <img 
           src={heroImage} 
-          alt="Virginia Laser Specialists treatment room with advanced laser equipment for hair removal and skin resurfacing" 
+          alt="Virginia Laser Specialists featuring Lutronic Clarity II with dual-wavelength Alexandrite and Nd:YAG lasers with cryogen cooling for minimal downtime laser hair removal and skin resurfacing" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary/60 to-primary/50" />

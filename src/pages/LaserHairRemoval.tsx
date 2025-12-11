@@ -194,8 +194,8 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal in Fairfax, VA | Virginia Laser Specialists"
-        description="Permanent hair reduction using dual-wavelength Lutronic Clarity II laser. Safe for all skin types, experienced technicians, free consultation. Tysons/Fairfax area."
+        title="Laser Hair Removal Tysons & Northern Virginia | Lutronic Clarity II"
+        description="Long‑lasting hair reduction for all skin types using Lutronic Clarity II's dual‑wavelength YAG and Alexandrite lasers with cryogen cooling. Learn how much laser hair removal costs and what the treatment feels like; serving Tysons, McLean, Falls Church and Arlington."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
@@ -232,11 +232,11 @@ const LaserHairRemoval = () => {
                 </div>
               </div>
               <div className="relative mx-auto lg:mx-0 max-w-md lg:max-w-none">
-                <img 
-                  src={clarityImage}
-                  alt="Patient receiving laser hair removal treatment with Lutronic Clarity II at Virginia Laser Specialists"
-                  className="rounded-2xl shadow-medium w-full h-auto object-cover"
-                />
+        <img 
+          src={clarityImage}
+          alt="Laser hair removal with Lutronic Clarity II dual-wavelength Alexandrite and Nd:YAG lasers with cryogen cooling for minimal downtime at Virginia Laser Specialists"
+          className="rounded-2xl shadow-medium w-full h-auto object-cover"
+        />
               </div>
             </div>
           </div>
