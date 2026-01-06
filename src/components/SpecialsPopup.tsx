@@ -39,11 +39,11 @@ const SpecialsPopup = () => {
           </div>
 
           <h3 className="text-2xl font-bold text-foreground">
-            Special Offers Available!
+            2026 Specials Coming Soon!
           </h3>
 
           <p className="text-muted-foreground">
-            Check out our current promotions and seasonal specials on laser treatments.
+            We're preparing exciting new promotions for 2026. Check back soon for our latest offers!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
