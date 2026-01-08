@@ -217,6 +217,14 @@ const LaserSkinResurfacing = () => {
                       <ul className="space-y-4">
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Drink plenty of water in the 48 hours prior to treatment</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Wear loose fitting clothes if treating the body, and scoop neck tanks if treating decolletage</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
                           <span className="text-muted-foreground">Stop retinols or products that may dehydrate the skin (2-7 days prior to treatment)</span>
                         </li>
                         <li className="flex items-start gap-3">

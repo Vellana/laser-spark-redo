@@ -39,11 +39,19 @@ const SpecialsPopup = () => {
           </div>
 
           <h3 className="text-2xl font-bold text-foreground">
-            2026 Specials Coming Soon!
+            Winter Special!
           </h3>
 
-          <p className="text-muted-foreground">
-            We're preparing exciting new promotions for 2026. Check back soon for our latest offers!
+          <p className="text-foreground font-semibold">
+            Buy any laser hair removal package of 5 treatments, get a 6th treatment free!
+          </p>
+          
+          <p className="text-xl font-bold text-accent">
+            Value of up to $1,800!
+          </p>
+
+          <p className="text-xs text-muted-foreground italic">
+            *Free treatment must be same area as package. Cannot be combined with any other offers. Offer expires 1/31/26.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
