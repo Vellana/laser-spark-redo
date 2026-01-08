@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Sparkles, Calendar } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
@@ -33,16 +33,22 @@ const Specials = () => {
           </div>
         </section>
 
-        {/* 2026 Specials Coming Soon */}
+        {/* Winter Special */}
         <section className="py-16 bg-gradient-to-b from-accent/5 to-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center space-y-6">
               <div className="w-20 h-20 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-                <Calendar className="w-10 h-10 text-accent" />
+                <Sparkles className="w-10 h-10 text-accent" />
               </div>
-              <h2 className="text-3xl font-bold text-foreground">2026 Specials Coming Soon</h2>
-              <p className="text-lg text-muted-foreground">
-                We're preparing exciting new promotions for 2026. Check back soon for our latest offers on laser hair removal and skin resurfacing treatments.
+              <h2 className="text-3xl font-bold text-foreground">Winter Special!</h2>
+              <p className="text-xl text-foreground font-semibold">
+                Buy any laser hair removal package of 5 treatments, get a 6th treatment free!
+              </p>
+              <p className="text-2xl font-bold text-accent">
+                Value of up to $1,800!
+              </p>
+              <p className="text-sm text-muted-foreground italic">
+                *Free treatment must be same area as package. Cannot be combined with any other offers. Offer expires 1/31/26.
               </p>
             </div>
           </div>

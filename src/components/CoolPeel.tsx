@@ -38,6 +38,8 @@ const CoolPeel = () => {
   ];
 
   const preTreatmentInstructions = [
+    "Drink plenty of water in the 48 hours prior to treatment",
+    "Wear loose fitting clothes if treating the body, and scoop neck tanks if treating decolletage",
     "Stop retinols or products that may dehydrate the skin (2-7 days prior to treatment)",
     "Discontinue use of all exfoliating products 1 week prior to treatment",
     "Avoid sun exposure (2+ weeks) and use a sunscreen that protects against UVA and UVB rays with a SPF of 30+",
