@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
-
+import CherryFinancing from "@/components/CherryFinancing";
 const Pricing = () => {
   const laserHairRemovalPricing = [
     { area: "Abdomen", single: "$250", package: "$937.50" },
@@ -34,8 +34,8 @@ const Pricing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Treatment Pricing | Virginia Laser Specialists - Tysons, VA"
-        description="Transparent pricing for laser hair removal, CoolPeel, and DEKA Pulse treatments. Single sessions and package discounts available. Book your free consultation."
+        title="Laser Treatment Pricing | Cherry Financing & Monthly Payment Plans | Virginia Laser Specialists"
+        description="Transparent pricing for laser hair removal, CoolPeel, and DEKA Pulse treatments. Cherry financing available with monthly payment plans. Finance up to $10,000 for laser treatment. Book your free consultation."
         canonicalUrl="/pricing"
       />
       <LocalBusinessSchema />
@@ -193,6 +193,11 @@ const Pricing = () => {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Cherry Financing */}
+            <div className="max-w-4xl mx-auto mt-12">
+              <CherryFinancing variant="card" />
             </div>
 
             {/* Contact CTA */}
