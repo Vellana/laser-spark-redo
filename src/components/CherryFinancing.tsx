@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CreditCard, Clock, Shield, DollarSign, CheckCircle2 } from "lucide-react";
+import { Clock, Shield, DollarSign, CheckCircle2 } from "lucide-react";
+import cherryLogo from "@/assets/cherry-logo.png";
 
 interface CherryFinancingProps {
   variant?: "section" | "card";
@@ -20,8 +21,8 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
     return (
       <Card className="border-accent/40 bg-gradient-to-br from-accent/5 to-accent/10">
         <CardContent className="py-8 space-y-6">
-          <div className="flex items-center justify-center gap-3">
-            <CreditCard className="w-8 h-8 text-accent" />
+          <div className="flex flex-col items-center gap-4">
+            <img src={cherryLogo} alt="Cherry Financing" className="h-10 w-auto" />
             <h3 className="text-2xl font-bold text-foreground">
               Flexible Payment Plans with Cherry
             </h3>
@@ -43,7 +44,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
           <div className="text-center space-y-4">
             <a href={cherryUrl} target="_blank" rel="noopener noreferrer">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8">
-                Check Your Eligibility
+                🍒 Check Your Eligibility
               </Button>
             </a>
             <p className="text-sm text-muted-foreground italic">
@@ -60,9 +61,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-10">
-            <div className="w-16 h-16 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-              <CreditCard className="w-8 h-8 text-accent" />
-            </div>
+            <img src={cherryLogo} alt="Cherry Financing" className="h-14 w-auto mx-auto" />
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
               Flexible Payment Plans with Cherry
             </h2>
@@ -91,7 +90,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
                 size="lg" 
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-10 py-6 text-lg transition-all hover:scale-105"
               >
-                Apply Now
+                🍒 Apply Now
               </Button>
             </a>
             <p className="text-muted-foreground italic">
