@@ -30,8 +30,8 @@ const Index = () => {
         <Services />
         <Testimonials />
         <InstagramFeed />
-        <Contact />
         <CherryFinancing />
+        <Contact />
       </main>
       <Footer />
     </div>
