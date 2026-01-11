@@ -25,13 +25,13 @@ const Index = () => {
       <SpecialsPopup />
       <main>
         <Hero />
-        <CherryFinancing />
         <ServiceCategories />
         <CoolPeel />
         <Services />
         <Testimonials />
         <InstagramFeed />
         <Contact />
+        <CherryFinancing />
       </main>
       <Footer />
     </div>
