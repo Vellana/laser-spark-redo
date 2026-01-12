@@ -13,13 +13,52 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Phone, Mail, MapPin, Clock, Instagram } from "lucide-react";
+import { Phone, MapPin, Clock, Instagram } from "lucide-react";
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
+
+// Zod schema for form validation
+const contactFormSchema = z.object({
+    name: z
+        .string()
+        .trim()
+        .min(2, "Name must be at least 2 characters")
+        .max(100, "Name must be less than 100 characters")
+        .regex(/^[a-zA-Z\s'-]+$/, "Name can only contain letters, spaces, hyphens, and apostrophes"),
+    email: z
+        .string()
+        .trim()
+        .email("Please enter a valid email address")
+        .max(255, "Email must be less than 255 characters"),
+    phone: z
+        .string()
+        .trim()
+        .min(10, "Please enter a valid phone number")
+        .max(20, "Phone number is too long")
+        .regex(
+            /^[\d\s()+-]+$/,
+            "Phone number can only contain digits, spaces, parentheses, plus, and hyphens"
+        ),
+    service: z.string().max(50, "Service selection is too long").optional().or(z.literal("")),
+    contactMethod: z.enum(["email", "phone", "either"], {
+        required_error: "Please select a contact method",
+    }),
+    message: z
+        .string()
+        .trim()
+        .max(2000, "Message must be less than 2000 characters")
+        .optional()
+        .or(z.literal("")),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
-    const [formData, setFormData] = useState({
+    const { toast } = useToast();
+    const [formData, setFormData] = useState<ContactFormData>({
         name: "",
         email: "",
         phone: "",
@@ -27,12 +66,77 @@ const Contact = () => {
         contactMethod: "email",
         message: "",
     });
+    const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const validateField = (field: keyof ContactFormData, value: string) => {
+        const partialData = { ...formData, [field]: value };
+        const result = contactFormSchema.safeParse(partialData);
+        
+        if (!result.success) {
+            const fieldError = result.error.errors.find(err => err.path[0] === field);
+            if (fieldError) {
+                setErrors(prev => ({ ...prev, [field]: fieldError.message }));
+            } else {
+                setErrors(prev => ({ ...prev, [field]: undefined }));
+            }
+        } else {
+            setErrors(prev => ({ ...prev, [field]: undefined }));
+        }
+    };
+
+    const handleInputChange = (field: keyof ContactFormData, value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+        // Clear error when user starts typing
+        if (errors[field]) {
+            setErrors(prev => ({ ...prev, [field]: undefined }));
+        }
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: Add form submission logic (connect to backend/email service)
-        console.log("Form submitted:", formData);
-        alert("Thank you for your inquiry! We'll get back to you soon.");
+        setIsSubmitting(true);
+        
+        // Validate entire form
+        const result = contactFormSchema.safeParse(formData);
+        
+        if (!result.success) {
+            const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
+            result.error.errors.forEach(err => {
+                const field = err.path[0] as keyof ContactFormData;
+                if (!newErrors[field]) {
+                    newErrors[field] = err.message;
+                }
+            });
+            setErrors(newErrors);
+            setIsSubmitting(false);
+            
+            toast({
+                title: "Validation Error",
+                description: "Please correct the highlighted fields.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        // Form is valid - show success message
+        // Note: Backend integration required for actual submission
+        toast({
+            title: "Message Received",
+            description: "Thank you for your inquiry! We'll get back to you soon.",
+        });
+        
+        // Reset form
+        setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            service: "",
+            contactMethod: "email",
+            message: "",
+        });
+        setErrors({});
+        setIsSubmitting(false);
     };
 
     return (
@@ -76,12 +180,18 @@ const Contact = () => {
                                                 <Input
                                                     id="name"
                                                     required
+                                                    maxLength={100}
                                                     value={formData.name}
-                                                    onChange={(e) =>
-                                                        setFormData({ ...formData, name: e.target.value })
-                                                    }
+                                                    onChange={(e) => handleInputChange("name", e.target.value)}
+                                                    onBlur={(e) => validateField("name", e.target.value)}
                                                     placeholder="John Doe"
+                                                    className={errors.name ? "border-destructive" : ""}
+                                                    aria-invalid={!!errors.name}
+                                                    aria-describedby={errors.name ? "name-error" : undefined}
                                                 />
+                                                {errors.name && (
+                                                    <p id="name-error" className="text-sm text-destructive">{errors.name}</p>
+                                                )}
                                             </div>
 
                                             <div className="space-y-2">
@@ -90,12 +200,18 @@ const Contact = () => {
                                                     id="email"
                                                     type="email"
                                                     required
+                                                    maxLength={255}
                                                     value={formData.email}
-                                                    onChange={(e) =>
-                                                        setFormData({ ...formData, email: e.target.value })
-                                                    }
+                                                    onChange={(e) => handleInputChange("email", e.target.value)}
+                                                    onBlur={(e) => validateField("email", e.target.value)}
                                                     placeholder="john@example.com"
+                                                    className={errors.email ? "border-destructive" : ""}
+                                                    aria-invalid={!!errors.email}
+                                                    aria-describedby={errors.email ? "email-error" : undefined}
                                                 />
+                                                {errors.email && (
+                                                    <p id="email-error" className="text-sm text-destructive">{errors.email}</p>
+                                                )}
                                             </div>
 
                                             <div className="space-y-2">
@@ -104,21 +220,25 @@ const Contact = () => {
                                                     id="phone"
                                                     type="tel"
                                                     required
+                                                    maxLength={20}
                                                     value={formData.phone}
-                                                    onChange={(e) =>
-                                                        setFormData({ ...formData, phone: e.target.value })
-                                                    }
+                                                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                                                    onBlur={(e) => validateField("phone", e.target.value)}
                                                     placeholder="(703) 555-1234"
+                                                    className={errors.phone ? "border-destructive" : ""}
+                                                    aria-invalid={!!errors.phone}
+                                                    aria-describedby={errors.phone ? "phone-error" : undefined}
                                                 />
+                                                {errors.phone && (
+                                                    <p id="phone-error" className="text-sm text-destructive">{errors.phone}</p>
+                                                )}
                                             </div>
 
                                             <div className="space-y-2">
                                                 <Label htmlFor="service">Service Interest</Label>
                                                 <Select
                                                     value={formData.service}
-                                                    onValueChange={(value) =>
-                                                        setFormData({ ...formData, service: value })
-                                                    }
+                                                    onValueChange={(value) => handleInputChange("service", value)}
                                                 >
                                                     <SelectTrigger id="service">
                                                         <SelectValue placeholder="Select a service" />
@@ -141,9 +261,7 @@ const Contact = () => {
                                                 <Label>Preferred Contact Method *</Label>
                                                 <RadioGroup
                                                     value={formData.contactMethod}
-                                                    onValueChange={(value) =>
-                                                        setFormData({ ...formData, contactMethod: value })
-                                                    }
+                                                    onValueChange={(value) => handleInputChange("contactMethod", value as "email" | "phone" | "either")}
                                                 >
                                                     <div className="flex items-center space-x-2">
                                                         <RadioGroupItem value="email" id="email-contact" />
@@ -171,20 +289,30 @@ const Contact = () => {
                                                 <Textarea
                                                     id="message"
                                                     rows={5}
+                                                    maxLength={2000}
                                                     value={formData.message}
-                                                    onChange={(e) =>
-                                                        setFormData({ ...formData, message: e.target.value })
-                                                    }
+                                                    onChange={(e) => handleInputChange("message", e.target.value)}
+                                                    onBlur={(e) => validateField("message", e.target.value)}
                                                     placeholder="Tell us about your treatment goals..."
+                                                    className={errors.message ? "border-destructive" : ""}
+                                                    aria-invalid={!!errors.message}
+                                                    aria-describedby={errors.message ? "message-error" : undefined}
                                                 />
+                                                {errors.message && (
+                                                    <p id="message-error" className="text-sm text-destructive">{errors.message}</p>
+                                                )}
+                                                <p className="text-xs text-muted-foreground text-right">
+                                                    {formData.message?.length || 0}/2000 characters
+                                                </p>
                                             </div>
 
                                             <Button
                                                 type="submit"
                                                 size="lg"
+                                                disabled={isSubmitting}
                                                 className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold"
                                             >
-                                                Send Message
+                                                {isSubmitting ? "Sending..." : "Send Message"}
                                             </Button>
                                         </form>
                                     </CardContent>
