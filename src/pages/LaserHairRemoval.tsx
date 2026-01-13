@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
-import StarRating from "@/components/StarRating";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 
@@ -209,12 +208,9 @@ const LaserHairRemoval = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
-                  <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                    Gold Standard Technology
-                  </span>
-                  <StarRating rating={4.5} />
-                </div>
+                <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+                  Gold Standard Technology
+                </span>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
                   Laser Hair Removal
                 </h1>

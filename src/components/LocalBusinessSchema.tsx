@@ -30,6 +30,13 @@ const LocalBusinessSchema = () => {
       "Falls Church, VA"
     ],
     "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "127"
+    },
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
