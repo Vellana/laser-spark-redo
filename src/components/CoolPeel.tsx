@@ -94,7 +94,7 @@ const CoolPeel = () => {
             </span>
 
             <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-              Advanced Laser Resurfacing<br />
+              CoolPeel Laser Resurfacing in Tysons, VA<br />
               <span className="text-accent">Choose Your Perfect Treatment</span>
             </h2>
 
@@ -159,7 +159,7 @@ const CoolPeel = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-medium bg-white/95 p-12 flex items-center justify-center">
               <img
                 src={tetraProLogo}
-                alt="Cartessa Tetra Pro CO2 laser system for CoolPeel and DEKA Pulse skin resurfacing treatments"
+                alt="CoolPeel CO2 laser treatment results with advanced Cartessa Tetra Pro technology for minimal downtime skin resurfacing"
                 className="w-full max-w-md h-auto object-contain"
               />
             </div>
