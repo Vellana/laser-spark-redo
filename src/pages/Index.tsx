@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import SpecialsPopup from "@/components/SpecialsPopup";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -27,6 +28,17 @@ const Index = () => {
         <Hero />
         <ServiceCategories />
         <CoolPeel />
+        <div className="bg-secondary/30 py-6">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-muted-foreground">
+              Looking for skin rejuvenation with minimal downtime? Learn more about our{" "}
+              <Link to="/laser-skin-resurfacing" className="text-accent hover:underline font-medium">
+                CoolPeel laser resurfacing
+              </Link>{" "}
+              treatments using advanced CO₂ technology.
+            </p>
+          </div>
+        </div>
         <Services />
         <Testimonials />
         <InstagramFeed />

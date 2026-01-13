@@ -310,7 +310,8 @@ const LaserHairRemoval = () => {
                 ))}
               </div>
               <p className="text-center text-muted-foreground mt-6">
-                Full body packages available. <Link to="/pricing" className="text-accent hover:underline">View all pricing</Link>
+                Full body packages available. <Link to="/pricing" className="text-accent hover:underline">View all pricing</Link> | 
+                Interested in skin rejuvenation? Try our <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">CoolPeel laser resurfacing</Link> treatment.
               </p>
             </div>
           </div>
