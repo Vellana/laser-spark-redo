@@ -122,6 +122,11 @@ const LaserSkinResurfacing = () => {
                       <strong>Perfect if:</strong> You want effective results without significant social downtime
                     </p>
                   </div>
+                  <Link to="/services/coolpeel" className="inline-block mt-2">
+                    <Button variant="outline" className="border-accent text-accent hover:bg-accent/10">
+                      Learn More About CoolPeel →
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
 
