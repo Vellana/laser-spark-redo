@@ -22,7 +22,6 @@ import {
   LucideIcon,
   AlertTriangle,
 } from "lucide-react";
-import StarRating from "@/components/StarRating";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 
 interface ServiceArea {
@@ -207,13 +206,12 @@ const Services = () => {
     <section id="laser-hair-removal" className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-            Laser Hair Removal
-          </h2>
-          <StarRating rating={4.5} className="justify-center" />
-          <p className="text-lg text-muted-foreground">
-            Safe, effective laser treatments for all areas of the body. Professional results with expert care. Click any area for details and pricing.
-          </p>
+        <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
+          Laser Hair Removal
+        </h2>
+        <p className="text-lg text-muted-foreground">
+          Safe, effective laser treatments for all areas of the body. Professional results with expert care. Click any area for details and pricing.
+        </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">

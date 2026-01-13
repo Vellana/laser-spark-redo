@@ -5,7 +5,6 @@ import { Sparkles, Zap, Heart, Clock, TrendingUp, AlertCircle } from "lucide-rea
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
-import StarRating from "@/components/StarRating";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 
 const CoolPeel = () => {
@@ -90,12 +89,9 @@ const CoolPeel = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Content Side */}
           <div className="space-y-6 text-center lg:text-left">
-            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
-              <span className="bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                Featured Technology
-              </span>
-              <StarRating rating={4.5} />
-            </div>
+            <span className="bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+              Featured Technology
+            </span>
 
             <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
               Advanced Laser Resurfacing<br />

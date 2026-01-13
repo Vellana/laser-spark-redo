@@ -7,7 +7,6 @@ import { Sparkles, Clock, Heart, TrendingUp, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
-import StarRating from "@/components/StarRating";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
@@ -29,12 +28,9 @@ const LaserSkinResurfacing = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
-                  <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                    Revolutionary Technology
-                  </span>
-                  <StarRating rating={4.5} />
-                </div>
+                <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+                  Revolutionary Technology
+                </span>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
                   CoolPeel & DEKA CO₂ Laser Resurfacing
                 </h1>
