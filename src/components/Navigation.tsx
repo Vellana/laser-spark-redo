@@ -48,9 +48,9 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a href="/" className="flex items-center space-x-3">
+        <div className="flex items-center h-20">
+          {/* Logo - pushed to left */}
+          <a href="/" className="flex items-center space-x-3 flex-shrink-0">
             <img
               src={logo}
               alt="Virginia Laser Specialists Logo"
@@ -61,8 +61,8 @@ const Navigation = () => {
             </span>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
+          {/* Desktop Navigation - centered */}
+          <div className="hidden lg:flex items-center justify-center flex-1">
             <div className="flex items-center gap-6">
               {navLinks.map((link) => (
                 <a
@@ -77,8 +77,8 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          {/* Desktop CTA - pushed to right */}
+          <div className="hidden lg:block flex-shrink-0">
             <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
               <Button variant="accent" className="animate-pulse-subtle px-6 py-3 text-base">
                 Book Now
