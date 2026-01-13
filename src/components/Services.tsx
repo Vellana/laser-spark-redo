@@ -20,7 +20,10 @@ import {
   Move,
   User,
   LucideIcon,
+  AlertTriangle,
 } from "lucide-react";
+import StarRating from "@/components/StarRating";
+import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 
 interface ServiceArea {
   name: string;
@@ -207,6 +210,7 @@ const Services = () => {
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
             Laser Hair Removal
           </h2>
+          <StarRating rating={4.5} className="justify-center" />
           <p className="text-lg text-muted-foreground">
             Safe, effective laser treatments for all areas of the body. Professional results with expert care. Click any area for details and pricing.
           </p>
@@ -285,12 +289,12 @@ const Services = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Aftercare Section */}
+        {/* Pre-Treatment Instructions */}
         <div className="max-w-4xl mx-auto mb-12">
           <Card className="border-border">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-foreground mb-6">
-                Laser Hair Removal Care Instructions
+                Pre-Treatment Instructions
               </h3>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-start gap-3">
@@ -319,18 +323,6 @@ const Services = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-1">•</span>
-                  <span>Avoid excessive heat, including hot water, saunas, hot tubs, for 48 hours post-treatment.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>Do not exercise rigorously for 24 hours post-treatment.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>Do not apply topical beauty products, including deodorant for 24 hours post-treatment.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
                   <span>Please call before your appointment if you are taking a new medication that may cause photosensitivity, especially acne medication.</span>
                 </li>
               </ul>
@@ -339,6 +331,60 @@ const Services = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   The Lutronic Clarity II laser is the gold standard for laser hair removal. Its dual-wavelength system is safe for use on all skin types and tones and can also treat conditions such as hyperpigmentation, spider veins, angiomas, and broken capillaries.
                 </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Aftercare Section */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <Card className="border-border bg-secondary/30">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6">
+                Laser Hair Removal Aftercare
+              </h3>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Apply cool compresses to soothe treated areas and reduce any discomfort.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Wear loose clothing and use lukewarm water when bathing for 48 hours after treatment.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid sun exposure, hot showers, saunas, pools, and tanning lotions on treated areas.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid scented lotions or deodorant on treated areas for at least 24 hours.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Do not scrub or pick at the skin in the treated area.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid body scrubs or exfoliation on treated areas for one week.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Avoid swimming and sunless tanning products for one week after treatment.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Schedule your next session at least 4 weeks after your previous treatment.</span>
+                </li>
+              </ul>
+
+              <div className="mt-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-foreground">
+                    <strong>Important:</strong> Contact your healthcare provider if you experience severe redness, swelling, blistering, or signs of infection following treatment.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
