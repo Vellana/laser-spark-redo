@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: "Laser Skin Resurfacing", href: "/#cool-peel" },
@@ -17,6 +19,31 @@ const Navigation = () => {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("/#")) {
+      e.preventDefault();
+      const elementId = href.substring(2);
+      
+      if (location.pathname === "/") {
+        // Already on home page, just scroll
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // Navigate to home page first, then scroll
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+      setIsOpen(false);
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
@@ -34,12 +61,12 @@ const Navigation = () => {
             </span>
           </a>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="px-4 py-2 text-sm font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50"
               >
                 {link.name}
@@ -76,7 +103,7 @@ const Navigation = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="block px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
               >
                 {link.name}
