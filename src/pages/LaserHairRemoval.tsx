@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import StarRating from "@/components/StarRating";
+import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 
 interface TreatmentArea {
@@ -207,9 +209,12 @@ const LaserHairRemoval = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                  Gold Standard Technology
-                </span>
+                <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
+                  <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+                    Gold Standard Technology
+                  </span>
+                  <StarRating rating={4.5} />
+                </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
                   Laser Hair Removal
                 </h1>
@@ -343,6 +348,7 @@ const LaserHairRemoval = () => {
                   </div>
                 </div>
               </div>
+              <CherryFinancingBadge className="mt-4" />
               <div className="pt-4">
                 <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
                   <Button className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold">
@@ -420,14 +426,17 @@ const LaserHairRemoval = () => {
         <section className="py-12 sm:py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
               Book your free consultation today and take the first step toward smooth, hair-free skin.
             </p>
-            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                Book Free Consultation
-              </Button>
-            </a>
+            <CherryFinancingBadge className="mb-6 bg-primary-foreground/10 border-primary-foreground/20" />
+            <div>
+              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
+                  Book Free Consultation
+                </Button>
+              </a>
+            </div>
           </div>
         </section>
       </main>
