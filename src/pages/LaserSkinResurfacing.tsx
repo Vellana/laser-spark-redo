@@ -3,10 +3,12 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sparkles, Clock, Heart, TrendingUp } from "lucide-react";
+import { Sparkles, Clock, Heart, TrendingUp, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import StarRating from "@/components/StarRating";
+import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 
@@ -27,9 +29,12 @@ const LaserSkinResurfacing = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                  Revolutionary Technology
-                </span>
+                <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
+                  <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+                    Revolutionary Technology
+                  </span>
+                  <StarRating rating={4.5} />
+                </div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
                   CoolPeel & DEKA CO₂ Laser Resurfacing
                 </h1>
@@ -378,18 +383,106 @@ const LaserSkinResurfacing = () => {
           </div>
         </section>
 
+        {/* CoolPeel Aftercare Section */}
+        <section className="py-16 bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-8 h-8 text-accent" />
+                </div>
+                <h2 className="text-3xl font-bold text-foreground mb-2">CoolPeel Aftercare</h2>
+                <p className="text-muted-foreground">Essential care for optimal CoolPeel results</p>
+              </div>
+              <Card className="border-accent/40">
+                <CardContent className="p-6 sm:p-8">
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Keep a thin layer of Aquaphor on the treated area for up to 3 days.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Avoid makeup and sunscreen for 48 hours and sleep with a clean pillowcase while keeping your head elevated.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Do not apply active skin-care ingredients (AHAs, BHAs, vitamin C, etc.) for one week, and resume retinol products after 7 days.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Avoid direct sunlight for at least 48 hours and wear SPF 50+ afterwards.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Avoid strenuous exercise for 24 hours and stay out of hot tubs/saunas for one week.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Wear clean face masks for 72 hours and watch for signs of infection (redness, swelling, fever).</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Deka Aftercare Section */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-8 h-8 text-primary" />
+                </div>
+                <h2 className="text-3xl font-bold text-foreground mb-2">Deka Aftercare</h2>
+                <p className="text-muted-foreground">Essential care for optimal DEKA CO₂ results</p>
+              </div>
+              <Card className="border-primary/40">
+                <CardContent className="p-6 sm:p-8">
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Apply cold compresses and gently cleanse, using a light moisturizer; avoid sun exposure, heat, workouts and makeup for 24 hours.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Reapply light moisturizer frequently for the first 48 hours and avoid active skincare ingredients for 2–3 days; mild flaking/dryness is normal.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground">Resume SPF use after 24 hours; for deeper resurfacing, perform vinegar soaks, apply moisturizer, and avoid workouts, pools, saunas and makeup for 7-10 days until crusting resolves.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold mt-0.5">•</span>
+                      <span className="text-muted-foreground flex items-center gap-1">
+                        <AlertCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                        Contact us if you notice signs of infection, severe swelling, or prolonged redness.
+                      </span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Skin?</h2>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
               Book your free consultation today and discover which treatment is right for you.
             </p>
-            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                Book Free Consultation
-              </Button>
-            </a>
+            <CherryFinancingBadge className="mb-6 bg-primary-foreground/10 border-primary-foreground/20" />
+            <div>
+              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
+                  Book Free Consultation
+                </Button>
+              </a>
+            </div>
           </div>
         </section>
       </main>
