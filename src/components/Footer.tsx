@@ -34,6 +34,7 @@ const Footer = () => {
                 { name: "Laser Hair Removal", href: "#laser-hair-removal" },
                 { name: "Specials", href: "/specials" },
                 { name: "Pricing", href: "/pricing" },
+                { name: "Financing", href: "#cherry-financing" },
                 { name: "Gallery", href: "/gallery" },
                 { name: "About", href: "#about" },
                 { name: "Contact", href: "#contact" },
