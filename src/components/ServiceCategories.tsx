@@ -47,11 +47,11 @@ const ServiceCategories = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
               </div>
 
-              <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
-                <h3 className="text-3xl font-bold mb-3 group-hover:text-accent transition-colors">
+              <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 lg:p-8 text-white">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 group-hover:text-accent transition-colors leading-tight">
                   {category.title}
                 </h3>
-                <p className="text-white/90 mb-6 text-lg">
+                <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base lg:text-lg leading-relaxed">
                   {category.description}
                 </p>
                 <a href={category.link}>
