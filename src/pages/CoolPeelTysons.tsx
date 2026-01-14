@@ -506,69 +506,41 @@ const CoolPeelTysons = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground text-center mb-8">
-                CoolPeel Aftercare Instructions
+                CoolPeel Post-Treatment Instructions
               </h2>
               
               <Card className="border-accent/40">
                 <CardContent className="p-6 sm:p-8">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
-                        <CheckCircle className="w-5 h-5 text-accent" />
-                        Do's
-                      </h3>
-                      <ul className="space-y-3">
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-accent">•</span>
-                          Use gentle, hydrating cleanser twice daily
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-accent">•</span>
-                          Apply recommended moisturizer frequently
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-accent">•</span>
-                          Use SPF 30+ sunscreen after 24 hours
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-accent">•</span>
-                          Stay hydrated and get plenty of rest
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-accent">•</span>
-                          Sleep with head elevated if possible
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
-                        <Shield className="w-5 h-5 text-primary" />
-                        Don'ts
-                      </h3>
-                      <ul className="space-y-3">
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary">•</span>
-                          Don't pick or peel flaking skin
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary">•</span>
-                          Avoid direct sun exposure for 2+ weeks
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary">•</span>
-                          No exfoliating products for 5-7 days
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary">•</span>
-                          Skip strenuous exercise for 48 hours
-                        </li>
-                        <li className="text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary">•</span>
-                          Avoid makeup for 2-5 days post-treatment
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Apply a thin layer of Aquaphor to the treated area and reapply as needed for the first 48-72 hours.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Avoid makeup and sunscreen for 48 hours post-treatment.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Keep your head elevated while sleeping; use a clean pillowcase and change it frequently.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Do not apply active skin-care products (AHAs, BHAs, retinols, vitamin C serums) for one week.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Avoid strenuous exercise for 24 hours post-treatment.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Stay out of hot tubs, saunas, and swimming pools for at least one week.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground font-medium">Watch for signs of infection (increasing redness, swelling, warmth, fever, or discharge). Contact your provider immediately if any occur.</span>
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>

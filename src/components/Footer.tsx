@@ -55,14 +55,22 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Connect With Us</h3>
             <div className="space-y-3 text-muted-foreground">
-              <p>8100 Boone Blvd, Suite 270</p>
-              <p>Vienna, VA 22182</p>
+              <p>8230 Boone Blvd, Suite 320</p>
+              <p>Tysons, VA 22182</p>
               <p>
                 <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
                   703-547-4499
                 </a>
               </p>
               <p className="text-sm">Tue-Fri: 10am-6pm | Sat: 9am-1pm</p>
+              <a 
+                href="https://maps.google.com/?q=8230+Boone+Boulevard+Suite+320+Tysons+VA+22182"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-accent hover:underline text-sm mt-2"
+              >
+                View on Google Maps →
+              </a>
               <div className="flex gap-4 pt-2">
                 <a
                   href="https://www.facebook.com/profile.php?id=61573588844302"

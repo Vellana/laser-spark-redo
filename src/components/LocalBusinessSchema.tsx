@@ -27,7 +27,9 @@ const LocalBusinessSchema = () => {
       "Vienna, VA",
       "Fairfax, VA",
       "McLean, VA",
-      "Falls Church, VA"
+      "Falls Church, VA",
+      "Arlington, VA",
+      "Reston, VA"
     ],
     "priceRange": "$$",
     "aggregateRating": {
@@ -40,13 +42,21 @@ const LocalBusinessSchema = () => {
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "10:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday"],
         "opens": "09:00",
-        "closes": "17:00"
+        "closes": "13:00"
       }
     ],
+    "image": "https://virginialaserspecialists.com/favicon.png",
     "sameAs": [
-      "https://www.instagram.com/virginialaserspecialists"
+      "https://www.instagram.com/virginialaserspecialists",
+      "https://www.facebook.com/profile.php?id=61573588844302"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -64,8 +74,8 @@ const LocalBusinessSchema = () => {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "CoolPeel Laser Resurfacing",
-            "description": "CO2 laser skin resurfacing with minimal downtime for smoother, rejuvenated skin."
+            "name": "CoolPeel CO₂ Laser Resurfacing",
+            "description": "Revolutionary CO2 laser skin resurfacing with minimal downtime for smoother, rejuvenated skin using Cartessa Tetra Pro technology."
           }
         },
         {

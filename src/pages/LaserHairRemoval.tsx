@@ -11,6 +11,57 @@ import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
+import { Helmet } from "react-helmet-async";
+
+// Laser Hair Removal FAQ Schema
+const LaserHairRemovalSchema = () => {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many laser hair removal sessions do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most patients need 8-10 laser hair removal sessions spaced 6-8 weeks apart for optimal results. The exact number depends on your hair type, skin tone, and treatment area."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is laser hair removal safe for all skin types?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the Lutronic Clarity II laser we use at Virginia Laser Specialists is safe for all skin types and tones thanks to its dual-wavelength Alexandrite and Nd:YAG technology."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does laser hair removal cost in Tysons, VA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Laser hair removal pricing varies by treatment area. Single sessions range from $100 for small areas like chin or upper lip to $1,850 for full body. We offer 25% off package deals of 5 sessions. Visit our pricing page for details."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I do after laser hair removal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After laser hair removal, apply cool compresses to reduce redness, wear loose clothing, avoid sun exposure for 24-48 hours, skip hot baths and saunas, and avoid fragranced products on the treated area. Seek medical advice if you experience severe redness, swelling, or blistering."
+        }
+      }
+    ]
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </script>
+    </Helmet>
+  );
+};
 
 interface TreatmentArea {
   name: string;
@@ -159,10 +210,14 @@ const preTreatmentInstructions = [
 ];
 
 const postTreatmentInstructions = [
-  "Avoid sun exposure to the treated area by covering or using sunscreen for a minimum of 2-4 weeks prior and post treatment.",
-  "Avoid excessive heat, including hot water, saunas, hot tubs, for 48 hours post-treatment.",
-  "Do not exercise rigorously for 24 hours post-treatment.",
-  "Do not apply topical beauty products, including deodorant for 24 hours post-treatment.",
+  "Apply cool compresses to reduce redness and swelling for the first 24-48 hours as needed.",
+  "Wear loose, breathable clothing over treated areas to avoid irritation.",
+  "Avoid direct sun exposure to treated areas for 24-48 hours; when outdoors, cover or use SPF 30+ sunscreen.",
+  "No hot baths, saunas, hot tubs, or swimming pools for 24-48 hours post-treatment.",
+  "Avoid fragranced lotions, perfumed products, or harsh soaps on the treated area for 24-48 hours.",
+  "Do not scrub, exfoliate, or wax the treated area for at least one week.",
+  "Avoid tanning beds, spray tans, or self-tanners for one week after treatment.",
+  "Seek medical advice if you experience severe redness, swelling, blistering, or signs of infection.",
   "Questions, concerns or appointment scheduling: 703-547-4499"
 ];
 
@@ -200,6 +255,7 @@ const LaserHairRemoval = () => {
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
+      <LaserHairRemovalSchema />
       <Navigation />
       
       <main className="pt-20">
