@@ -10,7 +10,7 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const navLinks = [
-    { name: "CoolPeel", href: "/services/coolpeel" },
+    { name: "CoolPeel", href: "/coolpeel-co2-laser-tysons-va" },
     { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
     { name: "Laser Hair Removal", href: "/laser-hair-removal" },
     { name: "Specials", href: "/specials" },
