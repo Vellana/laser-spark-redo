@@ -57,7 +57,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
   }
 
   return (
-    <section id="cherry-financing" className="py-16 bg-gradient-to-b from-accent/5 to-background">
+    <section id="cherry-financing" className="py-16 bg-gradient-to-b from-accent/5 to-background scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-10">
