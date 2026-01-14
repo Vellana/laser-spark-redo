@@ -11,8 +11,8 @@ const LocalBusinessSchema = () => {
     "telephone": "703-547-4499",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "8230 Boone Blvd, Suite 320",
-      "addressLocality": "Tysons",
+      "streetAddress": "8100 Boone Blvd, Suite 270",
+      "addressLocality": "Vienna",
       "addressRegion": "VA",
       "postalCode": "22182",
       "addressCountry": "US"

@@ -207,11 +207,11 @@ const LaserSkinResurfacing = () => {
                   <TabsTrigger value="pre-treatment" className="text-xs sm:text-sm font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
                     Pre-Treatment
                   </TabsTrigger>
-                  <TabsTrigger value="coolpeel-post" className="text-xs sm:text-sm font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
-                    CoolPeel Post
+                  <TabsTrigger value="coolpeel-aftercare" className="text-xs sm:text-sm font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
+                    CoolPeel Aftercare
                   </TabsTrigger>
-                  <TabsTrigger value="deka-post" className="text-xs sm:text-sm font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
-                    DEKA CO₂ Post
+                  <TabsTrigger value="deka-aftercare" className="text-xs sm:text-sm font-semibold data-[state=active]:bg-accent data-[state=active]:text-primary">
+                    DEKA CO₂ Aftercare
                   </TabsTrigger>
                 </TabsList>
                 
@@ -243,11 +243,11 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Stop Accutane® (3+ months – or as directed by your provider)</span>
+                          <span className="text-muted-foreground">Stop Accutane® 6 months prior (or as directed by your provider).</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">No aspirin or supplements that may thin the blood (7 days or as directed by your provider)</span>
+                          <span className="text-muted-foreground">Avoid aspirin or NSAIDs for 5 days prior (or as directed by your provider).</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
@@ -262,15 +262,28 @@ const LaserSkinResurfacing = () => {
                   </Card>
                 </TabsContent>
                 
-                {/* CoolPeel Post-Treatment Tab */}
-                <TabsContent value="coolpeel-post">
+                {/* CoolPeel Aftercare Tab */}
+                <TabsContent value="coolpeel-aftercare">
                   <Card className="border-accent/40">
                     <CardContent className="p-6 sm:p-8">
-                      <h3 className="font-semibold text-lg text-foreground mb-4">Day of treatment:</h3>
-                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (1-3 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">Day of Treatment:</h3>
+                      <ul className="space-y-4 mb-8">
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Immediately apply a light non-stinging moisturizer or barrier (Aquaphor or Vaseline). If burning persists, wash off all products and apply moisturizer only; reapply hydrating products every 3–4 hours until the sandpaper texture resolves.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Use a gentle cleanser with lukewarm water; do not scrub or exfoliate; avoid ice packs; do not pick or remove peeling skin.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Contact us if you experience severe redness, swelling, or watery blisters.</span>
+                        </li>
+                      </ul>
                       
-                      <h3 className="font-semibold text-lg text-foreground mb-4">After the treatment:</h3>
-                      <ul className="space-y-3">
+                      <h3 className="font-semibold text-lg text-foreground mb-4">After the Treatment:</h3>
+                      <ul className="space-y-3 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
                           <span className="text-muted-foreground">Do not use any exfoliants or other products/procedures to address the texture for 5-7 days.</span>
@@ -308,19 +321,39 @@ const LaserSkinResurfacing = () => {
                           <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. 2-4 days.</span>
                         </li>
                       </ul>
+                      
+                      <h3 className="font-semibold text-lg text-foreground mb-4">Treatment Spacing:</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Wait 2 weeks after Botox.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Wait 4 weeks after filler.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Wait 4 weeks after aggressive chemical peels.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">After any other laser treatment, wait until the skin is fully healed.</span>
+                        </li>
+                      </ul>
                       <p className="text-foreground font-semibold mt-6">PLEASE CONTACT YOUR PROVIDER WITH ANY QUESTIONS/CONCERNS DURING YOUR RECOVERY PERIOD</p>
                     </CardContent>
                   </Card>
                 </TabsContent>
                 
-                {/* DEKA CO₂ Post-Treatment Tab */}
-                <TabsContent value="deka-post">
+                {/* DEKA CO₂ Aftercare Tab */}
+                <TabsContent value="deka-aftercare">
                   <Card className="border-primary/40">
                     <CardContent className="p-6 sm:p-8">
-                      <h3 className="font-semibold text-lg text-foreground mb-4">Day of treatment:</h3>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">Day of Treatment:</h3>
                       <p className="text-muted-foreground mb-6">You may feel a hot / sunburn sensation for 2-6+ hours post-treatment. During the recovery, swelling, redness, and mild to moderate sunburn sensation are to be expected along with pinpoint bleeding, weeping, or oozing. Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat. Gently apply a thin layer, about the thickness of a dime, of Vaseline or the provider recommended product after the sunburn sensation fades (usually by bedtime), to keep the area moisturized and protected. Prior to bedtime, it may be beneficial to take an antihistamine (e.g., Benadryl® or Zyrtec®).</p>
                       
-                      <h3 className="font-semibold text-lg text-foreground mb-4">After the treatment:</h3>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">After the Treatment:</h3>
                       <ul className="space-y-3">
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
@@ -368,7 +401,7 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. for 5-7 days.</span>
+                          <span className="text-muted-foreground">Avoid intense workouts, swimming pools, hot tubs, and saunas for 7-10 days.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
@@ -380,114 +413,6 @@ const LaserSkinResurfacing = () => {
                   </Card>
                 </TabsContent>
               </Tabs>
-            </div>
-          </div>
-        </section>
-
-        {/* CoolPeel Aftercare Section */}
-        <section className="py-16 bg-secondary/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-8 h-8 text-accent" />
-                </div>
-                <h2 className="text-3xl font-bold text-foreground mb-2">CoolPeel Post-Treatment Care</h2>
-                <p className="text-muted-foreground">Essential care for optimal CoolPeel results</p>
-              </div>
-              <Card className="border-accent/40">
-                <CardContent className="p-6 sm:p-8">
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Apply a thin layer of Aquaphor to the treated area and reapply as needed for the first 48-72 hours.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Avoid makeup and sunscreen for 48 hours post-treatment.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Keep your head elevated while sleeping; use a clean pillowcase and change it frequently.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Do not apply active skin-care products (AHAs, BHAs, retinols, vitamin C serums) for one week.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Avoid strenuous exercise for 24 hours post-treatment.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Stay out of hot tubs, saunas, and swimming pools for at least one week.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-accent font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Watch for signs of infection (increasing redness, swelling, warmth, fever, or discharge). Contact your provider immediately if any occur.</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Deka Aftercare Section */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-8 h-8 text-primary" />
-                </div>
-                <h2 className="text-3xl font-bold text-foreground mb-2">DEKA / Tetra CO₂ Aftercare</h2>
-                <p className="text-muted-foreground">Essential care for optimal DEKA CO₂ results</p>
-              </div>
-              <Card className="border-primary/40">
-                <CardContent className="p-6 sm:p-8">
-                  <h3 className="font-semibold text-lg text-foreground mb-4">Immediate Care (First 24-48 Hours):</h3>
-                  <ul className="space-y-3 mb-6">
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Apply cold compresses to reduce heat and swelling as needed.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Gently cleanse with a mild, fragrance-free cleanser; pat dry (do not rub).</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Apply a light, fragrance-free moisturizer (such as Vaseline or Aquaphor) to keep the skin hydrated.</span>
-                    </li>
-                  </ul>
-                  
-                  <h3 className="font-semibold text-lg text-foreground mb-4">For Deeper Treatments:</h3>
-                  <ul className="space-y-3 mb-6">
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Perform vinegar soaks 2-3 times daily (1 cup water + 1 TBS white distilled vinegar) to soften crusting and promote healing.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Avoid intense workouts, swimming pools, hot tubs, and saunas for 7-10 days.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Do not apply makeup until crusting has fully resolved (typically 7-10 days).</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold mt-0.5">•</span>
-                      <span className="text-muted-foreground">Avoid direct sun exposure and use SPF 30+ zinc/titanium-based sunscreen once skin is intact.</span>
-                    </li>
-                  </ul>
-                  
-                  <div className="bg-primary/10 p-4 rounded-lg flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground font-medium">Contact your provider immediately if you notice signs of infection: increasing redness, swelling, warmth, fever, pus, or unusual discharge.</span>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </section>
