@@ -215,14 +215,25 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-          {services.map((service, index) => (
-            <Card
-              key={service.name}
-              onClick={() => setSelectedService(service)}
-              className={`group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50 ${
-                index === services.length - 2 ? 'lg:col-start-2' : ''
-              }`}
-            >
+          {services.map((service, index) => {
+            // Center last 2 cards on different breakpoints
+            const isSecondToLast = index === services.length - 2;
+            const isLast = index === services.length - 1;
+            
+            // For 2-col grid (mobile): no centering needed (18 items = 9 rows)
+            // For 3-col grid (md): 18 items = 6 full rows, no centering needed
+            // For 4-col grid (lg): 16 items + 2 remaining, center the last 2
+            let positionClasses = '';
+            if (isSecondToLast) {
+              positionClasses = 'lg:col-start-2';
+            }
+            
+            return (
+              <Card
+                key={service.name}
+                onClick={() => setSelectedService(service)}
+                className={`group overflow-hidden border-border hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer hover:border-accent/50 ${positionClasses}`}
+              >
               <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center space-y-3 sm:space-y-4 h-full">
                 <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full ${service.color} flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110`}>
                   <service.icon className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -235,7 +246,8 @@ const Services = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          );
+          })}
         </div>
 
         {/* Service Detail Dialog */}
