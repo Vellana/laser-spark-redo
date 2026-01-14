@@ -41,7 +41,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {contactInfo.map((info) => (
+          {contactInfo.slice(0, 2).map((info) => (
             <Card
               key={info.title}
               className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300"
@@ -62,6 +62,25 @@ const Contact = () => {
               </CardContent>
             </Card>
           ))}
+          {/* Hours card - centered below on tablet, inline on desktop */}
+          <Card
+            className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300 sm:col-span-2 sm:max-w-sm sm:mx-auto lg:col-span-1 lg:max-w-none"
+          >
+            <CardContent className="p-6 text-center space-y-3">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-accent rounded-full">
+                <Clock className="w-7 h-7 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-white mb-1">{contactInfo[2].title}</h3>
+                <a
+                  href={contactInfo[2].link}
+                  className="text-white/90 hover:text-accent transition-colors"
+                >
+                  {contactInfo[2].details}
+                </a>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="text-center space-y-6">
