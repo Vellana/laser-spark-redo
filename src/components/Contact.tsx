@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, MapPin, Clock, Mail } from "lucide-react";
+import { Phone, MapPin, Clock } from "lucide-react";
 
 const Contact = () => {
   const contactInfo = [
@@ -13,8 +13,8 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      details: "8100 Boone Blvd, Suite 270, Vienna, VA 22182",
-      link: "https://maps.google.com/?q=8100+Boone+Boulevard+Suite+270+Vienna+VA+22182",
+      details: "8230 Boone Blvd, Suite 320, Tysons, VA 22182",
+      link: "https://maps.google.com/?q=8230+Boone+Boulevard+Suite+320+Tysons+VA+22182",
     },
     {
       icon: Clock,
@@ -81,6 +81,22 @@ const Contact = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Google Map */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="h-[300px] rounded-xl overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3106.5835844744707!2d-77.23373892358055!3d38.91983394785829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64a89e9d5c7af%3A0x8e0d9b9b9b9b9b9b!2s8230%20Boone%20Blvd%2C%20Tysons%2C%20VA%2022182!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Virginia Laser Specialists Location - 8230 Boone Blvd, Suite 320, Tysons, VA 22182"
+            ></iframe>
+          </div>
         </div>
 
         <div className="text-center space-y-6">
