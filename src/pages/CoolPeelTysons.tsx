@@ -30,8 +30,8 @@ const CoolPeelTysonsSchema = () => {
         "email": "info@virginialaserspecialists.com",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "8230 Boone Blvd, Suite 320",
-          "addressLocality": "Tysons",
+          "streetAddress": "8100 Boone Blvd, Suite 270",
+          "addressLocality": "Vienna",
           "addressRegion": "VA",
           "postalCode": "22182",
           "addressCountry": "US"
@@ -100,7 +100,7 @@ const CoolPeelTysonsSchema = () => {
             "name": "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8230 Boone Blvd, Suite 320, Tysons, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
+              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
             }
           },
           {
@@ -193,7 +193,7 @@ const benefits = [
 const faqs = [
   {
     question: "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
-    answer: "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8230 Boone Blvd, Suite 320, Tysons, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, Arlington, Reston, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
+    answer: "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, Arlington, Reston, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
   },
   {
     question: "How long is the recovery after CoolPeel treatment?",
