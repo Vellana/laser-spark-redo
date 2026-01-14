@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import LaserHairRemoval from "./pages/LaserHairRemoval";
 import LaserSkinResurfacing from "./pages/LaserSkinResurfacing";
 import CoolPeelPage from "./pages/services/CoolPeel";
+import CoolPeelTysons from "./pages/CoolPeelTysons";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/laser-hair-removal" element={<LaserHairRemoval />} />
           <Route path="/laser-skin-resurfacing" element={<LaserSkinResurfacing />} />
           <Route path="/services/coolpeel" element={<CoolPeelPage />} />
+          <Route path="/coolpeel-co2-laser-tysons-va" element={<CoolPeelTysons />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
