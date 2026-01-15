@@ -43,7 +43,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
 
           <div className="text-center space-y-4">
             <a href={cherryUrl} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8">
+              <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
                 🍒 Check Your Eligibility
               </Button>
             </a>
@@ -88,7 +88,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
             <a href={cherryUrl} target="_blank" rel="noopener noreferrer">
               <Button 
                 size="lg" 
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-10 py-6 text-lg transition-all hover:scale-105"
+                className="bg-accent hover:bg-accent/90 text-primary font-semibold px-10 py-6 text-lg transition-all hover:scale-105"
               >
                 🍒 Apply Now
               </Button>
