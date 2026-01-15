@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -79,7 +80,8 @@ const Navigation = () => {
           </div>
 
           {/* Desktop CTA - pushed to right */}
-          <div className="hidden lg:block flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <ThemeToggle />
             <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
               <Button variant="accent" className="animate-pulse-subtle px-6 py-3 text-base">
                 Book Now
@@ -113,8 +115,9 @@ const Navigation = () => {
                 {link.name}
               </a>
             ))}
-            <div className="pt-2">
-              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+            <div className="pt-2 flex items-center gap-3">
+              <ThemeToggle />
+              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer" className="flex-1">
                 <Button variant="accent" className="w-full">
                   Book Now
                 </Button>
