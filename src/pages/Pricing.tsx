@@ -98,7 +98,7 @@ const Pricing = () => {
                 </div>
                 <div className="mt-8 text-center">
                   <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-                    <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
+                    <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold">
                       Book Free Consultation
                     </Button>
                   </a>
