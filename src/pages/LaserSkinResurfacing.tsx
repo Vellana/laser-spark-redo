@@ -267,14 +267,15 @@ const LaserSkinResurfacing = () => {
                   <Card className="border-accent/40">
                     <CardContent className="p-6 sm:p-8">
                       <h3 className="font-semibold text-lg text-foreground mb-4">Day of Treatment:</h3>
+                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (1-3 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
                       <ul className="space-y-4 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Immediately apply a light non-stinging moisturizer or barrier (Aquaphor or Vaseline). If burning persists, wash off all products and apply moisturizer only; reapply hydrating products every 3–4 hours until the sandpaper texture resolves.</span>
+                          <span className="text-muted-foreground">Apply a light, non-stinging moisturizer (hyaluronic acid or cream-based) after the sunburn sensation fades. After applying the product, if burning is noted for more than a few minutes (or is very intense), wash off with a mild cleanser, rinse with cold water, and notify your provider.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Use a gentle cleanser with lukewarm water; do not scrub or exfoliate; avoid ice packs; do not pick or remove peeling skin.</span>
+                          <span className="text-muted-foreground">Keep the area moisturized; reapply products every 3–4 hours to maintain hydration and until the "sandpaper" texture resolves (typically 5-7 days).</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
@@ -318,7 +319,7 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. 2-4 days.</span>
+                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. for 2-4 days.</span>
                         </li>
                       </ul>
                       
@@ -401,7 +402,7 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid intense workouts, swimming pools, hot tubs, and saunas for 7-10 days.</span>
+                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, for 5-7 days.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
