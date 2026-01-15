@@ -260,7 +260,7 @@ const CoolPeelTysons = () => {
                     </Button>
                   </a>
                   <Link to="/pricing">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 font-semibold px-8">
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-8">
                       View Pricing
                     </Button>
                   </Link>
@@ -707,7 +707,7 @@ const CoolPeelTysons = () => {
                 </Button>
               </a>
               <a href="tel:703-547-4499">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20 font-semibold px-8">
+                <Button size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8">
                   Call (703) 547-4499
                 </Button>
               </a>
