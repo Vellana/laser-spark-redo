@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sparkles, Clock, Heart, TrendingUp, AlertCircle } from "lucide-react";
+import { Sparkles, Clock, Heart, TrendingUp, AlertCircle, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
@@ -197,9 +197,35 @@ const LaserSkinResurfacing = () => {
                 <h2 className="text-3xl font-bold text-foreground mb-2">
                   Skin Resurfacing Care Guide
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground mb-4">
                   Follow these instructions for optimal results
                 </p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <a 
+                    href="/documents/Skin_Resurfacing_Pre_Treatment_Guide.pdf" 
+                    download
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    Pre-Treatment Guide
+                  </a>
+                  <a 
+                    href="/documents/CoolPeel_Post_Treatment_Guide.pdf" 
+                    download
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 hover:bg-accent/20 text-accent rounded-lg text-sm font-medium transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    CoolPeel Aftercare
+                  </a>
+                  <a 
+                    href="/documents/DEKA_Post_Treatment_Guide.pdf" 
+                    download
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-medium transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    DEKA Aftercare
+                  </a>
+                </div>
               </div>
               
               <Tabs defaultValue="pre-treatment" className="w-full">
