@@ -9,12 +9,14 @@ const ServiceCategories = () => {
       title: "Laser Hair Removal",
       description: "Long lasting hair reduction for all body areas with advanced laser technology.",
       image: clarityImage,
+      imageAlt: "Laser hair removal treatment with Lutronic Clarity II dual-wavelength laser for all skin types at Virginia Laser Specialists in Tysons VA",
       link: "#laser-hair-removal",
     },
     {
       title: "Laser Skin Resurfacing - CoolPeel and Deka Pulse",
       description: "Revolutionary skin rejuvenation with customizable intensity levels to match your downtime needs.",
       image: coolPeelImage,
+      imageAlt: "CoolPeel CO2 laser skin resurfacing treatment for fine lines and wrinkles with minimal downtime in Northern Virginia",
       link: "#cool-peel",
     },
   ];
@@ -41,8 +43,9 @@ const ServiceCategories = () => {
               <div className="relative h-80 overflow-hidden">
                 <img
                   src={category.image}
-                  alt={category.title}
+                  alt={category.imageAlt}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
               </div>

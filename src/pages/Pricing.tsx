@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancing from "@/components/CherryFinancing";
 const Pricing = () => {
   const laserHairRemovalPricing = [
@@ -34,11 +35,15 @@ const Pricing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Treatment Pricing | Cherry Financing & Monthly Payment Plans | Virginia Laser Specialists"
-        description="Transparent pricing for laser hair removal, CoolPeel, and DEKA Pulse treatments. Cherry financing available with monthly payment plans. Finance up to $10,000 for laser treatment. Book your free consultation."
+        title="Laser Treatment Pricing Tysons VA | Cherry Financing | 25% Off Packages"
+        description="Transparent laser hair removal & CoolPeel pricing in Tysons, McLean, Vienna VA. Cherry financing available - $0 down, low monthly payments. 25% off 5-session packages. Brazilian $300, underarms $150. Free consultation. Call 703-547-4499."
         canonicalUrl="/pricing"
       />
       <LocalBusinessSchema />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Pricing", url: "/pricing" }
+      ]} />
       <Navigation />
       <main className="pt-20">
         <section className="py-20 bg-background">
