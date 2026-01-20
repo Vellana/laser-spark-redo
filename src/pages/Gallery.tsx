@@ -11,6 +11,7 @@ import exteriorBuilding2 from "@/assets/exterior-building-2.jpg";
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const Gallery = () => {
   const [activeTab, setActiveTab] = useState<"office" | "exterior" | "beforeAfter">("office");
@@ -32,11 +33,15 @@ const Gallery = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Gallery | Virginia Laser Specialists Facility - Tysons, VA"
-        description="Tour our modern laser treatment facility in Tysons, VA. State-of-the-art treatment rooms, welcoming reception area, and professional consultation spaces."
+        title="Photo Gallery | Virginia Laser Specialists Facility Tysons VA"
+        description="Tour our modern laser treatment facility at 8100 Boone Blvd, Vienna VA. State-of-the-art Lutronic Clarity II & Cartessa Tetra Pro equipment. Professional treatment rooms near Tysons Corner. Schedule a visit today."
         canonicalUrl="/gallery"
       />
       <LocalBusinessSchema />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Gallery", url: "/gallery" }
+      ]} />
       <Navigation />
       <main className="pt-20">
         <section className="py-20 bg-background">

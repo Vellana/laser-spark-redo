@@ -11,6 +11,7 @@ import {
 import { Sparkles, Clock, CheckCircle, Star, Calendar, Shield, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { Helmet } from "react-helmet-async";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
@@ -229,11 +230,16 @@ const CoolPeelTysons = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CoolPeel CO₂ Laser Resurfacing in Tysons & Vienna, VA | Virginia Laser Specialists"
-        description="Get CoolPeel CO2 laser resurfacing near you in Tysons & Vienna, VA. Minimal downtime, advanced Cartessa Tetra Pro technology. Reduce fine lines, improve skin texture. Schedule your CoolPeel consultation today!"
+        title="CoolPeel CO₂ Laser Near Me Tysons & Vienna VA | Minimal Downtime Skin Resurfacing"
+        description="Best CoolPeel CO₂ laser resurfacing near you in Tysons, Vienna, McLean VA. 1-3 day recovery, Cartessa Tetra Pro technology. Reduce fine lines, wrinkles, sun damage. Free consultation. Call 703-547-4499."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Laser Skin Resurfacing", url: "/laser-skin-resurfacing" },
+        { name: "CoolPeel Tysons VA", url: "/coolpeel-co2-laser-tysons-va" }
+      ]} />
       <Navigation />
       
       <main className="pt-20">

@@ -17,8 +17,8 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Virginia Laser Specialists | Laser Hair Removal & Skin Resurfacing in Tysons, VA | Cherry Financing Available"
-        description="Boutique laser studio in Tysons, Virginia offering long‑lasting laser hair removal and skin resurfacing. Cherry financing available with monthly payment plans. Finance up to $10,000 for laser treatments. Serving Tysons, McLean, Falls Church and Arlington."
+        title="Virginia Laser Specialists | #1 Laser Hair Removal & CoolPeel Tysons VA | Free Consultation"
+        description="Top-rated laser hair removal & CoolPeel CO₂ skin resurfacing in Tysons, Vienna, McLean VA. Lutronic Clarity II safe for all skin types. Cherry financing with $0 down. 25% off packages. Call 703-547-4499 for free consultation."
         canonicalUrl="/"
       />
       <LocalBusinessSchema />

@@ -3,16 +3,21 @@ import Footer from "@/components/Footer";
 import { Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const Specials = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Current Specials & Promotions | Virginia Laser Specialists" 
-        description="Save on laser hair removal and skin resurfacing treatments. New client discounts, package savings, and referral rewards. Limited-time offers in Tysons, VA." 
+        title="Winter Specials & Promotions | Buy 5 Get 6th Free | Virginia Laser Specialists"
+        description="Winter laser hair removal special: Buy 5 treatments, get 6th FREE - up to $1,800 value! Limited time offer in Tysons, McLean, Vienna VA. New client discounts & package savings. Expires 1/31/26. Call 703-547-4499."
         canonicalUrl="/specials" 
       />
       <LocalBusinessSchema />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Specials", url: "/specials" }
+      ]} />
       <Navigation />
 
       <main className="pt-20">

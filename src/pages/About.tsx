@@ -9,6 +9,7 @@ import aboutImage from "@/assets/about-facility.avif";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const About = () => {
     const team = [
@@ -31,11 +32,15 @@ const About = () => {
     return (
         <div className="min-h-screen">
             <SEO 
-                title="About Us | Virginia Laser Specialists - Tysons, VA"
-                description="Meet our expert team of licensed estheticians and certified laser technicians. Over 12 years experience with Lutronic Clarity II and Tetra Pro CO2 technology."
+                title="About Virginia Laser Specialists | Expert Laser Technicians Tysons VA"
+                description="Meet our expert team of licensed estheticians and certified laser technicians with 12+ years experience. Lutronic Clarity II & Cartessa Tetra Pro CO₂ technology. Serving Tysons, McLean, Vienna VA. Call 703-547-4499."
                 canonicalUrl="/about"
             />
             <LocalBusinessSchema />
+            <BreadcrumbSchema items={[
+                { name: "Home", url: "/" },
+                { name: "About Us", url: "/about" }
+            ]} />
             <Navigation />
             <main className="pt-20">
                 {/* Hero Section */}

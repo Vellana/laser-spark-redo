@@ -17,6 +17,7 @@ import { Phone, MapPin, Clock, Instagram } from "lucide-react";
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 
@@ -142,11 +143,15 @@ const Contact = () => {
     return (
         <div className="min-h-screen">
             <SEO 
-                title="Contact Us | Virginia Laser Specialists - Tysons, VA"
-                description="Schedule your free consultation at Virginia Laser Specialists. Call 703-547-4499 or visit us at 8230 Boone Blvd, Tysons, VA. Laser hair removal & skin resurfacing."
+                title="Contact Virginia Laser Specialists | Book Free Consultation Tysons VA"
+                description="Schedule your free laser consultation at 8100 Boone Blvd, Suite 270, Vienna VA 22182. Call 703-547-4499. Open Tue-Fri 10AM-6PM, Sat 9AM-1PM. Serving Tysons, McLean, Falls Church, Arlington."
                 canonicalUrl="/contact"
             />
             <LocalBusinessSchema />
+            <BreadcrumbSchema items={[
+                { name: "Home", url: "/" },
+                { name: "Contact", url: "/contact" }
+            ]} />
             <Navigation />
             <main className="pt-20">
                 {/* Hero Section */}

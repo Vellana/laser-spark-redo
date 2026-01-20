@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 import { Helmet } from "react-helmet-async";
@@ -250,12 +252,26 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal Tysons & Northern Virginia | Lutronic Clarity II"
-        description="Long‑lasting hair reduction for all skin types using Lutronic Clarity II's dual‑wavelength YAG and Alexandrite lasers with cryogen cooling. Learn how much laser hair removal costs and what the treatment feels like; serving Tysons, McLean, Falls Church and Arlington."
+        title="Laser Hair Removal Tysons & Northern Virginia | Lutronic Clarity II | Safe for All Skin Types"
+        description="Best laser hair removal in Tysons, McLean, Vienna & Falls Church VA. Lutronic Clarity II dual-wavelength Alexandrite & Nd:YAG laser with cryogen cooling. Safe for all skin types. 25% off packages. Free consultation. Call 703-547-4499."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
       <LaserHairRemovalSchema />
+      <MedicalProcedureSchema
+        name="Laser Hair Removal in Tysons, VA"
+        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with cryogen cooling for comfort."
+        bodyLocation="Face, underarms, legs, arms, bikini area, back, chest, and full body"
+        preparation="Shave treatment area 24 hours before. Avoid sun exposure, waxing, and tweezing for 4-6 weeks prior."
+        followup="8-10 sessions spaced 6-8 weeks apart for optimal permanent hair reduction results"
+        howPerformed="The Lutronic Clarity II laser delivers dual-wavelength energy (755nm Alexandrite and 1064nm Nd:YAG) with integrated cryogen cooling to target hair follicles while protecting surrounding skin."
+        outcome="Long-lasting hair reduction with up to 90% permanent hair removal after completing full treatment series"
+        url="/laser-hair-removal"
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Laser Hair Removal", url: "/laser-hair-removal" }
+      ]} />
       <Navigation />
       
       <main className="pt-20">
