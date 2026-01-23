@@ -63,15 +63,15 @@ const Navigation = () => {
             </span>
           </a>
 
-          {/* Desktop Navigation - centered with spacing from edges */}
-          <div className="hidden lg:flex items-center justify-center flex-1 mx-12">
-            <div className="flex items-center gap-5">
+          {/* Desktop Navigation - centered with even spacing */}
+          <div className="hidden lg:flex items-center justify-center flex-1 mx-6 xl:mx-10">
+            <div className="flex items-center gap-1 xl:gap-3">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-2 py-2 text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
+                  className="px-2 xl:px-3 py-2 text-sm xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
                 >
                   {link.name}
                 </a>
