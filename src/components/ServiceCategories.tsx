@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import FadeInSection from "@/components/FadeInSection";
@@ -11,14 +12,16 @@ const ServiceCategories = () => {
       description: "Long lasting hair reduction for all body areas with advanced laser technology.",
       image: clarityImage,
       imageAlt: "Laser hair removal treatment with Lutronic Clarity II dual-wavelength laser for all skin types at Virginia Laser Specialists in Tysons VA",
-      link: "#laser-hair-removal",
+      link: "/laser-hair-removal",
+      isExternal: false,
     },
     {
       title: "Laser Skin Resurfacing - CoolPeel and Deka Pulse",
       description: "Revolutionary skin rejuvenation with customizable intensity levels to match your downtime needs.",
       image: coolPeelImage,
       imageAlt: "CoolPeel CO2 laser skin resurfacing treatment for fine lines and wrinkles with minimal downtime in Northern Virginia",
-      link: "#cool-peel",
+      link: "/laser-skin-resurfacing",
+      isExternal: false,
     },
   ];
 
@@ -55,7 +58,7 @@ const ServiceCategories = () => {
                   <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base lg:text-lg leading-relaxed">
                     {category.description}
                   </p>
-                  <a href={category.link}>
+                  <Link to={category.link}>
                     <Button
                       variant="outline"
                       className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-primary font-semibold group"
@@ -63,7 +66,7 @@ const ServiceCategories = () => {
                       Learn More
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </FadeInSection>
