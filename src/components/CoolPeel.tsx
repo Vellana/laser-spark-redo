@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
+import BeforeAfterSlideshow from "@/components/BeforeAfterSlideshow";
 
 const CoolPeel = () => {
   const [activeTab, setActiveTab] = useState<"coolpeel" | "dekapulse">("coolpeel");
@@ -399,6 +400,9 @@ const CoolPeel = () => {
             </TabsContent>
           </Tabs>
         </div>
+
+        {/* Before & After Slideshow */}
+        <BeforeAfterSlideshow />
       </div>
     </section>
   );
