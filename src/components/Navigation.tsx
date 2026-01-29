@@ -49,7 +49,7 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
-      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-8 2xl:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo - pushed to left */}
           <a href="/" className="flex items-center space-x-3 flex-shrink-0">
@@ -58,20 +58,20 @@ const Navigation = () => {
               alt="Virginia Laser Specialists Logo"
               className="w-10 h-10"
             />
-            <span className="text-xl font-bold text-accent">
+            <span className="text-lg xl:text-xl font-bold text-accent">
               Virginia Laser Specialists
             </span>
           </a>
 
           {/* Desktop Navigation - centered with even spacing */}
-          <div className="hidden lg:flex items-center justify-center flex-1 mx-6 xl:mx-10">
-            <div className="flex items-center gap-1 xl:gap-3">
+          <div className="hidden xl:flex items-center justify-center flex-1 min-w-0 mx-4 xl:mx-6 2xl:mx-10">
+            <div className="flex items-center gap-0.5 xl:gap-2 2xl:gap-3">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-2 xl:px-3 py-2 text-sm xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
+                  className="px-1.5 xl:px-2 2xl:px-3 py-2 text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
                 >
                   {link.name}
                 </a>
@@ -80,10 +80,13 @@ const Navigation = () => {
           </div>
 
           {/* Desktop CTA - pushed to right */}
-          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+          <div className="hidden xl:flex items-center gap-2 flex-shrink-0">
             <ThemeToggle />
             <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
-              <Button variant="accent" className="animate-pulse-subtle px-6 py-3 text-base">
+              <Button
+                variant="accent"
+                className="animate-pulse-subtle px-4 xl:px-5 2xl:px-6 py-2.5 2xl:py-3 text-sm xl:text-sm 2xl:text-base"
+              >
                 Book Now
               </Button>
             </a>
@@ -92,7 +95,7 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
+            className="xl:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
           >
             {isOpen ? (
               <X className="w-6 h-6 text-foreground" />
@@ -104,7 +107,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden py-4 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="xl:hidden py-4 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
             {navLinks.map((link) => (
               <a
                 key={link.name}
