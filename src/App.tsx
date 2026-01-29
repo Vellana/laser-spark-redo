@@ -18,10 +18,16 @@ const LaserSkinResurfacing = lazy(() => import("./pages/LaserSkinResurfacing"));
 const CoolPeelTysons = lazy(() => import("./pages/CoolPeelTysons"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Minimal loading fallback with fade transition
+// Polished loading fallback with smooth animation
 const PageLoader = () => (
   <div className="min-h-screen bg-background flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+    <div className="flex flex-col items-center gap-4">
+      <div className="relative w-12 h-12">
+        <div className="absolute inset-0 rounded-full border-2 border-accent/20" />
+        <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-accent animate-spin" />
+      </div>
+      <span className="text-sm text-muted-foreground animate-pulse">Loading...</span>
+    </div>
   </div>
 );
 
@@ -35,7 +41,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <Suspense fallback={<PageLoader />}>
-          <div className="animate-fade-in">
+          <div className="page-transition">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/pricing" element={<Pricing />} />

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { X } from "lucide-react";
+import FadeInSection from "@/components/FadeInSection";
 
 import coolPeelBnA1 from "@/assets/coolpeel-before-after-1.webp";
 import coolPeelBnA2 from "@/assets/coolpeel-before-after-2.webp";
@@ -55,11 +56,16 @@ const BeforeAfterGallery = ({
   showDisclaimer = true 
 }: BeforeAfterGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState<BeforeAfterImage | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => new Set(prev).add(index));
+  };
 
   return (
     <div className="space-y-8">
       {showIntro && (
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <FadeInSection className="text-center max-w-3xl mx-auto space-y-4">
           <h3 className="text-3xl sm:text-4xl font-bold text-foreground">
             Before & After Results — CoolPeel + CO₂ Laser Resurfacing
           </h3>
@@ -67,36 +73,46 @@ const BeforeAfterGallery = ({
             These are real client results from CoolPeel and CO₂ laser resurfacing treatments performed at our facility. 
             Individual results may vary based on skin type, treatment intensity, and adherence to aftercare instructions.
           </p>
-        </div>
+        </FadeInSection>
       )}
 
       {/* Image Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {images.map((image, index) => (
-          <Card 
-            key={index} 
-            className="overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow duration-300"
-            onClick={() => setSelectedImage(image)}
-          >
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-4 bg-card">
-              <p className="text-sm text-muted-foreground text-center">{image.caption}</p>
-            </div>
-          </Card>
+          <FadeInSection key={index} delay={index * 100}>
+            <Card 
+              className="overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300"
+              onClick={() => setSelectedImage(image)}
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                {/* Skeleton */}
+                <div 
+                  className={`absolute inset-0 bg-muted transition-opacity duration-500 ${loadedImages.has(index) ? 'opacity-0' : 'opacity-100'}`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/5 to-transparent animate-shimmer" />
+                </div>
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                  onLoad={() => handleImageLoad(index)}
+                  className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${loadedImages.has(index) ? 'opacity-100' : 'opacity-0'}`}
+                />
+              </div>
+              <div className="p-4 bg-card">
+                <p className="text-sm text-muted-foreground text-center">{image.caption}</p>
+              </div>
+            </Card>
+          </FadeInSection>
         ))}
       </div>
 
       {showDisclaimer && (
-        <p className="text-sm text-muted-foreground text-center italic mt-6">
-          Results vary. Some "after" photos may show mild redness consistent with normal healing.
-        </p>
+        <FadeInSection>
+          <p className="text-sm text-muted-foreground text-center italic mt-6">
+            Results vary. Some "after" photos may show mild redness consistent with normal healing.
+          </p>
+        </FadeInSection>
       )}
 
       {/* Lightbox Modal */}
@@ -113,7 +129,7 @@ const BeforeAfterGallery = ({
             <X className="h-5 w-5 text-foreground" />
           </button>
           {selectedImage && (
-            <div className="flex flex-col">
+            <div className="flex flex-col animate-fade-in">
               <div className="relative w-full">
                 <img
                   src={selectedImage.src}
