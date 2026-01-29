@@ -3,13 +3,14 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sparkles, Clock, Heart, TrendingUp, AlertCircle, Download } from "lucide-react";
+import { Sparkles, Clock, Heart, TrendingUp, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
+import BeforeAfterPreview from "@/components/BeforeAfterPreview";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 
@@ -300,6 +301,26 @@ const LaserSkinResurfacing = () => {
                           <span className="text-muted-foreground">For patients that are prone to hyperpigmentation, consider pre-treating with a melanin suppressing agent 2x daily for 2 weeks (or an appropriate length of time) before the treatment</span>
                         </li>
                       </ul>
+                      
+                      <h3 className="font-semibold text-lg text-foreground mt-8 mb-4">CoolPeel/DEKA Treatment Spacing:</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Botox:</strong> Wait <strong>2 weeks</strong> before.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Filler:</strong> Wait <strong>4 weeks</strong> before.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Aggressive Chemical Peels:</strong> Wait <strong>4 weeks</strong> before.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Post-Laser:</strong> Wait until skin is fully healed and intact before any other treatments.</span>
+                        </li>
+                      </ul>
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -308,40 +329,47 @@ const LaserSkinResurfacing = () => {
                 <TabsContent value="coolpeel-aftercare">
                   <Card className="border-accent/40">
                     <CardContent className="p-6 sm:p-8">
-                      <h3 className="font-semibold text-lg text-foreground mb-4">Day of Treatment:</h3>
-                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (1-3 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">Day of treatment:</h3>
                       <ul className="space-y-4 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Apply a light, non-stinging moisturizer (hyaluronic acid or cream-based) after the sunburn sensation fades. After applying the product, if burning is noted for more than a few minutes (or is very intense), wash off with a mild cleanser, rinse with cold water, and notify your provider.</span>
+                          <span className="text-muted-foreground">You may feel a warm / sunburn sensation for <strong>2–4+ hours</strong> post-treatment.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Keep the area moisturized; reapply products every 3–4 hours to maintain hydration and until the "sandpaper" texture resolves (typically 5-7 days).</span>
+                          <span className="text-muted-foreground">Swelling, redness, and mild to moderate sunburn sensation are common (<strong>1–3 days</strong>).</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Contact us if you experience severe redness, swelling, or watery blisters.</span>
+                          <span className="text-muted-foreground">Use a cool misting spray or sterile cool compress (<strong>not ice</strong>) to reduce the sensation of heat.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Apply a light, non-stinging moisturizer (<strong>hyaluronic acid or cream-based</strong>) after the sunburn sensation fades. After applying the product, if burning is noted for more than a few minutes (<strong>or is very intense</strong>), wash off with a mild cleanser, rinse with cold water, and notify your provider.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-accent font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">Keep the area moisturized; reapply products <strong>every 3–4 hours</strong> to maintain hydration and until the "sandpaper" texture resolves (<strong>typically 5–7 days</strong>).</span>
                         </li>
                       </ul>
                       
-                      <h3 className="font-semibold text-lg text-foreground mb-4">After the Treatment:</h3>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">After the treatment:</h3>
                       <ul className="space-y-3 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Do not use any exfoliants or other products/procedures to address the texture for 5-7 days.</span>
+                          <span className="text-muted-foreground">Do not use any exfoliants or other products/procedures to address the texture for <strong>5–7 days</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Wash with a mild cleanser (AM & PM), blot dry, and do not scrub.</span>
+                          <span className="text-muted-foreground">Wash with a mild cleanser (<strong>AM & PM</strong>), blot dry, and do not scrub.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Use zinc/titanium-based sunblock after 24 hours.</span>
+                          <span className="text-muted-foreground">Use zinc/titanium-based sunblock after <strong>24 hours</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Minimize alcohol intake (throughout recovery).</span>
+                          <span className="text-muted-foreground">Minimize alcohol intake (<strong>throughout recovery</strong>).</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
@@ -353,35 +381,35 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Do not expose the treated area to anything that may cause complications (dirt, pets, etc.) as advised by your provider.</span>
+                          <span className="text-muted-foreground">Do not expose the treated area to anything that may cause complications (<strong>dirt, pets, etc.</strong>) as advised by your provider.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Mineral makeup may be applied after 2-5 days.</span>
+                          <span className="text-muted-foreground">Mineral makeup may be applied after <strong>2–5 days</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. for 2-4 days.</span>
+                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. <strong>2–4 days</strong>.</span>
                         </li>
                       </ul>
                       
-                      <h3 className="font-semibold text-lg text-foreground mb-4">Treatment Spacing:</h3>
+                      <h3 className="font-semibold text-lg text-foreground mb-4">CoolPeel/DEKA Treatment Spacing:</h3>
                       <ul className="space-y-3">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Wait 2 weeks after Botox.</span>
+                          <span className="text-muted-foreground"><strong>Botox:</strong> Wait <strong>2 weeks</strong> before.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Wait 4 weeks after filler.</span>
+                          <span className="text-muted-foreground"><strong>Filler:</strong> Wait <strong>4 weeks</strong> before.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Wait 4 weeks after aggressive chemical peels.</span>
+                          <span className="text-muted-foreground"><strong>Aggressive Chemical Peels:</strong> Wait <strong>4 weeks</strong> before.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">After any other laser treatment, wait until the skin is fully healed.</span>
+                          <span className="text-muted-foreground"><strong>Post-Laser:</strong> Wait until skin is fully healed and intact before any other treatments.</span>
                         </li>
                       </ul>
                       <p className="text-foreground font-semibold mt-6">PLEASE CONTACT YOUR PROVIDER WITH ANY QUESTIONS/CONCERNS DURING YOUR RECOVERY PERIOD</p>
@@ -397,7 +425,7 @@ const LaserSkinResurfacing = () => {
                       <p className="text-muted-foreground mb-6">You may feel a hot / sunburn sensation for 2-6+ hours post-treatment. During the recovery, swelling, redness, and mild to moderate sunburn sensation are to be expected along with pinpoint bleeding, weeping, or oozing. Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat. Gently apply a thin layer, about the thickness of a dime, of Vaseline or the provider recommended product after the sunburn sensation fades (usually by bedtime), to keep the area moisturized and protected. Prior to bedtime, it may be beneficial to take an antihistamine (e.g., Benadryl® or Zyrtec®).</p>
                       
                       <h3 className="font-semibold text-lg text-foreground mb-4">After the Treatment:</h3>
-                      <ul className="space-y-3">
+                      <ul className="space-y-3 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
                           <span className="text-muted-foreground">Day 1-3: Apply vinegar-soaked pads (1 cup water + 1 TBS white distilled vinegar) to help prevent or soften crusting from the weeping/oozing. Can be repeated as often as every 2 hours. Store in the refrigerator between uses to aid in the cooling effect.</span>
@@ -444,11 +472,31 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, for 5-7 days.</span>
+                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, for <strong>5–7 days</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
                           <span className="text-muted-foreground">Mineral makeup may be applied after a few days, once skin is intact and the weeping/oozing/bleeding has stopped.</span>
+                        </li>
+                      </ul>
+                      
+                      <h3 className="font-semibold text-lg text-foreground mb-4">CoolPeel/DEKA Treatment Spacing:</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Botox:</strong> Wait <strong>2 weeks</strong> before.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Filler:</strong> Wait <strong>4 weeks</strong> before.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Aggressive Chemical Peels:</strong> Wait <strong>4 weeks</strong> before.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground"><strong>Post-Laser:</strong> Wait until skin is fully healed and intact before any other treatments.</span>
                         </li>
                       </ul>
                       <p className="text-foreground font-semibold mt-6">PLEASE CONTACT YOUR PROVIDER WITH ANY QUESTIONS/CONCERNS DURING YOUR RECOVERY PERIOD</p>
@@ -459,6 +507,9 @@ const LaserSkinResurfacing = () => {
             </div>
           </div>
         </section>
+
+        {/* Before & After Preview Section */}
+        <BeforeAfterPreview />
 
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
