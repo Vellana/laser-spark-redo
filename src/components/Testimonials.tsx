@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import fiveStars from "@/assets/five-stars.png";
+import FadeInSection from "@/components/FadeInSection";
 
 const Testimonials = () => {
   const testimonials = [
@@ -33,28 +34,30 @@ const Testimonials = () => {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <FadeInSection className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
             What Our Clients Are Saying
           </h2>
           <div className="flex justify-center">
-            <img src={fiveStars} alt="5 star reviews" className="h-12" />
+            <img src={fiveStars} alt="5 star reviews" className="h-12" loading="lazy" />
           </div>
-        </div>
+        </FadeInSection>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="border-border hover:shadow-medium transition-all">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic">{testimonial.text}</p>
-                <p className="font-semibold text-foreground">{testimonial.author}</p>
-              </CardContent>
-            </Card>
+            <FadeInSection key={index} delay={index * 100}>
+              <Card className="border-border hover:shadow-medium transition-all duration-300 h-full">
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-accent text-accent" />
+                    ))}
+                  </div>
+                  <p className="text-muted-foreground italic">{testimonial.text}</p>
+                  <p className="font-semibold text-foreground">{testimonial.author}</p>
+                </CardContent>
+              </Card>
+            </FadeInSection>
           ))}
         </div>
       </div>

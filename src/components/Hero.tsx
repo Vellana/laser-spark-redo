@@ -1,24 +1,32 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MapPin } from "lucide-react";
 import heroImage from "@/assets/Homepage_mainphoto.jpg";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
+        {/* Skeleton placeholder */}
+        <div 
+          className={`absolute inset-0 bg-primary transition-opacity duration-700 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`}
+        />
         <img 
           src={heroImage} 
           alt="Virginia Laser Specialists featuring Lutronic Clarity II with dual-wavelength Alexandrite and Nd:YAG lasers with cryogen cooling for minimal downtime laser hair removal and skin resurfacing" 
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          onLoad={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary/60 to-primary/50" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <div className={`max-w-4xl mx-auto space-y-8 transition-all duration-1000 ${imageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="inline-block">
             <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
           </div>
