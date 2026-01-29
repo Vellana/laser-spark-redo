@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -8,13 +10,27 @@ import interiorConsultation from "@/assets/interior-consultation.jpg";
 import interiorLaserRoom from "@/assets/interior-laser-room.jpg";
 import exteriorBuilding1 from "@/assets/exterior-building-1.jpg";
 import exteriorBuilding2 from "@/assets/exterior-building-2.jpg";
-import { useState } from "react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
+
+type TabType = "office" | "exterior" | "beforeAfter";
 
 const Gallery = () => {
-  const [activeTab, setActiveTab] = useState<"office" | "exterior" | "beforeAfter">("office");
+  const [searchParams] = useSearchParams();
+  const tabFromUrl = searchParams.get("tab") as TabType | null;
+  const [activeTab, setActiveTab] = useState<TabType>(
+    tabFromUrl && ["office", "exterior", "beforeAfter"].includes(tabFromUrl) 
+      ? tabFromUrl 
+      : "office"
+  );
+
+  useEffect(() => {
+    if (tabFromUrl && ["office", "exterior", "beforeAfter"].includes(tabFromUrl)) {
+      setActiveTab(tabFromUrl);
+    }
+  }, [tabFromUrl]);
 
   const galleryImages = {
     office: [
@@ -121,23 +137,8 @@ const Gallery = () => {
               )}
 
               {activeTab === "beforeAfter" && (
-                <div className="text-center py-20 animate-in fade-in duration-300">
-                  <div className="max-w-2xl mx-auto space-y-6">
-                    <div className="w-24 h-24 bg-accent/20 rounded-full flex items-center justify-center mx-auto">
-                      <svg className="w-12 h-12 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                    </div>
-                    <h3 className="text-3xl sm:text-4xl font-bold text-foreground">
-                      Before & After Gallery
-                    </h3>
-                    <p className="text-2xl font-semibold text-accent">
-                      COMING SOON!
-                    </p>
-                    <p className="text-lg text-muted-foreground">
-                      We're working on compiling amazing results from our clients. Check back soon to see the transformative power of our laser treatments.
-                    </p>
-                  </div>
+                <div className="animate-in fade-in duration-300">
+                  <BeforeAfterGallery />
                 </div>
               )}
             </div>
