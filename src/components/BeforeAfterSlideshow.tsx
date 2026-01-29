@@ -64,21 +64,23 @@ const BeforeAfterSlideshow = () => {
   };
 
   return (
-    <div className="mt-16 max-w-4xl mx-auto">
-      <h3 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-4">
+    <div className="mt-12 sm:mt-16 max-w-4xl mx-auto px-4 sm:px-0">
+      <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center text-foreground mb-3 sm:mb-4">
         Before & After Results
       </h3>
-      <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+      <p className="text-center text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto">
         See real results from our CoolPeel and CO2 laser resurfacing treatments. Individual results may vary.
       </p>
 
       <div 
-        className="relative rounded-2xl overflow-hidden shadow-medium bg-card"
+        className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-medium bg-card"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
       >
         {/* Main Image */}
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden">
           {slides.map((slide, index) => (
             <div
               key={index}
@@ -98,35 +100,35 @@ const BeforeAfterSlideshow = () => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-md"
+            className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-md"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-md"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-md"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
 
         {/* Caption */}
-        <div className="p-4 text-center bg-card">
-          <p className="text-foreground font-medium">{slides[currentSlide].caption}</p>
+        <div className="p-3 sm:p-4 text-center bg-card">
+          <p className="text-sm sm:text-base text-foreground font-medium">{slides[currentSlide].caption}</p>
         </div>
 
         {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 pb-4">
+        <div className="flex justify-center gap-1.5 sm:gap-2 pb-3 sm:pb-4">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${
+              className={`h-2 sm:h-2.5 rounded-full transition-all ${
                 index === currentSlide
-                  ? "bg-accent w-6"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  ? "bg-accent w-4 sm:w-6"
+                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2 sm:w-2.5"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -135,14 +137,14 @@ const BeforeAfterSlideshow = () => {
       </div>
 
       {/* Disclaimer */}
-      <p className="text-center text-sm text-muted-foreground mt-4">
+      <p className="text-center text-xs sm:text-sm text-muted-foreground mt-3 sm:mt-4">
         Results vary. Some "after" photos may show mild redness consistent with normal healing.
       </p>
 
       {/* View More Button */}
-      <div className="text-center mt-6">
+      <div className="text-center mt-4 sm:mt-6">
         <Link to="/gallery?tab=beforeAfter">
-          <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-primary">
+          <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-primary text-sm sm:text-base">
             View More Results
           </Button>
         </Link>

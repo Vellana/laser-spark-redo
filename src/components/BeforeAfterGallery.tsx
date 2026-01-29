@@ -63,13 +63,13 @@ const BeforeAfterGallery = ({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {showIntro && (
-        <FadeInSection className="text-center max-w-3xl mx-auto space-y-4">
-          <h3 className="text-3xl sm:text-4xl font-bold text-foreground">
+        <FadeInSection className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 px-4">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
             Before & After Results — CoolPeel + CO₂ Laser Resurfacing
           </h3>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base sm:text-lg text-muted-foreground">
             These are real client results from CoolPeel and CO₂ laser resurfacing treatments performed at our facility. 
             Individual results may vary based on skin type, treatment intensity, and adherence to aftercare instructions.
           </p>
@@ -77,7 +77,7 @@ const BeforeAfterGallery = ({
       )}
 
       {/* Image Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {images.map((image, index) => (
           <FadeInSection key={index} delay={index * 100}>
             <Card 
@@ -99,8 +99,8 @@ const BeforeAfterGallery = ({
                   className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${loadedImages.has(index) ? 'opacity-100' : 'opacity-0'}`}
                 />
               </div>
-              <div className="p-4 bg-card">
-                <p className="text-sm text-muted-foreground text-center">{image.caption}</p>
+              <div className="p-3 sm:p-4 bg-card">
+                <p className="text-xs sm:text-sm text-muted-foreground text-center">{image.caption}</p>
               </div>
             </Card>
           </FadeInSection>
@@ -109,7 +109,7 @@ const BeforeAfterGallery = ({
 
       {showDisclaimer && (
         <FadeInSection>
-          <p className="text-sm text-muted-foreground text-center italic mt-6">
+          <p className="text-xs sm:text-sm text-muted-foreground text-center italic mt-4 sm:mt-6 px-4">
             Results vary. Some "after" photos may show mild redness consistent with normal healing.
           </p>
         </FadeInSection>
