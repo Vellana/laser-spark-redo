@@ -15,6 +15,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { Helmet } from "react-helmet-async";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
+import BeforeAfterSlideshow from "@/components/BeforeAfterSlideshow";
 
 // CoolPeel Tysons/Vienna local SEO schema markup
 const CoolPeelTysonsSchema = () => {
@@ -693,6 +694,13 @@ const CoolPeelTysons = () => {
                 </Link>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Before & After Results Section */}
+        <section className="py-16 bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <BeforeAfterSlideshow />
           </div>
         </section>
 
