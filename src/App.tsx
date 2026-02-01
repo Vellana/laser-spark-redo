@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -33,35 +33,50 @@ const PageLoader = () => (
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Suspense fallback={<PageLoader />}>
-          <div className="page-transition">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/specials" element={<Specials />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/laser-hair-removal" element={<LaserHairRemoval />} />
-              <Route path="/laser-skin-resurfacing" element={<LaserSkinResurfacing />} />
-              <Route path="/coolpeel-co2-laser-tysons-va" element={<CoolPeelTysons />} />
-              {/* Redirect old CoolPeel URL to the SEO-optimized one */}
-              <Route path="/services/coolpeel" element={<Navigate to="/coolpeel-co2-laser-tysons-va" replace />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  useEffect(() => {
+    const handleRejection = (event: PromiseRejectionEvent) => {
+      // Handle chunk loading failures by reloading the page
+      if (event.reason?.message?.includes('Failed to fetch dynamically imported module')) {
+        console.warn('Chunk loading failed, reloading page...');
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener('unhandledrejection', handleRejection);
+    return () => window.removeEventListener('unhandledrejection', handleRejection);
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Suspense fallback={<PageLoader />}>
+            <div className="page-transition">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/specials" element={<Specials />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/laser-hair-removal" element={<LaserHairRemoval />} />
+                <Route path="/laser-skin-resurfacing" element={<LaserSkinResurfacing />} />
+                <Route path="/coolpeel-co2-laser-tysons-va" element={<CoolPeelTysons />} />
+                {/* Redirect old CoolPeel URL to the SEO-optimized one */}
+                <Route path="/services/coolpeel" element={<Navigate to="/coolpeel-co2-laser-tysons-va" replace />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </Suspense>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
