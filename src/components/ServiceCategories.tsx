@@ -48,7 +48,7 @@ const ServiceCategories = () => {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(215,28%,20%)] via-[hsl(215,28%,25%)]/80 to-[hsl(215,28%,30%)]/40" />
                 </div>
 
                 <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 lg:p-8 text-white">
