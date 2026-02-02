@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
-  <script>
-    // Prevent flash of wrong theme - apply dark class before render
-    (function() {
-      const theme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (theme === 'dark' || (!theme && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
   <head>
+    <script>
+      // Prevent flash of wrong theme - apply dark class before render
+      (function() {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
