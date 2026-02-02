@@ -25,7 +25,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-primary to-primary/90 text-white relative overflow-hidden">
+    <section id="contact" className="py-20 bg-gradient-to-br from-[hsl(215,28%,17%)] to-[hsl(215,28%,22%)] text-white relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
