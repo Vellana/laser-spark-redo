@@ -80,6 +80,9 @@ const LaserSkinResurfacing = () => {
           </div>
         </section>
 
+        {/* Before & After Preview Section */}
+        <BeforeAfterPreview />
+
         {/* Technology Section */}
         <section className="py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -508,8 +511,6 @@ const LaserSkinResurfacing = () => {
           </div>
         </section>
 
-        {/* Before & After Preview Section */}
-        <BeforeAfterPreview />
 
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
