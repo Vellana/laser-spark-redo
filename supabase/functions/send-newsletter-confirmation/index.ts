@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -8,6 +9,20 @@ const corsHeaders = {
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
+
+// Simple in-memory rate limiter (per-instance)
+const rateLimitMap = new Map<string, number>();
+const RATE_LIMIT_WINDOW_MS = 3600000; // 1 hour
+
+function isRateLimited(email: string): boolean {
+  const now = Date.now();
+  const lastRequest = rateLimitMap.get(email);
+  if (lastRequest && now - lastRequest < RATE_LIMIT_WINDOW_MS) {
+    return true;
+  }
+  rateLimitMap.set(email, now);
+  return false;
+}
 
 interface NewsletterRequest {
   email: string;
@@ -19,11 +34,65 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { email }: NewsletterRequest = await req.json();
+    const body = await req.json();
+    const email = typeof body?.email === "string" ? body.email.trim() : "";
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    // Length check
+    if (!email || email.length > 255) {
       return new Response(JSON.stringify({ error: "Invalid email" }), {
         status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Enhanced email validation
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (!emailRegex.test(email)) {
+      return new Response(JSON.stringify({ error: "Invalid email format" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Check for header injection attempts
+    if (/[\r\n]/.test(email)) {
+      return new Response(JSON.stringify({ error: "Invalid characters" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Rate limiting: 1 email per hour per address
+    if (isRateLimited(email)) {
+      return new Response(JSON.stringify({ error: "Please wait before requesting another confirmation" }), {
+        status: 429,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Verify email exists in email_leads table before sending
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    const { data: lead, error: lookupError } = await supabaseAdmin
+      .from("email_leads")
+      .select("id, confirmation_sent")
+      .eq("email", email)
+      .maybeSingle();
+
+    if (lookupError || !lead) {
+      return new Response(JSON.stringify({ error: "Email not found" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Don't resend if already confirmed
+    if (lead.confirmation_sent) {
+      return new Response(JSON.stringify({ success: true, message: "Already confirmed" }), {
+        status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }
@@ -94,6 +163,12 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Newsletter confirmation sent:", emailResponse);
 
+    // Update confirmation_sent flag using service role
+    await supabaseAdmin
+      .from("email_leads")
+      .update({ confirmation_sent: true })
+      .eq("id", lead.id);
+
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -101,7 +176,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error sending newsletter confirmation:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An error occurred" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
