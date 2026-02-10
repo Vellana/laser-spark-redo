@@ -98,9 +98,6 @@ const SpecialsPopup = () => {
             Value of up to $1,800!
           </p>
 
-          <p className="text-xs text-muted-foreground italic">
-            *Free treatment must be same area as package. Cannot be combined with any other offers. Offer expires 1/31/26.
-          </p>
 
           {/* Newsletter Signup */}
           {!isSubscribed ? (
