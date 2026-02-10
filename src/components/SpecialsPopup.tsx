@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const POPUP_SHOWN_KEY = "specials_popup_shown";
+const POPUP_DISMISSED_KEY = "specials_popup_dismissed";
 const emailSchema = z.string().trim().email("Please enter a valid email").max(255);
 
 const SpecialsPopup = () => {
@@ -17,18 +17,20 @@ const SpecialsPopup = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   useEffect(() => {
-    const hasBeenShown = sessionStorage.getItem(POPUP_SHOWN_KEY);
-    if (hasBeenShown) return;
+    const dismissed = localStorage.getItem(POPUP_DISMISSED_KEY);
+    if (dismissed) return;
 
     const timer = setTimeout(() => {
       setIsVisible(true);
-      sessionStorage.setItem(POPUP_SHOWN_KEY, "true");
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  const handleClose = () => setIsVisible(false);
+  const handleClose = () => {
+    localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+    setIsVisible(false);
+  };
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
