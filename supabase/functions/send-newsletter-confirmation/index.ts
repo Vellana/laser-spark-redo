@@ -98,70 +98,127 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const VAGARO_LINK = "https://www.vagaro.com/virginialaserspecialists/book-now";
+    const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
+    const ADMIN_EMAIL = "admin@virginialaserspecialists.com";
 
-    const emailResponse = await resend.emails.send({
-      from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
-      to: [email],
-      subject: "Welcome! Here's Your 5% Discount 🎉",
-      html: `
+    // Brand colors
+    const navy = "#3d5a80";
+    const navyDark = "#2c4360";
+    const seafoam = "#6dbfa0";
+    const seafoamLight = "#85ccb3";
+    const cream = "#f8f7f4";
+    const white = "#ffffff";
+    const textDark = "#1f2d3d";
+    const textMedium = "#4a5568";
+
+    const brandedEmailHtml = `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background-color:#f8f7f4;font-family:Georgia,'Times New Roman',serif;">
-  <div style="max-width:600px;margin:0 auto;background:#ffffff;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+</head>
+<body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+  <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
+    
     <!-- Header -->
-    <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:40px 30px;text-align:center;">
-      <h1 style="color:#c9a96e;margin:0;font-size:28px;letter-spacing:2px;">VIRGINIA LASER SPECIALISTS</h1>
-      <p style="color:#e8e0d4;margin:8px 0 0;font-size:14px;letter-spacing:1px;">Expert Laser Treatments</p>
+    <div style="background:${navy};padding:32px 30px;text-align:center;">
+      <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
+      <p style="color:${seafoamLight};margin:0;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;">Expert Laser Treatments</p>
     </div>
     
     <!-- Body -->
-    <div style="padding:40px 30px;">
-      <h2 style="color:#1a1a2e;font-size:24px;margin:0 0 20px;">Welcome to Our Community!</h2>
-      <p style="color:#444;font-size:16px;line-height:1.6;">
-        Thank you for signing up for our newsletter! As promised, here is your exclusive <strong style="color:#c9a96e;">5% discount</strong> on your first service.
+    <div style="padding:40px 32px;">
+      <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">Welcome to Our Community!</h1>
+      <p style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 24px;">
+        Thank you for signing up for our newsletter! As promised, here is your exclusive discount on your first service.
       </p>
       
       <!-- Discount Box -->
-      <div style="background:linear-gradient(135deg,#faf8f5,#f0ece4);border:2px solid #c9a96e;border-radius:12px;padding:30px;text-align:center;margin:30px 0;">
-        <p style="color:#1a1a2e;font-size:14px;text-transform:uppercase;letter-spacing:2px;margin:0;">Your Exclusive Offer</p>
-        <p style="color:#c9a96e;font-size:48px;font-weight:bold;margin:10px 0;">5% OFF</p>
-        <p style="color:#666;font-size:14px;margin:0;">Your First Service</p>
+      <div style="background:${cream};border:2px solid ${seafoam};border-radius:12px;padding:28px;text-align:center;margin:0 0 28px;">
+        <p style="color:${navy};font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;font-weight:600;">Your Exclusive Offer</p>
+        <p style="color:${seafoam};font-size:52px;font-weight:800;margin:0;line-height:1;">5% OFF</p>
+        <p style="color:${textMedium};font-size:14px;margin:8px 0 0;">Your First Service</p>
       </div>
       
-      <h3 style="color:#1a1a2e;font-size:18px;margin:30px 0 15px;">How to Redeem:</h3>
-      <ol style="color:#444;font-size:15px;line-height:1.8;padding-left:20px;">
-        <li><strong>Book a free consultation</strong> through our online booking system</li>
-        <li><strong>Mention this email</strong> in the notes section when booking, or show it in person at the clinic</li>
+      <h2 style="color:${textDark};font-size:16px;margin:0 0 12px;font-weight:700;">How to Redeem:</h2>
+      <ol style="color:${textMedium};font-size:14px;line-height:1.8;padding-left:20px;margin:0 0 28px;">
+        <li style="margin-bottom:6px;"><strong style="color:${textDark};">Book a free consultation</strong> through our online booking system</li>
+        <li style="margin-bottom:6px;"><strong style="color:${textDark};">Mention this email</strong> in the notes when booking, or show it at the clinic</li>
         <li>Enjoy your 5% discount on your first treatment!</li>
       </ol>
       
       <!-- CTA Button -->
-      <div style="text-align:center;margin:35px 0;">
-        <a href="${VAGARO_LINK}" style="display:inline-block;background:#c9a96e;color:#1a1a2e;padding:16px 40px;text-decoration:none;border-radius:8px;font-size:16px;font-weight:bold;letter-spacing:1px;">
+      <div style="text-align:center;margin:0 0 28px;">
+        <a href="${VAGARO_LINK}" style="display:inline-block;background:${seafoam};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;letter-spacing:0.5px;">
           BOOK YOUR FREE CONSULTATION
         </a>
       </div>
       
-      <p style="color:#444;font-size:15px;line-height:1.6;">
-        Your discount email: <strong>${email}</strong><br>
+      <p style="color:${textMedium};font-size:13px;line-height:1.6;margin:0;padding:16px;background:${cream};border-radius:8px;">
+        Your discount email: <strong style="color:${textDark};">${email}</strong><br>
         <em>Please mention this email or show it at your appointment to receive your discount.</em>
       </p>
     </div>
     
     <!-- Footer -->
-    <div style="background:#1a1a2e;padding:30px;text-align:center;">
-      <p style="color:#c9a96e;margin:0 0 8px;font-size:14px;font-weight:bold;">Virginia Laser Specialists</p>
-      <p style="color:#999;margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-      <p style="color:#999;margin:4px 0 0;font-size:12px;">703-547-4499 · Tue-Fri: 10am-6pm | Sat: 9am-1pm</p>
+    <div style="background:${navyDark};padding:28px 32px;text-align:center;">
+      <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
+      <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
+      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
     </div>
   </div>
 </body>
 </html>
-      `,
+    `;
+
+    // Send confirmation email to subscriber
+    const emailResponse = await resend.emails.send({
+      from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
+      to: [email],
+      subject: "Welcome! Here's Your 5% Discount 🎉",
+      html: brandedEmailHtml,
     });
 
     console.log("Newsletter confirmation sent:", emailResponse);
+
+    // Send admin notification
+    try {
+      const adminNotification = await resend.emails.send({
+        from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
+        to: [ADMIN_EMAIL],
+        subject: `New Newsletter Signup: ${email}`,
+        html: `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div style="max-width:500px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
+    <div style="background:${navy};padding:24px;text-align:center;">
+      <img src="${LOGO_URL}" alt="VLS" width="120" style="display:block;margin:0 auto;max-width:120px;height:auto;" />
+    </div>
+    <div style="padding:28px 24px;">
+      <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📬 New Newsletter Signup</h2>
+      <p style="color:${textMedium};font-size:14px;line-height:1.6;margin:0 0 16px;">
+        A new visitor has signed up for the newsletter and received their 5% discount email.
+      </p>
+      <div style="background:${cream};border-radius:8px;padding:16px;">
+        <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${email}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Source:</strong> Specials Popup</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Time:</strong> ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+        `,
+      });
+      console.log("Admin notification sent:", adminNotification);
+    } catch (adminErr) {
+      console.error("Failed to send admin notification (non-blocking):", adminErr);
+    }
 
     // Update confirmation_sent flag using service role
     await supabaseAdmin

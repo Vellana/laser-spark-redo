@@ -62,12 +62,6 @@ const SpecialsPopup = () => {
       
       if (res.error) console.error("Email send error:", res.error);
 
-      // Update confirmation_sent
-      await supabase
-        .from("email_leads")
-        .update({ confirmation_sent: true })
-        .eq("email", result.data);
-
       setIsSubscribed(true);
     } catch (err) {
       toast.error("Something went wrong. Please try again.");
