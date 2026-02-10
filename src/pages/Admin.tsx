@@ -22,21 +22,33 @@ const Admin = () => {
   const [leads, setLeads] = useState<EmailLead[]>([]);
   const [leadsLoading, setLeadsLoading] = useState(false);
 
+  const verifyAdmin = async (session: any) => {
+    if (!session) {
+      setIsAuthenticated(false);
+      return;
+    }
+    // Server-side role check via RPC
+    const { data: isAdmin } = await supabase.rpc("has_role", {
+      _user_id: session.user.id,
+      _role: "admin" as const,
+    });
+    if (isAdmin) {
+      setIsAuthenticated(true);
+      fetchLeads();
+    } else {
+      setIsAuthenticated(false);
+      toast.error("Access denied: admin role required");
+      await supabase.auth.signOut();
+    }
+  };
+
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        setIsAuthenticated(true);
-        fetchLeads();
-      } else {
-        setIsAuthenticated(false);
-      }
+      verifyAdmin(session);
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setIsAuthenticated(true);
-        fetchLeads();
-      }
+      verifyAdmin(session);
     });
 
     return () => subscription.unsubscribe();
