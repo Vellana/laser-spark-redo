@@ -97,7 +97,8 @@ const Footer = () => {
 
         <div className="border-t border-border pt-8 text-center text-muted-foreground text-sm">
           <p>
-            © {currentYear} Virginia Laser Specialists. All rights reserved.
+            © {currentYear} Virginia Laser Specialists. All rights reserved.{" "}
+            <a href="/admin" className="opacity-30 hover:opacity-60 transition-opacity" aria-label="Admin">·</a>
           </p>
         </div>
       </div>
