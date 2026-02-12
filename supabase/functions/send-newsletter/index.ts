@@ -104,8 +104,11 @@ const handler = async (req: Request): Promise<Response> => {
     const textDark = "#1f2d3d";
     const textMedium = "#4a5568";
 
-    // Sanitize body for HTML (convert newlines to <br>)
-    const sanitizedBody = body.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+    // Allow safe HTML tags from the formatting toolbar, sanitize scripts
+    const sanitizedBody = body.trim()
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/on\w+\s*=/gi, "")
+      .replace(/\n/g, "<br>");
 
     const newsletterHtml = `
 <!DOCTYPE html>
@@ -120,10 +123,10 @@ const handler = async (req: Request): Promise<Response> => {
   <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
     <div style="background:${navy};padding:32px 30px;text-align:center;">
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
-      <p style="color:${seafoamLight};margin:0;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;">Newsletter</p>
+      <p style="color:${white};margin:0;font-size:20px;letter-spacing:2.5px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
     </div>
     <div style="padding:40px 32px;">
-      <h1 style="color:${textDark};font-size:22px;margin:0 0 24px;font-weight:700;">${subject.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h1>
+      <h1 style="color:${textDark};font-size:22px;margin:0 0 24px;font-weight:700;text-align:center;">${subject.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h1>
       <div style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 28px;">
         ${sanitizedBody}
       </div>
