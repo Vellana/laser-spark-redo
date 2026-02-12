@@ -262,7 +262,14 @@ const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <div className="w-full max-w-sm space-y-6">
+        <div className="w-full max-w-sm space-y-6 relative">
+          <button
+            onClick={() => window.location.href = '/'}
+            className="absolute -top-2 -right-2 p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            aria-label="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
           <div className="text-center">
             <h1 className="text-2xl font-bold text-foreground">Admin Login</h1>
             <p className="text-muted-foreground text-sm mt-1">Sign in to manage your dashboard</p>
