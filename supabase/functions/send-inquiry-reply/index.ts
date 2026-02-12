@@ -105,7 +105,7 @@ const handler = async (req: Request): Promise<Response> => {
   <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
     <div style="background:${navy};padding:32px 30px;text-align:center;">
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
-      <p style="color:${seafoamLight};margin:0;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;">Expert Laser Treatments</p>
+      <p style="color:${white};margin:0;font-size:20px;letter-spacing:2.5px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
     </div>
     <div style="padding:40px 32px;">
       <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">Hello ${inquiry.name},</h1>
@@ -119,7 +119,7 @@ const handler = async (req: Request): Promise<Response> => {
         If you have any further questions, feel free to reply to this email or call us at <strong style="color:${textDark};">703-547-4499</strong>.
       </p>
       <div style="text-align:center;">
-        <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
+        <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK A FREE CONSULTATION</a>
       </div>
     </div>
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">

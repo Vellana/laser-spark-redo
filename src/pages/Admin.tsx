@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Heading1, Link, List } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 interface EmailLead {
   id: string;
@@ -217,15 +218,15 @@ const Admin = () => {
     const textMedium = "#4a5568";
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
     const subj = (newsletterSubject || "Your Subject Line").replace(/</g, "&lt;");
-    const body = (newsletterBody || "Your email content will appear here...").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+    const body = newsletterBody ? newsletterBody.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/\n/g, "<br>") : "Your email content will appear here...";
     const imgs = newsletterImages.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
     return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="background:${navy};padding:32px 30px;text-align:center;">
         <img src="${LOGO_URL}" alt="VLS" width="140" style="display:block;margin:0 auto 12px;max-width:140px;height:auto;" />
-        <p style="color:${seafoamLight};margin:0;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;">Newsletter</p>
+        <p style="color:${white};margin:0;font-size:20px;letter-spacing:2.5px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
       </div>
       <div style="padding:36px 28px;">
-        <h1 style="color:${textDark};font-size:20px;margin:0 0 20px;font-weight:700;">${subj}</h1>
+        <h1 style="color:${textDark};font-size:20px;margin:0 0 20px;font-weight:700;text-align:center;">${subj}</h1>
         <div style="color:${textMedium};font-size:14px;line-height:1.7;margin:0 0 24px;">${body}</div>
         ${imgs}
         <div style="text-align:center;margin:0 0 24px;">
@@ -373,7 +374,7 @@ const Admin = () => {
                               return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
                                 <div style="background:${navy};padding:28px 26px;text-align:center;">
                                   <img src="${LOGO_URL}" alt="VLS" width="130" style="display:block;margin:0 auto 10px;max-width:130px;height:auto;" />
-                                  <p style="color:${seafoamLight};margin:0;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Expert Laser Treatments</p>
+                                  <p style="color:${white};margin:0;font-size:18px;letter-spacing:2px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
                                 </div>
                                 <div style="padding:32px 26px;">
                                   <h1 style="color:${textDark};font-size:18px;margin:0 0 14px;font-weight:700;">Hello ${inq.name},</h1>
@@ -383,7 +384,7 @@ const Admin = () => {
                                   </div>
                                   <p style="color:${textMedium};font-size:12px;line-height:1.6;margin:0 0 18px;">If you have any further questions, feel free to reply to this email or call us at <strong style="color:${textDark};">703-547-4499</strong>.</p>
                                   <div style="text-align:center;">
-                                    <span style="display:inline-block;background:${navy};color:${white};padding:10px 28px;border-radius:8px;font-size:13px;font-weight:700;">BOOK AN APPOINTMENT</span>
+                                    <span style="display:inline-block;background:${navy};color:${white};padding:10px 28px;border-radius:8px;font-size:13px;font-weight:700;">BOOK A FREE CONSULTATION</span>
                                   </div>
                                 </div>
                                 <div style="background:${navyDark};padding:20px 26px;text-align:center;">
@@ -501,6 +502,93 @@ const Admin = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="nl-body">Email Body</Label>
+                  <div className="flex items-center gap-1 border border-border rounded-t-md p-1 bg-muted/30">
+                    <button
+                      type="button"
+                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Bold"
+                      onClick={() => {
+                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                        if (!ta) return;
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        const sel = newsletterBody.substring(start, end);
+                        const newVal = newsletterBody.substring(0, start) + `<b>${sel || "text"}</b>` + newsletterBody.substring(end);
+                        setNewsletterBody(newVal);
+                      }}
+                    >
+                      <Bold className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Italic"
+                      onClick={() => {
+                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                        if (!ta) return;
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        const sel = newsletterBody.substring(start, end);
+                        const newVal = newsletterBody.substring(0, start) + `<i>${sel || "text"}</i>` + newsletterBody.substring(end);
+                        setNewsletterBody(newVal);
+                      }}
+                    >
+                      <Italic className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Heading"
+                      onClick={() => {
+                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                        if (!ta) return;
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        const sel = newsletterBody.substring(start, end);
+                        const newVal = newsletterBody.substring(0, start) + `<h2 style="font-size:18px;font-weight:700;margin:16px 0 8px;">${sel || "Heading"}</h2>` + newsletterBody.substring(end);
+                        setNewsletterBody(newVal);
+                      }}
+                    >
+                      <Heading1 className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Link"
+                      onClick={() => {
+                        const url = prompt("Enter URL:");
+                        if (!url) return;
+                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                        if (!ta) return;
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        const sel = newsletterBody.substring(start, end) || "link text";
+                        const newVal = newsletterBody.substring(0, start) + `<a href="${url}" style="color:#3d5a80;font-weight:600;">${sel}</a>` + newsletterBody.substring(end);
+                        setNewsletterBody(newVal);
+                      }}
+                    >
+                      <Link className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Bullet List"
+                      onClick={() => {
+                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                        if (!ta) return;
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        const sel = newsletterBody.substring(start, end);
+                        const items = sel ? sel.split("\n").map(l => `<li>${l}</li>`).join("") : "<li>Item</li>";
+                        const newVal = newsletterBody.substring(0, start) + `<ul style="padding-left:20px;margin:8px 0;">${items}</ul>` + newsletterBody.substring(end);
+                        setNewsletterBody(newVal);
+                      }}
+                    >
+                      <List className="w-4 h-4" />
+                    </button>
+                    <div className="h-4 w-px bg-border mx-1" />
+                    <span className="text-[10px] text-muted-foreground">HTML supported in preview</span>
+                  </div>
                   <Textarea
                     id="nl-body"
                     value={newsletterBody}
@@ -508,6 +596,7 @@ const Admin = () => {
                     placeholder="Write your newsletter content here..."
                     rows={8}
                     maxLength={10000}
+                    className="rounded-t-none border-t-0"
                   />
                   <p className="text-xs text-muted-foreground text-right">{newsletterBody.length}/10000</p>
                 </div>
