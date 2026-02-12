@@ -137,9 +137,9 @@ const handler = async (req: Request): Promise<Response> => {
       </p>
       
       <!-- Discount Box -->
-      <div style="background:${cream};border:2px solid ${seafoam};border-radius:12px;padding:28px;text-align:center;margin:0 0 28px;">
+      <div style="background:${cream};border:2px solid ${navy};border-radius:12px;padding:28px;text-align:center;margin:0 0 28px;">
         <p style="color:${navy};font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;font-weight:600;">Your Exclusive Offer</p>
-        <p style="color:${seafoam};font-size:52px;font-weight:800;margin:0;line-height:1;">5% OFF</p>
+        <p style="color:${navy};font-size:52px;font-weight:800;margin:0;line-height:1;">5% OFF</p>
         <p style="color:${textMedium};font-size:14px;margin:8px 0 0;">Your First Service</p>
       </div>
       
@@ -152,7 +152,7 @@ const handler = async (req: Request): Promise<Response> => {
       
       <!-- CTA Button -->
       <div style="text-align:center;margin:0 0 28px;">
-        <a href="${VAGARO_LINK}" style="display:inline-block;background:${seafoam};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;letter-spacing:0.5px;">
+        <a href="${VAGARO_LINK}" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;letter-spacing:0.5px;">
           BOOK YOUR FREE CONSULTATION
         </a>
       </div>

@@ -119,7 +119,7 @@ const handler = async (req: Request): Promise<Response> => {
         If you have any further questions, feel free to reply to this email or call us at <strong style="color:${textDark};">703-547-4499</strong>.
       </p>
       <div style="text-align:center;">
-        <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${seafoam};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
+        <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
       </div>
     </div>
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
