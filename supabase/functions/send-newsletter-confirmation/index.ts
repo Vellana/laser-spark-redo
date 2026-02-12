@@ -109,7 +109,7 @@ const handler = async (req: Request): Promise<Response> => {
     const cream = "#f8f7f4";
     const white = "#ffffff";
     const textDark = "#1f2d3d";
-    const textMedium = "#4a5568";
+    const textMedium = "#2d3748";
 
     const brandedEmailHtml = `
 <!DOCTYPE html>
