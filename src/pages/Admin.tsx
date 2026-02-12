@@ -232,7 +232,7 @@ const Admin = () => {
     const cream = "#f8f7f4";
     const white = "#ffffff";
     const textDark = "#1f2d3d";
-    const textMedium = "#4a5568";
+    const textMedium = "#2d3748";
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
     const subj = (newsletterSubject || "Your Subject Line").replace(/</g, "&lt;");
     const body = newsletterBody ? newsletterBody.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
@@ -385,7 +385,7 @@ const Admin = () => {
                               const cream = "#f8f7f4";
                               const white = "#ffffff";
                               const textDark = "#1f2d3d";
-                              const textMedium = "#4a5568";
+                              const textMedium = "#2d3748";
                               const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
                               const msg = (replyMessage || "Your reply will appear here...").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
                               return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
