@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface EmailLead {
@@ -45,6 +45,9 @@ const Admin = () => {
   const [newsletterSubject, setNewsletterSubject] = useState("");
   const [newsletterBody, setNewsletterBody] = useState("");
   const [newsletterSending, setNewsletterSending] = useState(false);
+  const [newsletterImages, setNewsletterImages] = useState<string[]>([]);
+  const [imageUploading, setImageUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const verifyAdmin = async (session: any) => {
     if (!session) {
@@ -155,6 +158,31 @@ const Admin = () => {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setImageUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) { toast.error("Only images allowed"); continue; }
+        if (file.size > 5 * 1024 * 1024) { toast.error("Max 5MB per image"); continue; }
+        const ext = file.name.split(".").pop();
+        const path = `newsletter/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error } = await supabase.storage.from("email-assets").upload(path, file);
+        if (error) { toast.error("Upload failed"); continue; }
+        const { data: urlData } = supabase.storage.from("email-assets").getPublicUrl(path);
+        setNewsletterImages((prev) => [...prev, urlData.publicUrl]);
+      }
+    } finally {
+      setImageUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
+  const removeImage = (idx: number) => {
+    setNewsletterImages((prev) => prev.filter((_, i) => i !== idx));
+  };
+
   const handleSendNewsletter = async () => {
     if (!newsletterSubject.trim() || !newsletterBody.trim()) {
       toast.error("Please enter both subject and body");
@@ -164,19 +192,53 @@ const Admin = () => {
     setNewsletterSending(true);
     try {
       const res = await supabase.functions.invoke("send-newsletter", {
-        body: { subject: newsletterSubject.trim(), body: newsletterBody.trim() },
+        body: { subject: newsletterSubject.trim(), body: newsletterBody.trim(), imageUrls: newsletterImages },
       });
       if (res.error) throw res.error;
       const result = res.data;
       toast.success(`Newsletter sent to ${result.sent}/${result.total} subscribers`);
       setNewsletterSubject("");
       setNewsletterBody("");
+      setNewsletterImages([]);
     } catch (err) {
       toast.error("Failed to send newsletter");
     } finally {
       setNewsletterSending(false);
     }
   };
+
+  const previewHtml = useMemo(() => {
+    const navy = "#3d5a80";
+    const navyDark = "#2c4360";
+    const seafoamLight = "#85ccb3";
+    const cream = "#f8f7f4";
+    const white = "#ffffff";
+    const textDark = "#1f2d3d";
+    const textMedium = "#4a5568";
+    const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
+    const subj = (newsletterSubject || "Your Subject Line").replace(/</g, "&lt;");
+    const body = (newsletterBody || "Your email content will appear here...").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+    const imgs = newsletterImages.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
+    return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+      <div style="background:${navy};padding:32px 30px;text-align:center;">
+        <img src="${LOGO_URL}" alt="VLS" width="140" style="display:block;margin:0 auto 12px;max-width:140px;height:auto;" />
+        <p style="color:${seafoamLight};margin:0;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;">Newsletter</p>
+      </div>
+      <div style="padding:36px 28px;">
+        <h1 style="color:${textDark};font-size:20px;margin:0 0 20px;font-weight:700;">${subj}</h1>
+        <div style="color:${textMedium};font-size:14px;line-height:1.7;margin:0 0 24px;">${body}</div>
+        ${imgs}
+        <div style="text-align:center;margin:0 0 24px;">
+          <span style="display:inline-block;background:${navy};color:${white};padding:12px 32px;border-radius:8px;font-size:14px;font-weight:700;">BOOK AN APPOINTMENT</span>
+        </div>
+      </div>
+      <div style="background:${navyDark};padding:24px 28px;text-align:center;">
+        <p style="color:${seafoamLight};margin:0 0 4px;font-size:13px;font-weight:700;">Virginia Laser Specialists</p>
+        <p style="color:rgba(255,255,255,0.6);margin:0;font-size:11px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
+        <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:11px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      </div>
+    </div>`;
+  }, [newsletterSubject, newsletterBody, newsletterImages]);
 
   if (!isAuthenticated) {
     return (
@@ -382,36 +444,82 @@ const Admin = () => {
             <p className="text-sm text-muted-foreground">
               Send a mass email from <strong>hello@virginialaserspecialists.com</strong> to all {leads.length} subscriber(s).
             </p>
-            <div className="bg-card border border-border rounded-lg p-6 space-y-4 max-w-2xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Compose */}
+              <div className="bg-card border border-border rounded-lg p-6 space-y-4">
+                <h3 className="text-sm font-semibold text-foreground">Compose</h3>
+                <div className="space-y-2">
+                  <Label htmlFor="nl-subject">Subject Line</Label>
+                  <Input
+                    id="nl-subject"
+                    value={newsletterSubject}
+                    onChange={(e) => setNewsletterSubject(e.target.value)}
+                    placeholder="e.g. February Specials at Virginia Laser Specialists"
+                    maxLength={200}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="nl-body">Email Body</Label>
+                  <Textarea
+                    id="nl-body"
+                    value={newsletterBody}
+                    onChange={(e) => setNewsletterBody(e.target.value)}
+                    placeholder="Write your newsletter content here..."
+                    rows={8}
+                    maxLength={10000}
+                  />
+                  <p className="text-xs text-muted-foreground text-right">{newsletterBody.length}/10000</p>
+                </div>
+                <div className="space-y-2">
+                  <Label>Images</Label>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                  <div className="flex flex-wrap gap-2">
+                    {newsletterImages.map((url, idx) => (
+                      <div key={idx} className="relative w-20 h-20 rounded-md overflow-hidden border border-border group">
+                        <img src={url} alt="" className="w-full h-full object-cover" />
+                        <button
+                          onClick={() => removeImage(idx)}
+                          className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-20 w-20"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={imageUploading}
+                    >
+                      <ImagePlus className="w-5 h-5" />
+                    </Button>
+                  </div>
+                  {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
+                </div>
+                <Button
+                  onClick={handleSendNewsletter}
+                  disabled={newsletterSending || !newsletterSubject.trim() || !newsletterBody.trim() || !leads.length}
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  {newsletterSending ? "Sending..." : `Send to ${leads.length} Subscriber(s)`}
+                </Button>
+              </div>
+              {/* Preview */}
               <div className="space-y-2">
-                <Label htmlFor="nl-subject">Subject Line</Label>
-                <Input
-                  id="nl-subject"
-                  value={newsletterSubject}
-                  onChange={(e) => setNewsletterSubject(e.target.value)}
-                  placeholder="e.g. February Specials at Virginia Laser Specialists"
-                  maxLength={200}
+                <h3 className="text-sm font-semibold text-foreground">Email Preview</h3>
+                <div
+                  className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[600px]"
+                  dangerouslySetInnerHTML={{ __html: previewHtml }}
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="nl-body">Email Body</Label>
-                <Textarea
-                  id="nl-body"
-                  value={newsletterBody}
-                  onChange={(e) => setNewsletterBody(e.target.value)}
-                  placeholder="Write your newsletter content here..."
-                  rows={10}
-                  maxLength={10000}
-                />
-                <p className="text-xs text-muted-foreground text-right">{newsletterBody.length}/10000</p>
-              </div>
-              <Button
-                onClick={handleSendNewsletter}
-                disabled={newsletterSending || !newsletterSubject.trim() || !newsletterBody.trim() || !leads.length}
-              >
-                <Send className="w-4 h-4 mr-2" />
-                {newsletterSending ? "Sending..." : `Send to ${leads.length} Subscriber(s)`}
-              </Button>
             </div>
           </TabsContent>
         </Tabs>
