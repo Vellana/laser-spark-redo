@@ -54,7 +54,8 @@ const Admin = () => {
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
     document.execCommand(cmd, false, value);
-    syncEditorContent();
+    // Use rAF to ensure DOM reflects the execCommand change before reading innerHTML
+    requestAnimationFrame(() => syncEditorContent());
   };
 
   const syncEditorContent = () => {
