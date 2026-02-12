@@ -2,3 +2,9 @@ project_id = "xdjynkgqksdbtbetmrsj"
 
 [functions.send-newsletter-confirmation]
 verify_jwt = false
+
+[functions.send-inquiry-reply]
+verify_jwt = false
+
+[functions.send-newsletter]
+verify_jwt = false

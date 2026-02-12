@@ -20,6 +20,7 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 // Zod schema for form validation
 const contactFormSchema = z.object({
@@ -94,7 +95,7 @@ const Contact = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
         
@@ -120,8 +121,29 @@ const Contact = () => {
             return;
         }
 
-        // Form is valid - show success message
-        // Note: Backend integration required for actual submission
+        // Save to database
+        const { error: dbError } = await supabase
+            .from("contact_inquiries")
+            .insert({
+                name: result.data.name,
+                email: result.data.email,
+                phone: result.data.phone,
+                service: result.data.service || null,
+                contact_method: result.data.contactMethod,
+                message: result.data.message || null,
+            });
+
+        if (dbError) {
+            console.error("Failed to save inquiry:", dbError);
+            toast({
+                title: "Error",
+                description: "Something went wrong. Please try again or call us at 703-547-4499.",
+                variant: "destructive",
+            });
+            setIsSubmitting(false);
+            return;
+        }
+
         toast({
             title: "Message Received",
             description: "Thank you for your inquiry! We'll get back to you soon.",
