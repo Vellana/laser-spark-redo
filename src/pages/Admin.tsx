@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Heading1, Link, List } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, Type, Palette } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface EmailLead {
   id: string;
@@ -502,103 +502,191 @@ const Admin = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="nl-body">Email Body</Label>
-                  <div className="flex items-center gap-1 border border-border rounded-t-md p-1 bg-muted/30">
-                    <button
-                      type="button"
-                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title="Bold"
-                      onClick={() => {
-                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                        if (!ta) return;
-                        const start = ta.selectionStart;
-                        const end = ta.selectionEnd;
-                        const sel = newsletterBody.substring(start, end);
-                        const newVal = newsletterBody.substring(0, start) + `<b>${sel || "text"}</b>` + newsletterBody.substring(end);
-                        setNewsletterBody(newVal);
-                      }}
-                    >
-                      <Bold className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title="Italic"
-                      onClick={() => {
-                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                        if (!ta) return;
-                        const start = ta.selectionStart;
-                        const end = ta.selectionEnd;
-                        const sel = newsletterBody.substring(start, end);
-                        const newVal = newsletterBody.substring(0, start) + `<i>${sel || "text"}</i>` + newsletterBody.substring(end);
-                        setNewsletterBody(newVal);
-                      }}
-                    >
-                      <Italic className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title="Heading"
-                      onClick={() => {
-                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                        if (!ta) return;
-                        const start = ta.selectionStart;
-                        const end = ta.selectionEnd;
-                        const sel = newsletterBody.substring(start, end);
-                        const newVal = newsletterBody.substring(0, start) + `<h2 style="font-size:18px;font-weight:700;margin:16px 0 8px;">${sel || "Heading"}</h2>` + newsletterBody.substring(end);
-                        setNewsletterBody(newVal);
-                      }}
-                    >
-                      <Heading1 className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title="Link"
-                      onClick={() => {
-                        const url = prompt("Enter URL:");
-                        if (!url) return;
-                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                        if (!ta) return;
-                        const start = ta.selectionStart;
-                        const end = ta.selectionEnd;
-                        const sel = newsletterBody.substring(start, end) || "link text";
-                        const newVal = newsletterBody.substring(0, start) + `<a href="${url}" style="color:#3d5a80;font-weight:600;">${sel}</a>` + newsletterBody.substring(end);
-                        setNewsletterBody(newVal);
-                      }}
-                    >
-                      <Link className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      className="p-1.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title="Bullet List"
-                      onClick={() => {
-                        const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                        if (!ta) return;
-                        const start = ta.selectionStart;
-                        const end = ta.selectionEnd;
-                        const sel = newsletterBody.substring(start, end);
-                        const items = sel ? sel.split("\n").map(l => `<li>${l}</li>`).join("") : "<li>Item</li>";
-                        const newVal = newsletterBody.substring(0, start) + `<ul style="padding-left:20px;margin:8px 0;">${items}</ul>` + newsletterBody.substring(end);
-                        setNewsletterBody(newVal);
-                      }}
-                    >
-                      <List className="w-4 h-4" />
-                    </button>
-                    <div className="h-4 w-px bg-border mx-1" />
-                    <span className="text-[10px] text-muted-foreground">HTML supported in preview</span>
-                  </div>
+                  <TooltipProvider delayDuration={200}>
+                    <div className="flex flex-wrap items-center gap-0.5 border border-border rounded-t-md px-2 py-1.5 bg-muted/30">
+                      {([
+                        { icon: Bold, label: "Bold", tag: "b", wrap: true },
+                        { icon: Italic, label: "Italic", tag: "i", wrap: true },
+                        { icon: Underline, label: "Underline", tag: "u", wrap: true },
+                      ] as const).map(({ icon: Icon, label, tag }) => (
+                        <Tooltip key={label}>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                              onClick={() => {
+                                const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                                if (!ta) return;
+                                const { selectionStart: s, selectionEnd: e } = ta;
+                                const sel = newsletterBody.substring(s, e) || label.toLowerCase();
+                                setNewsletterBody(newsletterBody.substring(0, s) + `<${tag}>${sel}</${tag}>` + newsletterBody.substring(e));
+                              }}
+                            >
+                              <Icon className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                        </Tooltip>
+                      ))}
+
+                      <div className="h-5 w-px bg-border mx-1" />
+
+                      {([
+                        { icon: Heading1, label: "Large Heading", style: "font-size:20px;font-weight:700;margin:16px 0 8px;", tag: "h2" },
+                        { icon: Heading2, label: "Small Heading", style: "font-size:16px;font-weight:600;margin:12px 0 6px;", tag: "h3" },
+                      ] as const).map(({ icon: Icon, label, style, tag }) => (
+                        <Tooltip key={label}>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                              onClick={() => {
+                                const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                                if (!ta) return;
+                                const { selectionStart: s, selectionEnd: e } = ta;
+                                const sel = newsletterBody.substring(s, e) || "Heading";
+                                setNewsletterBody(newsletterBody.substring(0, s) + `<${tag} style="${style}">${sel}</${tag}>` + newsletterBody.substring(e));
+                              }}
+                            >
+                              <Icon className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                        </Tooltip>
+                      ))}
+
+                      <div className="h-5 w-px bg-border mx-1" />
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => {
+                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                              if (!ta) return;
+                              const { selectionStart: s, selectionEnd: e } = ta;
+                              const sel = newsletterBody.substring(s, e);
+                              const items = sel ? sel.split("\n").filter(Boolean).map(l => `<li>${l}</li>`).join("") : "<li>Item 1</li>\n<li>Item 2</li>";
+                              setNewsletterBody(newsletterBody.substring(0, s) + `<ul style="padding-left:20px;margin:12px 0;">${items}</ul>` + newsletterBody.substring(e));
+                            }}
+                          >
+                            <List className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">Bullet List</TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => {
+                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                              if (!ta) return;
+                              const { selectionStart: s, selectionEnd: e } = ta;
+                              const sel = newsletterBody.substring(s, e);
+                              const items = sel ? sel.split("\n").filter(Boolean).map((l, i) => `<li>${l}</li>`).join("") : "<li>First</li>\n<li>Second</li>\n<li>Third</li>";
+                              setNewsletterBody(newsletterBody.substring(0, s) + `<ol style="padding-left:20px;margin:12px 0;">${items}</ol>` + newsletterBody.substring(e));
+                            }}
+                          >
+                            <ListOrdered className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">Numbered List</TooltipContent>
+                      </Tooltip>
+
+                      <div className="h-5 w-px bg-border mx-1" />
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => {
+                              const url = prompt("Enter URL:");
+                              if (!url) return;
+                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                              if (!ta) return;
+                              const { selectionStart: s, selectionEnd: e } = ta;
+                              const sel = newsletterBody.substring(s, e) || "Click here";
+                              setNewsletterBody(newsletterBody.substring(0, s) + `<a href="${url}" style="color:#3d5a80;font-weight:600;text-decoration:underline;">${sel}</a>` + newsletterBody.substring(e));
+                            }}
+                          >
+                            <Link className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">Insert Link</TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => {
+                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                              if (!ta) return;
+                              const { selectionStart: s } = ta;
+                              setNewsletterBody(newsletterBody.substring(0, s) + `<hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0;" />` + newsletterBody.substring(s));
+                            }}
+                          >
+                            <Minus className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">Divider Line</TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => {
+                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                              if (!ta) return;
+                              const { selectionStart: s, selectionEnd: e } = ta;
+                              const sel = newsletterBody.substring(s, e) || "highlighted text";
+                              setNewsletterBody(newsletterBody.substring(0, s) + `<span style="color:#3d5a80;font-weight:600;">${sel}</span>` + newsletterBody.substring(e));
+                            }}
+                          >
+                            <Palette className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">Brand Color</TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            type="button"
+                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => {
+                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
+                              if (!ta) return;
+                              const { selectionStart: s, selectionEnd: e } = ta;
+                              const sel = newsletterBody.substring(s, e) || "small print";
+                              setNewsletterBody(newsletterBody.substring(0, s) + `<span style="font-size:12px;color:#718096;">${sel}</span>` + newsletterBody.substring(e));
+                            }}
+                          >
+                            <Type className="w-4 h-4" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">Fine Print</TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TooltipProvider>
                   <Textarea
                     id="nl-body"
                     value={newsletterBody}
                     onChange={(e) => setNewsletterBody(e.target.value)}
-                    placeholder="Write your newsletter content here..."
-                    rows={8}
+                    placeholder="Write your newsletter content here. Select text and use the toolbar above to format it — see changes instantly in the preview →"
+                    rows={10}
                     maxLength={10000}
-                    className="rounded-t-none border-t-0"
+                    className="rounded-t-none border-t-0 font-mono text-sm"
                   />
-                  <p className="text-xs text-muted-foreground text-right">{newsletterBody.length}/10000</p>
+                  <p className="text-xs text-muted-foreground text-right">{newsletterBody.length}/10,000</p>
                 </div>
                 <div className="space-y-2">
                   <Label>Images</Label>
