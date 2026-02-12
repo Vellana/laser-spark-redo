@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, Type, Palette } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -49,6 +49,19 @@ const Admin = () => {
   const [newsletterImages, setNewsletterImages] = useState<string[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  const execCmd = (cmd: string, value?: string) => {
+    editorRef.current?.focus();
+    document.execCommand(cmd, false, value);
+    syncEditorContent();
+  };
+
+  const syncEditorContent = () => {
+    if (editorRef.current) {
+      setNewsletterBody(editorRef.current.innerHTML);
+    }
+  };
 
   const verifyAdmin = async (session: any) => {
     if (!session) {
@@ -184,8 +197,11 @@ const Admin = () => {
     setNewsletterImages((prev) => prev.filter((_, i) => i !== idx));
   };
 
-  const handleSendNewsletter = async () => {
-    if (!newsletterSubject.trim() || !newsletterBody.trim()) {
+    const stripTags = (html: string) => html.replace(/<[^>]*>/g, "").trim();
+
+    const handleSendNewsletter = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    if (!newsletterSubject.trim() || !stripTags(bodyContent)) {
       toast.error("Please enter both subject and body");
       return;
     }
@@ -193,7 +209,7 @@ const Admin = () => {
     setNewsletterSending(true);
     try {
       const res = await supabase.functions.invoke("send-newsletter", {
-        body: { subject: newsletterSubject.trim(), body: newsletterBody.trim(), imageUrls: newsletterImages },
+        body: { subject: newsletterSubject.trim(), body: bodyContent.trim(), imageUrls: newsletterImages },
       });
       if (res.error) throw res.error;
       const result = res.data;
@@ -201,6 +217,7 @@ const Admin = () => {
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
+      if (editorRef.current) editorRef.current.innerHTML = "";
     } catch (err) {
       toast.error("Failed to send newsletter");
     } finally {
@@ -218,16 +235,16 @@ const Admin = () => {
     const textMedium = "#4a5568";
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
     const subj = (newsletterSubject || "Your Subject Line").replace(/</g, "&lt;");
-    const body = newsletterBody ? newsletterBody.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/\n/g, "<br>") : "Your email content will appear here...";
+    const body = newsletterBody ? newsletterBody.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
     const imgs = newsletterImages.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
     return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="background:${navy};padding:32px 30px;text-align:center;">
         <img src="${LOGO_URL}" alt="VLS" width="140" style="display:block;margin:0 auto 12px;max-width:140px;height:auto;" />
         <p style="color:${white};margin:0;font-size:20px;letter-spacing:2.5px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
       </div>
-      <div style="padding:36px 28px;">
+      <div style="padding:36px 28px;text-align:center;">
         <h1 style="color:${textDark};font-size:20px;margin:0 0 20px;font-weight:700;text-align:center;">${subj}</h1>
-        <div style="color:${textMedium};font-size:14px;line-height:1.7;margin:0 0 24px;">${body}</div>
+        <div style="color:${textMedium};font-size:14px;line-height:1.7;margin:0 0 24px;text-align:center;">${body}</div>
         ${imgs}
         <div style="text-align:center;margin:0 0 24px;">
           <span style="display:inline-block;background:${navy};color:${white};padding:12px 32px;border-radius:8px;font-size:14px;font-weight:700;">BOOK AN APPOINTMENT</span>
@@ -501,192 +518,124 @@ const Admin = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="nl-body">Email Body</Label>
-                  <TooltipProvider delayDuration={200}>
-                    <div className="flex flex-wrap items-center gap-0.5 border border-border rounded-t-md px-2 py-1.5 bg-muted/30">
-                      {([
-                        { icon: Bold, label: "Bold", tag: "b", wrap: true },
-                        { icon: Italic, label: "Italic", tag: "i", wrap: true },
-                        { icon: Underline, label: "Underline", tag: "u", wrap: true },
-                      ] as const).map(({ icon: Icon, label, tag }) => (
-                        <Tooltip key={label}>
+                  <Label>Email Body</Label>
+                  <div className="border border-border rounded-lg overflow-hidden">
+                    <TooltipProvider delayDuration={200}>
+                      <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 bg-muted/30 border-b border-border">
+                        {([
+                          { icon: Bold, label: "Bold", cmd: "bold" },
+                          { icon: Italic, label: "Italic", cmd: "italic" },
+                          { icon: Underline, label: "Underline", cmd: "underline" },
+                        ] as const).map(({ icon: Icon, label, cmd }) => (
+                          <Tooltip key={label}>
+                            <TooltipTrigger asChild>
+                              <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd(cmd); }}>
+                                <Icon className="w-4 h-4" />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                          </Tooltip>
+                        ))}
+
+                        <div className="h-5 w-px bg-border mx-1" />
+
+                        <Tooltip>
                           <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                              onClick={() => {
-                                const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                                if (!ta) return;
-                                const { selectionStart: s, selectionEnd: e } = ta;
-                                const sel = newsletterBody.substring(s, e) || label.toLowerCase();
-                                setNewsletterBody(newsletterBody.substring(0, s) + `<${tag}>${sel}</${tag}>` + newsletterBody.substring(e));
-                              }}
-                            >
-                              <Icon className="w-4 h-4" />
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("formatBlock", "h2"); }}>
+                              <Heading1 className="w-4 h-4" />
                             </button>
                           </TooltipTrigger>
-                          <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                          <TooltipContent side="top" className="text-xs">Large Heading</TooltipContent>
                         </Tooltip>
-                      ))}
-
-                      <div className="h-5 w-px bg-border mx-1" />
-
-                      {([
-                        { icon: Heading1, label: "Large Heading", style: "font-size:20px;font-weight:700;margin:16px 0 8px;", tag: "h2" },
-                        { icon: Heading2, label: "Small Heading", style: "font-size:16px;font-weight:600;margin:12px 0 6px;", tag: "h3" },
-                      ] as const).map(({ icon: Icon, label, style, tag }) => (
-                        <Tooltip key={label}>
+                        <Tooltip>
                           <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                              onClick={() => {
-                                const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                                if (!ta) return;
-                                const { selectionStart: s, selectionEnd: e } = ta;
-                                const sel = newsletterBody.substring(s, e) || "Heading";
-                                setNewsletterBody(newsletterBody.substring(0, s) + `<${tag} style="${style}">${sel}</${tag}>` + newsletterBody.substring(e));
-                              }}
-                            >
-                              <Icon className="w-4 h-4" />
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("formatBlock", "h3"); }}>
+                              <Heading2 className="w-4 h-4" />
                             </button>
                           </TooltipTrigger>
-                          <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                          <TooltipContent side="top" className="text-xs">Small Heading</TooltipContent>
                         </Tooltip>
-                      ))}
 
-                      <div className="h-5 w-px bg-border mx-1" />
+                        <div className="h-5 w-px bg-border mx-1" />
 
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => {
-                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                              if (!ta) return;
-                              const { selectionStart: s, selectionEnd: e } = ta;
-                              const sel = newsletterBody.substring(s, e);
-                              const items = sel ? sel.split("\n").filter(Boolean).map(l => `<li>${l}</li>`).join("") : "<li>Item 1</li>\n<li>Item 2</li>";
-                              setNewsletterBody(newsletterBody.substring(0, s) + `<ul style="padding-left:20px;margin:12px 0;">${items}</ul>` + newsletterBody.substring(e));
-                            }}
-                          >
-                            <List className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs">Bullet List</TooltipContent>
-                      </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("insertUnorderedList"); }}>
+                              <List className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Bullet List</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("insertOrderedList"); }}>
+                              <ListOrdered className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Numbered List</TooltipContent>
+                        </Tooltip>
 
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => {
-                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                              if (!ta) return;
-                              const { selectionStart: s, selectionEnd: e } = ta;
-                              const sel = newsletterBody.substring(s, e);
-                              const items = sel ? sel.split("\n").filter(Boolean).map((l, i) => `<li>${l}</li>`).join("") : "<li>First</li>\n<li>Second</li>\n<li>Third</li>";
-                              setNewsletterBody(newsletterBody.substring(0, s) + `<ol style="padding-left:20px;margin:12px 0;">${items}</ol>` + newsletterBody.substring(e));
-                            }}
-                          >
-                            <ListOrdered className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs">Numbered List</TooltipContent>
-                      </Tooltip>
+                        <div className="h-5 w-px bg-border mx-1" />
 
-                      <div className="h-5 w-px bg-border mx-1" />
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("justifyCenter"); }}>
+                              <AlignCenter className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Center Align</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("justifyLeft"); }}>
+                              <AlignLeft className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Left Align</TooltipContent>
+                        </Tooltip>
 
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => {
+                        <div className="h-5 w-px bg-border mx-1" />
+
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => {
+                              e.preventDefault();
                               const url = prompt("Enter URL:");
-                              if (!url) return;
-                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                              if (!ta) return;
-                              const { selectionStart: s, selectionEnd: e } = ta;
-                              const sel = newsletterBody.substring(s, e) || "Click here";
-                              setNewsletterBody(newsletterBody.substring(0, s) + `<a href="${url}" style="color:#3d5a80;font-weight:600;text-decoration:underline;">${sel}</a>` + newsletterBody.substring(e));
-                            }}
-                          >
-                            <Link className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs">Insert Link</TooltipContent>
-                      </Tooltip>
-
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => {
-                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                              if (!ta) return;
-                              const { selectionStart: s } = ta;
-                              setNewsletterBody(newsletterBody.substring(0, s) + `<hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0;" />` + newsletterBody.substring(s));
-                            }}
-                          >
-                            <Minus className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs">Divider Line</TooltipContent>
-                      </Tooltip>
-
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => {
-                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                              if (!ta) return;
-                              const { selectionStart: s, selectionEnd: e } = ta;
-                              const sel = newsletterBody.substring(s, e) || "highlighted text";
-                              setNewsletterBody(newsletterBody.substring(0, s) + `<span style="color:#3d5a80;font-weight:600;">${sel}</span>` + newsletterBody.substring(e));
-                            }}
-                          >
-                            <Palette className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs">Brand Color</TooltipContent>
-                      </Tooltip>
-
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            type="button"
-                            className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => {
-                              const ta = document.getElementById("nl-body") as HTMLTextAreaElement;
-                              if (!ta) return;
-                              const { selectionStart: s, selectionEnd: e } = ta;
-                              const sel = newsletterBody.substring(s, e) || "small print";
-                              setNewsletterBody(newsletterBody.substring(0, s) + `<span style="font-size:12px;color:#718096;">${sel}</span>` + newsletterBody.substring(e));
-                            }}
-                          >
-                            <Type className="w-4 h-4" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs">Fine Print</TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </TooltipProvider>
-                  <Textarea
-                    id="nl-body"
-                    value={newsletterBody}
-                    onChange={(e) => setNewsletterBody(e.target.value)}
-                    placeholder="Write your newsletter content here. Select text and use the toolbar above to format it — see changes instantly in the preview →"
-                    rows={10}
-                    maxLength={10000}
-                    className="rounded-t-none border-t-0 font-mono text-sm"
-                  />
-                  <p className="text-xs text-muted-foreground text-right">{newsletterBody.length}/10,000</p>
+                              if (url) execCmd("createLink", url);
+                            }}>
+                              <Link className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Insert Link</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("insertHorizontalRule"); }}>
+                              <Minus className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Divider</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); execCmd("foreColor", "#3d5a80"); }}>
+                              <Palette className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">Brand Color</TooltipContent>
+                        </Tooltip>
+                      </div>
+                    </TooltipProvider>
+                    <div
+                      ref={editorRef}
+                      contentEditable
+                      className="min-h-[200px] max-h-[400px] overflow-y-auto p-4 text-sm text-foreground focus:outline-none bg-background [&_h2]:text-lg [&_h2]:font-bold [&_h2]:my-3 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:my-2 [&_a]:text-[#3d5a80] [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:my-4 [&_hr]:border-border"
+                      onInput={syncEditorContent}
+                      data-placeholder="Start typing your newsletter content..."
+                      style={{ minHeight: 200 }}
+                      suppressContentEditableWarning
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label>Images</Label>
@@ -724,7 +673,7 @@ const Admin = () => {
                 </div>
                 <Button
                   onClick={handleSendNewsletter}
-                  disabled={newsletterSending || !newsletterSubject.trim() || !newsletterBody.trim() || !leads.length}
+                  disabled={newsletterSending || !newsletterSubject.trim() || !leads.length}
                 >
                   <Send className="w-4 h-4 mr-2" />
                   {newsletterSending ? "Sending..." : `Send to ${leads.length} Subscriber(s)`}

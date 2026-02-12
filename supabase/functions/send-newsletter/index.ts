@@ -125,9 +125,9 @@ const handler = async (req: Request): Promise<Response> => {
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
       <p style="color:${white};margin:0;font-size:20px;letter-spacing:2.5px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
     </div>
-    <div style="padding:40px 32px;">
+    <div style="padding:40px 32px;text-align:center;">
       <h1 style="color:${textDark};font-size:22px;margin:0 0 24px;font-weight:700;text-align:center;">${subject.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h1>
-      <div style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 28px;">
+      <div style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 28px;text-align:center;">
         ${sanitizedBody}
       </div>
       ${imagesHtml}
