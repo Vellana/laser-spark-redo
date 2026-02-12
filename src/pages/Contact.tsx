@@ -38,12 +38,13 @@ const contactFormSchema = z.object({
     phone: z
         .string()
         .trim()
-        .min(10, "Please enter a valid phone number")
         .max(20, "Phone number is too long")
         .regex(
-            /^[\d\s()+-]+$/,
+            /^[\d\s()+-]*$/,
             "Phone number can only contain digits, spaces, parentheses, plus, and hyphens"
-        ),
+        )
+        .optional()
+        .or(z.literal("")),
     service: z.string().max(50, "Service selection is too long").optional().or(z.literal("")),
     contactMethod: z.enum(["email", "phone", "either"], {
         required_error: "Please select a contact method",
@@ -127,7 +128,7 @@ const Contact = () => {
             .insert({
                 name: result.data.name,
                 email: result.data.email,
-                phone: result.data.phone,
+                phone: result.data.phone || "",
                 service: result.data.service || null,
                 contact_method: result.data.contactMethod,
                 message: result.data.message || null,
@@ -242,11 +243,10 @@ const Contact = () => {
                                             </div>
 
                                             <div className="space-y-2">
-                                                <Label htmlFor="phone">Phone Number *</Label>
+                                                <Label htmlFor="phone">Phone Number</Label>
                                                 <Input
                                                     id="phone"
                                                     type="tel"
-                                                    required
                                                     maxLength={20}
                                                     value={formData.phone}
                                                     onChange={(e) => handleInputChange("phone", e.target.value)}
