@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_inquiries: {
+        Row: {
+          admin_reply: string | null
+          contact_method: string
+          created_at: string
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string
+          replied_at: string | null
+          service: string | null
+          status: string
+        }
+        Insert: {
+          admin_reply?: string | null
+          contact_method?: string
+          created_at?: string
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone: string
+          replied_at?: string | null
+          service?: string | null
+          status?: string
+        }
+        Update: {
+          admin_reply?: string | null
+          contact_method?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string
+          replied_at?: string | null
+          service?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       email_leads: {
         Row: {
           confirmation_sent: boolean | null
