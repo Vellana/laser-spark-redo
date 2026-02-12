@@ -122,7 +122,7 @@ const handler = async (req: Request): Promise<Response> => {
         ${sanitizedBody}
       </div>
       <div style="text-align:center;margin:0 0 28px;">
-        <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${seafoam};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
+        <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
       </div>
     </div>
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
