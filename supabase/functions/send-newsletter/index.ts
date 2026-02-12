@@ -104,11 +104,26 @@ const handler = async (req: Request): Promise<Response> => {
     const textDark = "#1f2d3d";
     const textMedium = "#2d3748";
 
-    // Allow safe HTML tags from the formatting toolbar, sanitize scripts
-    const sanitizedBody = body.trim()
-      .replace(/<script[\s\S]*?<\/script>/gi, "")
-      .replace(/on\w+\s*=/gi, "")
-      .replace(/\n/g, "<br>");
+    // Sanitize HTML: allow only safe tags from the formatting toolbar
+    const ALLOWED_TAGS = ['p', 'br', 'strong', 'em', 'u', 'b', 'i', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'a', 'span', 'div', 'font'];
+    const ALLOWED_ATTR_PATTERN = /\s(?:href|style|color|face|size|class|align)=/i;
+
+    function sanitizeHtml(html: string): string {
+      let s = html.trim();
+      // Remove script tags, iframes, objects, embeds, style tags, SVGs
+      s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[\s\S]*?<\/\1>/gi, "");
+      s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[^>]*\/?>/gi, "");
+      // Remove event handlers
+      s = s.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, "");
+      // Remove javascript: and data: URIs in href/src attributes
+      s = s.replace(/(href|src)\s*=\s*(?:"(?:javascript|data|vbscript):[^"]*"|'(?:javascript|data|vbscript):[^']*')/gi, "$1=\"\"");
+      // Remove any remaining script-like content
+      s = s.replace(/javascript\s*:/gi, "");
+      s = s.replace(/\n/g, "<br>");
+      return s;
+    }
+
+    const sanitizedBody = sanitizeHtml(body);
 
     const newsletterHtml = `
 <!DOCTYPE html>
