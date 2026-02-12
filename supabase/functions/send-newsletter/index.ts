@@ -59,7 +59,7 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const { subject, body } = await req.json();
+    const { subject, body, imageUrls } = await req.json();
 
     if (!subject || !body || typeof subject !== "string" || typeof body !== "string") {
       return new Response(JSON.stringify({ error: "Missing subject or body" }), {
@@ -74,6 +74,12 @@ const handler = async (req: Request): Promise<Response> => {
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }
+
+    // Build image HTML if any image URLs provided
+    const images: string[] = Array.isArray(imageUrls) ? imageUrls.filter((u: any) => typeof u === "string" && u.startsWith("http")) : [];
+    const imagesHtml = images.length > 0
+      ? images.map((url: string) => `<div style="text-align:center;margin:0 0 20px;"><img src="${url}" alt="Newsletter image" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("")
+      : "";
 
     // Fetch all email leads
     const { data: leads, error: leadsErr } = await supabaseAdmin
@@ -121,6 +127,7 @@ const handler = async (req: Request): Promise<Response> => {
       <div style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 28px;">
         ${sanitizedBody}
       </div>
+      ${imagesHtml}
       <div style="text-align:center;margin:0 0 28px;">
         <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
       </div>
