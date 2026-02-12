@@ -175,4 +175,12 @@ All colors MUST be HSL.
   .page-transition {
     @apply animate-fade-in;
   }
+
+  /* WYSIWYG editor placeholder */
+  [contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    display: block;
+  }
 }
