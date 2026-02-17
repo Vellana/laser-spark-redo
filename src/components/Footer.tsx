@@ -1,5 +1,6 @@
 import { Facebook, Instagram } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { pushEvent } from "@/lib/analytics";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -58,7 +59,7 @@ const Footer = () => {
               <p>8100 Boone Blvd, Suite 270</p>
               <p>Vienna, VA 22182</p>
               <p>
-                <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
+                <a href="tel:703-547-4499" className="hover:text-accent transition-colors" onClick={() => pushEvent("click_call")}>
                   703-547-4499
                 </a>
               </p>

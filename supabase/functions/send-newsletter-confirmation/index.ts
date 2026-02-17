@@ -133,21 +133,23 @@ const handler = async (req: Request): Promise<Response> => {
     <div style="padding:40px 32px;">
       <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">Welcome to Our Community!</h1>
       <p style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 24px;">
-        Thank you for signing up for our newsletter! As promised, here is your exclusive discount on your first service.
+        Thank you for signing up for our newsletter! As promised, here is your exclusive discount.
       </p>
       
       <!-- Discount Box -->
       <div style="background:${cream};border:2px solid ${navy};border-radius:12px;padding:28px;text-align:center;margin:0 0 28px;">
         <p style="color:${navy};font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;font-weight:600;">Your Exclusive Offer</p>
-        <p style="color:${navy};font-size:52px;font-weight:800;margin:0;line-height:1;">5% OFF</p>
-        <p style="color:${textMedium};font-size:14px;margin:8px 0 0;">Your First Service</p>
+        <p style="color:${navy};font-size:52px;font-weight:800;margin:0;line-height:1;">10% OFF</p>
+        <p style="color:${textMedium};font-size:14px;margin:8px 0 0;">Your Next Service</p>
+        <p style="color:${navy};font-size:28px;font-weight:800;margin:12px 0 0;letter-spacing:4px;">VLS10</p>
+        <p style="color:${textMedium};font-size:12px;margin:6px 0 0;">Use this code when booking</p>
       </div>
       
       <h2 style="color:${textDark};font-size:16px;margin:0 0 12px;font-weight:700;">How to Redeem:</h2>
       <ol style="color:${textMedium};font-size:14px;line-height:1.8;padding-left:20px;margin:0 0 28px;">
         <li style="margin-bottom:6px;"><strong style="color:${textDark};">Book a free consultation</strong> through our online booking system</li>
-        <li style="margin-bottom:6px;"><strong style="color:${textDark};">Mention this email</strong> in the notes when booking, or show it at the clinic</li>
-        <li>Enjoy your 5% discount on your first treatment!</li>
+        <li style="margin-bottom:6px;"><strong style="color:${textDark};">Mention code VLS10</strong> in the notes when booking, or show this email at the clinic</li>
+        <li>Enjoy your 10% discount on your next treatment!</li>
       </ol>
       
       <!-- CTA Button -->
@@ -178,7 +180,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
       to: [email],
-      subject: "Welcome! Here's Your 5% Discount 🎉",
+      subject: "Welcome! Here's Your 10% Discount — Code VLS10 🎉",
       html: brandedEmailHtml,
     });
 

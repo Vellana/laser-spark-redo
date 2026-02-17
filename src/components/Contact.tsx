@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, MapPin, Clock } from "lucide-react";
+import { pushEvent } from "@/lib/analytics";
 
 const Contact = () => {
   const contactInfo = [
@@ -54,6 +55,7 @@ const Contact = () => {
                   <h3 className="font-semibold text-white mb-1">{info.title}</h3>
                   <a
                     href={info.link}
+                    onClick={info.title === "Phone" ? () => pushEvent("click_call") : undefined}
                     className="text-white/90 hover:text-accent transition-colors"
                   >
                     {info.details}
@@ -100,12 +102,12 @@ const Contact = () => {
         </div>
 
         <div className="text-center space-y-6">
-          <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+          <a href="/book-free-consultation">
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"
             >
-              Book Your Appointment Now
+              Book Your Free Consultation
             </Button>
           </a>
           <p className="text-white/80 text-sm">
