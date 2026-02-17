@@ -132,6 +132,7 @@ const SpecialsPopup = () => {
               <p className="text-xs text-muted-foreground">Your discount code:</p>
               <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
               <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
+              <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link to="/book-free-consultation" className="flex-1">
@@ -178,6 +179,7 @@ const SpecialsPopup = () => {
             <div className="border-t border-border pt-4 mt-4 space-y-3">
               <p className="text-sm font-medium text-foreground">
                 Get <span className="text-accent font-bold">10% off</span> your next service when you join our email list!
+                <span className="block text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</span>
               </p>
               <form onSubmit={handleSubscribe} className="flex gap-2">
                 <Input
@@ -203,6 +205,7 @@ const SpecialsPopup = () => {
                 <p className="text-xs text-muted-foreground">Your discount code:</p>
                 <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
                 <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
               </div>
             </div>
           )}
