@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -61,6 +62,20 @@ serve(async (req: Request) => {
       });
     }
 
+    // Check if this client signed up for the newsletter discount
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    const { data: emailLead } = await supabaseAdmin
+      .from("email_leads")
+      .select("id, confirmation_sent, subscribed_at")
+      .eq("email", email)
+      .maybeSingle();
+
+    const hasNewsletterDiscount = !!emailLead;
+
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
     const ADMIN_EMAIL = "admin@virginialaserspecialists.com";
     const navy = "#3d5a80";
@@ -91,6 +106,13 @@ serve(async (req: Request) => {
     <div style="padding:40px 32px;text-align:center;">
       <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">You're All Set, ${firstName}!</h1>
       <p style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 24px;">Your free consultation has been booked. We look forward to meeting you!</p>
+      ${hasNewsletterDiscount ? `
+      <div style="background:#e8f5e9;border:2px solid #4caf50;border-radius:10px;padding:16px;margin:0 0 24px;text-align:center;">
+        <p style="color:#2e7d32;font-size:14px;font-weight:700;margin:0;">🎉 Your 10% Discount Is Ready!</p>
+        <p style="color:#2e7d32;font-size:13px;margin:6px 0 0;">Code <strong>VLS10</strong> will be applied at your appointment. No need to do anything — just show up!</p>
+        <p style="color:#558b2f;font-size:11px;margin:6px 0 0;">*Cannot be combined with other offers.</p>
+      </div>
+      ` : ""}
       <div style="background:${cream};border:2px solid ${navy};border-radius:12px;padding:24px;text-align:center;margin:0 0 24px;">
         <p style="color:${navy};font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;font-weight:600;">Your Appointment</p>
         <p style="color:${textDark};font-size:20px;font-weight:700;margin:0 0 4px;">${formattedDate}</p>
@@ -136,6 +158,12 @@ serve(async (req: Request) => {
     </div>
     <div style="padding:28px 24px;">
       <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📅 New Consultation Booking</h2>
+      ${hasNewsletterDiscount ? `
+      <div style="background:#fff3e0;border:2px solid #ff9800;border-radius:8px;padding:12px;margin:0 0 16px;text-align:center;">
+        <p style="color:#e65100;font-size:14px;font-weight:800;margin:0;">⚠️ NEWSLETTER DISCOUNT — APPLY 10% OFF</p>
+        <p style="color:#bf360c;font-size:13px;margin:4px 0 0;">This client signed up for the newsletter discount (Code: VLS10) before booking. Apply 10% off their service if not using another special.</p>
+      </div>
+      ` : ""}
       <div style="background:${cream};border-radius:8px;padding:16px;">
         <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Name:</strong> ${fullName}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${email}</p>
@@ -143,6 +171,7 @@ serve(async (req: Request) => {
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Treatment:</strong> ${treatmentInterest}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Date:</strong> ${formattedDate}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Time:</strong> ${formattedTime} ET</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Discount:</strong> ${hasNewsletterDiscount ? '<span style="color:#e65100;font-weight:700;">✅ 10% Newsletter Discount (VLS10)</span>' : 'None'}</p>
         ${notes ? `<p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Notes:</strong> ${notes.replace(/</g, "&lt;")}</p>` : ""}
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Booked:</strong> ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</p>
       </div>
