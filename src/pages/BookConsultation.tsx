@@ -96,13 +96,16 @@ const BookConsultation = () => {
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    treatmentInterest: "",
-    notes: "",
+  const [formData, setFormData] = useState(() => {
+    const savedEmail = sessionStorage.getItem("vls_user_email") || "";
+    return {
+      firstName: "",
+      lastName: "",
+      email: savedEmail,
+      phone: "",
+      treatmentInterest: "",
+      notes: "",
+    };
   });
 
   const availableDates = useMemo(() => generateDates(4), []);

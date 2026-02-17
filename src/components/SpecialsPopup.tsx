@@ -9,6 +9,7 @@ import { z } from "zod";
 import { pushEvent } from "@/lib/analytics";
 
 const POPUP_DISMISSED_KEY = "specials_popup_dismissed";
+const SESSION_EMAIL_KEY = "vls_user_email";
 const emailSchema = z.string().trim().email("Please enter a valid email").max(255);
 
 const SpecialsPopup = () => {
@@ -16,10 +17,25 @@ const SpecialsPopup = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isReturning, setIsReturning] = useState(false);
 
   useEffect(() => {
     const dismissed = localStorage.getItem(POPUP_DISMISSED_KEY);
-    if (dismissed) return;
+    if (dismissed) {
+      // Check if they already subscribed — show "welcome back" instead of hiding entirely
+      const savedEmail = sessionStorage.getItem(SESSION_EMAIL_KEY);
+      if (savedEmail) return; // Already saw welcome back this session
+
+      // Still show after delay but only if they previously subscribed (not just dismissed)
+      const wasSubscriber = localStorage.getItem("vls_subscribed_email");
+      if (!wasSubscriber) return; // Just dismissed, don't show again
+
+      const timer = setTimeout(() => {
+        setIsReturning(true);
+        setIsVisible(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
 
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -30,6 +46,10 @@ const SpecialsPopup = () => {
 
   const handleClose = () => {
     localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+    if (isReturning) {
+      // Mark that we showed welcome back this session
+      sessionStorage.setItem("vls_welcome_back_shown", "true");
+    }
     setIsVisible(false);
   };
 
@@ -51,26 +71,36 @@ const SpecialsPopup = () => {
         if (v) utmParams[key] = v;
       }
 
+      // Try to insert — if duplicate, the unique constraint will catch it
       const { error } = await supabase.from("email_leads").insert({
         email: result.data,
         source: "specials_popup",
         ...utmParams,
       } as any);
 
-      if (error) {
-        if (error.code === "23505") {
-          toast.info("You're already subscribed!");
-        } else {
-          throw error;
-        }
+      if (error && error.code === "23505") {
+        // Already subscribed — show welcome back, don't send another discount email
+        sessionStorage.setItem(SESSION_EMAIL_KEY, result.data);
+        localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+        localStorage.setItem("vls_subscribed_email", result.data);
+        setIsReturning(true);
+        setIsSubmitting(false);
+        return;
       }
 
-      // Send confirmation email
+      if (error) throw error;
+
+      // Send confirmation email only for NEW subscribers
       const res = await supabase.functions.invoke("send-newsletter-confirmation", {
         body: { email: result.data },
       });
       
       if (res.error) console.error("Email send error:", res.error);
+
+      // Store email in session for auto-fill and mark as subscribed
+      sessionStorage.setItem(SESSION_EMAIL_KEY, result.data);
+      localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+      localStorage.setItem("vls_subscribed_email", result.data);
 
       setIsSubscribed(true);
       pushEvent("email_signup_submitted", { source: "specials_popup" });
@@ -82,6 +112,46 @@ const SpecialsPopup = () => {
   };
 
   if (!isVisible) return null;
+
+  // Returning subscriber view
+  if (isReturning) {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
+        <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
+              <Sparkles className="w-8 h-8 text-accent" />
+            </div>
+            <h3 className="text-2xl font-bold text-foreground">
+              Welcome Back! 👋
+            </h3>
+            <p className="text-foreground">
+              Great to see you again! Don't forget — your <span className="text-accent font-bold">10% discount</span> is still available.
+            </p>
+            <div className="bg-accent/10 rounded-lg p-3">
+              <p className="text-xs text-muted-foreground">Your discount code:</p>
+              <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
+              <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <Link to="/book-free-consultation" className="flex-1">
+                <Button variant="accent" className="w-full" onClick={handleClose}>
+                  Book Consultation
+                </Button>
+              </Link>
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={handleClose}
+              >
+                Continue Browsing
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
@@ -102,7 +172,6 @@ const SpecialsPopup = () => {
           <p className="text-xl font-bold text-accent">
             Value of up to $1,800!
           </p>
-
 
           {/* Newsletter Signup */}
           {!isSubscribed ? (

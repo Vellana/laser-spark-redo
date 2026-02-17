@@ -62,13 +62,16 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
     const { toast } = useToast();
-    const [formData, setFormData] = useState<ContactFormData>({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        contactMethod: "email",
-        message: "",
+    const [formData, setFormData] = useState<ContactFormData>(() => {
+        const savedEmail = sessionStorage.getItem("vls_user_email") || "";
+        return {
+            name: "",
+            email: savedEmail,
+            phone: "",
+            service: "",
+            contactMethod: "email",
+            message: "",
+        };
     });
     const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
