@@ -202,13 +202,14 @@ const handler = async (req: Request): Promise<Response> => {
       <img src="${LOGO_URL}" alt="VLS" width="120" style="display:block;margin:0 auto;max-width:120px;height:auto;" />
     </div>
     <div style="padding:28px 24px;">
-      <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📬 New Newsletter Signup</h2>
+      <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📬 New Newsletter Signup — 10% Discount Claimed</h2>
       <p style="color:${textMedium};font-size:14px;line-height:1.6;margin:0 0 16px;">
-        A new visitor has signed up for the newsletter and received their 5% discount email.
+        A new visitor has signed up for the newsletter and received their <strong>10% discount code (VLS10)</strong>.
       </p>
       <div style="background:${cream};border-radius:8px;padding:16px;">
         <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${email}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Source:</strong> Specials Popup</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Offer Claimed:</strong> 10% Off Next Service (Code: VLS10)</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Source:</strong> Specials Popup — Newsletter Signup</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Time:</strong> ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</p>
       </div>
     </div>
