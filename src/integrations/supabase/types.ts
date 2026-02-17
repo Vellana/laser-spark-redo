@@ -26,6 +26,7 @@ export type Database = {
           last_name: string
           notes: string | null
           phone: string | null
+          reminder_sent: boolean
           status: string
           treatment_interest: string
           utm_campaign: string | null
@@ -45,6 +46,7 @@ export type Database = {
           last_name: string
           notes?: string | null
           phone?: string | null
+          reminder_sent?: boolean
           status?: string
           treatment_interest: string
           utm_campaign?: string | null
@@ -64,6 +66,7 @@ export type Database = {
           last_name?: string
           notes?: string | null
           phone?: string | null
+          reminder_sent?: boolean
           status?: string
           treatment_interest?: string
           utm_campaign?: string | null
