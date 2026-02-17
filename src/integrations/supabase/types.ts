@@ -122,6 +122,7 @@ export type Database = {
       email_leads: {
         Row: {
           confirmation_sent: boolean | null
+          discount_claimed: boolean
           email: string
           id: string
           source: string | null
@@ -134,6 +135,7 @@ export type Database = {
         }
         Insert: {
           confirmation_sent?: boolean | null
+          discount_claimed?: boolean
           email: string
           id?: string
           source?: string | null
@@ -146,6 +148,7 @@ export type Database = {
         }
         Update: {
           confirmation_sent?: boolean | null
+          discount_claimed?: boolean
           email?: string
           id?: string
           source?: string | null
