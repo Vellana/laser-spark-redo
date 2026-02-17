@@ -15,6 +15,7 @@ interface EmailLead {
   source: string | null;
   subscribed_at: string;
   confirmation_sent: boolean | null;
+  discount_claimed: boolean;
 }
 
 interface ContactInquiry {
@@ -198,12 +199,13 @@ const Admin = () => {
 
   const exportCSV = () => {
     if (!leads.length) return;
-    const headers = ["Email", "Source", "Subscribed At", "Confirmation Sent"];
+    const headers = ["Email", "Source", "Subscribed At", "Confirmation Sent", "Discount Claimed"];
     const rows = leads.map((l) => [
       l.email,
       l.source || "",
       new Date(l.subscribed_at).toLocaleString(),
       l.confirmation_sent ? "Yes" : "No",
+      l.discount_claimed ? "Yes" : "No",
     ]);
     const csv = [headers, ...rows].map((r) => r.join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
@@ -631,11 +633,12 @@ const Admin = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50">
+                     <tr className="border-b border-border bg-muted/50">
                         <th className="text-left p-3 font-medium text-foreground">Email</th>
                         <th className="text-left p-3 font-medium text-foreground">Source</th>
                         <th className="text-left p-3 font-medium text-foreground">Date</th>
                         <th className="text-left p-3 font-medium text-foreground">Confirmed</th>
+                        <th className="text-left p-3 font-medium text-foreground">Discount Used</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -649,10 +652,31 @@ const Admin = () => {
                               {lead.confirmation_sent ? "Sent" : "Pending"}
                             </span>
                           </td>
+                          <td className="p-3">
+                            <button
+                              onClick={async () => {
+                                const newVal = !lead.discount_claimed;
+                                const { error } = await supabase
+                                  .from("email_leads")
+                                  .update({ discount_claimed: newVal } as any)
+                                  .eq("id", lead.id);
+                                if (error) { toast.error("Failed to update"); return; }
+                                setLeads((prev) => prev.map((l) => l.id === lead.id ? { ...l, discount_claimed: newVal } : l));
+                                toast.success(newVal ? "Marked as claimed" : "Marked as unclaimed");
+                              }}
+                              className={`text-xs px-2 py-1 rounded-full cursor-pointer transition-colors ${
+                                lead.discount_claimed
+                                  ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 hover:bg-green-200"
+                                  : "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400 hover:bg-orange-200"
+                              }`}
+                            >
+                              {lead.discount_claimed ? "✅ Claimed" : "⏳ Unclaimed"}
+                            </button>
+                          </td>
                         </tr>
                       ))}
                       {!leads.length && (
-                        <tr><td colSpan={4} className="p-8 text-center text-muted-foreground">No leads yet</td></tr>
+                        <tr><td colSpan={5} className="p-8 text-center text-muted-foreground">No leads yet</td></tr>
                       )}
                     </tbody>
                   </table>

@@ -1,0 +1,1 @@
+ALTER TABLE public.email_leads ADD COLUMN discount_claimed boolean NOT NULL DEFAULT false;
