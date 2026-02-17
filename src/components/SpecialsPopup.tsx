@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
+import { pushEvent } from "@/lib/analytics";
 
 const POPUP_DISMISSED_KEY = "specials_popup_dismissed";
 const emailSchema = z.string().trim().email("Please enter a valid email").max(255);
@@ -42,10 +43,19 @@ const SpecialsPopup = () => {
 
     setIsSubmitting(true);
     try {
+      // Capture UTMs
+      const utmParams: Record<string, string> = {};
+      const sp = new URLSearchParams(window.location.search);
+      for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+        const v = sp.get(key);
+        if (v) utmParams[key] = v;
+      }
+
       const { error } = await supabase.from("email_leads").insert({
         email: result.data,
         source: "specials_popup",
-      });
+        ...utmParams,
+      } as any);
 
       if (error) {
         if (error.code === "23505") {
@@ -63,6 +73,7 @@ const SpecialsPopup = () => {
       if (res.error) console.error("Email send error:", res.error);
 
       setIsSubscribed(true);
+      pushEvent("email_signup_submitted", { source: "specials_popup" });
     } catch (err) {
       toast.error("Something went wrong. Please try again.");
     } finally {
@@ -97,7 +108,7 @@ const SpecialsPopup = () => {
           {!isSubscribed ? (
             <div className="border-t border-border pt-4 mt-4 space-y-3">
               <p className="text-sm font-medium text-foreground">
-                Sign up for our newsletter for a <span className="text-accent font-bold">5% discount</span> on your first service!
+                Get <span className="text-accent font-bold">10% off</span> your next service when you join our email list!
               </p>
               <form onSubmit={handleSubscribe} className="flex gap-2">
                 <Input
@@ -115,10 +126,15 @@ const SpecialsPopup = () => {
               </form>
             </div>
           ) : (
-            <div className="border-t border-border pt-4 mt-4">
+            <div className="border-t border-border pt-4 mt-4 space-y-2">
               <p className="text-sm font-medium text-accent">
-                ✓ You're signed up! Check your email for your 5% discount.
+                ✓ You're signed up! Check your email for your discount.
               </p>
+              <div className="bg-accent/10 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground">Your discount code:</p>
+                <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
+                <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
+              </div>
             </div>
           )}
 

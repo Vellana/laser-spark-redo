@@ -21,6 +21,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { pushEvent } from "@/lib/analytics";
 
 // Zod schema for form validation
 const contactFormSchema = z.object({
@@ -144,6 +145,16 @@ const Contact = () => {
             setIsSubmitting(false);
             return;
         }
+
+        // Also capture email as lead
+        try {
+            await supabase.from("email_leads").insert({
+                email: result.data.email,
+                source: "contact_form",
+            } as any);
+        } catch {}
+
+        pushEvent("email_signup_submitted", { source: "contact_form" });
 
         toast({
             title: "Message Received",

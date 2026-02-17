@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -30,6 +30,20 @@ interface ContactInquiry {
   replied_at: string | null;
   created_at: string;
 }
+interface Appointment {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  treatment_interest: string;
+  notes: string;
+  appointment_date: string;
+  appointment_time: string;
+  status: string;
+  created_at: string;
+  cancelled_at: string | null;
+}
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,6 +64,8 @@ const Admin = () => {
   const [imageUploading, setImageUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<HTMLDivElement>(null);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointmentsLoading, setAppointmentsLoading] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
@@ -77,6 +93,7 @@ const Admin = () => {
       setIsAuthenticated(true);
       fetchLeads();
       fetchInquiries();
+      fetchAppointments();
     } else {
       setIsAuthenticated(false);
       toast.error("Access denied: admin role required");
@@ -114,6 +131,54 @@ const Admin = () => {
     if (error) toast.error("Failed to fetch inquiries");
     else setInquiries(data || []);
     setInquiriesLoading(false);
+  };
+
+  const fetchAppointments = async () => {
+    setAppointmentsLoading(true);
+    const { data, error } = await supabase
+      .from("appointments")
+      .select("*")
+      .order("appointment_date", { ascending: true })
+      .order("appointment_time", { ascending: true });
+    if (error) toast.error("Failed to fetch appointments");
+    else setAppointments((data as any) || []);
+    setAppointmentsLoading(false);
+  };
+
+  const cancelAppointment = async (id: string) => {
+    if (!confirm("Cancel this appointment?")) return;
+    const { error } = await supabase
+      .from("appointments")
+      .update({ status: "cancelled", cancelled_at: new Date().toISOString() } as any)
+      .eq("id", id);
+    if (error) toast.error("Failed to cancel");
+    else {
+      toast.success("Appointment cancelled");
+      fetchAppointments();
+    }
+  };
+
+  const exportAppointmentsCSV = () => {
+    if (!appointments.length) return;
+    const headers = ["Date", "Time", "Name", "Email", "Phone", "Treatment", "Status", "Notes"];
+    const rows = appointments.map((a) => [
+      a.appointment_date,
+      a.appointment_time,
+      `${a.first_name} ${a.last_name}`,
+      a.email,
+      a.phone,
+      a.treatment_interest,
+      a.status,
+      (a.notes || "").replace(/,/g, ";"),
+    ]);
+    const csv = [headers, ...rows].map((r) => r.join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `appointments-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -305,9 +370,12 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="inquiries" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="inquiries" className="flex items-center gap-2">
               <Inbox className="w-4 h-4" /> Inquiries
+            </TabsTrigger>
+            <TabsTrigger value="bookings" className="flex items-center gap-2">
+              <CalendarDays className="w-4 h-4" /> Bookings
             </TabsTrigger>
             <TabsTrigger value="leads" className="flex items-center gap-2">
               <Mail className="w-4 h-4" /> Email Leads
@@ -432,6 +500,94 @@ const Admin = () => {
                 {!inquiries.length && (
                   <p className="text-center text-muted-foreground py-8">No inquiries yet</p>
                 )}
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Bookings Tab */}
+          <TabsContent value="bookings" className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground">Consultation Bookings</h2>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={fetchAppointments}>Refresh</Button>
+                <Button variant="outline" size="sm" onClick={exportAppointmentsCSV} disabled={!appointments.length}>
+                  <Download className="w-4 h-4 mr-2" /> Export CSV
+                </Button>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-card border border-border rounded-lg p-4">
+                <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+                  <CalendarDays className="w-4 h-4" /> Total Bookings
+                </div>
+                <p className="text-3xl font-bold text-foreground">{appointments.length}</p>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4">
+                <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+                  <Calendar className="w-4 h-4" /> Upcoming
+                </div>
+                <p className="text-3xl font-bold text-foreground">
+                  {appointments.filter((a) => a.status === "confirmed" && a.appointment_date >= new Date().toISOString().split("T")[0]).length}
+                </p>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4">
+                <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+                  <X className="w-4 h-4" /> Cancelled
+                </div>
+                <p className="text-3xl font-bold text-foreground">
+                  {appointments.filter((a) => a.status === "cancelled").length}
+                </p>
+              </div>
+            </div>
+            {appointmentsLoading ? (
+              <p className="text-center text-muted-foreground">Loading...</p>
+            ) : (
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border bg-muted/50">
+                        <th className="text-left p-3 font-medium text-foreground">Date</th>
+                        <th className="text-left p-3 font-medium text-foreground">Time</th>
+                        <th className="text-left p-3 font-medium text-foreground">Name</th>
+                        <th className="text-left p-3 font-medium text-foreground">Email</th>
+                        <th className="text-left p-3 font-medium text-foreground">Treatment</th>
+                        <th className="text-left p-3 font-medium text-foreground">Status</th>
+                        <th className="text-left p-3 font-medium text-foreground">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {appointments.map((apt) => (
+                        <tr key={apt.id} className="border-b border-border last:border-0">
+                          <td className="p-3 text-foreground">{new Date(apt.appointment_date + "T12:00:00").toLocaleDateString()}</td>
+                          <td className="p-3 text-foreground">{apt.appointment_time.substring(0, 5)}</td>
+                          <td className="p-3 text-foreground">{apt.first_name} {apt.last_name}</td>
+                          <td className="p-3 text-muted-foreground">{apt.email}</td>
+                          <td className="p-3 text-muted-foreground">{apt.treatment_interest}</td>
+                          <td className="p-3">
+                            <span className={`text-xs px-2 py-1 rounded-full ${
+                              apt.status === "confirmed"
+                                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                                : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                            }`}>
+                              {apt.status}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            {apt.status === "confirmed" && (
+                              <Button size="sm" variant="outline" onClick={() => cancelAppointment(apt.id)}>
+                                Cancel
+                              </Button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                      {!appointments.length && (
+                        <tr><td colSpan={7} className="p-8 text-center text-muted-foreground">No bookings yet</td></tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </TabsContent>

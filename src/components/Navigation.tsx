@@ -82,12 +82,12 @@ const Navigation = () => {
           {/* Desktop CTA - pushed to right */}
           <div className="hidden xl:flex items-center gap-2 flex-shrink-0">
             <ThemeToggle />
-            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+            <a href="/book-free-consultation">
               <Button
                 variant="accent"
                 className="animate-pulse-subtle px-4 xl:px-5 2xl:px-6 py-2.5 2xl:py-3 text-sm xl:text-sm 2xl:text-base"
               >
-                Book Now
+                Book Free Consultation
               </Button>
             </a>
           </div>
@@ -120,9 +120,9 @@ const Navigation = () => {
             ))}
             <div className="pt-2 flex items-center gap-3">
               <ThemeToggle />
-              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer" className="flex-1">
+              <a href="/book-free-consultation" className="flex-1">
                 <Button variant="accent" className="w-full">
-                  Book Now
+                  Book Free Consultation
                 </Button>
               </a>
             </div>
