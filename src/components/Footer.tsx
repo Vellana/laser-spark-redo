@@ -1,4 +1,4 @@
-import { Facebook, Instagram } from "lucide-react";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { pushEvent } from "@/lib/analytics";
 
@@ -90,6 +90,24 @@ const Footer = () => {
                   aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@virginialaserspecialists"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
+                  aria-label="TikTok"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75a8.18 8.18 0 0 0 4.76 1.52V6.83a4.84 4.84 0 0 1-1-.14z"/></svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/virginia-laser-specialists"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
                 </a>
               </div>
             </div>
