@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays, Plus, Trash2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -67,6 +67,9 @@ const Admin = () => {
   const editorRef = useRef<HTMLDivElement>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(false);
+  const [newLeadEmail, setNewLeadEmail] = useState("");
+  const [newLeadSource, setNewLeadSource] = useState("manual");
+  const [addingLead, setAddingLead] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
@@ -598,9 +601,50 @@ const Admin = () => {
           <TabsContent value="leads" className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-foreground">Email Leads</h2>
-              <Button variant="outline" size="sm" onClick={exportCSV} disabled={!leads.length}>
-                <Download className="w-4 h-4 mr-2" /> Export CSV
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="sm" onClick={fetchLeads}>Refresh</Button>
+                <Button variant="outline" size="sm" onClick={exportCSV} disabled={!leads.length}>
+                  <Download className="w-4 h-4 mr-2" /> Export CSV
+                </Button>
+              </div>
+            </div>
+
+            {/* Add Lead Form */}
+            <div className="bg-card border border-border rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-foreground mb-3">Add Lead Manually</h3>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!newLeadEmail.trim()) { toast.error("Email is required"); return; }
+                  setAddingLead(true);
+                  const { error } = await supabase.from("email_leads").insert({
+                    email: newLeadEmail.trim().toLowerCase(),
+                    source: newLeadSource || "manual",
+                  } as any);
+                  if (error) {
+                    if (error.code === "23505") toast.error("This email already exists");
+                    else toast.error("Failed to add lead");
+                  } else {
+                    toast.success("Lead added successfully");
+                    setNewLeadEmail("");
+                    fetchLeads();
+                  }
+                  setAddingLead(false);
+                }}
+                className="flex items-end gap-3 flex-wrap"
+              >
+                <div className="space-y-1 flex-1 min-w-[200px]">
+                  <Label htmlFor="new-lead-email" className="text-xs">Email</Label>
+                  <Input id="new-lead-email" type="email" placeholder="client@example.com" value={newLeadEmail} onChange={(e) => setNewLeadEmail(e.target.value)} required />
+                </div>
+                <div className="space-y-1 w-40">
+                  <Label htmlFor="new-lead-source" className="text-xs">Source</Label>
+                  <Input id="new-lead-source" placeholder="manual" value={newLeadSource} onChange={(e) => setNewLeadSource(e.target.value)} />
+                </div>
+                <Button type="submit" size="sm" disabled={addingLead}>
+                  <Plus className="w-4 h-4 mr-1" /> {addingLead ? "Adding..." : "Add"}
+                </Button>
+              </form>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-card border border-border rounded-lg p-4">
@@ -639,6 +683,7 @@ const Admin = () => {
                         <th className="text-left p-3 font-medium text-foreground">Date</th>
                         <th className="text-left p-3 font-medium text-foreground">Confirmed</th>
                         <th className="text-left p-3 font-medium text-foreground">Discount Used</th>
+                        <th className="text-right p-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -671,12 +716,27 @@ const Admin = () => {
                               }`}
                             >
                               {lead.discount_claimed ? "✅ Claimed" : "⏳ Unclaimed"}
+                             </button>
+                          </td>
+                          <td className="p-3 text-right">
+                            <button
+                              onClick={async () => {
+                                if (!confirm(`Remove ${lead.email} from leads?`)) return;
+                                const { error } = await supabase.from("email_leads").delete().eq("id", lead.id);
+                                if (error) { toast.error("Failed to remove lead"); return; }
+                                setLeads((prev) => prev.filter((l) => l.id !== lead.id));
+                                toast.success("Lead removed");
+                              }}
+                              className="text-destructive hover:text-destructive/80 transition-colors"
+                              aria-label="Remove lead"
+                            >
+                              <Trash2 className="w-4 h-4" />
                             </button>
                           </td>
                         </tr>
                       ))}
                       {!leads.length && (
-                        <tr><td colSpan={5} className="p-8 text-center text-muted-foreground">No leads yet</td></tr>
+                        <tr><td colSpan={6} className="p-8 text-center text-muted-foreground">No leads yet</td></tr>
                       )}
                     </tbody>
                   </table>
