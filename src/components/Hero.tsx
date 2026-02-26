@@ -40,7 +40,7 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+            <Link to="/book-free-consultation">
               <Button
                 size="lg"
                 variant="accent"
@@ -48,7 +48,7 @@ const Hero = () => {
               >
                 Book Free Consultation
               </Button>
-            </a>
+            </Link>
             <Link to="/pricing">
               <Button
                 size="lg"
