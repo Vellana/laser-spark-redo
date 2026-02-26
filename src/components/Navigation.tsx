@@ -118,13 +118,15 @@ const Navigation = () => {
                 {link.name}
               </a>
             ))}
-            <div className="pt-2 flex items-center gap-3">
-              <ThemeToggle />
-              <a href="/book-free-consultation" className="flex-1">
-                <Button variant="accent" className="w-full">
+            <div className="pt-4 space-y-3">
+              <a href="/book-free-consultation" className="block">
+                <Button variant="accent" className="w-full py-3 text-base">
                   Book Free Consultation
                 </Button>
               </a>
+              <div className="flex justify-center">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         )}
