@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Calendar, CheckCircle, ExternalLink, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { toast } from "sonner";
 import { z } from "zod";
 import { pushEvent, getStoredUtms } from "@/lib/analytics";
@@ -267,10 +268,14 @@ const BookConsultation = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Book Free Consultation | Virginia Laser Specialists Tysons VA"
-        description="Schedule your free laser treatment consultation at Virginia Laser Specialists. Book online or through Vagaro. CoolPeel, laser hair removal, and more. 703-547-4499."
+        title="Book Free Consultation | Laser Hair Removal & CoolPeel Tysons VA"
+        description="Schedule your free laser hair removal or CoolPeel consultation at Virginia Laser Specialists in Tysons, Vienna VA. Book online instantly or via Vagaro. Lutronic Clarity II & Cartessa Tetra Pro. Call 703-547-4499."
         canonicalUrl="/book-free-consultation"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Book Free Consultation", url: "/book-free-consultation" }
+      ]} />
       <Navigation />
       <main className="pt-20">
         {/* Hero */}
