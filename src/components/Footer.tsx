@@ -31,8 +31,10 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {[
-                { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
                 { name: "Laser Hair Removal", href: "/laser-hair-removal" },
+                { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
+                { name: "CoolPeel CO₂ Tysons VA", href: "/coolpeel-co2-laser-tysons-va" },
+                { name: "Book Free Consultation", href: "/book-free-consultation" },
                 { name: "Specials", href: "/specials" },
                 { name: "Pricing", href: "/pricing" },
                 { name: "Financing", href: "/#cherry-financing" },

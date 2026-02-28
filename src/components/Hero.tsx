@@ -32,11 +32,11 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
-            Advanced Laser Technology
+            Laser Hair Removal & CoolPeel Skin Resurfacing in Tysons, VA
           </h1>
 
           <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light">
-            Premier laser hair removal and revolutionary skin resurfacing treatments in the heart of Tysons.
+            Expert laser hair removal with Lutronic Clarity II and CoolPeel CO₂ resurfacing — safe for all skin types. Serving Tysons, Vienna & McLean.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
