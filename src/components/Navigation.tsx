@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { pushEvent } from "@/lib/analytics";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +93,7 @@ const Navigation = () => {
           {/* Desktop CTA - pushed to right */}
           <div className="hidden xl:flex items-center gap-2 flex-shrink-0">
             <ThemeToggle />
-            <a href="/book-free-consultation">
+            <a href="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
               <Button
                 variant="accent"
                 className="animate-pulse-subtle px-4 xl:px-5 2xl:px-6 py-2.5 2xl:py-3 text-sm xl:text-sm 2xl:text-base"
@@ -143,7 +144,7 @@ const Navigation = () => {
               )
             ))}
             <div className="pt-4 space-y-3">
-              <a href="/book-free-consultation" className="block">
+              <a href="/book-free-consultation" className="block" onClick={() => pushEvent("free_consult_booking")}>
                 <Button variant="accent" className="w-full py-3 text-base">
                   Book Free Consultation
                 </Button>

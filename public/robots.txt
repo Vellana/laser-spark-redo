@@ -3,10 +3,12 @@
 
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
 Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
 Crawl-delay: 1
 
 User-agent: Twitterbot
@@ -20,6 +22,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
 
 # Sitemap location
 Sitemap: https://virginialaserspecialists.com/sitemap.xml

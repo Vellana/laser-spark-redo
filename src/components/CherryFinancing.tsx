@@ -22,7 +22,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
       <Card className="border-accent/40 bg-gradient-to-br from-accent/5 to-accent/10">
         <CardContent className="py-8 space-y-6">
           <div className="flex flex-col items-center gap-4">
-            <img src={cherryLogo} alt="Cherry Financing" className="h-10 w-auto" />
+            <img src={cherryLogo} alt="Cherry Financing logo — flexible payment plans for laser treatments" className="h-10 w-auto" />
             <h3 className="text-2xl font-bold text-foreground">
               Flexible Payment Plans with Cherry
             </h3>
@@ -61,7 +61,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-10">
-            <img src={cherryLogo} alt="Cherry Financing" className="h-14 w-auto mx-auto" />
+            <img src={cherryLogo} alt="Cherry Financing logo — flexible payment plans for laser treatments" className="h-14 w-auto mx-auto" />
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
               Flexible Payment Plans with Cherry
             </h2>

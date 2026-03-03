@@ -50,7 +50,7 @@ const Team = () => {
               <div className="relative h-80 overflow-hidden">
                 <img
                   src={member.image}
-                  alt={member.name}
+                  alt={`${member.name} — ${member.title} at Virginia Laser Specialists`}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
@@ -77,8 +77,8 @@ const Team = () => {
                     <div className="mt-4">
                       <img
                         src={member.image}
-                        alt={member.name}
-                        className="w-full h-64 object-cover rounded-lg mb-4"
+                      alt={`${member.name} — ${member.title} at Virginia Laser Specialists`}
+                      className="w-full h-64 object-cover rounded-lg mb-4"
                       />
                       <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
                         {member.fullBio}

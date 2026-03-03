@@ -103,7 +103,7 @@ const SpecialsPopup = () => {
       localStorage.setItem("vls_subscribed_email", result.data);
 
       setIsSubscribed(true);
-      pushEvent("email_signup_submitted", { source: "specials_popup" });
+      pushEvent("email_signup", { email: result.data, source: "specials_popup" });
     } catch (err) {
       toast.error("Something went wrong. Please try again.");
     } finally {
