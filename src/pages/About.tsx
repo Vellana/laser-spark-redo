@@ -8,6 +8,7 @@ import hollyImage from "@/assets/holly.png";
 import aboutImage from "@/assets/about-facility.avif";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
@@ -130,7 +131,7 @@ const About = () => {
                                     <div className="relative h-80 overflow-hidden">
                                         <img
                                             src={member.image}
-                                            alt={member.name}
+                                            alt={`${member.name} — ${member.title} at Virginia Laser Specialists`}
                                             className="w-full h-full object-cover"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
@@ -247,7 +248,7 @@ const About = () => {
                                 Schedule a free consultation to discuss your goals and create a personalized treatment plan.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer" onClick={() => pushEvent("free_consult_booking")}>
                                     <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
                                         Book Free Consultation
                                     </Button>

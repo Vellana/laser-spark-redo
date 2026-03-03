@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, MapPin } from "lucide-react";
 import heroImage from "@/assets/Homepage_mainphoto.jpg";
 import { Link } from "react-router-dom";
+import { pushEvent } from "@/lib/analytics";
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -40,7 +41,7 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Link to="/book-free-consultation">
+            <Link to="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
               <Button
                 size="lg"
                 variant="accent"

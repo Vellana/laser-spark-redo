@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sparkles, Clock, Heart, TrendingUp, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
@@ -109,7 +110,7 @@ const LaserSkinResurfacing = () => {
                   Both treatments stimulate collagen production for smoother, more youthful-looking skin.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer" onClick={() => pushEvent("free_consult_booking")}>
                     <Button size="lg" className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
                       Book Free Consultation
                     </Button>

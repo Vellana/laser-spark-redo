@@ -102,7 +102,7 @@ const Contact = () => {
         </div>
 
         <div className="text-center space-y-6">
-          <a href="/book-free-consultation">
+          <a href="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"

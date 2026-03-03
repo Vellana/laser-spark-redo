@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import aboutImage from "@/assets/about-facility.avif";
 import { Link } from "react-router-dom";
+import { pushEvent } from "@/lib/analytics";
 
 const About = () => {
   const values = [
@@ -20,7 +21,7 @@ const About = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-medium">
               <img
                 src={aboutImage}
-                alt="Modern laser treatment facility"
+                alt="Virginia Laser Specialists modern treatment facility in Tysons VA"
                 className="w-full h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />

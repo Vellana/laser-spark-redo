@@ -157,7 +157,7 @@ const Contact = () => {
             } as any);
         } catch {}
 
-        pushEvent("email_signup_submitted", { source: "contact_form" });
+        pushEvent("email_signup", { email: result.data.email, source: "contact_form" });
 
         toast({
             title: "Message Received",

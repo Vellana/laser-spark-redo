@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancing from "@/components/CherryFinancing";
@@ -102,7 +103,7 @@ const Pricing = () => {
                   </table>
                 </div>
                 <div className="mt-8 text-center">
-                  <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer" onClick={() => pushEvent("free_consult_booking")}>
                     <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold">
                       Book Free Consultation
                     </Button>
