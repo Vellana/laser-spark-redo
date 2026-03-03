@@ -39,10 +39,10 @@ const MedicalProcedureSchema = ({
     ...(outcome && { "outcome": outcome }),
     "status": "Available",
     "provider": {
-      "@type": "LocalBusiness",
+      "@type": ["MedicalBusiness", "LocalBusiness"],
       "@id": "https://virginialaserspecialists.com/#business",
       "name": "Virginia Laser Specialists",
-      "telephone": "703-547-4499",
+      "telephone": "+1-703-547-4499",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "8100 Boone Blvd, Suite 270",
@@ -58,10 +58,11 @@ const MedicalProcedureSchema = ({
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
+      "ratingValue": "4.9",
       "bestRating": "5",
       "worstRating": "1",
-      "ratingCount": "127"
+      "ratingCount": "156",
+      "reviewCount": "127"
     }
   };
 

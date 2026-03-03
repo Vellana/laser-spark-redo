@@ -67,14 +67,24 @@ const Navigation = () => {
           <div className="hidden xl:flex items-center justify-center flex-1 min-w-0 mx-4 xl:mx-6 2xl:mx-10">
             <div className="flex items-center gap-0.5 xl:gap-2 2xl:gap-3">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-1.5 xl:px-2 2xl:px-3 py-2 text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith("/#") ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="px-1.5 xl:px-2 2xl:px-3 py-2 text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="px-1.5 xl:px-2 2xl:px-3 py-2 text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>
@@ -109,14 +119,28 @@ const Navigation = () => {
         {isOpen && (
           <div className="xl:hidden py-4 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="block px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
-              >
-                {link.name}
-              </a>
+              link.href.startsWith("/#") ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => {
+                    handleNavClick(e, link.href);
+                    setIsOpen(false);
+                  }}
+                  className="block px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
             <div className="pt-4 space-y-3">
               <a href="/book-free-consultation" className="block">
