@@ -252,8 +252,8 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal Tysons & Northern Virginia | Lutronic Clarity II | Safe for All Skin Types"
-        description="Best laser hair removal in Tysons, McLean, Vienna & Falls Church VA. Lutronic Clarity II dual-wavelength Alexandrite & Nd:YAG laser with cryogen cooling. Safe for all skin types. 25% off packages. Free consultation. Call 703-547-4499."
+        title="Best Laser Hair Removal Near Me Tysons VA | Lutronic Clarity II | All Skin Types"
+        description="Best laser hair removal near you in Tysons, Vienna, McLean, Falls Church & Northern VA. Lutronic Clarity II dual-wavelength laser safe for all skin types. 25% off packages of 5. Cherry financing $0 down. Free consultation. Call 703-547-4499."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
@@ -284,7 +284,7 @@ const LaserHairRemoval = () => {
                   Gold Standard Technology
                 </span>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
-                  Laser Hair Removal
+                  Laser Hair Removal in Tysons, Vienna & McLean VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
                   Experience permanent hair reduction with the Lutronic Clarity II laser—the gold standard 

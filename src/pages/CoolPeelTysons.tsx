@@ -55,9 +55,15 @@ const CoolPeelTysonsSchema = () => {
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday"],
             "opens": "09:00",
-            "closes": "17:00"
+            "closes": "13:00"
           }
         ],
         "priceRange": "$$",
@@ -231,8 +237,8 @@ const CoolPeelTysons = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CoolPeel CO₂ Laser Near Me Tysons & Vienna VA | Minimal Downtime Skin Resurfacing"
-        description="Best CoolPeel CO₂ laser resurfacing near you in Tysons, Vienna, McLean VA. 1-3 day recovery, Cartessa Tetra Pro technology. Reduce fine lines, wrinkles, sun damage. Free consultation. Call 703-547-4499."
+        title="CoolPeel CO₂ Laser Near Me Tysons & Vienna VA | Best Skin Resurfacing Northern Virginia"
+        description="Best CoolPeel CO₂ laser resurfacing near you in Tysons, Vienna, McLean, Falls Church VA. 1-3 day recovery. Cartessa Tetra Pro technology. Reduce wrinkles, sun damage, acne scars. Free consultation 703-547-4499."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />

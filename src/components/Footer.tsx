@@ -1,9 +1,23 @@
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 import { pushEvent } from "@/lib/analytics";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const quickLinks = [
+    { name: "Laser Hair Removal", href: "/laser-hair-removal" },
+    { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
+    { name: "CoolPeel CO₂ Tysons VA", href: "/coolpeel-co2-laser-tysons-va" },
+    { name: "Book Free Consultation", href: "/book-free-consultation" },
+    { name: "Specials", href: "/specials" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Financing", href: "/#cherry-financing" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+  ];
 
   return (
     <footer className="bg-card border-t border-border">
@@ -22,7 +36,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-muted-foreground">
-              Expert laser treatments in a space where all are welcome.
+              Expert laser hair removal and CoolPeel CO₂ skin resurfacing in Tysons, Vienna & Northern Virginia. Safe for all skin types.
             </p>
           </div>
 
@@ -30,25 +44,23 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {[
-                { name: "Laser Hair Removal", href: "/laser-hair-removal" },
-                { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
-                { name: "CoolPeel CO₂ Tysons VA", href: "/coolpeel-co2-laser-tysons-va" },
-                { name: "Book Free Consultation", href: "/book-free-consultation" },
-                { name: "Specials", href: "/specials" },
-                { name: "Pricing", href: "/pricing" },
-                { name: "Financing", href: "/#cherry-financing" },
-                { name: "Gallery", href: "/gallery" },
-                { name: "About", href: "/about" },
-                { name: "Contact", href: "/contact" },
-              ].map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-accent transition-colors"
-                  >
-                    {link.name}
-                  </a>
+                  {link.href.startsWith("/#") ? (
+                    <a
+                      href={link.href}
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

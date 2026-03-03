@@ -17,8 +17,8 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Virginia Laser Specialists | #1 Laser Hair Removal & CoolPeel Tysons VA | Free Consultation"
-        description="Top-rated laser hair removal & CoolPeel CO₂ skin resurfacing in Tysons, Vienna, McLean VA. Lutronic Clarity II safe for all skin types. Cherry financing with $0 down. 25% off packages. Call 703-547-4499 for free consultation."
+        title="Virginia Laser Specialists | #1 Laser Hair Removal & CoolPeel Near Me Tysons VA"
+        description="Top-rated laser hair removal & CoolPeel CO₂ laser near you in Tysons, Vienna, McLean VA. Lutronic Clarity II safe for all skin types. 25% off packages. Cherry financing $0 down. Free consultation 703-547-4499."
         canonicalUrl="/"
       />
       <LocalBusinessSchema />
