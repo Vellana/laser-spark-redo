@@ -50,76 +50,84 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
-      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-8 2xl:px-12">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo - pushed to left */}
-          <a href="/" className="flex items-center space-x-3 flex-shrink-0">
+      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
             <img
               src={logo}
               alt="Virginia Laser Specialists Logo"
-              className="w-10 h-10"
+              className="w-9 h-9 lg:w-10 lg:h-10"
             />
-            <span className="text-lg xl:text-xl font-bold text-accent">
-              Virginia Laser Specialists
-            </span>
-          </a>
-
-          {/* Desktop Navigation - centered with even spacing */}
-          <div className="hidden xl:flex items-center justify-center flex-1 min-w-0 mx-4 xl:mx-6 2xl:mx-10">
-            <div className="flex items-center gap-0.5 xl:gap-2 2xl:gap-3">
-              {navLinks.map((link) => (
-                link.href.startsWith("/#") ? (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="px-1.5 xl:px-2 2xl:px-3 py-2 text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
-                  >
-                    {link.name}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="px-1.5 xl:px-2 2xl:px-3 py-2 text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-lg hover:bg-secondary/50 text-center whitespace-nowrap"
-                  >
-                    {link.name}
-                  </Link>
-                )
-              ))}
+            <div className="flex flex-col leading-tight">
+              <span className="text-sm sm:text-base lg:text-lg font-bold text-accent whitespace-nowrap">
+                Virginia Laser Specialists
+              </span>
             </div>
+          </Link>
+
+          {/* Desktop Navigation — visible at lg+ */}
+          <div className="hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2.5 flex-1 justify-center mx-2 xl:mx-6">
+            {navLinks.map((link) =>
+              link.href.startsWith("/#") ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="px-1.5 xl:px-2.5 2xl:px-3 py-1.5 text-[11px] lg:text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-md hover:bg-secondary/50 whitespace-nowrap"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="px-1.5 xl:px-2.5 2xl:px-3 py-1.5 text-[11px] lg:text-xs xl:text-sm 2xl:text-base font-medium text-foreground hover:text-accent transition-colors rounded-md hover:bg-secondary/50 whitespace-nowrap"
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
           </div>
 
-          {/* Desktop CTA - pushed to right */}
-          <div className="hidden xl:flex items-center gap-2 flex-shrink-0">
+          {/* Desktop CTA + Theme */}
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <ThemeToggle />
-            <a href="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
+            <Link to="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
               <Button
                 variant="accent"
-                className="animate-pulse-subtle px-4 xl:px-5 2xl:px-6 py-2.5 2xl:py-3 text-sm xl:text-sm 2xl:text-base"
+                className="animate-pulse-subtle px-3 xl:px-5 2xl:px-6 py-2 xl:py-2.5 text-xs xl:text-sm 2xl:text-base"
               >
                 Book Free Consultation
               </Button>
-            </a>
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="xl:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
-          >
-            {isOpen ? (
-              <X className="w-6 h-6 text-foreground" />
-            ) : (
-              <Menu className="w-6 h-6 text-foreground" />
-            )}
-          </button>
+          {/* Mobile: CTA + Hamburger */}
+          <div className="flex lg:hidden items-center gap-2">
+            <Link to="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
+              <Button variant="accent" size="sm" className="text-xs px-3 py-1.5">
+                Book Now
+              </Button>
+            </Link>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-lg hover:bg-secondary transition-colors"
+              aria-label="Toggle navigation menu"
+            >
+              {isOpen ? (
+                <X className="w-6 h-6 text-foreground" />
+              ) : (
+                <Menu className="w-6 h-6 text-foreground" />
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="xl:hidden py-4 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
-            {navLinks.map((link) => (
+          <div className="lg:hidden py-3 space-y-1 animate-in fade-in slide-in-from-top-2 duration-200 border-t border-border">
+            {navLinks.map((link) =>
               link.href.startsWith("/#") ? (
                 <a
                   key={link.name}
@@ -128,7 +136,7 @@ const Navigation = () => {
                     handleNavClick(e, link.href);
                     setIsOpen(false);
                   }}
-                  className="block px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
+                  className="block px-4 py-2.5 text-sm font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
                 >
                   {link.name}
                 </a>
@@ -137,21 +145,23 @@ const Navigation = () => {
                   key={link.name}
                   to={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
+                  className="block px-4 py-2.5 text-sm font-medium text-foreground hover:text-accent hover:bg-secondary/50 rounded-lg transition-colors"
                 >
                   {link.name}
                 </Link>
               )
-            ))}
-            <div className="pt-4 space-y-3">
-              <a href="/book-free-consultation" className="block" onClick={() => pushEvent("free_consult_booking")}>
-                <Button variant="accent" className="w-full py-3 text-base">
+            )}
+            <div className="pt-3 px-4 flex items-center justify-between border-t border-border mt-2">
+              <Link
+                to="/book-free-consultation"
+                className="flex-1 mr-3"
+                onClick={() => { setIsOpen(false); pushEvent("free_consult_booking"); }}
+              >
+                <Button variant="accent" className="w-full py-2.5 text-sm">
                   Book Free Consultation
                 </Button>
-              </a>
-              <div className="flex justify-center">
-                <ThemeToggle />
-              </div>
+              </Link>
+              <ThemeToggle />
             </div>
           </div>
         )}
