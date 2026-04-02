@@ -1,16 +1,43 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Special {
+  id: string;
+  title: string;
+  body: string;
+  highlight_text: string;
+  disclaimer: string;
+  image_urls: string[];
+}
 
 const Specials = () => {
+  const [specials, setSpecials] = useState<Special[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSpecials = async () => {
+      const { data } = await supabase
+        .from("specials")
+        .select("id, title, body, highlight_text, disclaimer, image_urls")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true });
+      setSpecials((data as any) || []);
+      setLoading(false);
+    };
+    fetchSpecials();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Winter Specials & Promotions | Buy 5 Get 6th Free | Virginia Laser Specialists"
-        description="Winter laser hair removal special: Buy 5 treatments, get 6th FREE - up to $1,800 value! Limited time offer in Tysons, McLean, Vienna VA. New client discounts & package savings. Expires 1/31/26. Call 703-547-4499."
+        title="Specials & Promotions | Virginia Laser Specialists | Tysons VA"
+        description="Current laser treatment specials and promotions at Virginia Laser Specialists in Tysons, McLean, Vienna VA. Limited time offers on CoolPeel, laser hair removal & more. Call 703-547-4499."
         canonicalUrl="/specials" 
       />
       <LocalBusinessSchema />
@@ -38,26 +65,56 @@ const Specials = () => {
           </div>
         </section>
 
-        {/* Winter Special */}
-        <section className="py-16 bg-gradient-to-b from-accent/5 to-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center space-y-6">
-              <div className="w-20 h-20 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-                <Sparkles className="w-10 h-10 text-accent" />
-              </div>
-              <h2 className="text-3xl font-bold text-foreground">Winter Special!</h2>
-              <p className="text-xl text-foreground font-semibold">
-                Buy any laser hair removal package of 5 treatments, get a 6th treatment free!
-              </p>
-              <p className="text-2xl font-bold text-accent">
-                Value of up to $1,800!
-              </p>
-              <p className="text-sm text-muted-foreground italic">
-                *Free treatment must be same area as package. Cannot be combined with any other offers. Offer expires 1/31/26.
-              </p>
+        {/* Dynamic Specials */}
+        {loading ? (
+          <section className="py-16">
+            <p className="text-center text-muted-foreground">Loading specials...</p>
+          </section>
+        ) : specials.length === 0 ? (
+          <section className="py-16">
+            <div className="container mx-auto px-4 text-center">
+              <p className="text-lg text-muted-foreground">No active specials right now. Check back soon!</p>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          specials.map((special) => (
+            <section key={special.id} className="py-16 bg-gradient-to-b from-accent/5 to-background">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-2xl mx-auto text-center space-y-6">
+                  <div className="w-20 h-20 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
+                    <Sparkles className="w-10 h-10 text-accent" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-foreground">{special.title}</h2>
+                  {special.body && (
+                    <div
+                      className="text-lg text-foreground prose prose-sm max-w-none [&_h2]:text-2xl [&_h2]:font-bold [&_h3]:text-xl [&_h3]:font-semibold [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+                      dangerouslySetInnerHTML={{ __html: special.body }}
+                    />
+                  )}
+                  {special.highlight_text && (
+                    <p className="text-2xl font-bold text-accent">{special.highlight_text}</p>
+                  )}
+                  {special.image_urls?.length > 0 && (
+                    <div className="flex flex-wrap justify-center gap-4">
+                      {special.image_urls.map((url, idx) => (
+                        <img
+                          key={idx}
+                          src={url}
+                          alt={`${special.title} promotional image`}
+                          className="max-w-full sm:max-w-md rounded-xl shadow-lg"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {special.disclaimer && (
+                    <p className="text-sm text-muted-foreground italic">{special.disclaimer}</p>
+                  )}
+                </div>
+              </div>
+            </section>
+          ))
+        )}
       </main>
 
       <Footer />
