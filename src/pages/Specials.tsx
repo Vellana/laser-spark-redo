@@ -78,9 +78,6 @@ const Specials = () => {
             <section key={special.id} className="py-16 bg-gradient-to-b from-accent/5 to-background">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto text-center space-y-6">
-                  <div className="w-20 h-20 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-10 h-10 text-accent" />
-                  </div>
                   <h2 className="text-3xl font-bold text-foreground">{special.title}</h2>
                   {special.body && (
                     <div
