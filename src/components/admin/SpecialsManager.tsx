@@ -117,6 +117,11 @@ const SpecialsManager = () => {
         updated_at: new Date().toISOString(),
       };
 
+      // If saving as active, deactivate all others first
+      if (payload.is_active) {
+        await supabase.from("specials").update({ is_active: false } as any).neq("id", editingId === "new" ? "" : editingId!);
+      }
+
       if (editingId === "new") {
         const { error } = await supabase.from("specials").insert({ ...payload, display_order: specials.length } as any);
         if (error) throw error;
@@ -143,9 +148,17 @@ const SpecialsManager = () => {
   };
 
   const toggleActive = async (s: Special) => {
-    const { error } = await supabase.from("specials").update({ is_active: !s.is_active } as any).eq("id", s.id);
+    const newActive = !s.is_active;
+    // If activating, deactivate all others first (only one active at a time)
+    if (newActive) {
+      await supabase.from("specials").update({ is_active: false } as any).neq("id", s.id);
+    }
+    const { error } = await supabase.from("specials").update({ is_active: newActive } as any).eq("id", s.id);
     if (error) toast.error("Failed to update");
-    else fetchSpecials();
+    else {
+      toast.success(newActive ? "Special activated (others deactivated)" : "Special deactivated");
+      fetchSpecials();
+    }
   };
 
   // Live preview HTML
