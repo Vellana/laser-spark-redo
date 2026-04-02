@@ -98,7 +98,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResult = await resend.emails.send({
       from: "Virginia Laser Specialists <info@virginialaserspecialists.com>",
-      to: ["admin@virginialaserspecialists.com"],
+      to: ["info@virginialaserspecialists.com"],
       subject: `New Inquiry from ${name} – ${service || "General"}`,
       html: notificationHtml,
     });
