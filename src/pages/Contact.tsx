@@ -157,6 +157,22 @@ const Contact = () => {
             } as any);
         } catch {}
 
+        // Notify admin via email (fire-and-forget)
+        try {
+            await supabase.functions.invoke("notify-admin-inquiry", {
+                body: {
+                    name: result.data.name,
+                    email: result.data.email,
+                    phone: result.data.phone || "",
+                    service: result.data.service || "",
+                    contactMethod: result.data.contactMethod,
+                    message: result.data.message || "",
+                },
+            });
+        } catch (notifyErr) {
+            console.error("Admin notification failed (non-blocking):", notifyErr);
+        }
+
         pushEvent("email_signup", { email: result.data.email, source: "contact_form" });
 
         toast({
