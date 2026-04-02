@@ -135,6 +135,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResult = await resend.emails.send({
       from: "Virginia Laser Specialists <info@virginialaserspecialists.com>",
       to: [inquiry.email],
+      bcc: ["admin@virginialaserspecialists.com"],
       subject: `Re: Your Inquiry – Virginia Laser Specialists`,
       html: replyHtml,
       reply_to: "info@virginialaserspecialists.com",
