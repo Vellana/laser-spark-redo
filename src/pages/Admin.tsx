@@ -749,6 +749,11 @@ const Admin = () => {
             )}
           </TabsContent>
 
+          {/* Specials Tab */}
+          <TabsContent value="specials" className="space-y-4">
+            <SpecialsManager />
+          </TabsContent>
+
           {/* Newsletter Tab */}
           <TabsContent value="newsletter" className="space-y-4">
             <h2 className="text-lg font-semibold text-foreground">Send Newsletter</h2>
