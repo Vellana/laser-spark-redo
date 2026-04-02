@@ -143,9 +143,17 @@ const SpecialsManager = () => {
   };
 
   const toggleActive = async (s: Special) => {
-    const { error } = await supabase.from("specials").update({ is_active: !s.is_active } as any).eq("id", s.id);
+    const newActive = !s.is_active;
+    // If activating, deactivate all others first (only one active at a time)
+    if (newActive) {
+      await supabase.from("specials").update({ is_active: false } as any).neq("id", s.id);
+    }
+    const { error } = await supabase.from("specials").update({ is_active: newActive } as any).eq("id", s.id);
     if (error) toast.error("Failed to update");
-    else fetchSpecials();
+    else {
+      toast.success(newActive ? "Special activated (others deactivated)" : "Special deactivated");
+      fetchSpecials();
+    }
   };
 
   // Live preview HTML
