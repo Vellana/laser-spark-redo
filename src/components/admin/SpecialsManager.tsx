@@ -117,6 +117,11 @@ const SpecialsManager = () => {
         updated_at: new Date().toISOString(),
       };
 
+      // If saving as active, deactivate all others first
+      if (payload.is_active) {
+        await supabase.from("specials").update({ is_active: false } as any).neq("id", editingId === "new" ? "" : editingId!);
+      }
+
       if (editingId === "new") {
         const { error } = await supabase.from("specials").insert({ ...payload, display_order: specials.length } as any);
         if (error) throw error;
