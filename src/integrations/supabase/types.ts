@@ -161,6 +161,45 @@ export type Database = {
         }
         Relationships: []
       }
+      specials: {
+        Row: {
+          body: string
+          created_at: string
+          disclaimer: string | null
+          display_order: number
+          highlight_text: string | null
+          id: string
+          image_urls: string[] | null
+          is_active: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          disclaimer?: string | null
+          display_order?: number
+          highlight_text?: string | null
+          id?: string
+          image_urls?: string[] | null
+          is_active?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          disclaimer?: string | null
+          display_order?: number
+          highlight_text?: string | null
+          id?: string
+          image_urls?: string[] | null
+          is_active?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string

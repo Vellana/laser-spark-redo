@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays, Plus, Trash2 } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays, Plus, Trash2, Sparkles } from "lucide-react";
+import SpecialsManager from "@/components/admin/SpecialsManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -375,7 +376,7 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="inquiries" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="inquiries" className="flex items-center gap-2">
               <Inbox className="w-4 h-4" /> Inquiries
             </TabsTrigger>
@@ -384,6 +385,9 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="leads" className="flex items-center gap-2">
               <Mail className="w-4 h-4" /> Email Leads
+            </TabsTrigger>
+            <TabsTrigger value="specials" className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4" /> Specials
             </TabsTrigger>
             <TabsTrigger value="newsletter" className="flex items-center gap-2">
               <Send className="w-4 h-4" /> Newsletter
@@ -743,6 +747,11 @@ const Admin = () => {
                 </div>
               </div>
             )}
+          </TabsContent>
+
+          {/* Specials Tab */}
+          <TabsContent value="specials" className="space-y-4">
+            <SpecialsManager />
           </TabsContent>
 
           {/* Newsletter Tab */}
