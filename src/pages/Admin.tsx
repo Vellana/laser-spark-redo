@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays, Plus, Trash2 } from "lucide-react";
+import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays, Plus, Trash2, Sparkles } from "lucide-react";
+import SpecialsManager from "@/components/admin/SpecialsManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
