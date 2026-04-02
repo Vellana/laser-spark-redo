@@ -165,21 +165,24 @@ const SpecialsManager = () => {
   const previewHtml = useMemo(() => {
     const title = (form.title || "Special Title").replace(/</g, "&lt;");
     const body = form.body || '<p style="color:#a0aec0;">Your content will appear here...</p>';
-    const highlight = form.highlight_text ? `<p style="font-size:24px;font-weight:700;color:#6dbfa0;margin:16px 0;">${form.highlight_text.replace(/</g, "&lt;")}</p>` : "";
+    const highlight = form.highlight_text ? `<p style="font-size:20px;font-weight:700;color:#6dbfa0;margin:16px 0;">${form.highlight_text.replace(/</g, "&lt;")}</p>` : "";
     const disclaimer = form.disclaimer ? `<p style="font-size:12px;color:#a0aec0;font-style:italic;margin:12px 0 0;">${form.disclaimer.replace(/</g, "&lt;")}</p>` : "";
-    const imgs = form.image_urls.map((u) => `<div style="text-align:center;margin:16px 0;"><img src="${u}" style="max-width:100%;height:auto;border-radius:12px;" /></div>`).join("");
-    return `<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
-      <div style="background:linear-gradient(135deg,#3d5a80,#2c4360);padding:32px;text-align:center;">
-        <div style="width:56px;height:56px;margin:0 auto 12px;background:rgba(109,191,160,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-          <span style="font-size:28px;">✨</span>
-        </div>
-        <h2 style="color:#fff;font-size:24px;margin:0;font-weight:700;">${title}</h2>
-      </div>
-      <div style="padding:32px 28px;text-align:center;">
-        <div style="color:#2d3748;font-size:15px;line-height:1.7;">${body}</div>
+    const imgs = form.image_urls.map((u) => `<div style="text-align:center;margin:12px 0;"><img src="${u}" style="max-width:100%;max-height:192px;object-fit:cover;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" /></div>`).join("");
+    return `<div style="max-width:448px;margin:0 auto;background:var(--card, #1a2332);border:1px solid var(--border, #2d3748);border-radius:16px;overflow:hidden;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding:32px;">
+      <div style="text-align:center;">
+        <h3 style="color:var(--foreground, #fff);font-size:24px;margin:0 0 16px;font-weight:700;">${title}</h3>
+        <div style="color:var(--foreground, #e2e8f0);font-size:14px;line-height:1.7;">${body}</div>
         ${highlight}
         ${imgs}
         ${disclaimer}
+        <div style="border-top:1px solid var(--border, #2d3748);padding-top:16px;margin-top:16px;">
+          <p style="font-size:14px;font-weight:500;color:var(--foreground, #e2e8f0);margin:0 0 8px;">Get <span style="color:#6dbfa0;font-weight:700;">10% off</span> your next service when you join our email list!</p>
+          <p style="font-size:12px;color:#a0aec0;margin:4px 0 12px;">*Cannot be combined with other offers.</p>
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <div style="flex:1;background:#6dbfa0;color:#fff;text-align:center;padding:8px 16px;border-radius:6px;font-size:14px;font-weight:500;">View Specials</div>
+            <div style="flex:1;border:1px solid var(--border, #4a5568);color:var(--foreground, #e2e8f0);text-align:center;padding:8px 16px;border-radius:6px;font-size:14px;">Maybe Later</div>
+          </div>
+        </div>
       </div>
     </div>`;
   }, [form]);

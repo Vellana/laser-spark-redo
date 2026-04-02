@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Sparkles } from "lucide-react";
+
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
@@ -52,9 +52,6 @@ const Specials = () => {
         <section className="py-12 bg-gradient-to-b from-primary/10 to-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <div className="w-14 h-14 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-accent" />
-              </div>
               <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
                 Current Specials
               </h1>
@@ -81,9 +78,6 @@ const Specials = () => {
             <section key={special.id} className="py-16 bg-gradient-to-b from-accent/5 to-background">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto text-center space-y-6">
-                  <div className="w-20 h-20 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-10 h-10 text-accent" />
-                  </div>
                   <h2 className="text-3xl font-bold text-foreground">{special.title}</h2>
                   {special.body && (
                     <div

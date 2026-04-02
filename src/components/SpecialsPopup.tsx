@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sparkles } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
@@ -120,9 +120,6 @@ const SpecialsPopup = () => {
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
         <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300">
           <div className="text-center space-y-4">
-            <div className="w-16 h-16 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-              <Sparkles className="w-8 h-8 text-accent" />
-            </div>
             <h3 className="text-2xl font-bold text-foreground">Welcome Back! 👋</h3>
             <p className="text-foreground">
               Great to see you again! Don't forget — your <span className="text-accent font-bold">10% discount</span> is still available.
@@ -149,10 +146,6 @@ const SpecialsPopup = () => {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
         <div className="text-center space-y-4">
-          <div className="w-16 h-16 mx-auto bg-accent/20 rounded-full flex items-center justify-center">
-            <Sparkles className="w-8 h-8 text-accent" />
-          </div>
-
           <h3 className="text-2xl font-bold text-foreground">{special.title}</h3>
 
           {special.body && (
