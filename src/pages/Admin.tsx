@@ -69,6 +69,7 @@ const Admin = () => {
   const editorRef = useRef<HTMLDivElement>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(false);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
   const [newLeadEmail, setNewLeadEmail] = useState("");
   const [newLeadSource, setNewLeadSource] = useState("manual");
   const [addingLead, setAddingLead] = useState(false);
