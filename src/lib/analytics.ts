@@ -41,3 +41,12 @@ export function getStoredUtms(): Record<string, string> {
   } catch {}
   return {};
 }
+
+/** Fire Google Ads conversion event */
+export function fireGadsConversion() {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "conversion", {
+      send_to: "AW-17444332429/JaLKCLmWlO8bEI3Hjf5A",
+    });
+  }
+}
