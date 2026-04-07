@@ -601,25 +601,36 @@ const Admin = () => {
                     </thead>
                     <tbody>
                       {appointments.map((apt) => (
-                        <tr key={apt.id} className="border-b border-border last:border-0">
-                          <td className="p-3 text-foreground">{new Date(apt.appointment_date + "T12:00:00").toLocaleDateString()}</td>
-                          <td className="p-3 text-foreground">{apt.appointment_time.substring(0, 5)}</td>
-                          <td className="p-3 text-foreground">{apt.first_name} {apt.last_name}</td>
-                          <td className="p-3 text-muted-foreground">{apt.email}</td>
-                          <td className="p-3 text-muted-foreground">{apt.treatment_interest}</td>
+                        <tr key={apt.id} className={`border-b border-border last:border-0 ${apt.status === "cancelled" ? "opacity-60" : ""}`}>
+                          <td className={`p-3 text-foreground ${apt.status === "cancelled" ? "line-through" : ""}`}>{new Date(apt.appointment_date + "T12:00:00").toLocaleDateString()}</td>
+                          <td className={`p-3 text-foreground ${apt.status === "cancelled" ? "line-through" : ""}`}>{apt.appointment_time.substring(0, 5)}</td>
+                          <td className={`p-3 text-foreground ${apt.status === "cancelled" ? "line-through" : ""}`}>{apt.first_name} {apt.last_name}</td>
+                          <td className={`p-3 text-muted-foreground ${apt.status === "cancelled" ? "line-through" : ""}`}>{apt.email}</td>
+                          <td className={`p-3 text-muted-foreground ${apt.status === "cancelled" ? "line-through" : ""}`}>{apt.treatment_interest}</td>
                           <td className="p-3">
                             <span className={`text-xs px-2 py-1 rounded-full ${
                               apt.status === "confirmed"
                                 ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                                : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                                : apt.status === "cancelled"
+                                ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                                : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
                             }`}>
                               {apt.status}
                             </span>
                           </td>
                           <td className="p-3">
                             {apt.status === "confirmed" && (
-                              <Button size="sm" variant="outline" onClick={() => cancelAppointment(apt.id)}>
-                                Cancel
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                disabled={cancellingId === apt.id}
+                                onClick={() => {
+                                  if (confirm(`Cancel appointment for ${apt.first_name} ${apt.last_name} on ${apt.appointment_date}? A cancellation email will be sent to ${apt.email}.`)) {
+                                    cancelAppointment(apt);
+                                  }
+                                }}
+                              >
+                                {cancellingId === apt.id ? "Cancelling..." : "Cancel"}
                               </Button>
                             )}
                           </td>
