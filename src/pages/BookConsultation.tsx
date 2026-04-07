@@ -19,7 +19,7 @@ import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { toast } from "sonner";
 import { z } from "zod";
-import { pushEvent, getStoredUtms } from "@/lib/analytics";
+import { pushEvent, getStoredUtms, fireGadsConversion } from "@/lib/analytics";
 
 const VAGARO_URL = "https://www.vagaro.com/virginialaserspecialists/book-now";
 const TIMEZONE = "America/New_York";
@@ -231,6 +231,7 @@ const BookConsultation = () => {
         date: dateStr,
         time: selectedTime,
       });
+      fireGadsConversion();
 
       setSubmitted(true);
     } catch (err) {

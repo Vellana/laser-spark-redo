@@ -3,6 +3,7 @@
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
+    gtag: (...args: any[]) => void;
   }
 }
 
@@ -39,4 +40,13 @@ export function getStoredUtms(): Record<string, string> {
     if (stored) return JSON.parse(stored);
   } catch {}
   return {};
+}
+
+/** Fire Google Ads conversion event */
+export function fireGadsConversion() {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "conversion", {
+      send_to: "AW-17444332429/JaLKCLmWlO8bEI3Hjf5A",
+    });
+  }
 }
