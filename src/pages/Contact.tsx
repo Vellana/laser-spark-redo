@@ -174,6 +174,7 @@ const Contact = () => {
         }
 
         pushEvent("email_signup", { email: result.data.email, source: "contact_form" });
+        fireGadsConversion();
 
         toast({
             title: "Message Received",
