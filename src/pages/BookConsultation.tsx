@@ -231,6 +231,7 @@ const BookConsultation = () => {
         date: dateStr,
         time: selectedTime,
       });
+      fireGadsConversion();
 
       setSubmitted(true);
     } catch (err) {
