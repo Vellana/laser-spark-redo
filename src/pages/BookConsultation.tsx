@@ -146,10 +146,12 @@ const BookConsultation = () => {
     setLoading(true);
     const utms = getStoredUtms();
     const dateStr = toDateString(selectedDate);
+    const appointmentId = crypto.randomUUID();
 
     try {
       // Insert appointment
       const { error } = await supabase.from("appointments").insert({
+        id: appointmentId,
         first_name: result.data.firstName,
         last_name: result.data.lastName,
         email: result.data.email,
@@ -168,7 +170,6 @@ const BookConsultation = () => {
       if (error) {
         if (error.code === "23505") {
           toast.error("This time slot was just booked. Please choose another.");
-          // Refresh slots
           setSelectedTime(null);
           const res = await supabase.functions.invoke("check-availability", {
             body: { date: dateStr },
@@ -205,6 +206,25 @@ const BookConsultation = () => {
           time: selectedTime,
         },
       });
+
+      // Create Google Calendar event (fire & forget — gracefully handles missing credentials)
+      try {
+        await supabase.functions.invoke("create-calendar-event", {
+          body: {
+            appointmentId,
+            firstName: result.data.firstName,
+            lastName: result.data.lastName,
+            email: result.data.email,
+            phone: result.data.phone || "",
+            treatmentInterest: result.data.treatmentInterest,
+            notes: result.data.notes || "",
+            date: dateStr,
+            time: selectedTime,
+          },
+        });
+      } catch (calErr) {
+        console.warn("Calendar event creation failed (non-blocking):", calErr);
+      }
 
       pushEvent("booking_submitted", {
         treatment: result.data.treatmentInterest,
