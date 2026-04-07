@@ -152,16 +152,48 @@ const Admin = () => {
     setAppointmentsLoading(false);
   };
 
-  const cancelAppointment = async (id: string) => {
-    if (!confirm("Cancel this appointment?")) return;
-    const { error } = await supabase
-      .from("appointments")
-      .update({ status: "cancelled", cancelled_at: new Date().toISOString() } as any)
-      .eq("id", id);
-    if (error) toast.error("Failed to cancel");
-    else {
-      toast.success("Appointment cancelled");
+  const cancelAppointment = async (apt: Appointment) => {
+    setCancellingId(apt.id);
+    try {
+      // 1. Update status in database
+      const { error } = await supabase
+        .from("appointments")
+        .update({ status: "cancelled", cancelled_at: new Date().toISOString() } as any)
+        .eq("id", apt.id);
+      if (error) { toast.error("Failed to cancel"); return; }
+
+      // 2. Send cancellation email to client
+      try {
+        await supabase.functions.invoke("send-cancellation-email", {
+          body: {
+            firstName: apt.first_name,
+            lastName: apt.last_name,
+            email: apt.email,
+            date: apt.appointment_date,
+            time: apt.appointment_time,
+            treatmentInterest: apt.treatment_interest,
+            appointmentId: apt.id,
+          },
+        });
+      } catch (emailErr) {
+        console.error("Cancellation email failed:", emailErr);
+      }
+
+      // 3. Delete Google Calendar event if exists
+      if (apt.gcal_event_id) {
+        try {
+          await supabase.functions.invoke("delete-calendar-event", {
+            body: { eventId: apt.gcal_event_id },
+          });
+        } catch (calErr) {
+          console.error("Calendar event deletion failed:", calErr);
+        }
+      }
+
+      toast.success("Appointment cancelled & client notified");
       fetchAppointments();
+    } finally {
+      setCancellingId(null);
     }
   };
 
