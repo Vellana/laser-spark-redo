@@ -20,3 +20,12 @@ verify_jwt = false
 
 [functions.notify-admin-inquiry]
 verify_jwt = false
+
+[functions.send-cancellation-email]
+verify_jwt = false
+
+[functions.create-calendar-event]
+verify_jwt = false
+
+[functions.delete-calendar-event]
+verify_jwt = false
