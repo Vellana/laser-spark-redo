@@ -72,8 +72,8 @@ interface TreatmentArea {
   description: string;
   pricing: string;
   treatments: string;
-  icon: LucideIcon;
-  color: string;
+  icon?: LucideIcon;
+  color?: string;
 }
 
 const areaStyles: Record<string, { icon: LucideIcon; color: string }> = {
