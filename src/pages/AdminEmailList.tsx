@@ -21,8 +21,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { Search, Users, MailX } from "lucide-react";
+import { Search, Users, MailX, Plus, Trash2, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Subscriber {
@@ -49,11 +59,23 @@ const AdminEmailList = () => {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | "active" | "opted_out">("all");
 
-  // Re-opt-in modal state
+  // Re-opt-in modal
   const [reoptTarget, setReoptTarget] = useState<Subscriber | null>(null);
   const [sigFirst, setSigFirst] = useState("");
   const [sigLast, setSigLast] = useState("");
   const [reoptSubmitting, setReoptSubmitting] = useState(false);
+
+  // Add subscriber modal
+  const [addOpen, setAddOpen] = useState(false);
+  const [addEmail, setAddEmail] = useState("");
+  const [addFirst, setAddFirst] = useState("");
+  const [addLast, setAddLast] = useState("");
+  const [addPhone, setAddPhone] = useState("");
+  const [addSubmitting, setAddSubmitting] = useState(false);
+
+  // Delete confirm
+  const [deleteTarget, setDeleteTarget] = useState<Subscriber | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -88,7 +110,8 @@ const AdminEmailList = () => {
     const { data, error } = await supabase
       .from("email_subscribers")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(5000);
     if (error) {
       toast.error("Failed to load subscribers");
     } else {
@@ -129,7 +152,6 @@ const AdminEmailList = () => {
     const adminName = `${first} ${last}`;
     setReoptSubmitting(true);
 
-    // Update subscriber row
     const { error: updateErr } = await supabase
       .from("email_subscribers")
       .update({
@@ -146,7 +168,6 @@ const AdminEmailList = () => {
       return;
     }
 
-    // Log to audit table
     const { error: logErr } = await supabase.from("opt_in_confirmations").insert({
       admin_name: adminName,
       subscriber_email: reoptTarget.email,
@@ -162,6 +183,72 @@ const AdminEmailList = () => {
 
     setReoptTarget(null);
     loadSubscribers();
+  };
+
+  const handleAddSubscriber = async () => {
+    const email = addEmail.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    setAddSubmitting(true);
+    const { error } = await supabase.from("email_subscribers").insert({
+      email,
+      first_name: addFirst.trim() || null,
+      last_name: addLast.trim() || null,
+      phone: addPhone.trim() || null,
+      source: "manual_admin",
+    });
+    setAddSubmitting(false);
+    if (error) {
+      if (error.code === "23505") {
+        toast.error("That email is already on the list");
+      } else {
+        toast.error("Failed to add subscriber");
+      }
+      return;
+    }
+    toast.success("Subscriber added");
+    setAddOpen(false);
+    setAddEmail(""); setAddFirst(""); setAddLast(""); setAddPhone("");
+    loadSubscribers();
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    const { error } = await supabase
+      .from("email_subscribers")
+      .delete()
+      .eq("id", deleteTarget.id);
+    setDeleting(false);
+    if (error) {
+      toast.error("Failed to delete subscriber");
+      return;
+    }
+    toast.success(`Removed ${deleteTarget.email}`);
+    setDeleteTarget(null);
+    loadSubscribers();
+  };
+
+  const exportCsv = () => {
+    const headers = ["email", "first_name", "last_name", "phone", "source", "subscribed", "opted_out", "opted_out_at", "opted_back_in_at", "opted_back_in_by", "created_at"];
+    const escape = (v: unknown) => {
+      const s = v === null || v === undefined ? "" : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const rows = subscribers.map((s) => headers.map((h) => escape((s as any)[h])).join(","));
+    const csv = [headers.join(","), ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `email-subscribers-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success(`Exported ${subscribers.length} subscribers`);
   };
 
   if (!authChecked) {
@@ -182,9 +269,15 @@ const AdminEmailList = () => {
               <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Email Subscribers</h1>
               <p className="text-muted-foreground mt-1">Manage your subscriber list</p>
             </div>
-            <Button variant="outline" onClick={() => navigate("/admin")}>
-              ← Back to Admin
-            </Button>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" onClick={() => navigate("/admin")}>← Back</Button>
+              <Button variant="outline" onClick={exportCsv} disabled={subscribers.length === 0}>
+                <Download className="w-4 h-4 mr-2" /> Export CSV
+              </Button>
+              <Button variant="accent" onClick={() => setAddOpen(true)}>
+                <Plus className="w-4 h-4 mr-2" /> Add Subscriber
+              </Button>
+            </div>
           </div>
 
           {/* Stats */}
@@ -217,7 +310,7 @@ const AdminEmailList = () => {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Search email, name, or phone…"
+                placeholder="Search email, name, or phone..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-9"
@@ -237,54 +330,62 @@ const AdminEmailList = () => {
 
           {/* Table */}
           <div className="bg-card border border-border rounded-xl overflow-hidden shadow-soft">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto max-h-[70vh] overflow-y-auto">
               <table className="w-full text-sm">
-                <thead className="bg-muted/50">
+                <thead className="bg-muted/50 sticky top-0">
                   <tr>
                     <th className="text-left py-3 px-4 font-semibold text-foreground">Email</th>
-                    <th className="text-left py-3 px-4 font-semibold text-foreground">Name</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">First</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Last</th>
                     <th className="text-left py-3 px-4 font-semibold text-foreground">Phone</th>
                     <th className="text-left py-3 px-4 font-semibold text-foreground">Source</th>
-                    <th className="text-left py-3 px-4 font-semibold text-foreground">Status</th>
-                    <th className="text-right py-3 px-4 font-semibold text-foreground">Subscribed</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Subscribed</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Opted Out</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Created</th>
+                    <th className="text-right py-3 px-4 font-semibold text-foreground">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr><td colSpan={6} className="text-center py-12 text-muted-foreground">Loading…</td></tr>
+                    <tr><td colSpan={9} className="text-center py-12 text-muted-foreground">Loading...</td></tr>
                   ) : filtered.length === 0 ? (
-                    <tr><td colSpan={6} className="text-center py-12 text-muted-foreground">No subscribers match your filters.</td></tr>
+                    <tr><td colSpan={9} className="text-center py-12 text-muted-foreground">No subscribers match your filters.</td></tr>
                   ) : (
                     filtered.map((s) => (
                       <tr key={s.id} className="border-t border-border hover:bg-muted/30">
                         <td className="py-3 px-4 text-foreground">{s.email}</td>
-                        <td className="py-3 px-4 text-foreground">
-                          {[s.first_name, s.last_name].filter(Boolean).join(" ") || <span className="text-muted-foreground">-</span>}
-                        </td>
+                        <td className="py-3 px-4 text-foreground">{s.first_name || <span className="text-muted-foreground">-</span>}</td>
+                        <td className="py-3 px-4 text-foreground">{s.last_name || <span className="text-muted-foreground">-</span>}</td>
                         <td className="py-3 px-4 text-muted-foreground">{s.phone || "-"}</td>
                         <td className="py-3 px-4 text-muted-foreground text-xs">{s.source}</td>
                         <td className="py-3 px-4">
-                          <div className="flex items-center gap-3">
-                            <span
-                              className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                                s.opted_out
-                                  ? "bg-destructive/10 text-destructive"
-                                  : "bg-accent/10 text-accent"
-                              }`}
-                            >
-                              {s.opted_out ? "Opted out" : "Active"}
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${s.subscribed ? "bg-accent/10 text-accent" : "bg-muted text-muted-foreground"}`}>
+                            {s.subscribed ? "Yes" : "No"}
+                          </span>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${s.opted_out ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"}`}>
+                              {s.opted_out ? "Yes" : "No"}
                             </span>
                             {s.opted_out && (
-                              <Switch
-                                checked={false}
-                                onCheckedChange={() => openReoptModal(s)}
-                                aria-label={`Re-opt in ${s.email}`}
-                              />
+                              <Switch checked={false} onCheckedChange={() => openReoptModal(s)} aria-label={`Re-opt in ${s.email}`} />
                             )}
                           </div>
                         </td>
-                        <td className="py-3 px-4 text-right text-muted-foreground text-xs">
+                        <td className="py-3 px-4 text-muted-foreground text-xs whitespace-nowrap">
                           {new Date(s.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setDeleteTarget(s)}
+                            aria-label={`Delete ${s.email}`}
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </td>
                       </tr>
                     ))
@@ -295,6 +396,44 @@ const AdminEmailList = () => {
           </div>
         </div>
       </main>
+
+      {/* Add subscriber modal */}
+      <Dialog open={addOpen} onOpenChange={setAddOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add subscriber</DialogTitle>
+            <DialogDescription>
+              Manually add an email subscriber. Only email is required.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div>
+              <Label htmlFor="add-email">Email *</Label>
+              <Input id="add-email" type="email" value={addEmail} onChange={(e) => setAddEmail(e.target.value)} placeholder="name@example.com" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label htmlFor="add-first">First name</Label>
+                <Input id="add-first" value={addFirst} onChange={(e) => setAddFirst(e.target.value)} />
+              </div>
+              <div>
+                <Label htmlFor="add-last">Last name</Label>
+                <Input id="add-last" value={addLast} onChange={(e) => setAddLast(e.target.value)} />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="add-phone">Phone (optional)</Label>
+              <Input id="add-phone" value={addPhone} onChange={(e) => setAddPhone(e.target.value)} />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddOpen(false)}>Cancel</Button>
+            <Button variant="accent" onClick={handleAddSubscriber} disabled={addSubmitting}>
+              {addSubmitting ? "Adding..." : "Add subscriber"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Re-opt-in signature modal */}
       <Dialog open={!!reoptTarget} onOpenChange={(open) => !open && setReoptTarget(null)}>
@@ -319,11 +458,29 @@ const AdminEmailList = () => {
           <DialogFooter>
             <Button variant="outline" onClick={() => setReoptTarget(null)}>Cancel</Button>
             <Button variant="accent" onClick={handleReoptIn} disabled={reoptSubmitting}>
-              {reoptSubmitting ? "Confirming…" : "Sign & re-opt in"}
+              {reoptSubmitting ? "Confirming..." : "Sign & re-opt in"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Delete confirm */}
+      <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete subscriber?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently remove <span className="font-semibold text-foreground">{deleteTarget?.email}</span> from your subscriber list. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} disabled={deleting} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              {deleting ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <Footer />
     </div>
