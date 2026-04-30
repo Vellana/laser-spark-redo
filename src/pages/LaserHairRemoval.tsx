@@ -388,22 +388,28 @@ const LaserHairRemoval = () => {
                 </h2>
                 <p className="text-muted-foreground">Click on any area to see details and pricing</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {treatmentAreas.map((area) => (
-                  <button
-                    key={area.name}
-                    onClick={() => setSelectedArea(area)}
-                    className="flex flex-col items-start bg-background p-4 sm:p-5 rounded-lg hover:shadow-medium hover:border-accent/50 border border-border transition-all duration-300 hover:-translate-y-1 cursor-pointer text-left group h-full"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm sm:text-base text-foreground font-semibold">{area.name}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      {area.summary}
-                    </p>
-                  </button>
-                ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-center">
+                {treatmentAreas.map((area, index) => {
+                  const style = areaStyles[area.name] ?? { icon: CheckCircle2, color: "text-accent bg-accent/10" };
+                  const Icon = style.icon;
+                  const isSecondToLast = index === treatmentAreas.length - 2;
+                  const positionClasses = isSecondToLast ? "xl:col-start-2" : "";
+                  return (
+                    <button
+                      key={area.name}
+                      onClick={() => setSelectedArea(area)}
+                      className={`w-full flex flex-col items-center text-center bg-background p-4 sm:p-5 rounded-lg hover:shadow-medium hover:border-accent/50 border border-border transition-all duration-300 hover:-translate-y-1 cursor-pointer group h-full ${positionClasses}`}
+                    >
+                      <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${style.color} flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110`}>
+                        <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
+                      </div>
+                      <span className="text-sm sm:text-base text-foreground font-semibold mb-2">{area.name}</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        {area.summary}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
               <p className="text-center text-muted-foreground mt-6">
                 Full body packages available. <Link to="/pricing" className="text-accent hover:underline">View all pricing</Link> | 
