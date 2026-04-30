@@ -673,7 +673,7 @@ const Admin = () => {
                   e.preventDefault();
                   if (!newLeadEmail.trim()) { toast.error("Email is required"); return; }
                   setAddingLead(true);
-                  const { error } = await supabase.from("email_leads").insert({
+                  const { error } = await supabase.from("email_subscribers").insert({
                     email: newLeadEmail.trim().toLowerCase(),
                     source: newLeadSource || "manual",
                   } as any);
