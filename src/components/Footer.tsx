@@ -129,7 +129,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 text-center text-muted-foreground text-sm">
+        <div className="border-t border-border pt-8 text-center text-muted-foreground text-sm space-y-2">
+          <p>
+            <Link to="/unsubscribe" className="hover:text-accent transition-colors">
+              Unsubscribe from emails
+            </Link>
+          </p>
           <p>
             © {currentYear} Virginia Laser Specialists. All rights reserved.{" "}
             <a href="/admin" className="opacity-30 hover:opacity-60 transition-opacity text-4xl leading-none inline-block px-3 py-1" aria-label="Admin">·</a>

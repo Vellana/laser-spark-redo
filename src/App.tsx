@@ -20,6 +20,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const BookConsultation = lazy(() => import("./pages/BookConsultation"));
 const FAQ = lazy(() => import("./pages/FAQ"));
+const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
+const AdminEmailList = lazy(() => import("./pages/AdminEmailList"));
 
 // Polished loading fallback with smooth animation
 const PageLoader = () => (
@@ -71,7 +73,9 @@ const App = () => {
                 <Route path="/coolpeel-co2-laser-tysons-va" element={<CoolPeelTysons />} />
                 <Route path="/book-free-consultation" element={<BookConsultation />} />
                 <Route path="/faq" element={<FAQ />} />
+                <Route path="/unsubscribe" element={<Unsubscribe />} />
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/email-list" element={<AdminEmailList />} />
                 {/* Redirect old CoolPeel URL to the SEO-optimized one */}
                 <Route path="/services/coolpeel" element={<Navigate to="/coolpeel-co2-laser-tysons-va" replace />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

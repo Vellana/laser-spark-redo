@@ -164,6 +164,72 @@ export type Database = {
         }
         Relationships: []
       }
+      email_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string | null
+          id: string
+          last_name: string | null
+          opted_back_in_at: string | null
+          opted_back_in_by: string | null
+          opted_out: boolean
+          opted_out_at: string | null
+          phone: string | null
+          source: string
+          subscribed: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          opted_back_in_at?: string | null
+          opted_back_in_by?: string | null
+          opted_out?: boolean
+          opted_out_at?: string | null
+          phone?: string | null
+          source?: string
+          subscribed?: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          opted_back_in_at?: string | null
+          opted_back_in_by?: string | null
+          opted_out?: boolean
+          opted_out_at?: string | null
+          phone?: string | null
+          source?: string
+          subscribed?: boolean
+        }
+        Relationships: []
+      }
+      opt_in_confirmations: {
+        Row: {
+          admin_name: string
+          created_at: string
+          id: string
+          subscriber_email: string
+        }
+        Insert: {
+          admin_name: string
+          created_at?: string
+          id?: string
+          subscriber_email: string
+        }
+        Update: {
+          admin_name?: string
+          created_at?: string
+          id?: string
+          subscriber_email?: string
+        }
+        Relationships: []
+      }
       specials: {
         Row: {
           body: string
@@ -233,6 +299,17 @@ export type Database = {
         }
         Returns: boolean
       }
+      subscribe_email: {
+        Args: {
+          p_email: string
+          p_first_name?: string
+          p_last_name?: string
+          p_phone?: string
+          p_source?: string
+        }
+        Returns: string
+      }
+      unsubscribe_email: { Args: { p_email: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"

@@ -95,6 +95,12 @@ const SpecialsPopup = () => {
       }
       if (error) throw error;
 
+      // Also add to the email_subscribers list (reactivates if previously opted out)
+      await supabase.rpc("subscribe_email", {
+        p_email: result.data,
+        p_source: "specials_popup",
+      });
+
       const res = await supabase.functions.invoke("send-newsletter-confirmation", {
         body: { email: result.data },
       });
