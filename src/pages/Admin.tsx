@@ -14,9 +14,12 @@ interface EmailLead {
   id: string;
   email: string;
   source: string | null;
-  subscribed_at: string;
-  confirmation_sent: boolean | null;
-  discount_claimed: boolean;
+  created_at: string;
+  subscribed: boolean;
+  opted_out: boolean;
+  first_name: string | null;
+  last_name: string | null;
+  phone: string | null;
 }
 
 interface ContactInquiry {
