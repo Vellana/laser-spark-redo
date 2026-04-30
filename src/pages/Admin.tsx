@@ -739,7 +739,7 @@ const Admin = () => {
                       {leads.map((lead) => (
                         <tr key={lead.id} className="border-b border-border last:border-0">
                           <td className="p-3 text-foreground">{lead.email}</td>
-                          <td className="p-3 text-muted-foreground">{lead.source || "—"}</td>
+                          <td className="p-3 text-muted-foreground">{lead.source || "-"}</td>
                           <td className="p-3 text-muted-foreground">{new Date(lead.subscribed_at).toLocaleDateString()}</td>
                           <td className="p-3">
                             <span className={`text-xs px-2 py-1 rounded-full ${lead.confirmation_sent ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}>

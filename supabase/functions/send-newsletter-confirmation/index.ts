@@ -170,6 +170,10 @@ const handler = async (req: Request): Promise<Response> => {
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
       <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      <p style="color:rgba(255,255,255,0.6);margin:16px 0 0;font-size:11px;line-height:1.5;">
+        You're receiving this email because you signed up for offers from Virginia Laser Specialists.<br>
+        <a href="https://virginialaserspecialists.com/unsubscribe" style="color:${seafoamLight};text-decoration:underline;">Unsubscribe</a>
+      </p>
     </div>
   </div>
 </body>
@@ -180,7 +184,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
       to: [email],
-      subject: "Welcome! Here's Your 10% Discount — Code VLS10 🎉",
+      subject: "Welcome! Here's Your 10% Discount - Code VLS10 🎉",
       html: brandedEmailHtml,
     });
 
@@ -202,14 +206,14 @@ const handler = async (req: Request): Promise<Response> => {
       <img src="${LOGO_URL}" alt="VLS" width="120" style="display:block;margin:0 auto;max-width:120px;height:auto;" />
     </div>
     <div style="padding:28px 24px;">
-      <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📬 New Newsletter Signup — 10% Discount Claimed</h2>
+      <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📬 New Newsletter Signup - 10% Discount Claimed</h2>
       <p style="color:${textMedium};font-size:14px;line-height:1.6;margin:0 0 16px;">
         A new visitor has signed up for the newsletter and received their <strong>10% discount code (VLS10)</strong>.
       </p>
       <div style="background:${cream};border-radius:8px;padding:16px;">
         <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${email}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Offer Claimed:</strong> 10% Off Next Service (Code: VLS10)</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Source:</strong> Specials Popup — Newsletter Signup</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Source:</strong> Specials Popup - Newsletter Signup</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Time:</strong> ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</p>
       </div>
     </div>

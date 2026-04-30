@@ -17,7 +17,7 @@ const CoolPeel = () => {
       icon: Sparkles,
       title: "Revolutionary Technology",
       description: "Advanced CO2 laser resurfaces skin with customizable intensity",
-      details: "The Tetra Pro CO2 platform resurfacing technology allows customizable intensity and offers two modes—CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing—to stimulate collagen production and rejuvenate skin.",
+      details: "The Tetra Pro CO2 platform resurfacing technology allows customizable intensity and offers two modes-CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing-to stimulate collagen production and rejuvenate skin.",
     },
     {
       icon: Zap,

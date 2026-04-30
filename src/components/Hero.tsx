@@ -37,7 +37,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light">
-            Expert laser hair removal with Lutronic Clarity II and CoolPeel CO₂ resurfacing — safe for all skin types. Serving Tysons, Vienna & McLean.
+            Expert laser hair removal with Lutronic Clarity II and CoolPeel CO₂ resurfacing - safe for all skin types. Serving Tysons, Vienna & McLean.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">

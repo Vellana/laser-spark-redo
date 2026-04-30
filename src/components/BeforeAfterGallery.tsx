@@ -67,7 +67,7 @@ const BeforeAfterGallery = ({
       {showIntro && (
         <FadeInSection className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 px-4">
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
-            Before & After Results — CoolPeel + CO₂ Laser Resurfacing
+            Before & After Results - CoolPeel + CO₂ Laser Resurfacing
           </h3>
           <p className="text-base sm:text-lg text-muted-foreground">
             These are real client results from CoolPeel and CO₂ laser resurfacing treatments performed at our facility. 

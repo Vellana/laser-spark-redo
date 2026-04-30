@@ -87,7 +87,7 @@ const Navigation = () => {
                   <span className="sm:hidden">Book Now</span>
                 </Button>
               </Link>
-              {/* Hamburger — phone only */}
+              {/* Hamburger - phone only */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="sm:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
@@ -100,7 +100,7 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Row 2: Nav links — sm+ (≥640px) */}
+      {/* Row 2: Nav links - sm+ (≥640px) */}
       <div className="hidden sm:block border-b border-border bg-card/80">
         <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-1 md:gap-2 lg:gap-4 xl:gap-6">
@@ -114,7 +114,7 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile dropdown — <sm */}
+      {/* Mobile dropdown - <sm */}
       {isOpen && (
         <div className="sm:hidden bg-card border-b border-border py-3 space-y-1 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="max-w-[1920px] mx-auto px-4">

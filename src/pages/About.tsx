@@ -131,7 +131,7 @@ const About = () => {
                                     <div className="relative h-80 overflow-hidden">
                                         <img
                                             src={member.image}
-                                            alt={`${member.name} — ${member.title} at Virginia Laser Specialists`}
+                                            alt={`${member.name} - ${member.title} at Virginia Laser Specialists`}
                                             className="w-full h-full object-cover"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />

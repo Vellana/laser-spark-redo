@@ -259,9 +259,9 @@ const AdminEmailList = () => {
                       <tr key={s.id} className="border-t border-border hover:bg-muted/30">
                         <td className="py-3 px-4 text-foreground">{s.email}</td>
                         <td className="py-3 px-4 text-foreground">
-                          {[s.first_name, s.last_name].filter(Boolean).join(" ") || <span className="text-muted-foreground">—</span>}
+                          {[s.first_name, s.last_name].filter(Boolean).join(" ") || <span className="text-muted-foreground">-</span>}
                         </td>
-                        <td className="py-3 px-4 text-muted-foreground">{s.phone || "—"}</td>
+                        <td className="py-3 px-4 text-muted-foreground">{s.phone || "-"}</td>
                         <td className="py-3 px-4 text-muted-foreground text-xs">{s.source}</td>
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-3">

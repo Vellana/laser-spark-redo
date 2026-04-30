@@ -311,7 +311,7 @@ const LaserHairRemoval = () => {
                   Laser Hair Removal in Tysons, Vienna & McLean VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Experience permanent hair reduction with the Lutronic Clarity II laser—the gold standard 
+                  Experience permanent hair reduction with the Lutronic Clarity II laser-the gold standard 
                   in laser hair removal. Our dual wavelength system is safe for all skin types and tones, 
                   delivering exceptional results with minimal discomfort.
                 </p>

@@ -43,7 +43,7 @@ const SkinResurfacingFAQSchema = () => {
         "name": "Is CO₂ laser resurfacing safe for all skin types?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "CO₂ laser resurfacing is effective for most skin types. During your free consultation at Virginia Laser Specialists, our expert technicians will evaluate your skin type and recommend the best treatment approach—CoolPeel or DEKA Pulse—for your specific needs."
+          "text": "CO₂ laser resurfacing is effective for most skin types. During your free consultation at Virginia Laser Specialists, our expert technicians will evaluate your skin type and recommend the best treatment approach-CoolPeel or DEKA Pulse-for your specific needs."
         }
       },
       {
