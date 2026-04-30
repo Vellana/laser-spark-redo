@@ -14,9 +14,12 @@ interface EmailLead {
   id: string;
   email: string;
   source: string | null;
-  subscribed_at: string;
-  confirmation_sent: boolean | null;
-  discount_claimed: boolean;
+  created_at: string;
+  subscribed: boolean;
+  opted_out: boolean;
+  first_name: string | null;
+  last_name: string | null;
+  phone: string | null;
 }
 
 interface ContactInquiry {
@@ -121,11 +124,12 @@ const Admin = () => {
   const fetchLeads = async () => {
     setLeadsLoading(true);
     const { data, error } = await supabase
-      .from("email_leads")
+      .from("email_subscribers")
       .select("*")
-      .order("subscribed_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(5000);
     if (error) toast.error("Failed to fetch leads");
-    else setLeads(data || []);
+    else setLeads((data || []) as EmailLead[]);
     setLeadsLoading(false);
   };
 
@@ -237,20 +241,23 @@ const Admin = () => {
 
   const exportCSV = () => {
     if (!leads.length) return;
-    const headers = ["Email", "Source", "Subscribed At", "Confirmation Sent", "Discount Claimed"];
+    const headers = ["Email", "First Name", "Last Name", "Phone", "Source", "Confirmed", "Opted Out", "Created At"];
     const rows = leads.map((l) => [
       l.email,
+      l.first_name || "",
+      l.last_name || "",
+      l.phone || "",
       l.source || "",
-      new Date(l.subscribed_at).toLocaleString(),
-      l.confirmation_sent ? "Yes" : "No",
-      l.discount_claimed ? "Yes" : "No",
+      l.subscribed ? "Yes" : "No",
+      l.opted_out ? "Yes" : "No",
+      new Date(l.created_at).toLocaleString(),
     ]);
     const csv = [headers, ...rows].map((r) => r.join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `email-leads-${new Date().toISOString().split("T")[0]}.csv`;
+    a.download = `email-subscribers-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -666,7 +673,7 @@ const Admin = () => {
                   e.preventDefault();
                   if (!newLeadEmail.trim()) { toast.error("Email is required"); return; }
                   setAddingLead(true);
-                  const { error } = await supabase.from("email_leads").insert({
+                  const { error } = await supabase.from("email_subscribers").insert({
                     email: newLeadEmail.trim().toLowerCase(),
                     source: newLeadSource || "manual",
                   } as any);
@@ -707,15 +714,15 @@ const Admin = () => {
                   <Calendar className="w-4 h-4" /> This Month
                 </div>
                 <p className="text-3xl font-bold text-foreground">
-                  {leads.filter((l) => new Date(l.subscribed_at).getMonth() === new Date().getMonth()).length}
+                  {leads.filter((l) => new Date(l.created_at).getMonth() === new Date().getMonth()).length}
                 </p>
               </div>
               <div className="bg-card border border-border rounded-lg p-4">
                 <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
-                  <Mail className="w-4 h-4" /> Emails Sent
+                  <Mail className="w-4 h-4" /> Confirmed
                 </div>
                 <p className="text-3xl font-bold text-foreground">
-                  {leads.filter((l) => l.confirmation_sent).length}
+                  {leads.filter((l) => l.subscribed && !l.opted_out).length}
                 </p>
               </div>
             </div>
@@ -731,7 +738,6 @@ const Admin = () => {
                         <th className="text-left p-3 font-medium text-foreground">Source</th>
                         <th className="text-left p-3 font-medium text-foreground">Date</th>
                         <th className="text-left p-3 font-medium text-foreground">Confirmed</th>
-                        <th className="text-left p-3 font-medium text-foreground">Discount Used</th>
                         <th className="text-right p-3 font-medium text-foreground">Actions</th>
                       </tr>
                     </thead>
@@ -740,44 +746,23 @@ const Admin = () => {
                         <tr key={lead.id} className="border-b border-border last:border-0">
                           <td className="p-3 text-foreground">{lead.email}</td>
                           <td className="p-3 text-muted-foreground">{lead.source || "-"}</td>
-                          <td className="p-3 text-muted-foreground">{new Date(lead.subscribed_at).toLocaleDateString()}</td>
+                          <td className="p-3 text-muted-foreground">{new Date(lead.created_at).toLocaleDateString()}</td>
                           <td className="p-3">
-                            <span className={`text-xs px-2 py-1 rounded-full ${lead.confirmation_sent ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}>
-                              {lead.confirmation_sent ? "Sent" : "Pending"}
+                            <span className={`text-xs px-2 py-1 rounded-full ${lead.subscribed && !lead.opted_out ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}>
+                              {lead.opted_out ? "Opted out" : lead.subscribed ? "Confirmed" : "Pending"}
                             </span>
-                          </td>
-                          <td className="p-3">
-                            <button
-                              onClick={async () => {
-                                const newVal = !lead.discount_claimed;
-                                const { error } = await supabase
-                                  .from("email_leads")
-                                  .update({ discount_claimed: newVal } as any)
-                                  .eq("id", lead.id);
-                                if (error) { toast.error("Failed to update"); return; }
-                                setLeads((prev) => prev.map((l) => l.id === lead.id ? { ...l, discount_claimed: newVal } : l));
-                                toast.success(newVal ? "Marked as claimed" : "Marked as unclaimed");
-                              }}
-                              className={`text-xs px-2 py-1 rounded-full cursor-pointer transition-colors ${
-                                lead.discount_claimed
-                                  ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 hover:bg-green-200"
-                                  : "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400 hover:bg-orange-200"
-                              }`}
-                            >
-                              {lead.discount_claimed ? "✅ Claimed" : "⏳ Unclaimed"}
-                             </button>
                           </td>
                           <td className="p-3 text-right">
                             <button
                               onClick={async () => {
-                                if (!confirm(`Remove ${lead.email} from leads?`)) return;
-                                const { error } = await supabase.from("email_leads").delete().eq("id", lead.id);
-                                if (error) { toast.error("Failed to remove lead"); return; }
+                                if (!confirm(`Remove ${lead.email} from subscribers?`)) return;
+                                const { error } = await supabase.from("email_subscribers").delete().eq("id", lead.id);
+                                if (error) { toast.error("Failed to remove subscriber"); return; }
                                 setLeads((prev) => prev.filter((l) => l.id !== lead.id));
-                                toast.success("Lead removed");
+                                toast.success("Subscriber removed");
                               }}
                               className="text-destructive hover:text-destructive/80 transition-colors"
-                              aria-label="Remove lead"
+                              aria-label="Remove subscriber"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
@@ -785,7 +770,7 @@ const Admin = () => {
                         </tr>
                       ))}
                       {!leads.length && (
-                        <tr><td colSpan={6} className="p-8 text-center text-muted-foreground">No leads yet</td></tr>
+                        <tr><td colSpan={5} className="p-8 text-center text-muted-foreground">No subscribers yet</td></tr>
                       )}
                     </tbody>
                   </table>
