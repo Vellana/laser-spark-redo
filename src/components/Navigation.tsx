@@ -19,6 +19,7 @@ const Navigation = () => {
     { name: "Pricing", href: "/pricing" },
     { name: "Financing", href: "/#cherry-financing" },
     { name: "Gallery", href: "/gallery" },
+    { name: "FAQ", href: "/faq" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];

@@ -145,8 +145,8 @@ const FAQ = () => {
       </Helmet>
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://virginialaserspecialists.com/" },
-          { name: "FAQ", url: "https://virginialaserspecialists.com/faq" },
+          { name: "Home", url: "/" },
+          { name: "FAQ", url: "/faq" },
         ]}
       />
       <Navigation />
