@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle2, Zap, Shield, Users, Clock } from "lucide-react";
+import { CheckCircle2, Zap, Shield, Users, Clock, Sparkles, Hand, Footprints, Smile, ScanFace, Circle, Target, Move, User, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEO from "@/components/SEO";
