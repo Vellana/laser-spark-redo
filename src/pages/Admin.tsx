@@ -124,11 +124,12 @@ const Admin = () => {
   const fetchLeads = async () => {
     setLeadsLoading(true);
     const { data, error } = await supabase
-      .from("email_leads")
+      .from("email_subscribers")
       .select("*")
-      .order("subscribed_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(5000);
     if (error) toast.error("Failed to fetch leads");
-    else setLeads(data || []);
+    else setLeads((data || []) as EmailLead[]);
     setLeadsLoading(false);
   };
 
