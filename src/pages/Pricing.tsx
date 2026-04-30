@@ -77,7 +77,8 @@ const Pricing = () => {
                           Single Session
                         </th>
                         <th className="text-center py-4 px-4 text-foreground font-semibold">
-                          Package of 5
+                          <div>Package of 5</div>
+                          <div className="text-xs font-normal text-muted-foreground mt-1">(25% Discount)</div>
                         </th>
                       </tr>
                     </thead>
