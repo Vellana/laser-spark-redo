@@ -241,20 +241,23 @@ const Admin = () => {
 
   const exportCSV = () => {
     if (!leads.length) return;
-    const headers = ["Email", "Source", "Subscribed At", "Confirmation Sent", "Discount Claimed"];
+    const headers = ["Email", "First Name", "Last Name", "Phone", "Source", "Confirmed", "Opted Out", "Created At"];
     const rows = leads.map((l) => [
       l.email,
+      l.first_name || "",
+      l.last_name || "",
+      l.phone || "",
       l.source || "",
-      new Date(l.subscribed_at).toLocaleString(),
-      l.confirmation_sent ? "Yes" : "No",
-      l.discount_claimed ? "Yes" : "No",
+      l.subscribed ? "Yes" : "No",
+      l.opted_out ? "Yes" : "No",
+      new Date(l.created_at).toLocaleString(),
     ]);
     const csv = [headers, ...rows].map((r) => r.join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `email-leads-${new Date().toISOString().split("T")[0]}.csv`;
+    a.download = `email-subscribers-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
