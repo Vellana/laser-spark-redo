@@ -299,6 +299,17 @@ export type Database = {
         }
         Returns: boolean
       }
+      subscribe_email: {
+        Args: {
+          p_email: string
+          p_first_name?: string
+          p_last_name?: string
+          p_phone?: string
+          p_source?: string
+        }
+        Returns: string
+      }
+      unsubscribe_email: { Args: { p_email: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
