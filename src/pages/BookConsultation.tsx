@@ -207,7 +207,7 @@ const BookConsultation = () => {
         },
       });
 
-      // Create Google Calendar event (fire & forget — gracefully handles missing credentials)
+      // Create Google Calendar event (fire & forget - gracefully handles missing credentials)
       try {
         await supabase.functions.invoke("create-calendar-event", {
           body: {

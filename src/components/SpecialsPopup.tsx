@@ -128,7 +128,7 @@ const SpecialsPopup = () => {
           <div className="text-center space-y-4">
             <h3 className="text-2xl font-bold text-foreground">Welcome Back! 👋</h3>
             <p className="text-foreground">
-              Great to see you again! Don't forget — your <span className="text-accent font-bold">10% discount</span> is still available.
+              Great to see you again! Don't forget - your <span className="text-accent font-bold">10% discount</span> is still available.
             </p>
             <div className="bg-accent/10 rounded-lg p-3">
               <p className="text-xs text-muted-foreground">Your discount code:</p>

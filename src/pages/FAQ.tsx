@@ -20,7 +20,7 @@ interface QA {
 const coolpeelFAQs: QA[] = [
   {
     q: "What is CoolPeel?",
-    a: "CoolPeel is a next-generation fractional CO₂ laser treatment from Lutronic that resurfaces the skin to improve tone, texture, fine lines, pores, and sun damage — with significantly less downtime than traditional CO₂ resurfacing.",
+    a: "CoolPeel is a next-generation fractional CO₂ laser treatment from Lutronic that resurfaces the skin to improve tone, texture, fine lines, pores, and sun damage - with significantly less downtime than traditional CO₂ resurfacing.",
   },
   {
     q: "How is CoolPeel different from a traditional CO₂ laser?",
@@ -64,7 +64,7 @@ const coolpeelFAQs: QA[] = [
   },
   {
     q: "Can CoolPeel be combined with other treatments?",
-    a: "Yes — CoolPeel pairs well with Botox, fillers, and other laser treatments. Spacing depends on the procedure, and your provider will create a personalized plan during your free consultation.",
+    a: "Yes - CoolPeel pairs well with Botox, fillers, and other laser treatments. Spacing depends on the procedure, and your provider will create a personalized plan during your free consultation.",
   },
   {
     q: "How much does CoolPeel cost in Tysons / Vienna, VA?",
@@ -75,7 +75,7 @@ const coolpeelFAQs: QA[] = [
 const hairRemovalFAQs: QA[] = [
   {
     q: "What laser do you use for hair removal?",
-    a: "We use the Lutronic Clarity II — a dual-wavelength (Alexandrite 755 nm and Nd:YAG 1064 nm) laser that safely treats all skin types, including darker skin tones.",
+    a: "We use the Lutronic Clarity II - a dual-wavelength (Alexandrite 755 nm and Nd:YAG 1064 nm) laser that safely treats all skin types, including darker skin tones.",
   },
   {
     q: "Is laser hair removal safe for all skin types?",
@@ -107,7 +107,7 @@ const hairRemovalFAQs: QA[] = [
   },
   {
     q: "Can I shave between sessions?",
-    a: "Yes — shaving is fine and even encouraged. Avoid waxing, plucking, threading, and depilatory creams between sessions, as these disrupt the follicle the laser needs to target.",
+    a: "Yes - shaving is fine and even encouraged. Avoid waxing, plucking, threading, and depilatory creams between sessions, as these disrupt the follicle the laser needs to target.",
   },
   {
     q: "What areas of the body can be treated?",
@@ -239,7 +239,7 @@ const FAQ = () => {
               Still have questions?
             </h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Book a free consultation with our team — we'll answer every question and create a treatment plan tailored to you.
+              Book a free consultation with our team - we'll answer every question and create a treatment plan tailored to you.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/book-free-consultation">

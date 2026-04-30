@@ -263,7 +263,7 @@ const CoolPeelTysons = () => {
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
                   Experience the next generation of skin rejuvenation at Virginia Laser Specialists. 
-                  CoolPeel delivers powerful CO₂ laser benefits with minimal downtime—perfect for 
+                  CoolPeel delivers powerful CO₂ laser benefits with minimal downtime-perfect for 
                   busy professionals in Tysons, Vienna, and Northern Virginia.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
