@@ -62,30 +62,57 @@ const Specials = () => {
           </div>
         </section>
 
-        {/* Events Section */}
+        {/* Events Section - top, full-width */}
         <section className="py-16 bg-gradient-to-b from-accent/5 to-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-foreground mb-8">Events</h2>
-              <div className="bg-card border border-border rounded-2xl shadow-lg p-8 text-center space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-widest text-accent">Special Event</p>
-                <h3 className="text-2xl sm:text-3xl font-bold text-foreground">Mother's Day Blossoms</h3>
-                <p className="text-base font-medium text-muted-foreground">May 4 to 7</p>
-                <p className="text-foreground max-w-xl mx-auto">
-                  Treat Mom or treat yourself - exclusive event-only specials at VLS.
-                </p>
-                <a
-                  href="https://www.eventbrite.com/e/1988100200217?aff=oddtdtcreator"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block pt-2"
-                >
-                  <button className="bg-accent text-primary hover:bg-accent/90 font-semibold shadow-lg rounded-md px-8 h-11 transition-colors">
-                    RSVP on Eventbrite
-                  </button>
-                </a>
+            <h2 className="text-3xl font-bold text-center text-foreground mb-8">Events</h2>
+            <div className="max-w-5xl mx-auto bg-card border border-border rounded-2xl shadow-lg overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0">
+                {/* Flyer image */}
+                <div className="aspect-[4/5] md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-accent/30 via-primary/20 to-accent/40 overflow-hidden">
+                  {/* TODO: Julien - swap with final flyer file if needed. Sourced from Eventbrite cover. */}
+                  <img
+                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1182896203%2F2999698406367%2F1%2Foriginal.20260423-172440?w=1200&auto=format%2Ccompress&q=75&sharp=10"
+                    alt="Mother's Day Blossoms event flyer"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </div>
+                {/* Event details */}
+                <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-4">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-accent">Special Event</p>
+                  <h3 className="text-3xl sm:text-4xl font-bold text-foreground">Mother's Day Blossoms</h3>
+                  <p className="text-base font-medium text-muted-foreground">May 4 to 7, 2026</p>
+                  <p className="text-sm text-muted-foreground">
+                    Virginia Laser Specialists<br />
+                    8100 Boone Blvd, Suite 270, Vienna, VA 22182
+                  </p>
+                  <p className="text-foreground">
+                    Treat Mom or treat yourself - exclusive event-only specials at VLS.
+                  </p>
+                  <div className="pt-2 md:self-start self-center">
+                    <a
+                      href="https://www.eventbrite.com/e/1988100200217?aff=oddtdtcreator"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
+                    >
+                      <button className="bg-accent text-primary hover:bg-accent/90 font-semibold shadow-lg rounded-md px-8 h-11 transition-colors">
+                        RSVP on Eventbrite
+                      </button>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Current Specials Header */}
+        <section className="pt-12 pb-4">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-center text-foreground">Current Specials</h2>
           </div>
         </section>
 
