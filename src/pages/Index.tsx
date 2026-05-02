@@ -25,6 +25,7 @@ const Index = () => {
       <LocalBusinessSchema />
       <Navigation />
       <SpecialsPopup />
+      <MothersDayPopup />
       <main>
         <Hero />
         <ServiceCategories />

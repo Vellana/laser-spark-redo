@@ -53,11 +53,38 @@ const Specials = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
-                Current Specials
+                Specials & Events
               </h1>
               <p className="text-lg text-muted-foreground">
-                Take advantage of our limited-time offers and promotional pricing on laser treatments.
+                Take advantage of our limited-time offers and upcoming events at Virginia Laser Specialists.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Events Section */}
+        <section className="py-16 bg-gradient-to-b from-accent/5 to-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold text-center text-foreground mb-8">Events</h2>
+              <div className="bg-card border border-border rounded-2xl shadow-lg p-8 text-center space-y-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-accent">Special Event</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-foreground">Mother's Day Blossoms</h3>
+                <p className="text-base font-medium text-muted-foreground">May 4 to 7</p>
+                <p className="text-foreground max-w-xl mx-auto">
+                  Treat Mom or treat yourself - exclusive event-only specials at VLS.
+                </p>
+                <a
+                  href="https://www.eventbrite.com/e/1988100200217?aff=oddtdtcreator"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block pt-2"
+                >
+                  <button className="bg-accent text-primary hover:bg-accent/90 font-semibold shadow-lg rounded-md px-8 h-11 transition-colors">
+                    RSVP on Eventbrite
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         </section>
