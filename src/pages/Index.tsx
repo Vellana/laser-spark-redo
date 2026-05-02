@@ -9,6 +9,7 @@ import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SpecialsPopup from "@/components/SpecialsPopup";
+import MothersDayPopup from "@/components/MothersDayPopup";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import { Link } from "react-router-dom";
@@ -24,6 +25,7 @@ const Index = () => {
       <LocalBusinessSchema />
       <Navigation />
       <SpecialsPopup />
+      <MothersDayPopup />
       <main>
         <Hero />
         <ServiceCategories />

@@ -15,7 +15,7 @@ const Navigation = () => {
     { name: "CoolPeel", href: "/coolpeel-co2-laser-tysons-va" },
     { name: "Skin Resurfacing", href: "/laser-skin-resurfacing" },
     { name: "Hair Removal", href: "/laser-hair-removal" },
-    { name: "Specials", href: "/specials" },
+    { name: "Specials/Events", href: "/specials" },
     { name: "Pricing", href: "/pricing" },
     { name: "Financing", href: "/#cherry-financing" },
     { name: "Gallery", href: "/gallery" },
