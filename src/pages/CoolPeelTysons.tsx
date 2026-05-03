@@ -277,7 +277,7 @@ const CoolPeelTysons = () => {
                       View Pricing
                     </Button>
                   </Link>
-                  <Link to="/faq">
+                  <Link to="/faq#coolpeel-faq">
                     <Button size="lg" variant="ghost" className="w-full sm:w-auto font-semibold px-8">
                       FAQs
                     </Button>
