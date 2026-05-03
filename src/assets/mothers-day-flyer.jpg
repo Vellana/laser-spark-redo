@@ -1,1 +1,2 @@
-sig_invalid
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>images/1182896203/2999698406367/1/original.20260423-172440.jpg</Key><RequestId>6CX56A6GQTP7N1N2</RequestId><HostId>IAGKzXq8UqQ92S05FwEbGHLYjSOGZoW7luAFmAa172+7rGEb7Jt0aEqaD3fb570Laam4/Eh/wWA2uBcrW8sYDmjtbA/wn+WS</HostId></Error>
