@@ -33,12 +33,29 @@ const MothersDayPopup = () => {
           <X className="w-4 h-4 text-foreground" />
         </button>
 
-        {/* Hero Flyer Image */}
-        <img
-          src={flyerImage}
-          alt="Mother's Day Blossoms event flyer"
-          className="w-full h-auto object-cover flex-shrink-0"
-        />
+        {/* Hero Flyer Image with floating CTA */}
+        <div className="relative">
+          <img
+            src={flyerImage}
+            alt="Mother's Day Blossoms event flyer"
+            className="w-full h-auto object-cover flex-shrink-0"
+          />
+          <a
+            href={RSVP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleClose}
+            className="absolute bottom-4 left-1/2 -translate-x-1/2"
+          >
+            <Button
+              variant="accent"
+              size="lg"
+              className="shadow-2xl shadow-black/40 animate-pulse-subtle font-semibold whitespace-nowrap"
+            >
+              Book Now
+            </Button>
+          </a>
+        </div>
 
         {/* Copy block */}
         <div className="px-5 py-4 text-center space-y-2">
