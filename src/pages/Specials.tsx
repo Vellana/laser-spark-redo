@@ -70,7 +70,7 @@ const Specials = () => {
             <div className="max-w-md mx-auto bg-card border border-border rounded-2xl shadow-lg overflow-hidden">
               {/* Hero Flyer Image - dominant, like the popup */}
               <img
-                src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1182896203%2F2999698406367%2F1%2Foriginal.20260423-172440?w=1200&auto=format%2Ccompress&q=75&sharp=10"
+                src={mothersDayFlyer}
                 alt="Mother's Day Blossoms event flyer"
                 className="w-full h-auto object-cover"
                 loading="lazy"
