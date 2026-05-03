@@ -10,7 +10,7 @@ const MothersDayPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem(DISMISS_KEY)) return;
+    if (sessionStorage.getItem(DISMISS_KEY)) return;
     const t = setTimeout(() => setIsVisible(true), 1500);
     return () => clearTimeout(t);
   }, []);
