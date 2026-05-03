@@ -326,6 +326,11 @@ const LaserHairRemoval = () => {
                       View Pricing
                     </Button>
                   </Link>
+                  <Link to="/faq">
+                    <Button size="lg" variant="ghost" className="w-full sm:w-auto font-semibold px-8">
+                      FAQs
+                    </Button>
+                  </Link>
                 </div>
               </div>
               <div className="relative mx-auto lg:mx-0 max-w-md lg:max-w-none">
