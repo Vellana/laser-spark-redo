@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { supabase } from "@/integrations/supabase/client";
+import mothersDayFlyer from "@/assets/mothers-day-flyer.jpg";
 
 interface Special {
   id: string;
