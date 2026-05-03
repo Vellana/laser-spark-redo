@@ -68,16 +68,30 @@ const Specials = () => {
             <h2 className="text-3xl font-bold text-center text-foreground mb-8">Events</h2>
             <div className="max-w-5xl mx-auto bg-card border border-border rounded-2xl shadow-lg overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
-                {/* Flyer image */}
-                <div className="aspect-[4/5] md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-accent/30 via-primary/20 to-accent/40 overflow-hidden">
-                  {/* TODO: Julien - swap with final flyer file if needed. Sourced from Eventbrite cover. */}
-                  <img
-                    src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1182896203%2F2999698406367%2F1%2Foriginal.20260423-172440?w=1200&auto=format%2Ccompress&q=75&sharp=10"
-                    alt="Mother's Day Blossoms event flyer"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-                  />
+                {/* Flyer image + RSVP */}
+                <div className="flex flex-col">
+                  <div className="aspect-[4/5] md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-accent/30 via-primary/20 to-accent/40 overflow-hidden">
+                    {/* TODO: Julien - swap with final flyer file if needed. Sourced from Eventbrite cover. */}
+                    <img
+                      src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1182896203%2F2999698406367%2F1%2Foriginal.20260423-172440?w=1200&auto=format%2Ccompress&q=75&sharp=10"
+                      alt="Mother's Day Blossoms event flyer"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  </div>
+                  <div className="p-6 bg-card border-t border-border text-center">
+                    <a
+                      href="https://www.eventbrite.com/e/1988100200217?aff=oddtdtcreator"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
+                    >
+                      <button className="bg-accent text-primary hover:bg-accent/90 font-semibold shadow-lg rounded-md px-8 h-11 transition-colors">
+                        RSVP on Eventbrite
+                      </button>
+                    </a>
+                  </div>
                 </div>
                 {/* Event details */}
                 <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-4">
@@ -91,18 +105,6 @@ const Specials = () => {
                   <p className="text-foreground">
                     Treat Mom or treat yourself - exclusive event-only specials at VLS.
                   </p>
-                  <div className="pt-2 md:self-start self-center">
-                    <a
-                      href="https://www.eventbrite.com/e/1988100200217?aff=oddtdtcreator"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block"
-                    >
-                      <button className="bg-accent text-primary hover:bg-accent/90 font-semibold shadow-lg rounded-md px-8 h-11 transition-colors">
-                        RSVP on Eventbrite
-                      </button>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
