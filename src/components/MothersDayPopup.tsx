@@ -16,7 +16,7 @@ const MothersDayPopup = () => {
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem(DISMISS_KEY, "true");
+    sessionStorage.setItem(DISMISS_KEY, "true");
     setIsVisible(false);
   };
 
