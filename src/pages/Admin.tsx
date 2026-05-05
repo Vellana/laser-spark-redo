@@ -393,6 +393,8 @@ const Admin = () => {
       setSendingSingle(false);
     }
   };
+
+  const previewHtml = useMemo(() => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoamLight = "#85ccb3";
