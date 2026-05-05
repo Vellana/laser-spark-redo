@@ -361,11 +361,28 @@ const Admin = () => {
       toast.error("Please enter both subject and body");
       return;
     }
-    if (!confirm(`Send newsletter to ${leads.length} subscriber(s)?`)) return;
+    const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+    let recipientEmails: string[] | undefined;
+    if (selectedRecipientIds) {
+      recipientEmails = eligible
+        .filter((l) => selectedRecipientIds.has(l.id))
+        .map((l) => l.email);
+      if (recipientEmails.length === 0) {
+        toast.error("Select at least one recipient");
+        return;
+      }
+    }
+    const count = recipientEmails ? recipientEmails.length : eligible.length;
+    if (!confirm(`Send newsletter to ${count} subscriber(s)?`)) return;
     setNewsletterSending(true);
     try {
       const res = await supabase.functions.invoke("send-newsletter", {
-        body: { subject: newsletterSubject.trim(), body: bodyContent.trim(), imageUrls: newsletterImages },
+        body: {
+          subject: newsletterSubject.trim(),
+          body: bodyContent.trim(),
+          imageUrls: newsletterImages,
+          ...(recipientEmails ? { recipientEmails } : {}),
+        },
       });
       if (res.error) throw res.error;
       const result = res.data;
@@ -373,6 +390,7 @@ const Admin = () => {
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
+      setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
       fetchSendHistory();
     } catch (err) {
