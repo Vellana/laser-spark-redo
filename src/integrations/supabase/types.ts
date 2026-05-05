@@ -209,6 +209,41 @@ export type Database = {
         }
         Relationships: []
       }
+      inquiry_replies: {
+        Row: {
+          created_at: string
+          id: string
+          inquiry_id: string
+          reply_message: string
+          sent_by: string | null
+          sent_by_email: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          inquiry_id: string
+          reply_message: string
+          sent_by?: string | null
+          sent_by_email?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          inquiry_id?: string
+          reply_message?: string
+          sent_by?: string | null
+          sent_by_email?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_replies_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "contact_inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_send_log: {
         Row: {
           body: string
