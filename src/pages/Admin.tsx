@@ -62,6 +62,7 @@ const Admin = () => {
   const [leadsLoading, setLeadsLoading] = useState(false);
   const [inquiries, setInquiries] = useState<ContactInquiry[]>([]);
   const [inquiriesLoading, setInquiriesLoading] = useState(false);
+  const [replyThreads, setReplyThreads] = useState<Record<string, Array<{ id: string; reply_message: string; sent_by_email: string | null; created_at: string }>>>({});
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyMessage, setReplyMessage] = useState("");
   const [replySending, setReplySending] = useState(false);
@@ -155,6 +156,20 @@ const Admin = () => {
     if (error) toast.error("Failed to fetch inquiries");
     else setInquiries(data || []);
     setInquiriesLoading(false);
+    fetchReplyThreads();
+  };
+
+  const fetchReplyThreads = async () => {
+    const { data, error } = await (supabase as any)
+      .from("inquiry_replies")
+      .select("id, inquiry_id, reply_message, sent_by_email, created_at")
+      .order("created_at", { ascending: true });
+    if (error) return;
+    const grouped: Record<string, any[]> = {};
+    (data || []).forEach((r: any) => {
+      (grouped[r.inquiry_id] ||= []).push(r);
+    });
+    setReplyThreads(grouped);
   };
 
   const fetchAppointments = async () => {
@@ -584,12 +599,24 @@ const Admin = () => {
                         <p className="text-sm text-foreground whitespace-pre-wrap">{inq.message}</p>
                       </div>
                     )}
-                    {inq.admin_reply && (
+                    {(replyThreads[inq.id]?.length ?? 0) > 0 ? (
+                      <div className="space-y-2 pt-1">
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Conversation ({replyThreads[inq.id].length} repl{replyThreads[inq.id].length === 1 ? "y" : "ies"})</p>
+                        {replyThreads[inq.id].map((r) => (
+                          <div key={r.id} className="border-l-4 border-accent pl-3">
+                            <p className="text-xs text-muted-foreground mb-1">
+                              {r.sent_by_email || "Admin"} · {new Date(r.created_at).toLocaleString()}
+                            </p>
+                            <p className="text-sm text-foreground whitespace-pre-wrap">{r.reply_message}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : inq.admin_reply ? (
                       <div className="border-l-4 border-accent pl-3">
-                        <p className="text-xs text-muted-foreground mb-1">Your reply ({new Date(inq.replied_at!).toLocaleDateString()}):</p>
+                        <p className="text-xs text-muted-foreground mb-1">Your reply ({inq.replied_at ? new Date(inq.replied_at).toLocaleDateString() : ""}):</p>
                         <p className="text-sm text-foreground whitespace-pre-wrap">{inq.admin_reply}</p>
                       </div>
-                    )}
+                    ) : null}
                     {replyingTo === inq.id ? (
                       <div className="space-y-3 pt-2 border-t border-border">
                         <Label>Reply (from info@virginialaserspecialists.com)</Label>
