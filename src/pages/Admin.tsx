@@ -76,6 +76,9 @@ const Admin = () => {
   const [newLeadEmail, setNewLeadEmail] = useState("");
   const [newLeadSource, setNewLeadSource] = useState("manual");
   const [addingLead, setAddingLead] = useState(false);
+  const [sendHistory, setSendHistory] = useState<any[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
