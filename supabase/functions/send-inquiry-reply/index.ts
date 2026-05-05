@@ -143,7 +143,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Reply sent:", emailResult);
 
-    // Update inquiry record
+    // Update inquiry record (latest reply summary)
     await supabaseAdmin
       .from("contact_inquiries")
       .update({
@@ -152,6 +152,18 @@ const handler = async (req: Request): Promise<Response> => {
         status: "replied",
       })
       .eq("id", inquiryId);
+
+    // Append to conversation thread (best-effort)
+    try {
+      await supabaseAdmin.from("inquiry_replies").insert({
+        inquiry_id: inquiryId,
+        reply_message: replyMessage.trim(),
+        sent_by: claims.claims.sub,
+        sent_by_email: (claims.claims as any).email ?? null,
+      });
+    } catch (logErr) {
+      console.error("Failed to log inquiry reply thread:", logErr);
+    }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
