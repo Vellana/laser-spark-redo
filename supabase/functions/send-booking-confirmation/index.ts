@@ -204,14 +204,14 @@ serve(async (req: Request) => {
       </div>
       ` : ""}
       <div style="background:${cream};border-radius:8px;padding:16px;">
-        <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Name:</strong> ${fullName}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${email}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Phone:</strong> ${phone || "Not provided"}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Treatment:</strong> ${treatmentInterest}</p>
+        <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Name:</strong> ${eFull}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${eEmail}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Phone:</strong> ${ePhone}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Treatment:</strong> ${eTreat}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Date:</strong> ${formattedDate}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Time:</strong> ${formattedTime} ET</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Discount:</strong> ${hasNewsletterDiscount ? '<span style="color:#e65100;font-weight:700;">✅ 10% Newsletter Discount (VLS10)</span>' : 'None'}</p>
-        ${notes ? `<p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Notes:</strong> ${notes.replace(/</g, "&lt;")}</p>` : ""}
+        ${notes ? `<p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Notes:</strong> ${eNotes}</p>` : ""}
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Booked:</strong> ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</p>
       </div>
     </div>
