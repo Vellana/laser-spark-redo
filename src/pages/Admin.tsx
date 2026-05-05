@@ -1158,26 +1158,6 @@ const Admin = () => {
                   </div>
                   {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
                 </div>
-                <div className="space-y-2 pt-2 border-t border-border">
-                  <Label htmlFor="single-recipient">Send to a single recipient (optional)</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="single-recipient"
-                      type="email"
-                      placeholder="name@example.com"
-                      value={singleRecipient}
-                      onChange={(e) => setSingleRecipient(e.target.value)}
-                    />
-                    <Button
-                      variant="outline"
-                      onClick={handleSendSingle}
-                      disabled={sendingSingle || !singleRecipient.trim() || !newsletterSubject.trim()}
-                    >
-                      <Send className="w-4 h-4 mr-2" />
-                      {sendingSingle ? "Sending..." : "Send"}
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground">Sends only to this address (bypasses subscriber list).</p>
                 </div>
                 <div className="space-y-2 pt-2 border-t border-border">
                   <Label>Recipients</Label>
