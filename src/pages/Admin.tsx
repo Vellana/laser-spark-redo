@@ -83,6 +83,11 @@ const Admin = () => {
   const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
   const [singleRecipient, setSingleRecipient] = useState("");
   const [sendingSingle, setSendingSingle] = useState(false);
+  const [composeOpen, setComposeOpen] = useState(false);
+  const [composeTo, setComposeTo] = useState("");
+  const [composeSubject, setComposeSubject] = useState("");
+  const [composeBody, setComposeBody] = useState("");
+  const [composeSending, setComposeSending] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
