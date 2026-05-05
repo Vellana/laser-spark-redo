@@ -513,9 +513,14 @@ const Admin = () => {
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-foreground">Admin Dashboard</h1>
-          <Button variant="ghost" size="sm" onClick={handleLogout}>
-            <LogOut className="w-4 h-4 mr-2" /> Logout
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="default" size="sm" onClick={() => setComposeOpen(true)}>
+              <Send className="w-4 h-4 mr-2" /> Compose
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 mr-2" /> Logout
+            </Button>
+          </div>
         </div>
       </div>
 
