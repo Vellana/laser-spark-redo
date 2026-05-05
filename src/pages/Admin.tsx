@@ -479,18 +479,17 @@ const Admin = () => {
     }
   };
 
-  const previewHtml = useMemo(() => {
+  const buildPreviewHtml = (subject: string, bodyHtml: string, images: string[]) => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoamLight = "#85ccb3";
-    const cream = "#f8f7f4";
     const white = "#ffffff";
     const textDark = "#1f2d3d";
     const textMedium = "#2d3748";
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
-    const subj = (newsletterSubject || "Your Subject Line").replace(/</g, "&lt;");
-    const body = newsletterBody ? newsletterBody.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
-    const imgs = newsletterImages.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
+    const subj = (subject || "Your Subject Line").replace(/</g, "&lt;");
+    const body = bodyHtml ? bodyHtml.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
+    const imgs = images.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
     return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="background:${navy};padding:32px 30px;text-align:center;">
         <img src="${LOGO_URL}" alt="VLS" width="140" style="display:block;margin:0 auto 12px;max-width:140px;height:auto;" />
@@ -510,7 +509,17 @@ const Admin = () => {
         <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:11px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
       </div>
     </div>`;
-  }, [newsletterSubject, newsletterBody, newsletterImages]);
+  };
+
+  const previewHtml = useMemo(
+    () => buildPreviewHtml(newsletterSubject, newsletterBody, newsletterImages),
+    [newsletterSubject, newsletterBody, newsletterImages]
+  );
+
+  const composePreviewHtml = useMemo(
+    () => buildPreviewHtml(composeSubject, composeBody, []),
+    [composeSubject, composeBody]
+  );
 
   if (!isAuthenticated) {
     return (
