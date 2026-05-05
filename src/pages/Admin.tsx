@@ -1189,6 +1189,58 @@ const Admin = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Dialog open={composeOpen} onOpenChange={setComposeOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Compose Email</DialogTitle>
+            <DialogDescription>
+              Send a one-off branded email from <strong>hello@virginialaserspecialists.com</strong> to anyone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div className="space-y-1">
+              <Label htmlFor="compose-to">To</Label>
+              <Input
+                id="compose-to"
+                type="email"
+                placeholder="name@example.com"
+                value={composeTo}
+                onChange={(e) => setComposeTo(e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="compose-subject">Subject</Label>
+              <Input
+                id="compose-subject"
+                value={composeSubject}
+                onChange={(e) => setComposeSubject(e.target.value)}
+                placeholder="Subject line"
+                maxLength={200}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="compose-body">Message</Label>
+              <Textarea
+                id="compose-body"
+                value={composeBody}
+                onChange={(e) => setComposeBody(e.target.value)}
+                placeholder="Write your message..."
+                rows={8}
+                maxLength={5000}
+              />
+              <p className="text-xs text-muted-foreground">Plain text — line breaks become paragraphs. Wrapped in the branded VLS template.</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setComposeOpen(false)} disabled={composeSending}>Cancel</Button>
+            <Button onClick={handleComposeSend} disabled={composeSending}>
+              <Send className="w-4 h-4 mr-2" />
+              {composeSending ? "Sending..." : "Send Email"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
