@@ -1137,12 +1137,42 @@ const Admin = () => {
                   </div>
                   <p className="text-xs text-muted-foreground">Sends only to this address (bypasses subscriber list).</p>
                 </div>
+                <div className="space-y-2 pt-2 border-t border-border">
+                  <Label>Recipients</Label>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-sm text-muted-foreground flex-1 min-w-0">
+                      {selectedRecipientIds
+                        ? `${selectedRecipientIds.size} selected subscriber(s)`
+                        : `All ${leads.filter((l) => l.subscribed && !l.opted_out).length} active subscriber(s)`}
+                    </p>
+                    <Button variant="outline" size="sm" onClick={() => setRecipientPickerOpen(true)}>
+                      Choose recipients
+                    </Button>
+                    {selectedRecipientIds && (
+                      <Button variant="ghost" size="sm" onClick={() => setSelectedRecipientIds(null)}>
+                        Reset (send to all)
+                      </Button>
+                    )}
+                  </div>
+                </div>
                 <Button
                   onClick={handleSendNewsletter}
-                  disabled={newsletterSending || !newsletterSubject.trim() || !leads.length}
+                  disabled={
+                    newsletterSending ||
+                    !newsletterSubject.trim() ||
+                    (selectedRecipientIds
+                      ? selectedRecipientIds.size === 0
+                      : leads.filter((l) => l.subscribed && !l.opted_out).length === 0)
+                  }
                 >
                   <Send className="w-4 h-4 mr-2" />
-                  {newsletterSending ? "Sending..." : `Send to ${leads.length} Subscriber(s)`}
+                  {newsletterSending
+                    ? "Sending..."
+                    : `Send to ${
+                        selectedRecipientIds
+                          ? selectedRecipientIds.size
+                          : leads.filter((l) => l.subscribed && !l.opted_out).length
+                      } Subscriber(s)`}
                 </Button>
               </div>
               {/* Preview */}
