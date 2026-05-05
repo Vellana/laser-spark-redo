@@ -120,21 +120,6 @@ serve(async (req: Request) => {
     const formattedDate = formatDate(date);
     const formattedTime = formatTime(time);
 
-    const icsContent = generateICS(date, time, fullName);
-    const icsBase64 = btoa(icsContent);
-
-    // Client confirmation email
-    const clientHtml = `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"></head>
-<body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
-  <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
-    <div style="background:${navy};padding:32px 30px;text-align:center;">
-      <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
-      <p style="color:${seafoamLight};margin:0;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;">Consultation Confirmed</p>
-    </div>
-    <div style="padding:40px 32px;text-align:center;">
     const esc = (s: any) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     const eFirst = esc(firstName);
     const eFull = esc(fullName);
