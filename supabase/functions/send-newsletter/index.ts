@@ -59,7 +59,7 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const { subject, body, imageUrls, singleRecipient } = await req.json();
+    const { subject, body, imageUrls, singleRecipient, recipientEmails } = await req.json();
 
     if (!subject || !body || typeof subject !== "string" || typeof body !== "string") {
       return new Response(JSON.stringify({ error: "Missing subject or body" }), {
