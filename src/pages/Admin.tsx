@@ -476,21 +476,19 @@ const Admin = () => {
       toast.error("Enter a valid recipient email");
       return;
     }
-    if (!composeSubject.trim() || !composeBody.trim()) {
+    const bodyHtml = (composeEditorRef.current?.innerHTML || composeBody || "").trim();
+    const stripped = bodyHtml.replace(/<[^>]*>/g, "").trim();
+    if (!composeSubject.trim() || !stripped) {
       toast.error("Subject and message are required");
       return;
     }
     setComposeSending(true);
     try {
-      const html = composeBody
-        .split(/\n\n+/)
-        .map((p) => `<p style="margin:0 0 14px;">${p.replace(/\n/g, "<br>")}</p>`)
-        .join("");
       const res = await supabase.functions.invoke("send-newsletter", {
         body: {
           subject: composeSubject.trim(),
-          body: html,
-          imageUrls: [],
+          body: bodyHtml,
+          imageUrls: composeImages,
           singleRecipient: to,
         },
       });
@@ -501,6 +499,8 @@ const Admin = () => {
         setComposeTo("");
         setComposeSubject("");
         setComposeBody("");
+        setComposeImages([]);
+        if (composeEditorRef.current) composeEditorRef.current.innerHTML = "";
         fetchSendHistory();
       } else {
         toast.error(`Failed to send to ${to}`);
