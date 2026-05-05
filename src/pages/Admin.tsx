@@ -83,16 +83,47 @@ const Admin = () => {
   const [sendHistory, setSendHistory] = useState<any[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
   const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
-  const [singleRecipient, setSingleRecipient] = useState("");
-  const [sendingSingle, setSendingSingle] = useState(false);
   const [composeOpen, setComposeOpen] = useState(false);
   const [composeTo, setComposeTo] = useState("");
   const [composeSubject, setComposeSubject] = useState("");
   const [composeBody, setComposeBody] = useState("");
+  const [composeImages, setComposeImages] = useState<string[]>([]);
+  const [composeImageUploading, setComposeImageUploading] = useState(false);
+  const composeEditorRef = useRef<HTMLDivElement>(null);
+  const composeFileInputRef = useRef<HTMLInputElement>(null);
   const [recipientPickerOpen, setRecipientPickerOpen] = useState(false);
   const [selectedRecipientIds, setSelectedRecipientIds] = useState<Set<string> | null>(null);
   const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
+
+  const composeExecCmd = (cmd: string, value?: string) => {
+    composeEditorRef.current?.focus();
+    document.execCommand(cmd, false, value);
+    requestAnimationFrame(() => {
+      if (composeEditorRef.current) setComposeBody(composeEditorRef.current.innerHTML);
+    });
+  };
+
+  const handleComposeImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setComposeImageUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) { toast.error("Only images allowed"); continue; }
+        if (file.size > 5 * 1024 * 1024) { toast.error("Max 5MB per image"); continue; }
+        const ext = file.name.split(".").pop();
+        const path = `newsletter/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error } = await supabase.storage.from("email-assets").upload(path, file);
+        if (error) { toast.error("Upload failed"); continue; }
+        const { data: urlData } = supabase.storage.from("email-assets").getPublicUrl(path);
+        setComposeImages((prev) => [...prev, urlData.publicUrl]);
+      }
+    } finally {
+      setComposeImageUploading(false);
+      if (composeFileInputRef.current) composeFileInputRef.current.value = "";
+    }
+  };
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
@@ -400,64 +431,25 @@ const Admin = () => {
     }
   };
 
-  const handleSendSingle = async () => {
-    const bodyContent = editorRef.current?.innerHTML || "";
-    const recipient = singleRecipient.trim().toLowerCase();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(recipient)) {
-      toast.error("Enter a valid recipient email");
-      return;
-    }
-    if (!newsletterSubject.trim() || !stripTags(bodyContent)) {
-      toast.error("Please enter both subject and body");
-      return;
-    }
-    setSendingSingle(true);
-    try {
-      const res = await supabase.functions.invoke("send-newsletter", {
-        body: {
-          subject: newsletterSubject.trim(),
-          body: bodyContent.trim(),
-          imageUrls: newsletterImages,
-          singleRecipient: recipient,
-        },
-      });
-      if (res.error) throw res.error;
-      const result = res.data;
-      if (result?.sent > 0) {
-        toast.success(`Email sent to ${recipient}`);
-        setSingleRecipient("");
-        fetchSendHistory();
-      } else {
-        toast.error(`Failed to send to ${recipient}`);
-      }
-    } catch (err: any) {
-      toast.error(err?.message || "Failed to send email");
-    } finally {
-      setSendingSingle(false);
-    }
-  };
-
   const handleComposeSend = async () => {
     const to = composeTo.trim().toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) {
       toast.error("Enter a valid recipient email");
       return;
     }
-    if (!composeSubject.trim() || !composeBody.trim()) {
+    const bodyHtml = (composeEditorRef.current?.innerHTML || composeBody || "").trim();
+    const stripped = bodyHtml.replace(/<[^>]*>/g, "").trim();
+    if (!composeSubject.trim() || !stripped) {
       toast.error("Subject and message are required");
       return;
     }
     setComposeSending(true);
     try {
-      const html = composeBody
-        .split(/\n\n+/)
-        .map((p) => `<p style="margin:0 0 14px;">${p.replace(/\n/g, "<br>")}</p>`)
-        .join("");
       const res = await supabase.functions.invoke("send-newsletter", {
         body: {
           subject: composeSubject.trim(),
-          body: html,
-          imageUrls: [],
+          body: bodyHtml,
+          imageUrls: composeImages,
           singleRecipient: to,
         },
       });
@@ -468,6 +460,8 @@ const Admin = () => {
         setComposeTo("");
         setComposeSubject("");
         setComposeBody("");
+        setComposeImages([]);
+        if (composeEditorRef.current) composeEditorRef.current.innerHTML = "";
         fetchSendHistory();
       } else {
         toast.error(`Failed to send to ${to}`);
@@ -479,18 +473,17 @@ const Admin = () => {
     }
   };
 
-  const previewHtml = useMemo(() => {
+  const buildPreviewHtml = (subject: string, bodyHtml: string, images: string[]) => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoamLight = "#85ccb3";
-    const cream = "#f8f7f4";
     const white = "#ffffff";
     const textDark = "#1f2d3d";
     const textMedium = "#2d3748";
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
-    const subj = (newsletterSubject || "Your Subject Line").replace(/</g, "&lt;");
-    const body = newsletterBody ? newsletterBody.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
-    const imgs = newsletterImages.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
+    const subj = (subject || "Your Subject Line").replace(/</g, "&lt;");
+    const body = bodyHtml ? bodyHtml.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
+    const imgs = images.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
     return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="background:${navy};padding:32px 30px;text-align:center;">
         <img src="${LOGO_URL}" alt="VLS" width="140" style="display:block;margin:0 auto 12px;max-width:140px;height:auto;" />
@@ -510,7 +503,17 @@ const Admin = () => {
         <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:11px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
       </div>
     </div>`;
-  }, [newsletterSubject, newsletterBody, newsletterImages]);
+  };
+
+  const previewHtml = useMemo(
+    () => buildPreviewHtml(newsletterSubject, newsletterBody, newsletterImages),
+    [newsletterSubject, newsletterBody, newsletterImages]
+  );
+
+  const composePreviewHtml = useMemo(
+    () => buildPreviewHtml(composeSubject, composeBody, []),
+    [composeSubject, composeBody]
+  );
 
   if (!isAuthenticated) {
     return (
@@ -1117,27 +1120,6 @@ const Admin = () => {
                   {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
                 </div>
                 <div className="space-y-2 pt-2 border-t border-border">
-                  <Label htmlFor="single-recipient">Send to a single recipient (optional)</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="single-recipient"
-                      type="email"
-                      placeholder="name@example.com"
-                      value={singleRecipient}
-                      onChange={(e) => setSingleRecipient(e.target.value)}
-                    />
-                    <Button
-                      variant="outline"
-                      onClick={handleSendSingle}
-                      disabled={sendingSingle || !singleRecipient.trim() || !newsletterSubject.trim()}
-                    >
-                      <Send className="w-4 h-4 mr-2" />
-                      {sendingSingle ? "Sending..." : "Send"}
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground">Sends only to this address (bypasses subscriber list).</p>
-                </div>
-                <div className="space-y-2 pt-2 border-t border-border">
                   <Label>Recipients</Label>
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm text-muted-foreground flex-1 min-w-0">
@@ -1270,45 +1252,123 @@ const Admin = () => {
       </div>
 
       <Dialog open={composeOpen} onOpenChange={setComposeOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Compose Email</DialogTitle>
             <DialogDescription>
-              Send a one-off branded email from <strong>hello@virginialaserspecialists.com</strong> to anyone.
+              Send a fully branded one-off email from <strong>hello@virginialaserspecialists.com</strong> to anyone.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-3">
-            <div className="space-y-1">
-              <Label htmlFor="compose-to">To</Label>
-              <Input
-                id="compose-to"
-                type="email"
-                placeholder="name@example.com"
-                value={composeTo}
-                onChange={(e) => setComposeTo(e.target.value)}
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Editor */}
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <Label htmlFor="compose-to">To</Label>
+                <Input
+                  id="compose-to"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={composeTo}
+                  onChange={(e) => setComposeTo(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="compose-subject">Subject</Label>
+                <Input
+                  id="compose-subject"
+                  value={composeSubject}
+                  onChange={(e) => setComposeSubject(e.target.value)}
+                  placeholder="Subject line"
+                  maxLength={200}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>Message</Label>
+                <div className="border border-border rounded-lg overflow-hidden">
+                  <TooltipProvider delayDuration={200}>
+                    <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 bg-muted/30 border-b border-border">
+                      {([
+                        { icon: Bold, label: "Bold", cmd: "bold" },
+                        { icon: Italic, label: "Italic", cmd: "italic" },
+                        { icon: Underline, label: "Underline", cmd: "underline" },
+                      ] as const).map(({ icon: Icon, label, cmd }) => (
+                        <Tooltip key={label}>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); composeExecCmd(cmd); }}>
+                              <Icon className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                        </Tooltip>
+                      ))}
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("formatBlock", "h2"); }}><Heading1 className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Large Heading</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("formatBlock", "h3"); }}><Heading2 className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Small Heading</TooltipContent></Tooltip>
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("insertUnorderedList"); }}><List className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Bullet List</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("insertOrderedList"); }}><ListOrdered className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Numbered List</TooltipContent></Tooltip>
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("justifyCenter"); }}><AlignCenter className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Center</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("justifyLeft"); }}><AlignLeft className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Left</TooltipContent></Tooltip>
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); const url = prompt("Enter URL:"); if (url) composeExecCmd("createLink", url); }}><Link className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Link</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("insertHorizontalRule"); }}><Minus className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Divider</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("foreColor", "#3d5a80"); }}><Palette className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Brand Color</TooltipContent></Tooltip>
+                    </div>
+                  </TooltipProvider>
+                  <div
+                    ref={composeEditorRef}
+                    contentEditable
+                    className="min-h-[220px] max-h-[400px] overflow-y-auto p-4 text-sm text-foreground focus:outline-none bg-background [&_h2]:text-lg [&_h2]:font-bold [&_h2]:my-3 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:my-2 [&_a]:text-[#3d5a80] [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:my-4 [&_hr]:border-border"
+                    onInput={() => { if (composeEditorRef.current) setComposeBody(composeEditorRef.current.innerHTML); }}
+                    suppressContentEditableWarning
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Images</Label>
+                <input
+                  ref={composeFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleComposeImageUpload}
+                />
+                <div className="flex flex-wrap gap-2">
+                  {composeImages.map((url, idx) => (
+                    <div key={idx} className="relative w-20 h-20 rounded-md overflow-hidden border border-border group">
+                      <img src={url} alt="" className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setComposeImages((p) => p.filter((_, i) => i !== idx))}
+                        className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-20 w-20"
+                    onClick={() => composeFileInputRef.current?.click()}
+                    disabled={composeImageUploading}
+                  >
+                    <ImagePlus className="w-5 h-5" />
+                  </Button>
+                </div>
+                {composeImageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
+              </div>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="compose-subject">Subject</Label>
-              <Input
-                id="compose-subject"
-                value={composeSubject}
-                onChange={(e) => setComposeSubject(e.target.value)}
-                placeholder="Subject line"
-                maxLength={200}
+            {/* Preview */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold text-foreground">Email Preview</h3>
+              <div
+                className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[600px]"
+                dangerouslySetInnerHTML={{ __html: composePreviewHtml }}
               />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="compose-body">Message</Label>
-              <Textarea
-                id="compose-body"
-                value={composeBody}
-                onChange={(e) => setComposeBody(e.target.value)}
-                placeholder="Write your message..."
-                rows={8}
-                maxLength={5000}
-              />
-              <p className="text-xs text-muted-foreground">Plain text — line breaks become paragraphs. Wrapped in the branded VLS template.</p>
             </div>
           </div>
           <DialogFooter>
