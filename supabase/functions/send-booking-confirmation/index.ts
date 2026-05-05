@@ -62,11 +62,42 @@ serve(async (req: Request) => {
       });
     }
 
-    // Check if this client signed up for the newsletter discount
+    // Basic input validation to prevent abuse
+    const isStr = (v: any, max: number) => typeof v === "string" && v.length > 0 && v.length <= max;
+    const emailOk = typeof email === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && email.length <= 255;
+    if (
+      !isStr(firstName, 80) || !isStr(lastName, 80) || !emailOk ||
+      !isStr(treatmentInterest, 200) || !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+      !/^\d{2}:\d{2}(:\d{2})?$/.test(time)
+    ) {
+      return new Response(JSON.stringify({ error: "Invalid input" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
+
+    // Verify a real appointment row was just created (within the last 5 minutes) matching this email/date/time.
+    // This prevents direct abuse of the endpoint to spam arbitrary inboxes.
+    const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const { data: aptMatch } = await supabaseAdmin
+      .from("appointments")
+      .select("id")
+      .eq("email", email)
+      .eq("appointment_date", date)
+      .gte("created_at", fiveMinAgo)
+      .limit(1)
+      .maybeSingle();
+    if (!aptMatch) {
+      return new Response(JSON.stringify({ error: "No matching recent booking" }), {
+        status: 403,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
     const { data: emailLead } = await supabaseAdmin
       .from("email_leads")
@@ -89,6 +120,14 @@ serve(async (req: Request) => {
     const formattedDate = formatDate(date);
     const formattedTime = formatTime(time);
 
+    const esc = (s: any) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    const eFirst = esc(firstName);
+    const eFull = esc(fullName);
+    const eEmail = esc(email);
+    const ePhone = esc(phone || "Not provided");
+    const eTreat = esc(treatmentInterest);
+    const eNotes = esc(notes || "");
+
     const icsContent = generateICS(date, time, fullName);
     const icsBase64 = btoa(icsContent);
 
@@ -104,7 +143,7 @@ serve(async (req: Request) => {
       <p style="color:${seafoamLight};margin:0;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;">Consultation Confirmed</p>
     </div>
     <div style="padding:40px 32px;text-align:center;">
-      <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">You're All Set, ${firstName}!</h1>
+      <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">You're All Set, ${eFirst}!</h1>
       <p style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 24px;">Your free consultation has been booked. We look forward to meeting you!</p>
       ${hasNewsletterDiscount ? `
       <div style="background:#e8f5e9;border:2px solid #4caf50;border-radius:10px;padding:16px;margin:0 0 24px;text-align:center;">
@@ -117,7 +156,7 @@ serve(async (req: Request) => {
         <p style="color:${navy};font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;font-weight:600;">Your Appointment</p>
         <p style="color:${textDark};font-size:20px;font-weight:700;margin:0 0 4px;">${formattedDate}</p>
         <p style="color:${navy};font-size:24px;font-weight:800;margin:0;">${formattedTime} ET</p>
-        <p style="color:${textMedium};font-size:14px;margin:8px 0 0;">Treatment: ${treatmentInterest}</p>
+        <p style="color:${textMedium};font-size:14px;margin:8px 0 0;">Treatment: ${eTreat}</p>
       </div>
       <p style="color:${textMedium};font-size:14px;line-height:1.6;margin:0 0 8px;"><strong>Location:</strong> 8100 Boone Blvd, Suite 270, Vienna, VA 22182</p>
       <p style="color:${textMedium};font-size:13px;margin:0 0 20px;">Need to reschedule? Call us at <strong style="color:${textDark};">703-547-4499</strong></p>
@@ -165,14 +204,14 @@ serve(async (req: Request) => {
       </div>
       ` : ""}
       <div style="background:${cream};border-radius:8px;padding:16px;">
-        <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Name:</strong> ${fullName}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${email}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Phone:</strong> ${phone || "Not provided"}</p>
-        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Treatment:</strong> ${treatmentInterest}</p>
+        <p style="margin:0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Name:</strong> ${eFull}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Email:</strong> ${eEmail}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Phone:</strong> ${ePhone}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Treatment:</strong> ${eTreat}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Date:</strong> ${formattedDate}</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Time:</strong> ${formattedTime} ET</p>
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Discount:</strong> ${hasNewsletterDiscount ? '<span style="color:#e65100;font-weight:700;">✅ 10% Newsletter Discount (VLS10)</span>' : 'None'}</p>
-        ${notes ? `<p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Notes:</strong> ${notes.replace(/</g, "&lt;")}</p>` : ""}
+        ${notes ? `<p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Notes:</strong> ${eNotes}</p>` : ""}
         <p style="margin:8px 0 0;font-size:14px;color:${textMedium};"><strong style="color:${textDark};">Booked:</strong> ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</p>
       </div>
     </div>

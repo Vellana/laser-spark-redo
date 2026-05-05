@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -20,6 +21,36 @@ const handler = async (req: Request): Promise<Response> => {
     if (!name || !email) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
         status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Validate input length/format to prevent abuse
+    const isStr = (v: any, max: number) => typeof v === "string" && v.length > 0 && v.length <= max;
+    const emailOk = typeof email === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && email.length <= 255;
+    if (!isStr(name, 200) || !emailOk || (message && String(message).length > 5000)) {
+      return new Response(JSON.stringify({ error: "Invalid input" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // Verify a real contact_inquiries row was just created (within the last 5 minutes) to prevent abuse
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+    const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const { data: inqMatch } = await supabaseAdmin
+      .from("contact_inquiries")
+      .select("id")
+      .eq("email", email)
+      .gte("created_at", fiveMinAgo)
+      .limit(1)
+      .maybeSingle();
+    if (!inqMatch) {
+      return new Response(JSON.stringify({ error: "No matching recent inquiry" }), {
+        status: 403,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }
