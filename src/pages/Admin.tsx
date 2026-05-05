@@ -10,6 +10,7 @@ import SpecialsManager from "@/components/admin/SpecialsManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface EmailLead {
   id: string;
@@ -82,6 +83,11 @@ const Admin = () => {
   const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
   const [singleRecipient, setSingleRecipient] = useState("");
   const [sendingSingle, setSendingSingle] = useState(false);
+  const [composeOpen, setComposeOpen] = useState(false);
+  const [composeTo, setComposeTo] = useState("");
+  const [composeSubject, setComposeSubject] = useState("");
+  const [composeBody, setComposeBody] = useState("");
+  const [composeSending, setComposeSending] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
@@ -394,6 +400,48 @@ const Admin = () => {
     }
   };
 
+  const handleComposeSend = async () => {
+    const to = composeTo.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) {
+      toast.error("Enter a valid recipient email");
+      return;
+    }
+    if (!composeSubject.trim() || !composeBody.trim()) {
+      toast.error("Subject and message are required");
+      return;
+    }
+    setComposeSending(true);
+    try {
+      const html = composeBody
+        .split(/\n\n+/)
+        .map((p) => `<p style="margin:0 0 14px;">${p.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+      const res = await supabase.functions.invoke("send-newsletter", {
+        body: {
+          subject: composeSubject.trim(),
+          body: html,
+          imageUrls: [],
+          singleRecipient: to,
+        },
+      });
+      if (res.error) throw res.error;
+      if (res.data?.sent > 0) {
+        toast.success(`Email sent to ${to}`);
+        setComposeOpen(false);
+        setComposeTo("");
+        setComposeSubject("");
+        setComposeBody("");
+        fetchSendHistory();
+      } else {
+        toast.error(`Failed to send to ${to}`);
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to send email");
+    } finally {
+      setComposeSending(false);
+    }
+  };
+
   const previewHtml = useMemo(() => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
@@ -465,9 +513,14 @@ const Admin = () => {
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-foreground">Admin Dashboard</h1>
-          <Button variant="ghost" size="sm" onClick={handleLogout}>
-            <LogOut className="w-4 h-4 mr-2" /> Logout
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="default" size="sm" onClick={() => setComposeOpen(true)}>
+              <Send className="w-4 h-4 mr-2" /> Compose
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 mr-2" /> Logout
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -1136,6 +1189,58 @@ const Admin = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Dialog open={composeOpen} onOpenChange={setComposeOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Compose Email</DialogTitle>
+            <DialogDescription>
+              Send a one-off branded email from <strong>hello@virginialaserspecialists.com</strong> to anyone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div className="space-y-1">
+              <Label htmlFor="compose-to">To</Label>
+              <Input
+                id="compose-to"
+                type="email"
+                placeholder="name@example.com"
+                value={composeTo}
+                onChange={(e) => setComposeTo(e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="compose-subject">Subject</Label>
+              <Input
+                id="compose-subject"
+                value={composeSubject}
+                onChange={(e) => setComposeSubject(e.target.value)}
+                placeholder="Subject line"
+                maxLength={200}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="compose-body">Message</Label>
+              <Textarea
+                id="compose-body"
+                value={composeBody}
+                onChange={(e) => setComposeBody(e.target.value)}
+                placeholder="Write your message..."
+                rows={8}
+                maxLength={5000}
+              />
+              <p className="text-xs text-muted-foreground">Plain text — line breaks become paragraphs. Wrapped in the branded VLS template.</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setComposeOpen(false)} disabled={composeSending}>Cancel</Button>
+            <Button onClick={handleComposeSend} disabled={composeSending}>
+              <Send className="w-4 h-4 mr-2" />
+              {composeSending ? "Sending..." : "Send Email"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
