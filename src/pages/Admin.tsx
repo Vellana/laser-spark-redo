@@ -80,6 +80,8 @@ const Admin = () => {
   const [sendHistory, setSendHistory] = useState<any[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
   const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
+  const [singleRecipient, setSingleRecipient] = useState("");
+  const [sendingSingle, setSendingSingle] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
@@ -352,6 +354,43 @@ const Admin = () => {
       toast.error("Failed to send newsletter");
     } finally {
       setNewsletterSending(false);
+    }
+  };
+
+  const handleSendSingle = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    const recipient = singleRecipient.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(recipient)) {
+      toast.error("Enter a valid recipient email");
+      return;
+    }
+    if (!newsletterSubject.trim() || !stripTags(bodyContent)) {
+      toast.error("Please enter both subject and body");
+      return;
+    }
+    setSendingSingle(true);
+    try {
+      const res = await supabase.functions.invoke("send-newsletter", {
+        body: {
+          subject: newsletterSubject.trim(),
+          body: bodyContent.trim(),
+          imageUrls: newsletterImages,
+          singleRecipient: recipient,
+        },
+      });
+      if (res.error) throw res.error;
+      const result = res.data;
+      if (result?.sent > 0) {
+        toast.success(`Email sent to ${recipient}`);
+        setSingleRecipient("");
+        fetchSendHistory();
+      } else {
+        toast.error(`Failed to send to ${recipient}`);
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to send email");
+    } finally {
+      setSendingSingle(false);
     }
   };
 
@@ -974,6 +1013,27 @@ const Admin = () => {
                     </Button>
                   </div>
                   {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
+                </div>
+                <div className="space-y-2 pt-2 border-t border-border">
+                  <Label htmlFor="single-recipient">Send to a single recipient (optional)</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="single-recipient"
+                      type="email"
+                      placeholder="name@example.com"
+                      value={singleRecipient}
+                      onChange={(e) => setSingleRecipient(e.target.value)}
+                    />
+                    <Button
+                      variant="outline"
+                      onClick={handleSendSingle}
+                      disabled={sendingSingle || !singleRecipient.trim() || !newsletterSubject.trim()}
+                    >
+                      <Send className="w-4 h-4 mr-2" />
+                      {sendingSingle ? "Sending..." : "Send"}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">Sends only to this address (bypasses subscriber list).</p>
                 </div>
                 <Button
                   onClick={handleSendNewsletter}

@@ -59,7 +59,7 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const { subject, body, imageUrls } = await req.json();
+    const { subject, body, imageUrls, singleRecipient } = await req.json();
 
     if (!subject || !body || typeof subject !== "string" || typeof body !== "string") {
       return new Response(JSON.stringify({ error: "Missing subject or body" }), {
@@ -81,18 +81,32 @@ const handler = async (req: Request): Promise<Response> => {
       ? images.map((url: string) => `<div style="text-align:center;margin:0 0 20px;"><img src="${url}" alt="Newsletter image" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("")
       : "";
 
-    // Fetch active subscribers (honor opt-outs)
-    const { data: leads, error: leadsErr } = await supabaseAdmin
-      .from("email_subscribers")
-      .select("email")
-      .eq("subscribed", true)
-      .eq("opted_out", false);
+    let leads: { email: string }[] | null = null;
 
-    if (leadsErr || !leads?.length) {
-      return new Response(JSON.stringify({ error: "No subscribers found" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      });
+    if (typeof singleRecipient === "string" && singleRecipient.trim()) {
+      const r = singleRecipient.trim().toLowerCase();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(r)) {
+        return new Response(JSON.stringify({ error: "Invalid recipient email" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
+      leads = [{ email: r }];
+    } else {
+      // Fetch active subscribers (honor opt-outs)
+      const { data, error: leadsErr } = await supabaseAdmin
+        .from("email_subscribers")
+        .select("email")
+        .eq("subscribed", true)
+        .eq("opted_out", false);
+
+      if (leadsErr || !data?.length) {
+        return new Response(JSON.stringify({ error: "No subscribers found" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
+      leads = data;
     }
 
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
