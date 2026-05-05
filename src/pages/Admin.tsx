@@ -62,6 +62,7 @@ const Admin = () => {
   const [leadsLoading, setLeadsLoading] = useState(false);
   const [inquiries, setInquiries] = useState<ContactInquiry[]>([]);
   const [inquiriesLoading, setInquiriesLoading] = useState(false);
+  const [replyThreads, setReplyThreads] = useState<Record<string, Array<{ id: string; reply_message: string; sent_by_email: string | null; created_at: string }>>>({});
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyMessage, setReplyMessage] = useState("");
   const [replySending, setReplySending] = useState(false);
