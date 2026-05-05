@@ -88,6 +88,9 @@ const Admin = () => {
   const [composeTo, setComposeTo] = useState("");
   const [composeSubject, setComposeSubject] = useState("");
   const [composeBody, setComposeBody] = useState("");
+  const [recipientPickerOpen, setRecipientPickerOpen] = useState(false);
+  const [selectedRecipientIds, setSelectedRecipientIds] = useState<Set<string> | null>(null);
+  const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
