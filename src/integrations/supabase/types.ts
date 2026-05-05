@@ -209,6 +209,48 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_send_log: {
+        Row: {
+          body: string
+          created_at: string
+          errors: string[] | null
+          failed_count: number
+          id: string
+          image_urls: string[] | null
+          recipient_count: number
+          sent_by: string | null
+          sent_by_email: string | null
+          sent_count: number
+          subject: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          errors?: string[] | null
+          failed_count?: number
+          id?: string
+          image_urls?: string[] | null
+          recipient_count?: number
+          sent_by?: string | null
+          sent_by_email?: string | null
+          sent_count?: number
+          subject: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          errors?: string[] | null
+          failed_count?: number
+          id?: string
+          image_urls?: string[] | null
+          recipient_count?: number
+          sent_by?: string | null
+          sent_by_email?: string | null
+          sent_count?: number
+          subject?: string
+        }
+        Relationships: []
+      }
       opt_in_confirmations: {
         Row: {
           admin_name: string
