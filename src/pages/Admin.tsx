@@ -599,12 +599,24 @@ const Admin = () => {
                         <p className="text-sm text-foreground whitespace-pre-wrap">{inq.message}</p>
                       </div>
                     )}
-                    {inq.admin_reply && (
+                    {(replyThreads[inq.id]?.length ?? 0) > 0 ? (
+                      <div className="space-y-2 pt-1">
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Conversation ({replyThreads[inq.id].length} repl{replyThreads[inq.id].length === 1 ? "y" : "ies"})</p>
+                        {replyThreads[inq.id].map((r) => (
+                          <div key={r.id} className="border-l-4 border-accent pl-3">
+                            <p className="text-xs text-muted-foreground mb-1">
+                              {r.sent_by_email || "Admin"} · {new Date(r.created_at).toLocaleString()}
+                            </p>
+                            <p className="text-sm text-foreground whitespace-pre-wrap">{r.reply_message}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : inq.admin_reply ? (
                       <div className="border-l-4 border-accent pl-3">
-                        <p className="text-xs text-muted-foreground mb-1">Your reply ({new Date(inq.replied_at!).toLocaleDateString()}):</p>
+                        <p className="text-xs text-muted-foreground mb-1">Your reply ({inq.replied_at ? new Date(inq.replied_at).toLocaleDateString() : ""}):</p>
                         <p className="text-sm text-foreground whitespace-pre-wrap">{inq.admin_reply}</p>
                       </div>
-                    )}
+                    ) : null}
                     {replyingTo === inq.id ? (
                       <div className="space-y-3 pt-2 border-t border-border">
                         <Label>Reply (from info@virginialaserspecialists.com)</Label>
