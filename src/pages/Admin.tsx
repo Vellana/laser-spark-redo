@@ -1158,7 +1158,6 @@ const Admin = () => {
                   </div>
                   {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
                 </div>
-                </div>
                 <div className="space-y-2 pt-2 border-t border-border">
                   <Label>Recipients</Label>
                   <div className="flex flex-wrap items-center gap-2">
