@@ -89,10 +89,43 @@ const Admin = () => {
   const [composeTo, setComposeTo] = useState("");
   const [composeSubject, setComposeSubject] = useState("");
   const [composeBody, setComposeBody] = useState("");
+  const [composeImages, setComposeImages] = useState<string[]>([]);
+  const [composeImageUploading, setComposeImageUploading] = useState(false);
+  const composeEditorRef = useRef<HTMLDivElement>(null);
+  const composeFileInputRef = useRef<HTMLInputElement>(null);
   const [recipientPickerOpen, setRecipientPickerOpen] = useState(false);
   const [selectedRecipientIds, setSelectedRecipientIds] = useState<Set<string> | null>(null);
   const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
+
+  const composeExecCmd = (cmd: string, value?: string) => {
+    composeEditorRef.current?.focus();
+    document.execCommand(cmd, false, value);
+    requestAnimationFrame(() => {
+      if (composeEditorRef.current) setComposeBody(composeEditorRef.current.innerHTML);
+    });
+  };
+
+  const handleComposeImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setComposeImageUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) { toast.error("Only images allowed"); continue; }
+        if (file.size > 5 * 1024 * 1024) { toast.error("Max 5MB per image"); continue; }
+        const ext = file.name.split(".").pop();
+        const path = `newsletter/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error } = await supabase.storage.from("email-assets").upload(path, file);
+        if (error) { toast.error("Upload failed"); continue; }
+        const { data: urlData } = supabase.storage.from("email-assets").getPublicUrl(path);
+        setComposeImages((prev) => [...prev, urlData.publicUrl]);
+      }
+    } finally {
+      setComposeImageUploading(false);
+      if (composeFileInputRef.current) composeFileInputRef.current.value = "";
+    }
+  };
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
