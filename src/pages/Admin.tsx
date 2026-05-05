@@ -357,7 +357,42 @@ const Admin = () => {
     }
   };
 
-  const previewHtml = useMemo(() => {
+  const handleSendSingle = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    const recipient = singleRecipient.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(recipient)) {
+      toast.error("Enter a valid recipient email");
+      return;
+    }
+    if (!newsletterSubject.trim() || !stripTags(bodyContent)) {
+      toast.error("Please enter both subject and body");
+      return;
+    }
+    setSendingSingle(true);
+    try {
+      const res = await supabase.functions.invoke("send-newsletter", {
+        body: {
+          subject: newsletterSubject.trim(),
+          body: bodyContent.trim(),
+          imageUrls: newsletterImages,
+          singleRecipient: recipient,
+        },
+      });
+      if (res.error) throw res.error;
+      const result = res.data;
+      if (result?.sent > 0) {
+        toast.success(`Email sent to ${recipient}`);
+        setSingleRecipient("");
+        fetchSendHistory();
+      } else {
+        toast.error(`Failed to send to ${recipient}`);
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to send email");
+    } finally {
+      setSendingSingle(false);
+    }
+  };
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoamLight = "#85ccb3";
