@@ -156,6 +156,20 @@ const Admin = () => {
     if (error) toast.error("Failed to fetch inquiries");
     else setInquiries(data || []);
     setInquiriesLoading(false);
+    fetchReplyThreads();
+  };
+
+  const fetchReplyThreads = async () => {
+    const { data, error } = await (supabase as any)
+      .from("inquiry_replies")
+      .select("id, inquiry_id, reply_message, sent_by_email, created_at")
+      .order("created_at", { ascending: true });
+    if (error) return;
+    const grouped: Record<string, any[]> = {};
+    (data || []).forEach((r: any) => {
+      (grouped[r.inquiry_id] ||= []).push(r);
+    });
+    setReplyThreads(grouped);
   };
 
   const fetchAppointments = async () => {
