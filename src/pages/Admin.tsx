@@ -1320,6 +1320,81 @@ const Admin = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <Dialog open={recipientPickerOpen} onOpenChange={setRecipientPickerOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Choose Recipients</DialogTitle>
+            <DialogDescription>
+              Pick which active subscribers receive this newsletter. Opted-out subscribers are excluded.
+            </DialogDescription>
+          </DialogHeader>
+          {(() => {
+            const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+            const q = recipientSearch.trim().toLowerCase();
+            const filtered = q
+              ? eligible.filter((l) =>
+                  [l.email, l.first_name, l.last_name].some((v) => (v || "").toLowerCase().includes(q))
+                )
+              : eligible;
+            const current = selectedRecipientIds ?? new Set(eligible.map((l) => l.id));
+            const allFilteredSelected = filtered.length > 0 && filtered.every((l) => current.has(l.id));
+            const toggle = (id: string) => {
+              const next = new Set(current);
+              if (next.has(id)) next.delete(id); else next.add(id);
+              setSelectedRecipientIds(next);
+            };
+            const toggleAllFiltered = () => {
+              const next = new Set(current);
+              if (allFilteredSelected) filtered.forEach((l) => next.delete(l.id));
+              else filtered.forEach((l) => next.add(l.id));
+              setSelectedRecipientIds(next);
+            };
+            return (
+              <div className="space-y-3">
+                <Input
+                  placeholder="Search by name or email..."
+                  value={recipientSearch}
+                  onChange={(e) => setRecipientSearch(e.target.value)}
+                />
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{current.size} of {eligible.length} selected</span>
+                  <button
+                    type="button"
+                    className="underline hover:text-foreground"
+                    onClick={toggleAllFiltered}
+                  >
+                    {allFilteredSelected ? "Deselect" : "Select"} {q ? "filtered" : "all"}
+                  </button>
+                </div>
+                <div className="border border-border rounded-md max-h-[360px] overflow-y-auto divide-y divide-border">
+                  {filtered.length === 0 ? (
+                    <p className="p-4 text-sm text-muted-foreground text-center">No subscribers match.</p>
+                  ) : filtered.map((l) => {
+                    const checked = current.has(l.id);
+                    const name = [l.first_name, l.last_name].filter(Boolean).join(" ");
+                    return (
+                      <label key={l.id} className="flex items-center gap-3 p-2.5 hover:bg-muted/30 cursor-pointer">
+                        <Checkbox checked={checked} onCheckedChange={() => toggle(l.id)} />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm text-foreground truncate">{l.email}</p>
+                          {name && <p className="text-xs text-muted-foreground truncate">{name}</p>}
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => { setSelectedRecipientIds(null); setRecipientPickerOpen(false); }}>
+              Reset to all
+            </Button>
+            <Button onClick={() => setRecipientPickerOpen(false)}>Done</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
