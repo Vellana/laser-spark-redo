@@ -81,11 +81,12 @@ const handler = async (req: Request): Promise<Response> => {
       ? images.map((url: string) => `<div style="text-align:center;margin:0 0 20px;"><img src="${url}" alt="Newsletter image" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("")
       : "";
 
-    // Fetch all email leads
+    // Fetch active subscribers (honor opt-outs)
     const { data: leads, error: leadsErr } = await supabaseAdmin
-      .from("email_leads")
+      .from("email_subscribers")
       .select("email")
-      .order("subscribed_at", { ascending: false });
+      .eq("subscribed", true)
+      .eq("opted_out", false);
 
     if (leadsErr || !leads?.length) {
       return new Response(JSON.stringify({ error: "No subscribers found" }), {
