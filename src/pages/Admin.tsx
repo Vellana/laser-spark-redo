@@ -80,6 +80,8 @@ const Admin = () => {
   const [sendHistory, setSendHistory] = useState<any[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
   const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
+  const [singleRecipient, setSingleRecipient] = useState("");
+  const [sendingSingle, setSendingSingle] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
