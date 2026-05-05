@@ -74,6 +74,25 @@ serve(async (req: Request) => {
       });
     }
 
+    // Verify the appointment was just created (within last 5 minutes) — prevents abuse
+    const sbAdmin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+    const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const { data: aptMatch } = await sbAdmin
+      .from("appointments")
+      .select("id")
+      .eq("id", appointmentId)
+      .gte("created_at", fiveMinAgo)
+      .maybeSingle();
+    if (!aptMatch) {
+      return new Response(JSON.stringify({ error: "No matching recent appointment" }), {
+        status: 403,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     const serviceAccountKeyRaw = Deno.env.get("GOOGLE_SERVICE_ACCOUNT_KEY");
     if (!serviceAccountKeyRaw) {
       console.warn("GOOGLE_SERVICE_ACCOUNT_KEY not configured — skipping calendar event creation");
