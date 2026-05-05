@@ -400,6 +400,48 @@ const Admin = () => {
     }
   };
 
+  const handleComposeSend = async () => {
+    const to = composeTo.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) {
+      toast.error("Enter a valid recipient email");
+      return;
+    }
+    if (!composeSubject.trim() || !composeBody.trim()) {
+      toast.error("Subject and message are required");
+      return;
+    }
+    setComposeSending(true);
+    try {
+      const html = composeBody
+        .split(/\n\n+/)
+        .map((p) => `<p style="margin:0 0 14px;">${p.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+      const res = await supabase.functions.invoke("send-newsletter", {
+        body: {
+          subject: composeSubject.trim(),
+          body: html,
+          imageUrls: [],
+          singleRecipient: to,
+        },
+      });
+      if (res.error) throw res.error;
+      if (res.data?.sent > 0) {
+        toast.success(`Email sent to ${to}`);
+        setComposeOpen(false);
+        setComposeTo("");
+        setComposeSubject("");
+        setComposeBody("");
+        fetchSendHistory();
+      } else {
+        toast.error(`Failed to send to ${to}`);
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to send email");
+    } finally {
+      setComposeSending(false);
+    }
+  };
+
   const previewHtml = useMemo(() => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
