@@ -1252,45 +1252,123 @@ const Admin = () => {
       </div>
 
       <Dialog open={composeOpen} onOpenChange={setComposeOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Compose Email</DialogTitle>
             <DialogDescription>
-              Send a one-off branded email from <strong>hello@virginialaserspecialists.com</strong> to anyone.
+              Send a fully branded one-off email from <strong>hello@virginialaserspecialists.com</strong> to anyone.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-3">
-            <div className="space-y-1">
-              <Label htmlFor="compose-to">To</Label>
-              <Input
-                id="compose-to"
-                type="email"
-                placeholder="name@example.com"
-                value={composeTo}
-                onChange={(e) => setComposeTo(e.target.value)}
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Editor */}
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <Label htmlFor="compose-to">To</Label>
+                <Input
+                  id="compose-to"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={composeTo}
+                  onChange={(e) => setComposeTo(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="compose-subject">Subject</Label>
+                <Input
+                  id="compose-subject"
+                  value={composeSubject}
+                  onChange={(e) => setComposeSubject(e.target.value)}
+                  placeholder="Subject line"
+                  maxLength={200}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>Message</Label>
+                <div className="border border-border rounded-lg overflow-hidden">
+                  <TooltipProvider delayDuration={200}>
+                    <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 bg-muted/30 border-b border-border">
+                      {([
+                        { icon: Bold, label: "Bold", cmd: "bold" },
+                        { icon: Italic, label: "Italic", cmd: "italic" },
+                        { icon: Underline, label: "Underline", cmd: "underline" },
+                      ] as const).map(({ icon: Icon, label, cmd }) => (
+                        <Tooltip key={label}>
+                          <TooltipTrigger asChild>
+                            <button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-colors" onMouseDown={(e) => { e.preventDefault(); composeExecCmd(cmd); }}>
+                              <Icon className="w-4 h-4" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs">{label}</TooltipContent>
+                        </Tooltip>
+                      ))}
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("formatBlock", "h2"); }}><Heading1 className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Large Heading</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("formatBlock", "h3"); }}><Heading2 className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Small Heading</TooltipContent></Tooltip>
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("insertUnorderedList"); }}><List className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Bullet List</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("insertOrderedList"); }}><ListOrdered className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Numbered List</TooltipContent></Tooltip>
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("justifyCenter"); }}><AlignCenter className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Center</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("justifyLeft"); }}><AlignLeft className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Left</TooltipContent></Tooltip>
+                      <div className="h-5 w-px bg-border mx-1" />
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); const url = prompt("Enter URL:"); if (url) composeExecCmd("createLink", url); }}><Link className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Link</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("insertHorizontalRule"); }}><Minus className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Divider</TooltipContent></Tooltip>
+                      <Tooltip><TooltipTrigger asChild><button type="button" className="p-1.5 rounded-md hover:bg-accent/50 text-muted-foreground hover:text-foreground" onMouseDown={(e) => { e.preventDefault(); composeExecCmd("foreColor", "#3d5a80"); }}><Palette className="w-4 h-4" /></button></TooltipTrigger><TooltipContent side="top" className="text-xs">Brand Color</TooltipContent></Tooltip>
+                    </div>
+                  </TooltipProvider>
+                  <div
+                    ref={composeEditorRef}
+                    contentEditable
+                    className="min-h-[220px] max-h-[400px] overflow-y-auto p-4 text-sm text-foreground focus:outline-none bg-background [&_h2]:text-lg [&_h2]:font-bold [&_h2]:my-3 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:my-2 [&_a]:text-[#3d5a80] [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:my-4 [&_hr]:border-border"
+                    onInput={() => { if (composeEditorRef.current) setComposeBody(composeEditorRef.current.innerHTML); }}
+                    suppressContentEditableWarning
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Images</Label>
+                <input
+                  ref={composeFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleComposeImageUpload}
+                />
+                <div className="flex flex-wrap gap-2">
+                  {composeImages.map((url, idx) => (
+                    <div key={idx} className="relative w-20 h-20 rounded-md overflow-hidden border border-border group">
+                      <img src={url} alt="" className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setComposeImages((p) => p.filter((_, i) => i !== idx))}
+                        className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-20 w-20"
+                    onClick={() => composeFileInputRef.current?.click()}
+                    disabled={composeImageUploading}
+                  >
+                    <ImagePlus className="w-5 h-5" />
+                  </Button>
+                </div>
+                {composeImageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
+              </div>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="compose-subject">Subject</Label>
-              <Input
-                id="compose-subject"
-                value={composeSubject}
-                onChange={(e) => setComposeSubject(e.target.value)}
-                placeholder="Subject line"
-                maxLength={200}
+            {/* Preview */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold text-foreground">Email Preview</h3>
+              <div
+                className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[600px]"
+                dangerouslySetInnerHTML={{ __html: composePreviewHtml }}
               />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="compose-body">Message</Label>
-              <Textarea
-                id="compose-body"
-                value={composeBody}
-                onChange={(e) => setComposeBody(e.target.value)}
-                placeholder="Write your message..."
-                rows={8}
-                maxLength={5000}
-              />
-              <p className="text-xs text-muted-foreground">Plain text — line breaks become paragraphs. Wrapped in the branded VLS template.</p>
             </div>
           </div>
           <DialogFooter>
