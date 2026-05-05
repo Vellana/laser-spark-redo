@@ -346,6 +346,7 @@ const Admin = () => {
       setNewsletterBody("");
       setNewsletterImages([]);
       if (editorRef.current) editorRef.current.innerHTML = "";
+      fetchSendHistory();
     } catch (err) {
       toast.error("Failed to send newsletter");
     } finally {
