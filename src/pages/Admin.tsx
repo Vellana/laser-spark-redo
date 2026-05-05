@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface EmailLead {
   id: string;
@@ -88,6 +89,9 @@ const Admin = () => {
   const [composeTo, setComposeTo] = useState("");
   const [composeSubject, setComposeSubject] = useState("");
   const [composeBody, setComposeBody] = useState("");
+  const [recipientPickerOpen, setRecipientPickerOpen] = useState(false);
+  const [selectedRecipientIds, setSelectedRecipientIds] = useState<Set<string> | null>(null);
+  const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
 
   const execCmd = (cmd: string, value?: string) => {
@@ -357,11 +361,28 @@ const Admin = () => {
       toast.error("Please enter both subject and body");
       return;
     }
-    if (!confirm(`Send newsletter to ${leads.length} subscriber(s)?`)) return;
+    const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+    let recipientEmails: string[] | undefined;
+    if (selectedRecipientIds) {
+      recipientEmails = eligible
+        .filter((l) => selectedRecipientIds.has(l.id))
+        .map((l) => l.email);
+      if (recipientEmails.length === 0) {
+        toast.error("Select at least one recipient");
+        return;
+      }
+    }
+    const count = recipientEmails ? recipientEmails.length : eligible.length;
+    if (!confirm(`Send newsletter to ${count} subscriber(s)?`)) return;
     setNewsletterSending(true);
     try {
       const res = await supabase.functions.invoke("send-newsletter", {
-        body: { subject: newsletterSubject.trim(), body: bodyContent.trim(), imageUrls: newsletterImages },
+        body: {
+          subject: newsletterSubject.trim(),
+          body: bodyContent.trim(),
+          imageUrls: newsletterImages,
+          ...(recipientEmails ? { recipientEmails } : {}),
+        },
       });
       if (res.error) throw res.error;
       const result = res.data;
@@ -369,6 +390,7 @@ const Admin = () => {
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
+      setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
       fetchSendHistory();
     } catch (err) {
@@ -1115,12 +1137,42 @@ const Admin = () => {
                   </div>
                   <p className="text-xs text-muted-foreground">Sends only to this address (bypasses subscriber list).</p>
                 </div>
+                <div className="space-y-2 pt-2 border-t border-border">
+                  <Label>Recipients</Label>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-sm text-muted-foreground flex-1 min-w-0">
+                      {selectedRecipientIds
+                        ? `${selectedRecipientIds.size} selected subscriber(s)`
+                        : `All ${leads.filter((l) => l.subscribed && !l.opted_out).length} active subscriber(s)`}
+                    </p>
+                    <Button variant="outline" size="sm" onClick={() => setRecipientPickerOpen(true)}>
+                      Choose recipients
+                    </Button>
+                    {selectedRecipientIds && (
+                      <Button variant="ghost" size="sm" onClick={() => setSelectedRecipientIds(null)}>
+                        Reset (send to all)
+                      </Button>
+                    )}
+                  </div>
+                </div>
                 <Button
                   onClick={handleSendNewsletter}
-                  disabled={newsletterSending || !newsletterSubject.trim() || !leads.length}
+                  disabled={
+                    newsletterSending ||
+                    !newsletterSubject.trim() ||
+                    (selectedRecipientIds
+                      ? selectedRecipientIds.size === 0
+                      : leads.filter((l) => l.subscribed && !l.opted_out).length === 0)
+                  }
                 >
                   <Send className="w-4 h-4 mr-2" />
-                  {newsletterSending ? "Sending..." : `Send to ${leads.length} Subscriber(s)`}
+                  {newsletterSending
+                    ? "Sending..."
+                    : `Send to ${
+                        selectedRecipientIds
+                          ? selectedRecipientIds.size
+                          : leads.filter((l) => l.subscribed && !l.opted_out).length
+                      } Subscriber(s)`}
                 </Button>
               </div>
               {/* Preview */}
@@ -1265,6 +1317,81 @@ const Admin = () => {
               <Send className="w-4 h-4 mr-2" />
               {composeSending ? "Sending..." : "Send Email"}
             </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={recipientPickerOpen} onOpenChange={setRecipientPickerOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Choose Recipients</DialogTitle>
+            <DialogDescription>
+              Pick which active subscribers receive this newsletter. Opted-out subscribers are excluded.
+            </DialogDescription>
+          </DialogHeader>
+          {(() => {
+            const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+            const q = recipientSearch.trim().toLowerCase();
+            const filtered = q
+              ? eligible.filter((l) =>
+                  [l.email, l.first_name, l.last_name].some((v) => (v || "").toLowerCase().includes(q))
+                )
+              : eligible;
+            const current = selectedRecipientIds ?? new Set(eligible.map((l) => l.id));
+            const allFilteredSelected = filtered.length > 0 && filtered.every((l) => current.has(l.id));
+            const toggle = (id: string) => {
+              const next = new Set(current);
+              if (next.has(id)) next.delete(id); else next.add(id);
+              setSelectedRecipientIds(next);
+            };
+            const toggleAllFiltered = () => {
+              const next = new Set(current);
+              if (allFilteredSelected) filtered.forEach((l) => next.delete(l.id));
+              else filtered.forEach((l) => next.add(l.id));
+              setSelectedRecipientIds(next);
+            };
+            return (
+              <div className="space-y-3">
+                <Input
+                  placeholder="Search by name or email..."
+                  value={recipientSearch}
+                  onChange={(e) => setRecipientSearch(e.target.value)}
+                />
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{current.size} of {eligible.length} selected</span>
+                  <button
+                    type="button"
+                    className="underline hover:text-foreground"
+                    onClick={toggleAllFiltered}
+                  >
+                    {allFilteredSelected ? "Deselect" : "Select"} {q ? "filtered" : "all"}
+                  </button>
+                </div>
+                <div className="border border-border rounded-md max-h-[360px] overflow-y-auto divide-y divide-border">
+                  {filtered.length === 0 ? (
+                    <p className="p-4 text-sm text-muted-foreground text-center">No subscribers match.</p>
+                  ) : filtered.map((l) => {
+                    const checked = current.has(l.id);
+                    const name = [l.first_name, l.last_name].filter(Boolean).join(" ");
+                    return (
+                      <label key={l.id} className="flex items-center gap-3 p-2.5 hover:bg-muted/30 cursor-pointer">
+                        <Checkbox checked={checked} onCheckedChange={() => toggle(l.id)} />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm text-foreground truncate">{l.email}</p>
+                          {name && <p className="text-xs text-muted-foreground truncate">{name}</p>}
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => { setSelectedRecipientIds(null); setRecipientPickerOpen(false); }}>
+              Reset to all
+            </Button>
+            <Button onClick={() => setRecipientPickerOpen(false)}>Done</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

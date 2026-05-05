@@ -59,7 +59,7 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const { subject, body, imageUrls, singleRecipient } = await req.json();
+    const { subject, body, imageUrls, singleRecipient, recipientEmails } = await req.json();
 
     if (!subject || !body || typeof subject !== "string" || typeof body !== "string") {
       return new Response(JSON.stringify({ error: "Missing subject or body" }), {
@@ -92,6 +92,33 @@ const handler = async (req: Request): Promise<Response> => {
         });
       }
       leads = [{ email: r }];
+    } else if (Array.isArray(recipientEmails) && recipientEmails.length > 0) {
+      const cleaned = Array.from(new Set(
+        recipientEmails
+          .filter((e: any) => typeof e === "string")
+          .map((e: string) => e.trim().toLowerCase())
+          .filter((e: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))
+      ));
+      if (cleaned.length === 0) {
+        return new Response(JSON.stringify({ error: "No valid recipients" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
+      // Honor opt-outs: filter out any opted-out subscribers
+      const { data: optedOut } = await supabaseAdmin
+        .from("email_subscribers")
+        .select("email")
+        .in("email", cleaned)
+        .eq("opted_out", true);
+      const blocked = new Set((optedOut || []).map((r: any) => r.email.toLowerCase()));
+      leads = cleaned.filter((e) => !blocked.has(e)).map((email) => ({ email }));
+      if (leads.length === 0) {
+        return new Response(JSON.stringify({ error: "All selected recipients have opted out" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
     } else {
       // Fetch active subscribers (honor opt-outs)
       const { data, error: leadsErr } = await supabaseAdmin
