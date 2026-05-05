@@ -201,6 +201,23 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Newsletter sent to ${sentCount}/${emails.length} recipients`);
     if (errors.length) console.error("Send errors:", errors);
 
+    // Log send history (best-effort)
+    try {
+      await supabaseAdmin.from("newsletter_send_log").insert({
+        subject: subject.trim(),
+        body: body,
+        image_urls: images,
+        recipient_count: emails.length,
+        sent_count: sentCount,
+        failed_count: errors.length,
+        errors: errors.slice(0, 50),
+        sent_by: claims.claims.sub,
+        sent_by_email: (claims.claims as any).email ?? null,
+      });
+    } catch (logErr) {
+      console.error("Failed to log newsletter send:", logErr);
+    }
+
     return new Response(
       JSON.stringify({ success: true, sent: sentCount, total: emails.length, errors: errors.length }),
       {

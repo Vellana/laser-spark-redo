@@ -9,6 +9,7 @@ import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus
 import SpecialsManager from "@/components/admin/SpecialsManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface EmailLead {
   id: string;
@@ -76,6 +77,9 @@ const Admin = () => {
   const [newLeadEmail, setNewLeadEmail] = useState("");
   const [newLeadSource, setNewLeadSource] = useState("manual");
   const [addingLead, setAddingLead] = useState(false);
+  const [sendHistory, setSendHistory] = useState<any[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [expandedHistoryId, setExpandedHistoryId] = useState<string | null>(null);
 
   const execCmd = (cmd: string, value?: string) => {
     editorRef.current?.focus();
@@ -104,6 +108,7 @@ const Admin = () => {
       fetchLeads();
       fetchInquiries();
       fetchAppointments();
+      fetchSendHistory();
     } else {
       setIsAuthenticated(false);
       toast.error("Access denied: admin role required");
@@ -154,6 +159,17 @@ const Admin = () => {
     if (error) toast.error("Failed to fetch appointments");
     else setAppointments((data as any) || []);
     setAppointmentsLoading(false);
+  };
+
+  const fetchSendHistory = async () => {
+    setHistoryLoading(true);
+    const { data, error } = await supabase
+      .from("newsletter_send_log" as any)
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (!error) setSendHistory((data as any) || []);
+    setHistoryLoading(false);
   };
 
   const cancelAppointment = async (apt: Appointment) => {
@@ -331,6 +347,7 @@ const Admin = () => {
       setNewsletterBody("");
       setNewsletterImages([]);
       if (editorRef.current) editorRef.current.innerHTML = "";
+      fetchSendHistory();
     } catch (err) {
       toast.error("Failed to send newsletter");
     } finally {
@@ -975,6 +992,87 @@ const Admin = () => {
                 />
               </div>
             </div>
+
+            {/* Send History */}
+            <Card className="mt-6">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Newsletter Send History</CardTitle>
+                    <CardDescription>Past newsletter blasts and delivery results</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchSendHistory} disabled={historyLoading}>
+                    {historyLoading ? "Loading..." : "Refresh"}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {sendHistory.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No newsletters sent yet.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {sendHistory.map((h) => {
+                      const isOpen = expandedHistoryId === h.id;
+                      const failed = h.failed_count > 0;
+                      return (
+                        <div key={h.id} className="border border-border rounded-lg">
+                          <button
+                            type="button"
+                            className="w-full flex items-center justify-between gap-3 p-3 text-left hover:bg-muted/30"
+                            onClick={() => setExpandedHistoryId(isOpen ? null : h.id)}
+                          >
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-foreground truncate">{h.subject}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {new Date(h.created_at).toLocaleString()}
+                                {h.sent_by_email ? ` · ${h.sent_by_email}` : ""}
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0 text-xs">
+                              <span className="px-2 py-1 rounded bg-emerald-100 text-emerald-800">
+                                Sent {h.sent_count}/{h.recipient_count}
+                              </span>
+                              {failed && (
+                                <span className="px-2 py-1 rounded bg-red-100 text-red-800">
+                                  Failed {h.failed_count}
+                                </span>
+                              )}
+                            </div>
+                          </button>
+                          {isOpen && (
+                            <div className="border-t border-border p-3 space-y-2 bg-muted/20">
+                              <div
+                                className="prose prose-sm max-w-none bg-card border border-border rounded p-3 max-h-64 overflow-y-auto"
+                                dangerouslySetInnerHTML={{ __html: h.body || "" }}
+                              />
+                              {h.image_urls?.length > 0 && (
+                                <div className="flex flex-wrap gap-2">
+                                  {h.image_urls.map((u: string, i: number) => (
+                                    <img key={i} src={u} alt="" className="h-16 w-16 object-cover rounded" />
+                                  ))}
+                                </div>
+                              )}
+                              {h.errors?.length > 0 && (
+                                <details className="text-xs">
+                                  <summary className="cursor-pointer text-red-700">
+                                    {h.errors.length} error(s)
+                                  </summary>
+                                  <ul className="mt-1 list-disc pl-5 space-y-0.5">
+                                    {h.errors.map((e: string, i: number) => (
+                                      <li key={i} className="break-all">{e}</li>
+                                    ))}
+                                  </ul>
+                                </details>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
