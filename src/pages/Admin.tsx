@@ -160,6 +160,17 @@ const Admin = () => {
     setAppointmentsLoading(false);
   };
 
+  const fetchSendHistory = async () => {
+    setHistoryLoading(true);
+    const { data, error } = await supabase
+      .from("newsletter_send_log" as any)
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (!error) setSendHistory((data as any) || []);
+    setHistoryLoading(false);
+  };
+
   const cancelAppointment = async (apt: Appointment) => {
     setCancellingId(apt.id);
     try {
