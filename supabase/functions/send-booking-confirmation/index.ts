@@ -62,11 +62,42 @@ serve(async (req: Request) => {
       });
     }
 
-    // Check if this client signed up for the newsletter discount
+    // Basic input validation to prevent abuse
+    const isStr = (v: any, max: number) => typeof v === "string" && v.length > 0 && v.length <= max;
+    const emailOk = typeof email === "string" && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && email.length <= 255;
+    if (
+      !isStr(firstName, 80) || !isStr(lastName, 80) || !emailOk ||
+      !isStr(treatmentInterest, 200) || !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+      !/^\d{2}:\d{2}(:\d{2})?$/.test(time)
+    ) {
+      return new Response(JSON.stringify({ error: "Invalid input" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
+
+    // Verify a real appointment row was just created (within the last 5 minutes) matching this email/date/time.
+    // This prevents direct abuse of the endpoint to spam arbitrary inboxes.
+    const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const { data: aptMatch } = await supabaseAdmin
+      .from("appointments")
+      .select("id")
+      .eq("email", email)
+      .eq("appointment_date", date)
+      .gte("created_at", fiveMinAgo)
+      .limit(1)
+      .maybeSingle();
+    if (!aptMatch) {
+      return new Response(JSON.stringify({ error: "No matching recent booking" }), {
+        status: 403,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
     const { data: emailLead } = await supabaseAdmin
       .from("email_leads")
