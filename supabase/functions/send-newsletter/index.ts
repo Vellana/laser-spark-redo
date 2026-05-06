@@ -205,38 +205,48 @@ const handler = async (req: Request): Promise<Response> => {
 </body>
 </html>`;
 
-    // Resend supports up to 100 recipients per batch call
-    // Send in batches
-    const emails = leads.map((l) => l.email);
-    const batchSize = 50;
+    // Send sequentially with throttling to respect Resend rate limits (2 req/s on free, 10 req/s default).
+    // Concurrent sends caused silent rate-limit failures (Resend returns {error} instead of throwing).
+    const emails = Array.from(new Set(leads.map((l) => l.email.toLowerCase().trim())));
     let sentCount = 0;
     const errors: string[] = [];
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-    for (let i = 0; i < emails.length; i += batchSize) {
-      const batch = emails.slice(i, i + batchSize);
+    const sendOne = async (to: string, attempt = 1): Promise<void> => {
       try {
-        // Send individually to avoid BCC exposure
-        const batchPromises = batch.map((to) =>
-          resend.emails.send({
-            from: "Virginia Laser Specialists <hello@virginialaserspecialists.com>",
-            to: [to],
-            subject: subject.trim(),
-            html: newsletterHtml,
-            reply_to: "hello@virginialaserspecialists.com",
-          })
-        );
-        const results = await Promise.allSettled(batchPromises);
-        results.forEach((r, idx) => {
-          if (r.status === "fulfilled") {
-            sentCount++;
-          } else {
-            errors.push(`${batch[idx]}: ${r.reason}`);
-          }
+        const result: any = await resend.emails.send({
+          from: "Virginia Laser Specialists <hello@virginialaserspecialists.com>",
+          to: [to],
+          subject: subject.trim(),
+          html: newsletterHtml,
+          reply_to: "hello@virginialaserspecialists.com",
         });
-      } catch (batchErr: any) {
-        console.error("Batch error:", batchErr);
-        errors.push(`Batch starting at ${i}: ${batchErr.message}`);
+        // Resend returns { data, error } — error does NOT throw
+        if (result?.error) {
+          const errName = result.error?.name || "";
+          const errMsg = result.error?.message || JSON.stringify(result.error);
+          // Retry rate-limit errors up to 3 times with backoff
+          if (attempt < 4 && /rate|429|too_many/i.test(`${errName} ${errMsg}`)) {
+            await sleep(1000 * attempt);
+            return sendOne(to, attempt + 1);
+          }
+          errors.push(`${to}: ${errMsg}`);
+          return;
+        }
+        sentCount++;
+      } catch (e: any) {
+        if (attempt < 3) {
+          await sleep(1000 * attempt);
+          return sendOne(to, attempt + 1);
+        }
+        errors.push(`${to}: ${e?.message || String(e)}`);
       }
+    };
+
+    // Throttle: ~2 sends/sec (500ms gap) — safe for Resend free tier and well under default paid limits
+    for (const to of emails) {
+      await sendOne(to);
+      await sleep(500);
     }
 
     console.log(`Newsletter sent to ${sentCount}/${emails.length} recipients`);
