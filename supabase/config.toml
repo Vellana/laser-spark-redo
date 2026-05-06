@@ -29,3 +29,9 @@ verify_jwt = false
 
 [functions.delete-calendar-event]
 verify_jwt = false
+
+[functions.resend-webhook]
+verify_jwt = false
+
+[functions.resend-backfill-events]
+verify_jwt = false
