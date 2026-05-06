@@ -307,6 +307,36 @@ export type Database = {
         }
         Relationships: []
       }
+      resend_email_events: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          recipient: string | null
+          resend_email_id: string | null
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          recipient?: string | null
+          resend_email_id?: string | null
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          recipient?: string | null
+          resend_email_id?: string | null
+          subject?: string | null
+        }
+        Relationships: []
+      }
       specials: {
         Row: {
           body: string
