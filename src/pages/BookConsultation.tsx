@@ -95,6 +95,8 @@ const BookConsultation = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [closureReason, setClosureReason] = useState<string | null>(null);
+  const [closedDates, setClosedDates] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(() => {
@@ -109,13 +111,29 @@ const BookConsultation = () => {
     };
   });
 
-  const availableDates = useMemo(() => generateDates(4), []);
+  const allDates = useMemo(() => generateDates(4), []);
+  const availableDates = useMemo(
+    () => allDates.filter((d) => !closedDates.has(toDateString(d))),
+    [allDates, closedDates],
+  );
+
+  // Fetch upcoming office closures once so closed dates drop out of the grid
+  useEffect(() => {
+    (async () => {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data } = await (supabase as any)
+        .from("office_closures")
+        .select("closure_date")
+        .gte("closure_date", today);
+      if (data) setClosedDates(new Set(data.map((r: any) => r.closure_date)));
+    })();
+  }, []);
 
   // Fetch booked slots for selected date
   useEffect(() => {
     if (!selectedDate) return;
     const dateStr = toDateString(selectedDate);
-    
+
     const fetchBooked = async () => {
       // Use edge function to check availability (bypasses RLS)
       const res = await supabase.functions.invoke("check-availability", {
@@ -124,6 +142,7 @@ const BookConsultation = () => {
       if (res.data?.bookedSlots) {
         setBookedSlots(res.data.bookedSlots);
       }
+      setClosureReason(res.data?.closed ? (res.data.closureReason || "Office closed") : null);
     };
     fetchBooked();
     setSelectedTime(null);
