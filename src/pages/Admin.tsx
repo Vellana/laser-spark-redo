@@ -105,7 +105,8 @@ const Admin = () => {
   // Office closures
   const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
   const [closuresLoading, setClosuresLoading] = useState(false);
-  const [newClosureDate, setNewClosureDate] = useState("");
+  const [newClosureStartDate, setNewClosureStartDate] = useState("");
+  const [newClosureEndDate, setNewClosureEndDate] = useState("");
   const [newClosureReason, setNewClosureReason] = useState("");
   const [addingClosure, setAddingClosure] = useState(false);
 
