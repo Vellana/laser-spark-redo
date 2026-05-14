@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, CheckCircle, ExternalLink, Clock } from "lucide-react";
+import { Calendar, CheckCircle, ExternalLink, Clock, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { toast } from "sonner";
