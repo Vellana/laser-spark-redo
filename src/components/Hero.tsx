@@ -34,7 +34,7 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className={`max-w-4xl mx-auto space-y-8 transition-all duration-1000 ${imageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className="max-w-4xl mx-auto space-y-8">
           <div className="inline-block">
             <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
           </div>
