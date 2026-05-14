@@ -77,6 +77,12 @@ const Admin = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(false);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [editingApt, setEditingApt] = useState<Appointment | null>(null);
+  const [editDate, setEditDate] = useState("");
+  const [editTime, setEditTime] = useState("");
+  const [editTreatment, setEditTreatment] = useState("");
+  const [editNotes, setEditNotes] = useState("");
+  const [savingEdit, setSavingEdit] = useState(false);
   const [newLeadEmail, setNewLeadEmail] = useState("");
   const [newLeadSource, setNewLeadSource] = useState("manual");
   const [addingLead, setAddingLead] = useState(false);
