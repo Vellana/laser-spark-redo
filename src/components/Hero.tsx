@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { pushEvent } from "@/lib/analytics";
+import heroPoster from "@/assets/Homepage_mainphoto.jpg";
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
