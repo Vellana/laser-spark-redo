@@ -18,11 +18,12 @@ const Hero = () => {
         />
         <video
           src="/coolpeel_hero_web.mp4"
+          poster={heroPoster}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-label="CoolPeel CO2 laser skin resurfacing treatment at Virginia Laser Specialists in Tysons, VA"
           className={`w-full h-full object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoadedData={() => setImageLoaded(true)}
