@@ -166,6 +166,7 @@ const Admin = () => {
       fetchInquiries();
       fetchAppointments();
       fetchSendHistory();
+      fetchClosures();
     } else {
       setIsAuthenticated(false);
       toast.error("Access denied: admin role required");
