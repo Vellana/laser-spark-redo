@@ -692,12 +692,15 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="inquiries" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="inquiries" className="flex items-center gap-2">
               <Inbox className="w-4 h-4" /> Inquiries
             </TabsTrigger>
             <TabsTrigger value="bookings" className="flex items-center gap-2">
               <CalendarDays className="w-4 h-4" /> Bookings
+            </TabsTrigger>
+            <TabsTrigger value="closures" className="flex items-center gap-2">
+              <X className="w-4 h-4" /> Closures
             </TabsTrigger>
             <TabsTrigger value="leads" className="flex items-center gap-2">
               <Mail className="w-4 h-4" /> Email Leads
