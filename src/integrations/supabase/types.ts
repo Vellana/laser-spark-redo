@@ -286,6 +286,30 @@ export type Database = {
         }
         Relationships: []
       }
+      office_closures: {
+        Row: {
+          closure_date: string
+          created_at: string
+          created_by: string | null
+          id: string
+          reason: string
+        }
+        Insert: {
+          closure_date: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          reason?: string
+        }
+        Update: {
+          closure_date?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          reason?: string
+        }
+        Relationships: []
+      }
       opt_in_confirmations: {
         Row: {
           admin_name: string
