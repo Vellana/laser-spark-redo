@@ -233,6 +233,41 @@ const Admin = () => {
     setAppointmentsLoading(false);
   };
 
+  const fetchClosures = async () => {
+    setClosuresLoading(true);
+    const { data, error } = await (supabase as any)
+      .from("office_closures")
+      .select("id, closure_date, reason, created_at")
+      .order("closure_date", { ascending: true });
+    if (error) toast.error("Failed to fetch office closures");
+    else setClosures((data as any) || []);
+    setClosuresLoading(false);
+  };
+
+  const addClosure = async () => {
+    if (!newClosureDate) { toast.error("Pick a date"); return; }
+    setAddingClosure(true);
+    const { error } = await (supabase as any)
+      .from("office_closures")
+      .insert({ closure_date: newClosureDate, reason: newClosureReason.trim() });
+    if (error) {
+      toast.error(error.code === "23505" ? "That date is already marked closed" : "Failed to add closure");
+    } else {
+      toast.success("Office closure added");
+      setNewClosureDate("");
+      setNewClosureReason("");
+      fetchClosures();
+    }
+    setAddingClosure(false);
+  };
+
+  const deleteClosure = async (id: string) => {
+    if (!confirm("Remove this office closure? Bookings will be allowed again on this date.")) return;
+    const { error } = await (supabase as any).from("office_closures").delete().eq("id", id);
+    if (error) toast.error("Failed to remove closure");
+    else { toast.success("Closure removed"); fetchClosures(); }
+  };
+
   const fetchSendHistory = async () => {
     setHistoryLoading(true);
     const { data, error } = await supabase
