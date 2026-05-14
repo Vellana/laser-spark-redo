@@ -281,7 +281,83 @@ const Admin = () => {
     }
   };
 
-  const exportAppointmentsCSV = () => {
+  const openEditDialog = (apt: Appointment) => {
+    setEditingApt(apt);
+    setEditDate(apt.appointment_date);
+    setEditTime(apt.appointment_time.substring(0, 5));
+    setEditTreatment(apt.treatment_interest);
+    setEditNotes(apt.notes || "");
+  };
+
+  const saveAppointmentEdit = async () => {
+    if (!editingApt) return;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(editDate) || !/^\d{2}:\d{2}$/.test(editTime)) {
+      toast.error("Invalid date or time format");
+      return;
+    }
+    const oldDate = editingApt.appointment_date;
+    const oldTime = editingApt.appointment_time;
+    const oldGcalId = editingApt.gcal_event_id;
+    const dateChanged = editDate !== oldDate || editTime + ":00" !== oldTime;
+
+    setSavingEdit(true);
+    try {
+      const { error } = await supabase
+        .from("appointments")
+        .update({
+          appointment_date: editDate,
+          appointment_time: editTime,
+          treatment_interest: editTreatment,
+          notes: editNotes,
+        } as any)
+        .eq("id", editingApt.id);
+      if (error) {
+        if ((error as any).code === "23505") toast.error("That date/time slot is already booked");
+        else toast.error("Failed to update appointment");
+        return;
+      }
+
+      if (dateChanged) {
+        // Notify client
+        try {
+          await supabase.functions.invoke("send-reschedule-email", {
+            body: { appointmentId: editingApt.id, oldDate, oldTime },
+          });
+        } catch (e) { console.error("Reschedule email failed:", e); }
+
+        // Recreate Google Calendar event (delete old, create new)
+        if (oldGcalId) {
+          try { await supabase.functions.invoke("delete-calendar-event", { body: { eventId: oldGcalId } }); }
+          catch (e) { console.error("Calendar delete failed:", e); }
+        }
+        try {
+          await supabase.functions.invoke("create-calendar-event", {
+            body: {
+              appointmentId: editingApt.id,
+              firstName: editingApt.first_name,
+              lastName: editingApt.last_name,
+              email: editingApt.email,
+              phone: editingApt.phone || "",
+              treatmentInterest: editTreatment,
+              notes: editNotes,
+              date: editDate,
+              time: editTime,
+            },
+          });
+        } catch (e) { console.error("Calendar create failed:", e); }
+
+        toast.success("Appointment updated & client notified");
+      } else {
+        toast.success("Appointment updated");
+      }
+
+      setEditingApt(null);
+      fetchAppointments();
+    } finally {
+      setSavingEdit(false);
+    }
+  };
+
     if (!appointments.length) return;
     const headers = ["Date", "Time", "Name", "Email", "Phone", "Treatment", "Status", "Notes"];
     const rows = appointments.map((a) => [
