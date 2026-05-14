@@ -29,21 +29,21 @@ const Hero = () => {
           onLoadedData={() => setImageLoaded(true)}
           onLoadedMetadata={() => setImageLoaded(true)}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(215,28%,25%)]/65 via-[hsl(215,28%,30%)]/55 to-[hsl(215,28%,35%)]/45" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(215,28%,18%)]/75 via-[hsl(215,28%,25%)]/65 to-[hsl(215,28%,32%)]/55" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className={`max-w-4xl mx-auto space-y-8 transition-all duration-1000 ${imageLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className="max-w-4xl mx-auto space-y-8">
           <div className="inline-block">
             <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-lg" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.45)' }}>
             Laser Hair Removal & CoolPeel Skin Resurfacing in Tysons, VA
           </h1>
 
-          <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light">
+          <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>
             Expert laser hair removal with Lutronic Clarity II and CoolPeel CO₂ resurfacing - safe for all skin types. Serving Tysons, Vienna & McLean.
           </p>
 
