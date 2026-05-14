@@ -870,20 +870,31 @@ const Admin = () => {
                             </span>
                           </td>
                           <td className="p-3">
-                            {apt.status === "confirmed" && (
-                              <Button
-                                size="sm"
-                                variant="destructive"
-                                disabled={cancellingId === apt.id}
-                                onClick={() => {
-                                  if (confirm(`Cancel appointment for ${apt.first_name} ${apt.last_name} on ${apt.appointment_date}? A cancellation email will be sent to ${apt.email}.`)) {
-                                    cancelAppointment(apt);
-                                  }
-                                }}
-                              >
-                                {cancellingId === apt.id ? "Cancelling..." : "Cancel"}
-                              </Button>
-                            )}
+                            <div className="flex gap-2">
+                              {apt.status === "confirmed" && (
+                                <>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => openEditDialog(apt)}
+                                  >
+                                    Edit
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="destructive"
+                                    disabled={cancellingId === apt.id}
+                                    onClick={() => {
+                                      if (confirm(`Cancel appointment for ${apt.first_name} ${apt.last_name} on ${apt.appointment_date}? A cancellation email will be sent to ${apt.email}.`)) {
+                                        cancelAppointment(apt);
+                                      }
+                                    }}
+                                  >
+                                    {cancellingId === apt.id ? "Cancelling..." : "Cancel"}
+                                  </Button>
+                                </>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}
