@@ -1549,6 +1549,45 @@ const Admin = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Edit Appointment Dialog */}
+      <Dialog open={!!editingApt} onOpenChange={(o) => !o && setEditingApt(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Appointment</DialogTitle>
+            <DialogDescription>
+              {editingApt && `${editingApt.first_name} ${editingApt.last_name} · ${editingApt.email}`}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div>
+              <Label htmlFor="edit-date">Date</Label>
+              <Input id="edit-date" type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-time">Time (24h, ET)</Label>
+              <Input id="edit-time" type="time" value={editTime} onChange={(e) => setEditTime(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-treatment">Treatment</Label>
+              <Input id="edit-treatment" value={editTreatment} onChange={(e) => setEditTreatment(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-notes">Notes</Label>
+              <Textarea id="edit-notes" rows={3} value={editNotes} onChange={(e) => setEditNotes(e.target.value)} />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              If date or time changes, the client will receive a reschedule email with an updated calendar invite.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditingApt(null)} disabled={savingEdit}>Cancel</Button>
+            <Button onClick={saveAppointmentEdit} disabled={savingEdit}>
+              {savingEdit ? "Saving..." : "Save changes"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
