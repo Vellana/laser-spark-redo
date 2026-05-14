@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { pushEvent } from "@/lib/analytics";
+import heroPoster from "@/assets/Homepage_mainphoto.jpg";
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -17,14 +18,16 @@ const Hero = () => {
         />
         <video
           src="/coolpeel_hero_web.mp4"
+          poster={heroPoster}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-label="CoolPeel CO2 laser skin resurfacing treatment at Virginia Laser Specialists in Tysons, VA"
-          className={`w-full h-full object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className="w-full h-full object-cover"
           onLoadedData={() => setImageLoaded(true)}
+          onLoadedMetadata={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[hsl(215,28%,25%)]/65 via-[hsl(215,28%,30%)]/55 to-[hsl(215,28%,35%)]/45" />
       </div>
