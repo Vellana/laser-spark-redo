@@ -14,7 +14,7 @@ const Hero = () => {
       <div className="absolute inset-0">
         {/* Skeleton placeholder */}
         <div
-          className={`absolute inset-0 bg-primary transition-opacity duration-700 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`}
+          className={`absolute inset-0 bg-primary transition-opacity duration-700 ${imageLoaded ? 'opacity-0' : 'opacity-0'}`}
         />
         <video
           src="/coolpeel_hero_web.mp4"
