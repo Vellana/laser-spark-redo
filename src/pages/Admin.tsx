@@ -77,6 +77,12 @@ const Admin = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(false);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [editingApt, setEditingApt] = useState<Appointment | null>(null);
+  const [editDate, setEditDate] = useState("");
+  const [editTime, setEditTime] = useState("");
+  const [editTreatment, setEditTreatment] = useState("");
+  const [editNotes, setEditNotes] = useState("");
+  const [savingEdit, setSavingEdit] = useState(false);
   const [newLeadEmail, setNewLeadEmail] = useState("");
   const [newLeadSource, setNewLeadSource] = useState("manual");
   const [addingLead, setAddingLead] = useState(false);
@@ -272,6 +278,83 @@ const Admin = () => {
       fetchAppointments();
     } finally {
       setCancellingId(null);
+    }
+  };
+
+  const openEditDialog = (apt: Appointment) => {
+    setEditingApt(apt);
+    setEditDate(apt.appointment_date);
+    setEditTime(apt.appointment_time.substring(0, 5));
+    setEditTreatment(apt.treatment_interest);
+    setEditNotes(apt.notes || "");
+  };
+
+  const saveAppointmentEdit = async () => {
+    if (!editingApt) return;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(editDate) || !/^\d{2}:\d{2}$/.test(editTime)) {
+      toast.error("Invalid date or time format");
+      return;
+    }
+    const oldDate = editingApt.appointment_date;
+    const oldTime = editingApt.appointment_time;
+    const oldGcalId = editingApt.gcal_event_id;
+    const dateChanged = editDate !== oldDate || editTime + ":00" !== oldTime;
+
+    setSavingEdit(true);
+    try {
+      const { error } = await supabase
+        .from("appointments")
+        .update({
+          appointment_date: editDate,
+          appointment_time: editTime,
+          treatment_interest: editTreatment,
+          notes: editNotes,
+        } as any)
+        .eq("id", editingApt.id);
+      if (error) {
+        if ((error as any).code === "23505") toast.error("That date/time slot is already booked");
+        else toast.error("Failed to update appointment");
+        return;
+      }
+
+      if (dateChanged) {
+        // Notify client
+        try {
+          await supabase.functions.invoke("send-reschedule-email", {
+            body: { appointmentId: editingApt.id, oldDate, oldTime },
+          });
+        } catch (e) { console.error("Reschedule email failed:", e); }
+
+        // Recreate Google Calendar event (delete old, create new)
+        if (oldGcalId) {
+          try { await supabase.functions.invoke("delete-calendar-event", { body: { eventId: oldGcalId } }); }
+          catch (e) { console.error("Calendar delete failed:", e); }
+        }
+        try {
+          await supabase.functions.invoke("create-calendar-event", {
+            body: {
+              appointmentId: editingApt.id,
+              firstName: editingApt.first_name,
+              lastName: editingApt.last_name,
+              email: editingApt.email,
+              phone: editingApt.phone || "",
+              treatmentInterest: editTreatment,
+              notes: editNotes,
+              date: editDate,
+              time: editTime,
+            },
+          });
+        } catch (e) { console.error("Calendar create failed:", e); }
+
+        toast.success("Appointment updated & client notified");
+      } else {
+        toast.success("Appointment updated");
+      }
+
+      setEditingApt(null);
+      fetchAppointments();
+    } finally {
+      setSavingEdit(false);
     }
   };
 
@@ -787,20 +870,31 @@ const Admin = () => {
                             </span>
                           </td>
                           <td className="p-3">
-                            {apt.status === "confirmed" && (
-                              <Button
-                                size="sm"
-                                variant="destructive"
-                                disabled={cancellingId === apt.id}
-                                onClick={() => {
-                                  if (confirm(`Cancel appointment for ${apt.first_name} ${apt.last_name} on ${apt.appointment_date}? A cancellation email will be sent to ${apt.email}.`)) {
-                                    cancelAppointment(apt);
-                                  }
-                                }}
-                              >
-                                {cancellingId === apt.id ? "Cancelling..." : "Cancel"}
-                              </Button>
-                            )}
+                            <div className="flex gap-2">
+                              {apt.status === "confirmed" && (
+                                <>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => openEditDialog(apt)}
+                                  >
+                                    Edit
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="destructive"
+                                    disabled={cancellingId === apt.id}
+                                    onClick={() => {
+                                      if (confirm(`Cancel appointment for ${apt.first_name} ${apt.last_name} on ${apt.appointment_date}? A cancellation email will be sent to ${apt.email}.`)) {
+                                        cancelAppointment(apt);
+                                      }
+                                    }}
+                                  >
+                                    {cancellingId === apt.id ? "Cancelling..." : "Cancel"}
+                                  </Button>
+                                </>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -1452,6 +1546,45 @@ const Admin = () => {
               Reset to all
             </Button>
             <Button onClick={() => setRecipientPickerOpen(false)}>Done</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Appointment Dialog */}
+      <Dialog open={!!editingApt} onOpenChange={(o) => !o && setEditingApt(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Appointment</DialogTitle>
+            <DialogDescription>
+              {editingApt && `${editingApt.first_name} ${editingApt.last_name} · ${editingApt.email}`}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3">
+            <div>
+              <Label htmlFor="edit-date">Date</Label>
+              <Input id="edit-date" type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-time">Time (24h, ET)</Label>
+              <Input id="edit-time" type="time" value={editTime} onChange={(e) => setEditTime(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-treatment">Treatment</Label>
+              <Input id="edit-treatment" value={editTreatment} onChange={(e) => setEditTreatment(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-notes">Notes</Label>
+              <Textarea id="edit-notes" rows={3} value={editNotes} onChange={(e) => setEditNotes(e.target.value)} />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              If date or time changes, the client will receive a reschedule email with an updated calendar invite.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditingApt(null)} disabled={savingEdit}>Cancel</Button>
+            <Button onClick={saveAppointmentEdit} disabled={savingEdit}>
+              {savingEdit ? "Saving..." : "Save changes"}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
