@@ -246,27 +246,47 @@ const Admin = () => {
   };
 
   const addClosure = async () => {
-    if (!newClosureDate) { toast.error("Pick a date"); return; }
+    if (!newClosureStartDate) { toast.error("Pick a start date"); return; }
+    const start = newClosureStartDate;
+    const end = newClosureEndDate || start;
+    if (end < start) { toast.error("End date must be on or after start date"); return; }
+
+    // Build inclusive list of YYYY-MM-DD between start and end
+    const dates: string[] = [];
+    const cur = new Date(start + "T12:00:00");
+    const last = new Date(end + "T12:00:00");
+    while (cur <= last) {
+      dates.push(cur.toISOString().slice(0, 10));
+      cur.setDate(cur.getDate() + 1);
+    }
+    if (dates.length > 365) { toast.error("Range too large (max 365 days)"); return; }
+
     setAddingClosure(true);
-    const { error } = await (supabase as any)
-      .from("office_closures")
-      .insert({ closure_date: newClosureDate, reason: newClosureReason.trim() });
+    const reason = newClosureReason.trim();
+    const rows = dates.map((d) => ({ closure_date: d, reason }));
+    const { error } = await (supabase as any).from("office_closures").insert(rows);
     if (error) {
-      toast.error(error.code === "23505" ? "That date is already marked closed" : "Failed to add closure");
+      toast.error(error.code === "23505"
+        ? "One or more dates in that range are already marked closed"
+        : "Failed to add closure");
     } else {
-      toast.success("Office closure added");
-      setNewClosureDate("");
+      toast.success(dates.length === 1 ? "Office closure added" : `${dates.length} closure days added`);
+      setNewClosureStartDate("");
+      setNewClosureEndDate("");
       setNewClosureReason("");
       fetchClosures();
     }
     setAddingClosure(false);
   };
 
-  const deleteClosure = async (id: string) => {
-    if (!confirm("Remove this office closure? Bookings will be allowed again on this date.")) return;
-    const { error } = await (supabase as any).from("office_closures").delete().eq("id", id);
+  const deleteClosure = async (ids: string[]) => {
+    const msg = ids.length > 1
+      ? `Remove this ${ids.length}-day closure range? Bookings will be allowed again on those dates.`
+      : "Remove this office closure? Bookings will be allowed again on this date.";
+    if (!confirm(msg)) return;
+    const { error } = await (supabase as any).from("office_closures").delete().in("id", ids);
     if (error) toast.error("Failed to remove closure");
-    else { toast.success("Closure removed"); fetchClosures(); }
+    else { toast.success(ids.length > 1 ? "Closure range removed" : "Closure removed"); fetchClosures(); }
   };
 
   const fetchSendHistory = async () => {
