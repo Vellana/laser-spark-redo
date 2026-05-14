@@ -358,6 +358,7 @@ const Admin = () => {
     }
   };
 
+  const exportAppointmentsCSV = () => {
     if (!appointments.length) return;
     const headers = ["Date", "Time", "Name", "Email", "Phone", "Treatment", "Status", "Notes"];
     const rows = appointments.map((a) => [
