@@ -361,18 +361,36 @@ const BookConsultation = () => {
               </Card>
             </div>
 
-            {/* Direct Scheduler */}
+            {/* Direct Scheduler — temporarily suspended */}
             <div id="scheduler" className="scroll-mt-24">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-2">
-                    <Calendar className="w-6 h-6 text-accent" />
-                    Schedule Your Free Consultation
+              <Card className="border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800">
+                <CardHeader className="text-center">
+                  <div className="w-14 h-14 mx-auto bg-amber-100 dark:bg-amber-800/40 rounded-full flex items-center justify-center mb-3">
+                    <Clock className="w-7 h-7 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <CardTitle className="text-2xl text-amber-800 dark:text-amber-300">
+                    Online Booking Temporarily Unavailable
                   </CardTitle>
-                  <p className="text-sm text-muted-foreground">30-minute appointments · Eastern Time</p>
                 </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-8">
+                <CardContent className="text-center space-y-4">
+                  <p className="text-amber-700 dark:text-amber-400">
+                    We are not accepting new online bookings at this time.
+                  </p>
+                  <p className="text-muted-foreground">
+                    Please call us to schedule your appointment:
+                  </p>
+                  <a href="tel:703-547-4499">
+                    <Button
+                      size="lg"
+                      className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8"
+                    >
+                      <Phone className="w-5 h-5 mr-2" />
+                      703-547-4499
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
+            </div>
                     {/* Step 1: Select Date */}
                     <div className="space-y-3">
                       <Label className="text-base font-semibold">1. Select a Date</Label>
