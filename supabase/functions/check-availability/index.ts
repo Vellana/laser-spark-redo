@@ -86,8 +86,32 @@ async function getGCalBusySlots(date: string): Promise<string[]> {
     const hours = BUSINESS_HOURS[dow];
     if (!hours) return [];
 
-    const timeMin = `${date}T${hours.start}:00-04:00`; // ET offset (approximate)
-    const timeMax = `${date}T${hours.end}:00-04:00`;
+    // DST-aware America/New_York offset for the given local date+time.
+    // Returns "-04:00" during EDT, "-05:00" during EST. Uses Intl to ask the
+    // IANA tz database what offset applies at that wall-clock instant, so
+    // spring-forward / fall-back transitions are handled correctly.
+    const etOffset = (localDate: string, localTime: string): string => {
+      // Interpret the local wall time as if it were UTC, then ask what offset
+      // America/New_York has at that instant. The offset string from
+      // formatToParts has the form "GMT-4" / "GMT-5" / "GMT-04:30" etc.
+      const asUtc = new Date(`${localDate}T${localTime}:00Z`);
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        timeZoneName: "longOffset",
+      }).formatToParts(asUtc);
+      const tzName = parts.find((p) => p.type === "timeZoneName")?.value ?? "GMT-05:00";
+      const m = tzName.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?/);
+      if (!m) return "-05:00";
+      const sign = m[1];
+      const hh = m[2].padStart(2, "0");
+      const mm = (m[3] ?? "00").padStart(2, "0");
+      return `${sign}${hh}:${mm}`;
+    };
+
+    const offsetStart = etOffset(date, hours.start);
+    const offsetEnd = etOffset(date, hours.end);
+    const timeMin = `${date}T${hours.start}:00${offsetStart}`;
+    const timeMax = `${date}T${hours.end}:00${offsetEnd}`;
 
     const freeBusyRes = await fetch("https://www.googleapis.com/calendar/v3/freeBusy", {
       method: "POST",
