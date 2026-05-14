@@ -180,6 +180,39 @@ serve(async (req: Request) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
+    // Check office closure first — if the office is closed, block ALL slots that day
+    const { data: closureRow, error: closureErr } = await supabaseAdmin
+      .from("office_closures")
+      .select("closure_date, reason")
+      .eq("closure_date", date)
+      .maybeSingle();
+    if (closureErr) console.warn("office_closures lookup failed:", closureErr);
+
+    if (closureRow) {
+      // Generate every 30-min slot in business hours for that DOW and mark them all booked
+      const d = new Date(date + "T12:00:00");
+      const dow = d.getDay();
+      const hours = BUSINESS_HOURS[dow];
+      const allSlots: string[] = [];
+      if (hours) {
+        const [sh, sm] = hours.start.split(":").map(Number);
+        const [eh, em] = hours.end.split(":").map(Number);
+        for (let m = sh * 60 + sm; m < eh * 60 + em; m += 30) {
+          allSlots.push(
+            `${Math.floor(m / 60).toString().padStart(2, "0")}:${(m % 60).toString().padStart(2, "0")}`,
+          );
+        }
+      }
+      return new Response(
+        JSON.stringify({
+          bookedSlots: allSlots,
+          closed: true,
+          closureReason: closureRow.reason || "",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } },
+      );
+    }
+
     // Get booked slots from database
     const { data, error } = await supabaseAdmin
       .from("appointments")
@@ -197,7 +230,7 @@ serve(async (req: Request) => {
     // Merge and deduplicate
     const allBookedSlots = [...new Set([...dbBookedSlots, ...gcalBusySlots])];
 
-    return new Response(JSON.stringify({ bookedSlots: allBookedSlots }), {
+    return new Response(JSON.stringify({ bookedSlots: allBookedSlots, closed: false }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
