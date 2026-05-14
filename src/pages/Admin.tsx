@@ -105,7 +105,8 @@ const Admin = () => {
   // Office closures
   const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
   const [closuresLoading, setClosuresLoading] = useState(false);
-  const [newClosureDate, setNewClosureDate] = useState("");
+  const [newClosureStartDate, setNewClosureStartDate] = useState("");
+  const [newClosureEndDate, setNewClosureEndDate] = useState("");
   const [newClosureReason, setNewClosureReason] = useState("");
   const [addingClosure, setAddingClosure] = useState(false);
 
@@ -245,27 +246,47 @@ const Admin = () => {
   };
 
   const addClosure = async () => {
-    if (!newClosureDate) { toast.error("Pick a date"); return; }
+    if (!newClosureStartDate) { toast.error("Pick a start date"); return; }
+    const start = newClosureStartDate;
+    const end = newClosureEndDate || start;
+    if (end < start) { toast.error("End date must be on or after start date"); return; }
+
+    // Build inclusive list of YYYY-MM-DD between start and end
+    const dates: string[] = [];
+    const cur = new Date(start + "T12:00:00");
+    const last = new Date(end + "T12:00:00");
+    while (cur <= last) {
+      dates.push(cur.toISOString().slice(0, 10));
+      cur.setDate(cur.getDate() + 1);
+    }
+    if (dates.length > 365) { toast.error("Range too large (max 365 days)"); return; }
+
     setAddingClosure(true);
-    const { error } = await (supabase as any)
-      .from("office_closures")
-      .insert({ closure_date: newClosureDate, reason: newClosureReason.trim() });
+    const reason = newClosureReason.trim();
+    const rows = dates.map((d) => ({ closure_date: d, reason }));
+    const { error } = await (supabase as any).from("office_closures").insert(rows);
     if (error) {
-      toast.error(error.code === "23505" ? "That date is already marked closed" : "Failed to add closure");
+      toast.error(error.code === "23505"
+        ? "One or more dates in that range are already marked closed"
+        : "Failed to add closure");
     } else {
-      toast.success("Office closure added");
-      setNewClosureDate("");
+      toast.success(dates.length === 1 ? "Office closure added" : `${dates.length} closure days added`);
+      setNewClosureStartDate("");
+      setNewClosureEndDate("");
       setNewClosureReason("");
       fetchClosures();
     }
     setAddingClosure(false);
   };
 
-  const deleteClosure = async (id: string) => {
-    if (!confirm("Remove this office closure? Bookings will be allowed again on this date.")) return;
-    const { error } = await (supabase as any).from("office_closures").delete().eq("id", id);
+  const deleteClosure = async (ids: string[]) => {
+    const msg = ids.length > 1
+      ? `Remove this ${ids.length}-day closure range? Bookings will be allowed again on those dates.`
+      : "Remove this office closure? Bookings will be allowed again on this date.";
+    if (!confirm(msg)) return;
+    const { error } = await (supabase as any).from("office_closures").delete().in("id", ids);
     if (error) toast.error("Failed to remove closure");
-    else { toast.success("Closure removed"); fetchClosures(); }
+    else { toast.success(ids.length > 1 ? "Closure range removed" : "Closure removed"); fetchClosures(); }
   };
 
   const fetchSendHistory = async () => {
@@ -972,15 +993,30 @@ const Admin = () => {
                 <CardTitle className="text-base">Add a closure</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="grid sm:grid-cols-[200px_1fr_auto] gap-3 items-end">
+                <div className="grid sm:grid-cols-[180px_180px_1fr_auto] gap-3 items-end">
                   <div>
-                    <Label htmlFor="closure-date">Date</Label>
+                    <Label htmlFor="closure-start-date">Start date</Label>
                     <Input
-                      id="closure-date"
+                      id="closure-start-date"
                       type="date"
-                      value={newClosureDate}
+                      value={newClosureStartDate}
                       min={new Date().toISOString().slice(0, 10)}
-                      onChange={(e) => setNewClosureDate(e.target.value)}
+                      onChange={(e) => {
+                        setNewClosureStartDate(e.target.value);
+                        if (newClosureEndDate && e.target.value > newClosureEndDate) {
+                          setNewClosureEndDate(e.target.value);
+                        }
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="closure-end-date">End date</Label>
+                    <Input
+                      id="closure-end-date"
+                      type="date"
+                      value={newClosureEndDate}
+                      min={newClosureStartDate || new Date().toISOString().slice(0, 10)}
+                      onChange={(e) => setNewClosureEndDate(e.target.value)}
                     />
                   </div>
                   <div>
@@ -997,6 +1033,9 @@ const Admin = () => {
                     {addingClosure ? "Adding..." : "Add"}
                   </Button>
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  Leave end date blank to close a single day. Range is inclusive.
+                </p>
               </CardContent>
             </Card>
 
@@ -1006,32 +1045,66 @@ const Admin = () => {
               <p className="text-center text-muted-foreground py-8">No office closures scheduled.</p>
             ) : (
               <div className="space-y-2">
-                {closures.map((c) => {
-                  const past = c.closure_date < new Date().toISOString().slice(0, 10);
-                  return (
-                    <Card key={c.id} className={past ? "opacity-60" : ""}>
-                      <CardContent className="flex items-center justify-between py-3">
-                        <div>
-                          <p className="font-medium text-foreground">
-                            {new Date(c.closure_date + "T12:00:00").toLocaleDateString("en-US", {
-                              weekday: "long", month: "long", day: "numeric", year: "numeric",
-                            })}
-                            {past && <span className="ml-2 text-xs text-muted-foreground">(past)</span>}
-                          </p>
-                          {c.reason && <p className="text-sm text-muted-foreground">{c.reason}</p>}
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => deleteClosure(c.id)}
-                          aria-label="Remove closure"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
+                {(() => {
+                  // Group consecutive closures sharing identical reason AND created within 2 minutes of each other
+                  const sorted = [...closures].sort((a, b) => a.closure_date.localeCompare(b.closure_date));
+                  const groups: Array<{ ids: string[]; start: string; end: string; reason: string }> = [];
+                  for (const c of sorted) {
+                    const last = groups[groups.length - 1];
+                    const prevDate = last ? new Date(last.end + "T12:00:00") : null;
+                    const curDate = new Date(c.closure_date + "T12:00:00");
+                    const consecutive = prevDate
+                      ? (curDate.getTime() - prevDate.getTime()) === 86400000
+                      : false;
+                    const sameReason = last && (last.reason || "") === (c.reason || "");
+                    // Group only if same reason AND consecutive AND created within 2 minutes
+                    const lastCreated = last ? closures.find(x => x.id === last.ids[last.ids.length - 1])?.created_at : null;
+                    const closeInTime = lastCreated
+                      ? Math.abs(new Date(c.created_at).getTime() - new Date(lastCreated).getTime()) < 120000
+                      : false;
+                    if (last && consecutive && sameReason && closeInTime) {
+                      last.ids.push(c.id);
+                      last.end = c.closure_date;
+                    } else {
+                      groups.push({ ids: [c.id], start: c.closure_date, end: c.closure_date, reason: c.reason || "" });
+                    }
+                  }
+                  const today = new Date().toISOString().slice(0, 10);
+                  return groups.map((g) => {
+                    const past = g.end < today;
+                    const isRange = g.ids.length > 1;
+                    const fmt = (d: string) =>
+                      new Date(d + "T12:00:00").toLocaleDateString("en-US", {
+                        weekday: "long", month: "long", day: "numeric", year: "numeric",
+                      });
+                    return (
+                      <Card key={g.ids.join(",")} className={past ? "opacity-60" : ""}>
+                        <CardContent className="flex items-center justify-between py-3">
+                          <div>
+                            <p className="font-medium text-foreground">
+                              {isRange ? `${fmt(g.start)} → ${fmt(g.end)}` : fmt(g.start)}
+                              {isRange && (
+                                <span className="ml-2 text-xs text-muted-foreground">
+                                  ({g.ids.length} days)
+                                </span>
+                              )}
+                              {past && <span className="ml-2 text-xs text-muted-foreground">(past)</span>}
+                            </p>
+                            {g.reason && <p className="text-sm text-muted-foreground">{g.reason}</p>}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => deleteClosure(g.ids)}
+                            aria-label="Remove closure"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    );
+                  });
+                })()}
               </div>
             )}
           </TabsContent>
