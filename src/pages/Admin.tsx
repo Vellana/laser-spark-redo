@@ -954,6 +954,88 @@ const Admin = () => {
             )}
           </TabsContent>
 
+          {/* Office Closures Tab */}
+          <TabsContent value="closures" className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground">Office Closures</h2>
+              <Button variant="outline" size="sm" onClick={fetchClosures}>Refresh</Button>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Mark dates the office is closed (holidays, time off, conferences). Closed dates are
+              automatically removed from the public booking grid and any booking attempt is blocked.
+              <strong className="block mt-1">Note:</strong> this does not push to Vagaro — also block
+              the date in Vagaro to keep both systems in sync.
+            </p>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Add a closure</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="grid sm:grid-cols-[200px_1fr_auto] gap-3 items-end">
+                  <div>
+                    <Label htmlFor="closure-date">Date</Label>
+                    <Input
+                      id="closure-date"
+                      type="date"
+                      value={newClosureDate}
+                      min={new Date().toISOString().slice(0, 10)}
+                      onChange={(e) => setNewClosureDate(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="closure-reason">Reason (optional, internal)</Label>
+                    <Input
+                      id="closure-reason"
+                      placeholder="e.g. Office closed — Memorial Day"
+                      value={newClosureReason}
+                      onChange={(e) => setNewClosureReason(e.target.value)}
+                    />
+                  </div>
+                  <Button onClick={addClosure} disabled={addingClosure}>
+                    <Plus className="w-4 h-4 mr-1" />
+                    {addingClosure ? "Adding..." : "Add"}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {closuresLoading ? (
+              <p className="text-center text-muted-foreground">Loading...</p>
+            ) : closures.length === 0 ? (
+              <p className="text-center text-muted-foreground py-8">No office closures scheduled.</p>
+            ) : (
+              <div className="space-y-2">
+                {closures.map((c) => {
+                  const past = c.closure_date < new Date().toISOString().slice(0, 10);
+                  return (
+                    <Card key={c.id} className={past ? "opacity-60" : ""}>
+                      <CardContent className="flex items-center justify-between py-3">
+                        <div>
+                          <p className="font-medium text-foreground">
+                            {new Date(c.closure_date + "T12:00:00").toLocaleDateString("en-US", {
+                              weekday: "long", month: "long", day: "numeric", year: "numeric",
+                            })}
+                            {past && <span className="ml-2 text-xs text-muted-foreground">(past)</span>}
+                          </p>
+                          {c.reason && <p className="text-sm text-muted-foreground">{c.reason}</p>}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteClosure(c.id)}
+                          aria-label="Remove closure"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
+          </TabsContent>
+
           {/* Leads Tab */}
           <TabsContent value="leads" className="space-y-4">
             <div className="flex items-center justify-between">
