@@ -25,7 +25,7 @@ const Hero = () => {
           playsInline
           preload="metadata"
           aria-label="CoolPeel CO2 laser skin resurfacing treatment at Virginia Laser Specialists in Tysons, VA"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-[1.1]"
           onLoadedData={() => setImageLoaded(true)}
           onLoadedMetadata={() => setImageLoaded(true)}
         />
