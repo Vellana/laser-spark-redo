@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, CheckCircle, ExternalLink, Clock } from "lucide-react";
+import { Calendar, CheckCircle, ExternalLink, Clock, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { toast } from "sonner";
@@ -361,175 +361,33 @@ const BookConsultation = () => {
               </Card>
             </div>
 
-            {/* Direct Scheduler */}
+            {/* Direct Scheduler — temporarily suspended */}
             <div id="scheduler" className="scroll-mt-24">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-2">
-                    <Calendar className="w-6 h-6 text-accent" />
-                    Schedule Your Free Consultation
+              <Card className="border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800">
+                <CardHeader className="text-center">
+                  <div className="w-14 h-14 mx-auto bg-amber-100 dark:bg-amber-800/40 rounded-full flex items-center justify-center mb-3">
+                    <Clock className="w-7 h-7 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <CardTitle className="text-2xl text-amber-800 dark:text-amber-300">
+                    Online Booking Temporarily Unavailable
                   </CardTitle>
-                  <p className="text-sm text-muted-foreground">30-minute appointments · Eastern Time</p>
                 </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    {/* Step 1: Select Date */}
-                    <div className="space-y-3">
-                      <Label className="text-base font-semibold">1. Select a Date</Label>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                        {availableDates.map((date) => {
-                          const isSelected = selectedDate && toDateString(selectedDate) === toDateString(date);
-                          return (
-                            <button
-                              key={toDateString(date)}
-                              type="button"
-                              onClick={() => setSelectedDate(date)}
-                              className={`p-3 rounded-lg border text-sm text-left transition-all ${
-                                isSelected
-                                  ? "border-accent bg-accent/10 text-foreground font-medium"
-                                  : "border-border hover:border-accent/50 text-foreground"
-                              }`}
-                            >
-                              <div className="font-medium">
-                                {date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {/* Step 2: Select Time */}
-                    {selectedDate && (
-                      <div className="space-y-3">
-                        <Label className="text-base font-semibold">2. Select a Time</Label>
-                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                          {timeSlots.map((time) => {
-                            const isBooked = bookedSlots.includes(time);
-                            const isSelected = selectedTime === time;
-                            return (
-                              <button
-                                key={time}
-                                type="button"
-                                disabled={isBooked}
-                                onClick={() => setSelectedTime(time)}
-                                className={`p-2 rounded-lg border text-sm text-center transition-all ${
-                                  isBooked
-                                    ? "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
-                                    : isSelected
-                                    ? "border-accent bg-accent/10 text-foreground font-medium"
-                                    : "border-border hover:border-accent/50 text-foreground"
-                                }`}
-                              >
-                                {formatTime(time)}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Step 3: Your Information */}
-                    {selectedTime && (
-                      <div className="space-y-4">
-                        <Label className="text-base font-semibold">3. Your Information</Label>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="firstName">First Name *</Label>
-                            <Input
-                              id="firstName"
-                              required
-                              maxLength={50}
-                              value={formData.firstName}
-                              onChange={(e) => setFormData((p) => ({ ...p, firstName: e.target.value }))}
-                              placeholder="Jane"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="lastName">Last Name *</Label>
-                            <Input
-                              id="lastName"
-                              required
-                              maxLength={50}
-                              value={formData.lastName}
-                              onChange={(e) => setFormData((p) => ({ ...p, lastName: e.target.value }))}
-                              placeholder="Doe"
-                            />
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="bookEmail">Email *</Label>
-                            <Input
-                              id="bookEmail"
-                              type="email"
-                              required
-                              maxLength={255}
-                              value={formData.email}
-                              onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                              placeholder="jane@example.com"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="bookPhone">Phone</Label>
-                            <Input
-                              id="bookPhone"
-                              type="tel"
-                              maxLength={20}
-                              value={formData.phone}
-                              onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                              placeholder="(703) 555-1234"
-                            />
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="treatment">Treatment Interest *</Label>
-                          <Select
-                            value={formData.treatmentInterest}
-                            onValueChange={(v) => setFormData((p) => ({ ...p, treatmentInterest: v }))}
-                          >
-                            <SelectTrigger id="treatment">
-                              <SelectValue placeholder="Select a treatment" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="CoolPeel">CoolPeel</SelectItem>
-                              <SelectItem value="Laser Hair Removal">Laser Hair Removal</SelectItem>
-                              <SelectItem value="Tattoo Removal">Tattoo Removal</SelectItem>
-                              <SelectItem value="Other">Other</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="notes">Additional Notes</Label>
-                          <Textarea
-                            id="notes"
-                            maxLength={1000}
-                            rows={3}
-                            value={formData.notes}
-                            onChange={(e) => setFormData((p) => ({ ...p, notes: e.target.value }))}
-                            placeholder="Any questions or details about your goals..."
-                          />
-                        </div>
-
-                        {/* Summary */}
-                        <div className="bg-accent/5 border border-accent/20 rounded-lg p-4 space-y-1">
-                          <p className="text-sm font-semibold text-foreground">Your Selected Appointment:</p>
-                          <p className="text-sm text-muted-foreground">
-                            {formatDate(selectedDate!)} at {formatTime(selectedTime)} (Eastern)
-                          </p>
-                        </div>
-
-                        <Button
-                          type="submit"
-                          size="lg"
-                          disabled={loading}
-                          className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold"
-                        >
-                          {loading ? "Booking..." : "Confirm Booking"}
-                        </Button>
-                      </div>
-                    )}
-                  </form>
+                <CardContent className="text-center space-y-4">
+                  <p className="text-amber-700 dark:text-amber-400">
+                    We are not accepting new online bookings at this time.
+                  </p>
+                  <p className="text-muted-foreground">
+                    Please call us to schedule your appointment:
+                  </p>
+                  <a href="tel:703-547-4499">
+                    <Button
+                      size="lg"
+                      className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8"
+                    >
+                      <Phone className="w-5 h-5 mr-2" />
+                      703-547-4499
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
             </div>
