@@ -102,6 +102,13 @@ const Admin = () => {
   const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
 
+  // Office closures
+  const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
+  const [closuresLoading, setClosuresLoading] = useState(false);
+  const [newClosureDate, setNewClosureDate] = useState("");
+  const [newClosureReason, setNewClosureReason] = useState("");
+  const [addingClosure, setAddingClosure] = useState(false);
+
   const composeExecCmd = (cmd: string, value?: string) => {
     composeEditorRef.current?.focus();
     document.execCommand(cmd, false, value);
