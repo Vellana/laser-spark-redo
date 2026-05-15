@@ -520,34 +520,58 @@ const BookConsultation = () => {
                             Office closed: {closureReason}. Please pick another date.
                           </p>
                         ) : (
-                          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-                            {timeSlots.map((t) => {
-                              const isBooked = bookedSlots.includes(t);
-                              const isSelected = selectedTime === t;
-                              return (
-                                <button
-                                  key={t}
-                                  type="button"
-                                  disabled={isBooked}
-                                  onClick={() => setSelectedTime(t)}
-                                  className={`px-2 py-2 rounded-md border text-sm transition-colors ${
-                                    isBooked
-                                      ? "bg-muted text-muted-foreground/50 line-through cursor-not-allowed border-border"
-                                      : isSelected
-                                        ? "bg-accent text-primary border-accent font-semibold"
-                                        : "bg-background border-border hover:border-accent/60"
-                                  }`}
-                                >
-                                  {formatTime(t)}
-                                </button>
-                              );
-                            })}
-                            {timeSlots.every((t) => bookedSlots.includes(t)) && (
-                              <p className="col-span-full text-sm text-muted-foreground py-2">
-                                No openings on this date — please pick another.
-                              </p>
-                            )}
-                          </div>
+                          <TooltipProvider delayDuration={150}>
+                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                              {timeSlots.map((t) => {
+                                const dateStr = toDateString(selectedDate);
+                                const cutoffMs = Date.now() + minAdvanceHours * 60 * 60 * 1000;
+                                const isTooSoon = slotInstant(dateStr, t) < cutoffMs;
+                                const isBooked = bookedSlots.includes(t) && !isTooSoon;
+                                const isSelected = selectedTime === t;
+                                const disabled = isBooked || isTooSoon;
+                                const btn = (
+                                  <button
+                                    type="button"
+                                    disabled={disabled}
+                                    onClick={() => !disabled && setSelectedTime(t)}
+                                    className={`px-2 py-2 rounded-md border text-sm transition-colors w-full ${
+                                      isTooSoon
+                                        ? "bg-muted text-muted-foreground/60 cursor-not-allowed border-border"
+                                        : isBooked
+                                          ? "bg-muted text-muted-foreground/50 line-through cursor-not-allowed border-border"
+                                          : isSelected
+                                            ? "bg-accent text-primary border-accent font-semibold"
+                                            : "bg-background border-border hover:border-accent/60"
+                                    }`}
+                                  >
+                                    {formatTime(t)}
+                                  </button>
+                                );
+                                if (isTooSoon) {
+                                  return (
+                                    <Tooltip key={t}>
+                                      <TooltipTrigger asChild>
+                                        <span className="block">{btn}</span>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        Bookings require {minAdvanceHours}h notice — please call 703-547-4499
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  );
+                                }
+                                return <span key={t}>{btn}</span>;
+                              })}
+                              {timeSlots.every((t) => {
+                                const dateStr = toDateString(selectedDate);
+                                const cutoffMs = Date.now() + minAdvanceHours * 60 * 60 * 1000;
+                                return bookedSlots.includes(t) || slotInstant(dateStr, t) < cutoffMs;
+                              }) && (
+                                <p className="col-span-full text-sm text-muted-foreground py-2">
+                                  No openings on this date — please pick another.
+                                </p>
+                              )}
+                            </div>
+                          </TooltipProvider>
                         )}
                       </div>
                     )}
