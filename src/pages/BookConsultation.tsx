@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, CheckCircle, ExternalLink, Clock, Phone } from "lucide-react";
+import { Calendar, CheckCircle, ExternalLink, Clock, Phone, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { toast } from "sonner";
@@ -34,6 +34,12 @@ const BUSINESS_HOURS: Record<number, { start: string; end: string } | null> = {
   5: { start: "10:00", end: "17:30" }, // Friday
   6: { start: "09:00", end: "12:30" }, // Saturday
 };
+
+const TREATMENT_OPTIONS = [
+  "CoolPeel Laser Skin Resurfacing",
+  "Laser Hair Removal",
+  "Other / Not Sure",
+];
 
 const bookingSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(50),
@@ -84,6 +90,10 @@ function formatDate(d: Date): string {
   return d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
 }
 
+function formatShortDate(d: Date): string {
+  return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+}
+
 function toDateString(d: Date): string {
   const y = d.getFullYear();
   const m = (d.getMonth() + 1).toString().padStart(2, "0");
@@ -97,8 +107,11 @@ const BookConsultation = () => {
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [closureReason, setClosureReason] = useState<string | null>(null);
   const [closedDates, setClosedDates] = useState<Set<string>>(new Set());
+  const [loadingSlots, setLoadingSlots] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [fallbackMode, setFallbackMode] = useState(false);
+  const [precheckDone, setPrecheckDone] = useState(false);
   const [formData, setFormData] = useState(() => {
     const savedEmail = sessionStorage.getItem("vls_user_email") || "";
     return {
@@ -117,7 +130,7 @@ const BookConsultation = () => {
     [allDates, closedDates],
   );
 
-  // Fetch upcoming office closures once so closed dates drop out of the grid
+  // Fetch upcoming office closures
   useEffect(() => {
     (async () => {
       const today = new Date().toISOString().slice(0, 10);
@@ -129,22 +142,67 @@ const BookConsultation = () => {
     })();
   }, []);
 
+  // Background precheck: if every date in the next 30 days has zero slots OR
+  // we get a real 5xx, fall back to the call-us banner.
+  useEffect(() => {
+    if (availableDates.length === 0) return;
+    let cancelled = false;
+    (async () => {
+      const sample = availableDates.slice(0, Math.min(availableDates.length, 21));
+      let any5xx = false;
+      let anyOpen = false;
+      const results = await Promise.all(
+        sample.map(async (d) => {
+          try {
+            const res = await supabase.functions.invoke("check-availability", {
+              body: { date: toDateString(d) },
+            });
+            if (res.error) {
+              const status = (res.error as any)?.context?.status ?? 0;
+              if (status >= 500) any5xx = true;
+              return null;
+            }
+            return res.data;
+          } catch {
+            any5xx = true;
+            return null;
+          }
+        }),
+      );
+      if (cancelled) return;
+      for (let i = 0; i < sample.length; i++) {
+        const data = results[i];
+        if (!data) continue;
+        const dow = sample[i].getDay();
+        const total = generateTimeSlots(dow).length;
+        const booked = (data.bookedSlots || []).length;
+        if (!data.closed && total - booked > 0) {
+          anyOpen = true;
+          break;
+        }
+      }
+      if (any5xx || !anyOpen) setFallbackMode(true);
+      setPrecheckDone(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [availableDates]);
+
   // Fetch booked slots for selected date
   useEffect(() => {
     if (!selectedDate) return;
     const dateStr = toDateString(selectedDate);
-
-    const fetchBooked = async () => {
-      // Use edge function to check availability (bypasses RLS)
+    setLoadingSlots(true);
+    (async () => {
       const res = await supabase.functions.invoke("check-availability", {
         body: { date: dateStr },
       });
-      if (res.data?.bookedSlots) {
-        setBookedSlots(res.data.bookedSlots);
-      }
+      if (res.data?.bookedSlots) setBookedSlots(res.data.bookedSlots);
+      else setBookedSlots([]);
       setClosureReason(res.data?.closed ? (res.data.closureReason || "Office closed") : null);
-    };
-    fetchBooked();
+      setLoadingSlots(false);
+    })();
     setSelectedTime(null);
   }, [selectedDate]);
 
@@ -168,7 +226,6 @@ const BookConsultation = () => {
     const appointmentId = crypto.randomUUID();
 
     try {
-      // Insert appointment
       const { error } = await supabase.from("appointments").insert({
         id: appointmentId,
         first_name: result.data.firstName,
@@ -201,18 +258,14 @@ const BookConsultation = () => {
         return;
       }
 
-      // Also capture as email lead
       try {
         await supabase.from("email_leads").insert({
           email: result.data.email,
           source: "booking_form",
-          ...Object.fromEntries(
-            Object.entries(utms).filter(([_, v]) => v)
-          ),
+          ...Object.fromEntries(Object.entries(utms).filter(([_, v]) => v)),
         } as any);
       } catch {}
 
-      // Send confirmation emails
       await supabase.functions.invoke("send-booking-confirmation", {
         body: {
           firstName: result.data.firstName,
@@ -226,7 +279,6 @@ const BookConsultation = () => {
         },
       });
 
-      // Create Google Calendar event (fire & forget - gracefully handles missing credentials)
       try {
         await supabase.functions.invoke("create-calendar-event", {
           body: {
@@ -271,9 +323,7 @@ const BookConsultation = () => {
                 <CheckCircle className="w-10 h-10 text-accent" />
               </div>
               <h1 className="text-4xl font-bold text-foreground">Consultation Booked!</h1>
-              <p className="text-lg text-muted-foreground">
-                Your free consultation is scheduled for:
-              </p>
+              <p className="text-lg text-muted-foreground">Your free consultation is scheduled for:</p>
               <div className="bg-card border border-border rounded-xl p-6 space-y-2">
                 <p className="text-xl font-semibold text-foreground">
                   {selectedDate && formatDate(selectedDate)}
@@ -286,16 +336,11 @@ const BookConsultation = () => {
                 </p>
               </div>
               <p className="text-muted-foreground">
-                A confirmation email has been sent to <strong>{formData.email}</strong>.
-                We look forward to seeing you!
+                A confirmation email has been sent to <strong>{formData.email}</strong>. We look forward to seeing you!
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                <a href="/">
-                  <Button variant="outline">Back to Home</Button>
-                </a>
-                <a href="tel:703-547-4499">
-                  <Button variant="accent">Call Us: 703-547-4499</Button>
-                </a>
+                <a href="/"><Button variant="outline">Back to Home</Button></a>
+                <a href="tel:703-547-4499"><Button variant="accent">Call Us: 703-547-4499</Button></a>
               </div>
             </div>
           </section>
@@ -380,35 +425,191 @@ const BookConsultation = () => {
               </Card>
             </div>
 
-            {/* Direct Scheduler — temporarily suspended */}
+            {/* Direct Scheduler */}
             <div id="scheduler" className="scroll-mt-24">
-              <Card className="border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800">
-                <CardHeader className="text-center">
-                  <div className="w-14 h-14 mx-auto bg-amber-100 dark:bg-amber-800/40 rounded-full flex items-center justify-center mb-3">
-                    <Clock className="w-7 h-7 text-amber-600 dark:text-amber-400" />
-                  </div>
-                  <CardTitle className="text-2xl text-amber-800 dark:text-amber-300">
-                    Online Booking Temporarily Unavailable
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-center space-y-4">
-                  <p className="text-amber-700 dark:text-amber-400">
-                    We are not accepting new online bookings at this time.
-                  </p>
-                  <p className="text-muted-foreground">
-                    Please call us to schedule your appointment:
-                  </p>
-                  <a href="tel:703-547-4499">
-                    <Button
-                      size="lg"
-                      className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8"
-                    >
-                      <Phone className="w-5 h-5 mr-2" />
-                      703-547-4499
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
+              {fallbackMode ? (
+                <Card className="border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800">
+                  <CardHeader className="text-center">
+                    <div className="w-14 h-14 mx-auto bg-amber-100 dark:bg-amber-800/40 rounded-full flex items-center justify-center mb-3">
+                      <Clock className="w-7 h-7 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <CardTitle className="text-2xl text-amber-800 dark:text-amber-300">
+                      No Online Slots Available Right Now
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center space-y-4">
+                    <p className="text-amber-700 dark:text-amber-400">
+                      All upcoming online slots are currently booked. Please call us to schedule:
+                    </p>
+                    <a href="tel:703-547-4499">
+                      <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
+                        <Phone className="w-5 h-5 mr-2" />
+                        703-547-4499
+                      </Button>
+                    </a>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="border-2 border-accent/30">
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center gap-2">
+                      <Calendar className="w-6 h-6 text-accent" /> Pick a Date &amp; Time
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      All times Eastern. 30-minute complimentary consultation.
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Date grid */}
+                    <div>
+                      <Label className="mb-3 block font-semibold">Select a date</Label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-72 overflow-y-auto pr-1">
+                        {availableDates.map((d) => {
+                          const isSelected = selectedDate && toDateString(selectedDate) === toDateString(d);
+                          return (
+                            <button
+                              key={toDateString(d)}
+                              type="button"
+                              onClick={() => setSelectedDate(d)}
+                              className={`px-3 py-2 rounded-md border text-sm transition-colors text-left ${
+                                isSelected
+                                  ? "bg-accent text-primary border-accent font-semibold"
+                                  : "bg-background border-border hover:border-accent/60"
+                              }`}
+                            >
+                              {formatShortDate(d)}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Time grid */}
+                    {selectedDate && (
+                      <div>
+                        <Label className="mb-3 block font-semibold">
+                          Select a time for {formatDate(selectedDate)}
+                        </Label>
+                        {loadingSlots ? (
+                          <div className="flex items-center gap-2 text-muted-foreground text-sm py-4">
+                            <Loader2 className="w-4 h-4 animate-spin" /> Loading availability…
+                          </div>
+                        ) : closureReason ? (
+                          <p className="text-sm text-muted-foreground py-4">
+                            Office closed: {closureReason}. Please pick another date.
+                          </p>
+                        ) : (
+                          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                            {timeSlots.map((t) => {
+                              const isBooked = bookedSlots.includes(t);
+                              const isSelected = selectedTime === t;
+                              return (
+                                <button
+                                  key={t}
+                                  type="button"
+                                  disabled={isBooked}
+                                  onClick={() => setSelectedTime(t)}
+                                  className={`px-2 py-2 rounded-md border text-sm transition-colors ${
+                                    isBooked
+                                      ? "bg-muted text-muted-foreground/50 line-through cursor-not-allowed border-border"
+                                      : isSelected
+                                        ? "bg-accent text-primary border-accent font-semibold"
+                                        : "bg-background border-border hover:border-accent/60"
+                                  }`}
+                                >
+                                  {formatTime(t)}
+                                </button>
+                              );
+                            })}
+                            {timeSlots.every((t) => bookedSlots.includes(t)) && (
+                              <p className="col-span-full text-sm text-muted-foreground py-2">
+                                No openings on this date — please pick another.
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Form */}
+                    {selectedDate && selectedTime && !closureReason && (
+                      <form onSubmit={handleSubmit} className="space-y-4 pt-4 border-t border-border">
+                        <div className="grid sm:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="firstName">First name *</Label>
+                            <Input
+                              id="firstName"
+                              required
+                              value={formData.firstName}
+                              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="lastName">Last name *</Label>
+                            <Input
+                              id="lastName"
+                              required
+                              value={formData.lastName}
+                              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="email">Email *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone">Phone (optional)</Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="treatment">Treatment interest *</Label>
+                          <Select
+                            value={formData.treatmentInterest}
+                            onValueChange={(v) => setFormData({ ...formData, treatmentInterest: v })}
+                          >
+                            <SelectTrigger id="treatment">
+                              <SelectValue placeholder="Select a treatment" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {TREATMENT_OPTIONS.map((opt) => (
+                                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label htmlFor="notes">Notes (optional)</Label>
+                          <Textarea
+                            id="notes"
+                            rows={3}
+                            value={formData.notes}
+                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                          />
+                        </div>
+                        <Button type="submit" variant="accent" size="lg" className="w-full" disabled={loading}>
+                          {loading ? (
+                            <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Booking…</>
+                          ) : (
+                            <>Confirm {formatTime(selectedTime)} on {formatShortDate(selectedDate)}</>
+                          )}
+                        </Button>
+                      </form>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
         </section>
