@@ -227,13 +227,59 @@ serve(async (req: Request) => {
     // Get busy slots from Google Calendar (catches Vagaro bookings)
     const gcalBusySlots = await getGCalBusySlots(date);
 
-    // Merge and deduplicate
-    const allBookedSlots = [...new Set([...dbBookedSlots, ...gcalBusySlots])];
+    // Minimum booking advance: hide slots that start too soon
+    let minAdvanceHours = 48;
+    try {
+      const { data: settingRow } = await supabaseAdmin
+        .from("site_settings")
+        .select("value")
+        .eq("key", "min_booking_advance_hours")
+        .maybeSingle();
+      if (settingRow?.value !== null && settingRow?.value !== undefined) {
+        const parsed = typeof settingRow.value === "number"
+          ? settingRow.value
+          : parseInt(String(settingRow.value), 10);
+        if (Number.isFinite(parsed) && parsed >= 0) minAdvanceHours = parsed;
+      }
+    } catch (e) {
+      console.warn("site_settings lookup failed, using default 48h:", e);
+    }
 
-    return new Response(JSON.stringify({ bookedSlots: allBookedSlots, closed: false }), {
-      status: 200,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
-    });
+    const cutoff = new Date(Date.now() + minAdvanceHours * 60 * 60 * 1000);
+    const dDow = new Date(date + "T12:00:00").getDay();
+    const dHours = BUSINESS_HOURS[dDow];
+    const tooSoonSlots: string[] = [];
+    if (dHours) {
+      const [sh, sm] = dHours.start.split(":").map(Number);
+      const [eh, em] = dHours.end.split(":").map(Number);
+      // Helper: get the UTC instant for a given ET wall time on this date
+      const etOffsetFor = (localTime: string): string => {
+        const asUtc = new Date(`${date}T${localTime}:00Z`);
+        const parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/New_York",
+          timeZoneName: "longOffset",
+        }).formatToParts(asUtc);
+        const tzName = parts.find((p) => p.type === "timeZoneName")?.value ?? "GMT-05:00";
+        const m = tzName.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?/);
+        if (!m) return "-05:00";
+        return `${m[1]}${m[2].padStart(2, "0")}:${(m[3] ?? "00").padStart(2, "0")}`;
+      };
+      for (let mins = sh * 60 + sm; mins < eh * 60 + em; mins += 30) {
+        const hh = Math.floor(mins / 60).toString().padStart(2, "0");
+        const mm = (mins % 60).toString().padStart(2, "0");
+        const localTime = `${hh}:${mm}`;
+        const slotInstant = new Date(`${date}T${localTime}:00${etOffsetFor(localTime)}`);
+        if (slotInstant < cutoff) tooSoonSlots.push(localTime);
+      }
+    }
+
+    // Merge and deduplicate (booked + gcal + too-soon)
+    const allBookedSlots = [...new Set([...dbBookedSlots, ...gcalBusySlots, ...tooSoonSlots])];
+
+    return new Response(
+      JSON.stringify({ bookedSlots: allBookedSlots, closed: false, minAdvanceHours }),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } },
+    );
   } catch (err: any) {
     console.error("Check availability error:", err);
     return new Response(JSON.stringify({ error: "Server error" }), {
