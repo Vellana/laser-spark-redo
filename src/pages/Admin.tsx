@@ -295,6 +295,39 @@ const Admin = () => {
     else { toast.success(ids.length > 1 ? "Closure range removed" : "Closure removed"); fetchClosures(); }
   };
 
+  const fetchSiteSettings = async () => {
+    const { data, error } = await (supabase as any)
+      .from("site_settings")
+      .select("key, value")
+      .eq("key", "min_booking_advance_hours")
+      .maybeSingle();
+    if (!error && data) {
+      const v = typeof data.value === "number" ? data.value : parseInt(String(data.value), 10);
+      if (Number.isFinite(v)) {
+        setMinAdvanceHours(v);
+        setMinAdvanceInput(String(v));
+      }
+    }
+  };
+
+  const saveMinAdvance = async () => {
+    const n = parseInt(minAdvanceInput, 10);
+    if (!Number.isFinite(n) || n < 0 || n > 720) {
+      toast.error("Enter a number between 0 and 720");
+      return;
+    }
+    setSavingMinAdvance(true);
+    const { error } = await (supabase as any)
+      .from("site_settings")
+      .upsert({ key: "min_booking_advance_hours", value: n, updated_at: new Date().toISOString() }, { onConflict: "key" });
+    setSavingMinAdvance(false);
+    if (error) toast.error("Failed to save setting");
+    else {
+      setMinAdvanceHours(n);
+      toast.success(`Minimum booking advance set to ${n} hours`);
+    }
+  };
+
   const fetchSendHistory = async () => {
     setHistoryLoading(true);
     const { data, error } = await supabase
