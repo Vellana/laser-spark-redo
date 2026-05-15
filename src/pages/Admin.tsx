@@ -1585,6 +1585,40 @@ const Admin = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Settings Tab */}
+          <TabsContent value="settings" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Minimum Booking Advance</CardTitle>
+                <CardDescription>
+                  Public booking slots starting sooner than this many hours from now will be hidden and rejected.
+                  Admin-created/edited bookings bypass this rule.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-end gap-3 max-w-md">
+                  <div className="flex-1">
+                    <Label htmlFor="min-advance">Hours in advance</Label>
+                    <Input
+                      id="min-advance"
+                      type="number"
+                      min={0}
+                      max={720}
+                      value={minAdvanceInput}
+                      onChange={(e) => setMinAdvanceInput(e.target.value)}
+                    />
+                  </div>
+                  <Button onClick={saveMinAdvance} disabled={savingMinAdvance}>
+                    {savingMinAdvance ? "Saving…" : "Save"}
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Current: <strong>{minAdvanceHours}</strong> hours (default 48).
+                </p>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
       </div>
 
