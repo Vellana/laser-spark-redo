@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Calendar, CheckCircle, ExternalLink, Clock, Phone, Loader2 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { toast } from "sonner";
@@ -58,7 +59,8 @@ function generateTimeSlots(dayOfWeek: number): string[] {
   const startMin = startH * 60 + startM;
   const endMin = endH * 60 + endM;
   const slots: string[] = [];
-  for (let m = startMin; m < endMin; m += 30) {
+  // 1-hour increments
+  for (let m = startMin; m < endMin; m += 60) {
     const h = Math.floor(m / 60);
     const mi = m % 60;
     slots.push(`${h.toString().padStart(2, "0")}:${mi.toString().padStart(2, "0")}`);
@@ -66,17 +68,34 @@ function generateTimeSlots(dayOfWeek: number): string[] {
   return slots;
 }
 
-function generateDates(weeks: number): Date[] {
+function generateDates(days: number): Date[] {
   const dates: Date[] = [];
   const now = new Date();
   const today = new Date(now.toLocaleString("en-US", { timeZone: TIMEZONE }));
-  for (let i = 1; i <= weeks * 7; i++) {
+  for (let i = 1; i <= days; i++) {
     const d = new Date(today);
     d.setDate(today.getDate() + i);
     const dow = d.getDay();
     if (BUSINESS_HOURS[dow]) dates.push(d);
   }
   return dates;
+}
+
+// DST-aware America/New_York offset for a given local date+time.
+function etOffsetFor(dateStr: string, time: string): string {
+  const asUtc = new Date(`${dateStr}T${time}:00Z`);
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: TIMEZONE,
+    timeZoneName: "longOffset",
+  }).formatToParts(asUtc);
+  const tz = parts.find((p) => p.type === "timeZoneName")?.value ?? "GMT-05:00";
+  const m = tz.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?/);
+  if (!m) return "-05:00";
+  return `${m[1]}${m[2].padStart(2, "0")}:${(m[3] ?? "00").padStart(2, "0")}`;
+}
+
+function slotInstant(dateStr: string, time: string): number {
+  return new Date(`${dateStr}T${time}:00${etOffsetFor(dateStr, time)}`).getTime();
 }
 
 function formatTime(time: string): string {
@@ -105,6 +124,7 @@ const BookConsultation = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [minAdvanceHours, setMinAdvanceHours] = useState<number>(48);
   const [closureReason, setClosureReason] = useState<string | null>(null);
   const [closedDates, setClosedDates] = useState<Set<string>>(new Set());
   const [loadingSlots, setLoadingSlots] = useState(false);
@@ -124,7 +144,7 @@ const BookConsultation = () => {
     };
   });
 
-  const allDates = useMemo(() => generateDates(4), []);
+  const allDates = useMemo(() => generateDates(30), []);
   const availableDates = useMemo(
     () => allDates.filter((d) => !closedDates.has(toDateString(d))),
     [allDates, closedDates],
@@ -200,6 +220,7 @@ const BookConsultation = () => {
       });
       if (res.data?.bookedSlots) setBookedSlots(res.data.bookedSlots);
       else setBookedSlots([]);
+      if (typeof res.data?.minAdvanceHours === "number") setMinAdvanceHours(res.data.minAdvanceHours);
       setClosureReason(res.data?.closed ? (res.data.closureReason || "Office closed") : null);
       setLoadingSlots(false);
     })();
@@ -499,34 +520,58 @@ const BookConsultation = () => {
                             Office closed: {closureReason}. Please pick another date.
                           </p>
                         ) : (
-                          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-                            {timeSlots.map((t) => {
-                              const isBooked = bookedSlots.includes(t);
-                              const isSelected = selectedTime === t;
-                              return (
-                                <button
-                                  key={t}
-                                  type="button"
-                                  disabled={isBooked}
-                                  onClick={() => setSelectedTime(t)}
-                                  className={`px-2 py-2 rounded-md border text-sm transition-colors ${
-                                    isBooked
-                                      ? "bg-muted text-muted-foreground/50 line-through cursor-not-allowed border-border"
-                                      : isSelected
-                                        ? "bg-accent text-primary border-accent font-semibold"
-                                        : "bg-background border-border hover:border-accent/60"
-                                  }`}
-                                >
-                                  {formatTime(t)}
-                                </button>
-                              );
-                            })}
-                            {timeSlots.every((t) => bookedSlots.includes(t)) && (
-                              <p className="col-span-full text-sm text-muted-foreground py-2">
-                                No openings on this date — please pick another.
-                              </p>
-                            )}
-                          </div>
+                          <TooltipProvider delayDuration={150}>
+                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                              {timeSlots.map((t) => {
+                                const dateStr = toDateString(selectedDate);
+                                const cutoffMs = Date.now() + minAdvanceHours * 60 * 60 * 1000;
+                                const isTooSoon = slotInstant(dateStr, t) < cutoffMs;
+                                const isBooked = bookedSlots.includes(t) && !isTooSoon;
+                                const isSelected = selectedTime === t;
+                                const disabled = isBooked || isTooSoon;
+                                const btn = (
+                                  <button
+                                    type="button"
+                                    disabled={disabled}
+                                    onClick={() => !disabled && setSelectedTime(t)}
+                                    className={`px-2 py-2 rounded-md border text-sm transition-colors w-full ${
+                                      isTooSoon
+                                        ? "bg-muted text-muted-foreground/60 cursor-not-allowed border-border"
+                                        : isBooked
+                                          ? "bg-muted text-muted-foreground/50 line-through cursor-not-allowed border-border"
+                                          : isSelected
+                                            ? "bg-accent text-primary border-accent font-semibold"
+                                            : "bg-background border-border hover:border-accent/60"
+                                    }`}
+                                  >
+                                    {formatTime(t)}
+                                  </button>
+                                );
+                                if (isTooSoon) {
+                                  return (
+                                    <Tooltip key={t}>
+                                      <TooltipTrigger asChild>
+                                        <span className="block">{btn}</span>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        Bookings require {minAdvanceHours}h notice — please call 703-547-4499
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  );
+                                }
+                                return <span key={t}>{btn}</span>;
+                              })}
+                              {timeSlots.every((t) => {
+                                const dateStr = toDateString(selectedDate);
+                                const cutoffMs = Date.now() + minAdvanceHours * 60 * 60 * 1000;
+                                return bookedSlots.includes(t) || slotInstant(dateStr, t) < cutoffMs;
+                              }) && (
+                                <p className="col-span-full text-sm text-muted-foreground py-2">
+                                  No openings on this date — please pick another.
+                                </p>
+                              )}
+                            </div>
+                          </TooltipProvider>
                         )}
                       </div>
                     )}
