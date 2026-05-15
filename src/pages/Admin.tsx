@@ -110,6 +110,11 @@ const Admin = () => {
   const [newClosureReason, setNewClosureReason] = useState("");
   const [addingClosure, setAddingClosure] = useState(false);
 
+  // Site settings
+  const [minAdvanceHours, setMinAdvanceHours] = useState<number>(48);
+  const [minAdvanceInput, setMinAdvanceInput] = useState<string>("48");
+  const [savingMinAdvance, setSavingMinAdvance] = useState(false);
+
   const composeExecCmd = (cmd: string, value?: string) => {
     composeEditorRef.current?.focus();
     document.execCommand(cmd, false, value);
