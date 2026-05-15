@@ -752,7 +752,7 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="inquiries" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="inquiries" className="flex items-center gap-2">
               <Inbox className="w-4 h-4" /> Inquiries
             </TabsTrigger>
@@ -770,6 +770,9 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="newsletter" className="flex items-center gap-2">
               <Send className="w-4 h-4" /> Newsletter
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Calendar className="w-4 h-4" /> Settings
             </TabsTrigger>
           </TabsList>
 
