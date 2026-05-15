@@ -24,6 +24,7 @@ export type Database = {
           first_name: string
           gcal_event_id: string | null
           id: string
+          is_admin_override: boolean
           last_name: string
           notes: string | null
           phone: string | null
@@ -45,6 +46,7 @@ export type Database = {
           first_name: string
           gcal_event_id?: string | null
           id?: string
+          is_admin_override?: boolean
           last_name: string
           notes?: string | null
           phone?: string | null
@@ -66,6 +68,7 @@ export type Database = {
           first_name?: string
           gcal_event_id?: string | null
           id?: string
+          is_admin_override?: boolean
           last_name?: string
           notes?: string | null
           phone?: string | null
@@ -358,6 +361,27 @@ export type Database = {
           recipient?: string | null
           resend_email_id?: string | null
           subject?: string | null
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
         }
         Relationships: []
       }

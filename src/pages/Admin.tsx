@@ -110,6 +110,11 @@ const Admin = () => {
   const [newClosureReason, setNewClosureReason] = useState("");
   const [addingClosure, setAddingClosure] = useState(false);
 
+  // Site settings
+  const [minAdvanceHours, setMinAdvanceHours] = useState<number>(48);
+  const [minAdvanceInput, setMinAdvanceInput] = useState<string>("48");
+  const [savingMinAdvance, setSavingMinAdvance] = useState(false);
+
   const composeExecCmd = (cmd: string, value?: string) => {
     composeEditorRef.current?.focus();
     document.execCommand(cmd, false, value);
@@ -168,6 +173,7 @@ const Admin = () => {
       fetchAppointments();
       fetchSendHistory();
       fetchClosures();
+      fetchSiteSettings();
     } else {
       setIsAuthenticated(false);
       toast.error("Access denied: admin role required");
@@ -287,6 +293,39 @@ const Admin = () => {
     const { error } = await (supabase as any).from("office_closures").delete().in("id", ids);
     if (error) toast.error("Failed to remove closure");
     else { toast.success(ids.length > 1 ? "Closure range removed" : "Closure removed"); fetchClosures(); }
+  };
+
+  const fetchSiteSettings = async () => {
+    const { data, error } = await (supabase as any)
+      .from("site_settings")
+      .select("key, value")
+      .eq("key", "min_booking_advance_hours")
+      .maybeSingle();
+    if (!error && data) {
+      const v = typeof data.value === "number" ? data.value : parseInt(String(data.value), 10);
+      if (Number.isFinite(v)) {
+        setMinAdvanceHours(v);
+        setMinAdvanceInput(String(v));
+      }
+    }
+  };
+
+  const saveMinAdvance = async () => {
+    const n = parseInt(minAdvanceInput, 10);
+    if (!Number.isFinite(n) || n < 0 || n > 720) {
+      toast.error("Enter a number between 0 and 720");
+      return;
+    }
+    setSavingMinAdvance(true);
+    const { error } = await (supabase as any)
+      .from("site_settings")
+      .upsert({ key: "min_booking_advance_hours", value: n, updated_at: new Date().toISOString() }, { onConflict: "key" });
+    setSavingMinAdvance(false);
+    if (error) toast.error("Failed to save setting");
+    else {
+      setMinAdvanceHours(n);
+      toast.success(`Minimum booking advance set to ${n} hours`);
+    }
   };
 
   const fetchSendHistory = async () => {
@@ -713,7 +752,7 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="inquiries" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="inquiries" className="flex items-center gap-2">
               <Inbox className="w-4 h-4" /> Inquiries
             </TabsTrigger>
@@ -731,6 +770,9 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="newsletter" className="flex items-center gap-2">
               <Send className="w-4 h-4" /> Newsletter
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Calendar className="w-4 h-4" /> Settings
             </TabsTrigger>
           </TabsList>
 
@@ -1540,6 +1582,40 @@ const Admin = () => {
                     })}
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Settings Tab */}
+          <TabsContent value="settings" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Minimum Booking Advance</CardTitle>
+                <CardDescription>
+                  Public booking slots starting sooner than this many hours from now will be hidden and rejected.
+                  Admin-created/edited bookings bypass this rule.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-end gap-3 max-w-md">
+                  <div className="flex-1">
+                    <Label htmlFor="min-advance">Hours in advance</Label>
+                    <Input
+                      id="min-advance"
+                      type="number"
+                      min={0}
+                      max={720}
+                      value={minAdvanceInput}
+                      onChange={(e) => setMinAdvanceInput(e.target.value)}
+                    />
+                  </div>
+                  <Button onClick={saveMinAdvance} disabled={savingMinAdvance}>
+                    {savingMinAdvance ? "Saving…" : "Save"}
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Current: <strong>{minAdvanceHours}</strong> hours (default 48).
+                </p>
               </CardContent>
             </Card>
           </TabsContent>
