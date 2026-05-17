@@ -238,7 +238,7 @@ const CoolPeelTysons = () => {
     <div className="min-h-screen">
       <SEO 
         title="CoolPeel CO₂ Laser Near Me Tysons & Vienna VA | Best Skin Resurfacing Northern Virginia"
-        description="Best CoolPeel CO₂ laser resurfacing near you in Tysons, Vienna, McLean, Falls Church VA. 1-3 day recovery. Cartessa Tetra Pro technology. Reduce wrinkles, sun damage, acne scars. Free consultation 703-547-4499."
+        description="CoolPeel CO₂ laser resurfacing in Tysons & Vienna VA. 1–3 day recovery for wrinkles, sun damage, acne scars. Book your free consultation — 703-547-4499."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
