@@ -293,6 +293,11 @@ const LaserHairRemoval = () => {
         outcome="Long-lasting hair reduction with up to 90% permanent hair removal after completing full treatment series"
         url="/laser-hair-removal"
       />
+      <ServiceSchema
+        name="Laser Hair Removal"
+        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Tysons, Vienna, McLean, and Northern Virginia."
+        url="/laser-hair-removal"
+      />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Laser Hair Removal", url: "/laser-hair-removal" }

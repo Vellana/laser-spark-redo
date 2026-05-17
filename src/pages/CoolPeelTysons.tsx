@@ -12,6 +12,7 @@ import { Sparkles, Clock, CheckCircle, Star, Calendar, Shield, MapPin, Phone } f
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import ServiceSchema from "@/components/ServiceSchema";
 import { Helmet } from "react-helmet-async";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
