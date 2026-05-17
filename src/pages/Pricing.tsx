@@ -37,7 +37,7 @@ const Pricing = () => {
     <div className="min-h-screen">
       <SEO 
         title="Laser Treatment Pricing Tysons VA | Cherry Financing | 25% Off Packages"
-        description="Transparent laser hair removal & CoolPeel pricing in Tysons, McLean, Vienna VA. Cherry financing available - $0 down, low monthly payments. 25% off 5-session packages. Brazilian $300, underarms $150. Free consultation. Call 703-547-4499."
+        description="Transparent laser hair removal & CoolPeel pricing in Tysons VA. 25% off 5-packs, Cherry financing $0 down. Book your free consultation — 703-547-4499."
         canonicalUrl="/pricing"
       />
       <LocalBusinessSchema />
