@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import {
   Accordion,
   AccordionContent,
@@ -195,6 +196,7 @@ const FAQ = () => {
         description="CoolPeel, Tetra Pro & laser hair removal FAQs for Tysons VA patients. Book your free consultation at Virginia Laser Specialists — 703-547-4499."
         canonicalUrl="/faq"
       />
+      <LocalBusinessSchema />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
