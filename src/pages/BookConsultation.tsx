@@ -18,6 +18,7 @@ import { Calendar, CheckCircle, ExternalLink, Clock, Phone, Loader2 } from "luci
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { supabase } from "@/integrations/supabase/client";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import { toast } from "sonner";
 import { z } from "zod";
 import { pushEvent, getStoredUtms, fireGadsConversion } from "@/lib/analytics";
@@ -378,6 +379,7 @@ const BookConsultation = () => {
         description="Book your free laser hair removal or CoolPeel consultation in Tysons VA. Online scheduling at Virginia Laser Specialists — call 703-547-4499."
         canonicalUrl="/book-free-consultation"
       />
+      <LocalBusinessSchema />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Book Free Consultation", url: "/book-free-consultation" }
