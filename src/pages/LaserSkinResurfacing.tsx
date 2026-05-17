@@ -71,7 +71,7 @@ const LaserSkinResurfacing = () => {
     <div className="min-h-screen">
       <SEO 
         title="CO₂ Laser Skin Resurfacing Near Me Tysons VA | CoolPeel & DEKA | Cartessa Tetra Pro"
-        description="Best CO₂ laser skin resurfacing near you in Tysons, Vienna, McLean VA. CoolPeel (1-3 day recovery) & DEKA Pulse for wrinkles, sun damage, acne scars. Cartessa Tetra Pro. Free consultation 703-547-4499."
+        description="Top-rated CO₂ laser skin resurfacing in Tysons VA — CoolPeel & DEKA Pulse with Cartessa Tetra Pro. Book your free consultation — 703-547-4499."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
