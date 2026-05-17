@@ -277,7 +277,7 @@ const LaserHairRemoval = () => {
     <div className="min-h-screen">
       <SEO 
         title="Best Laser Hair Removal Near Me Tysons VA | Lutronic Clarity II | All Skin Types"
-        description="Best laser hair removal near you in Tysons, Vienna, McLean, Falls Church & Northern VA. Lutronic Clarity II dual-wavelength laser safe for all skin types. 25% off packages of 5. Cherry financing $0 down. Free consultation. Call 703-547-4499."
+        description="Safe laser hair removal for all skin types in Tysons VA with Lutronic Clarity II. 25% off packages. Book your free consultation — 703-547-4499."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />

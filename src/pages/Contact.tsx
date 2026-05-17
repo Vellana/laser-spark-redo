@@ -198,7 +198,7 @@ const Contact = () => {
         <div className="min-h-screen">
             <SEO 
                 title="Contact Virginia Laser Specialists | Book Free Consultation Tysons VA"
-                description="Schedule your free laser consultation at 8100 Boone Blvd, Suite 270, Vienna VA 22182. Call 703-547-4499. Open Tue-Fri 10AM-6PM, Sat 9AM-1PM. Serving Tysons, McLean, Falls Church, Arlington."
+                description="Visit us at 8100 Boone Blvd, Suite 270, Vienna VA. Tue–Fri 10–6, Sat 9–1. Book your free laser consultation — 703-547-4499."
                 canonicalUrl="/contact"
             />
             <LocalBusinessSchema />

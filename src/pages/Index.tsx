@@ -18,7 +18,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SEO 
         title="Laser Hair Removal & CoolPeel Tysons VA | Virginia Laser Specialists"
-        description="Expert laser hair removal with Lutronic Clarity II and CoolPeel CO2 skin resurfacing at Virginia Laser Specialists in Tysons, VA. Safe for all skin types. Book a free consultation today."
+        description="Expert laser hair removal & CoolPeel CO₂ resurfacing in Tysons VA. Safe for all skin types. Book your free consultation — 703-547-4499."
         canonicalUrl="/"
       />
       <LocalBusinessSchema />

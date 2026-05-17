@@ -50,7 +50,7 @@ const Gallery = () => {
     <div className="min-h-screen">
       <SEO 
         title="Photo Gallery | Virginia Laser Specialists Facility Tysons VA"
-        description="Tour our modern laser treatment facility at 8100 Boone Blvd, Vienna VA. State-of-the-art Lutronic Clarity II & Cartessa Tetra Pro equipment. Professional treatment rooms near Tysons Corner. Schedule a visit today."
+        description="Tour our laser treatment facility at 8100 Boone Blvd, Vienna VA. Lutronic Clarity II & Cartessa Tetra Pro. Book your free consultation — 703-547-4499."
         canonicalUrl="/gallery"
       />
       <LocalBusinessSchema />
