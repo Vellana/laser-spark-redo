@@ -86,6 +86,11 @@ const LaserSkinResurfacing = () => {
         outcome="Improved skin texture, reduced fine lines and wrinkles, diminished sun damage, minimized pores, and enhanced collagen production"
         url="/laser-skin-resurfacing"
       />
+      <ServiceSchema
+        name="CO₂ Laser Skin Resurfacing"
+        description="Advanced CO₂ laser skin resurfacing using Cartessa Tetra Pro technology in Tysons, VA. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, and acne scars."
+        url="/laser-skin-resurfacing"
+      />
       <SkinResurfacingFAQSchema />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },

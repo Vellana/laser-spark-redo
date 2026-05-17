@@ -243,6 +243,11 @@ const CoolPeelTysons = () => {
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
+      <ServiceSchema
+        name="CoolPeel CO₂ Laser Resurfacing"
+        description="CoolPeel CO₂ laser resurfacing in Tysons and Vienna, VA using Cartessa Tetra Pro technology. Minimal downtime skin rejuvenation that treats fine lines, wrinkles, sun damage, and uneven texture with 1-3 day recovery."
+        url="/coolpeel-co2-laser-tysons-va"
+      />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Laser Skin Resurfacing", url: "/laser-skin-resurfacing" },
