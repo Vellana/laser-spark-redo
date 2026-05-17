@@ -25,6 +25,10 @@ const SEO = ({ title, description, canonicalUrl, type = "website", image }: SEOP
       <meta property="og:type" content={type} />
       <meta property="og:url" content={fullCanonicalUrl} />
       <meta property="og:image" content={image || defaultImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:site_name" content="Virginia Laser Specialists" />
+      <meta property="og:locale" content="en_US" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
