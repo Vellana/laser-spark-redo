@@ -11,7 +11,7 @@ interface SEOProps {
 const SEO = ({ title, description, canonicalUrl, type = "website", image }: SEOProps) => {
   const baseUrl = "https://virginialaserspecialists.com";
   const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
-  const defaultImage = `${baseUrl}/favicon.png`;
+  const defaultImage = "https://storage.googleapis.com/gpt-engineer-file-uploads/6irTnypLT0T0JetI2hSqoSKB96W2/social-images/social-1769708068627-ChatGPT Image Jan 21, 2026, 02_17_14 PM.png";
 
   return (
     <Helmet>
@@ -25,6 +25,10 @@ const SEO = ({ title, description, canonicalUrl, type = "website", image }: SEOP
       <meta property="og:type" content={type} />
       <meta property="og:url" content={fullCanonicalUrl} />
       <meta property="og:image" content={image || defaultImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:site_name" content="Virginia Laser Specialists" />
+      <meta property="og:locale" content="en_US" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
