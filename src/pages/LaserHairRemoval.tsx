@@ -11,6 +11,7 @@ import SEO from "@/components/SEO";
 import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
+import ServiceSchema from "@/components/ServiceSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
@@ -290,6 +291,11 @@ const LaserHairRemoval = () => {
         followup="8-10 sessions spaced 6-8 weeks apart for optimal permanent hair reduction results"
         howPerformed="The Lutronic Clarity II laser delivers dual-wavelength energy (755nm Alexandrite and 1064nm Nd:YAG) with integrated cryogen cooling to target hair follicles while protecting surrounding skin."
         outcome="Long-lasting hair reduction with up to 90% permanent hair removal after completing full treatment series"
+        url="/laser-hair-removal"
+      />
+      <ServiceSchema
+        name="Laser Hair Removal"
+        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Tysons, Vienna, McLean, and Northern Virginia."
         url="/laser-hair-removal"
       />
       <BreadcrumbSchema items={[

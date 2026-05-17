@@ -9,6 +9,7 @@ import SEO from "@/components/SEO";
 import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
+import ServiceSchema from "@/components/ServiceSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import BeforeAfterPreview from "@/components/BeforeAfterPreview";
@@ -83,6 +84,11 @@ const LaserSkinResurfacing = () => {
         followup="CoolPeel: 1-3 days recovery, typically 3 sessions. DEKA Pulse: 5-10 days recovery, usually single treatment."
         howPerformed="The Cartessa Tetra Pro delivers CO₂ laser energy in controlled pulses to remove damaged skin layers and stimulate collagen production for smoother, more youthful skin."
         outcome="Improved skin texture, reduced fine lines and wrinkles, diminished sun damage, minimized pores, and enhanced collagen production"
+        url="/laser-skin-resurfacing"
+      />
+      <ServiceSchema
+        name="CO₂ Laser Skin Resurfacing"
+        description="Advanced CO₂ laser skin resurfacing using Cartessa Tetra Pro technology in Tysons, VA. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, and acne scars."
         url="/laser-skin-resurfacing"
       />
       <SkinResurfacingFAQSchema />

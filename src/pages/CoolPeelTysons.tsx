@@ -12,6 +12,7 @@ import { Sparkles, Clock, CheckCircle, Star, Calendar, Shield, MapPin, Phone } f
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import ServiceSchema from "@/components/ServiceSchema";
 import { Helmet } from "react-helmet-async";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
@@ -242,6 +243,11 @@ const CoolPeelTysons = () => {
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
+      <ServiceSchema
+        name="CoolPeel CO₂ Laser Resurfacing"
+        description="CoolPeel CO₂ laser resurfacing in Tysons and Vienna, VA using Cartessa Tetra Pro technology. Minimal downtime skin rejuvenation that treats fine lines, wrinkles, sun damage, and uneven texture with 1-3 day recovery."
+        url="/coolpeel-co2-laser-tysons-va"
+      />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Laser Skin Resurfacing", url: "/laser-skin-resurfacing" },
