@@ -87,10 +87,10 @@ const Navigation = () => {
                   <span className="sm:hidden">Book Now</span>
                 </Button>
               </Link>
-              {/* Hamburger - phone only */}
+              {/* Hamburger - below md (covers phone + small tablet to prevent nav cut-off) */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="sm:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
+                className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
                 aria-label="Toggle navigation menu"
               >
                 {isOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
