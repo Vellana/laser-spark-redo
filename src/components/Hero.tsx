@@ -9,7 +9,7 @@ const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-start justify-center overflow-hidden pt-24 sm:pt-28 lg:pt-32">
       {/* Background Video with Overlay */}
       <div className="absolute inset-0">
         {/* Skeleton placeholder */}
@@ -34,12 +34,12 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-6xl xl:max-w-7xl mx-auto space-y-6">
           <div className="inline-block">
-            <div className="w-16 h-1 bg-accent mx-auto mb-6 rounded-full" />
+            <div className="w-16 h-1 bg-accent mx-auto mb-4 rounded-full" />
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-lg" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.45)' }}>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg whitespace-normal lg:whitespace-nowrap" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.45)' }}>
             Laser Hair Removal & CoolPeel Skin Resurfacing in Tysons, VA
           </h1>
 
