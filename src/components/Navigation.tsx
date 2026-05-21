@@ -103,11 +103,11 @@ const Navigation = () => {
       {/* Row 2: Nav links - md+ (≥768px) */}
       <div className="hidden md:block border-b border-border bg-card/80">
         <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-1 md:gap-2 lg:gap-4 xl:gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-0 md:gap-x-2 lg:gap-x-4 xl:gap-x-6">
             {navLinks.map((link) =>
               renderLink(
                 link,
-                "py-2.5 px-1.5 md:px-2 lg:px-3 text-xs md:text-sm lg:text-sm font-medium transition-colors whitespace-nowrap"
+                "py-2 px-1.5 md:px-2 lg:px-3 text-[11px] md:text-xs lg:text-sm font-medium transition-colors whitespace-nowrap"
               )
             )}
           </div>
