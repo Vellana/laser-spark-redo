@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const CALENDAR_ID = "admin@virginialaserspecialists.com";
+const CALENDAR_ID = "amyobrien2404@gmail.com";
 
 // Business hours in ET
 const BUSINESS_HOURS: Record<number, { start: string; end: string } | null> = {
