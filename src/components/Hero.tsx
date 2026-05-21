@@ -46,8 +46,8 @@ const Hero = () => {
         <div className="flex-1 min-h-[3rem]" />
 
         {/* Subtitle + CTAs near bottom */}
-        <div className="max-w-4xl mx-auto w-full space-y-6">
-          <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>
+        <div className="max-w-5xl lg:max-w-6xl mx-auto w-full space-y-6">
+          <p className="text-xl sm:text-2xl text-white/90 max-w-4xl lg:max-w-5xl mx-auto font-light" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>
             Expert laser hair removal with Lutronic Clarity II and CoolPeel CO₂ resurfacing - safe for all skin types. Serving Tysons, Vienna & McLean.
           </p>
 
