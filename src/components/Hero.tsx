@@ -29,7 +29,7 @@ const Hero = () => {
           onLoadedData={() => setImageLoaded(true)}
           onLoadedMetadata={() => setImageLoaded(true)}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(215,28%,18%)]/75 via-[hsl(215,28%,25%)]/65 to-[hsl(215,28%,32%)]/55" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(215,28%,18%)]/45 via-[hsl(215,28%,25%)]/35 to-[hsl(215,28%,32%)]/25" />
       </div>
 
       {/* Content */}
