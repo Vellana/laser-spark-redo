@@ -398,266 +398,38 @@ const BookConsultation = () => {
           </div>
         </section>
 
-        {/* Dual Booking Options */}
+        {/* Vagaro-only Booking (website scheduler temporarily disabled) */}
         <section className="py-12 bg-background">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {/* Vagaro Option */}
-              <Card className="border-2 border-border hover:border-accent/50 transition-colors">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-14 h-14 mx-auto bg-accent/20 rounded-full flex items-center justify-center mb-3">
-                    <ExternalLink className="w-7 h-7 text-accent" />
-                  </div>
-                  <CardTitle className="text-xl">Book via Vagaro</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center space-y-4">
-                  <p className="text-muted-foreground text-sm">
-                    Use our Vagaro platform for instant online scheduling with automated reminders.
-                  </p>
-                  <a
-                    href={VAGARO_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => pushEvent("click_vagaro_booking")}
-                  >
-                    <Button variant="accent" size="lg" className="w-full">
-                      Book on Vagaro <ExternalLink className="w-4 h-4 ml-2" />
-                    </Button>
+          <div className="container mx-auto px-4 max-w-2xl">
+            <Card className="border-2 border-accent/30 bg-accent/5">
+              <CardHeader className="text-center pb-4">
+                <div className="w-14 h-14 mx-auto bg-accent/20 rounded-full flex items-center justify-center mb-3">
+                  <ExternalLink className="w-7 h-7 text-accent" />
+                </div>
+                <CardTitle className="text-2xl">Book via Vagaro</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center space-y-5">
+                <p className="text-muted-foreground">
+                  All consultations and appointments are currently scheduled through our Vagaro platform — instant online booking with automated reminders.
+                </p>
+                <a
+                  href={VAGARO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => pushEvent("click_vagaro_booking")}
+                >
+                  <Button variant="accent" size="lg" className="w-full sm:w-auto px-10">
+                    Book on Vagaro <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                </a>
+                <div className="pt-4 border-t border-border">
+                  <p className="text-sm text-muted-foreground mb-2">Prefer to call?</p>
+                  <a href="tel:703-547-4499" className="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
+                    <Phone className="w-4 h-4" /> 703-547-4499
                   </a>
-                </CardContent>
-              </Card>
-
-              {/* Direct Booking Option */}
-              <Card className="border-2 border-accent/30 bg-accent/5">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-14 h-14 mx-auto bg-accent/20 rounded-full flex items-center justify-center mb-3">
-                    <Calendar className="w-7 h-7 text-accent" />
-                  </div>
-                  <CardTitle className="text-xl">Book Directly on Website</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center space-y-4">
-                  <p className="text-muted-foreground text-sm">
-                    Schedule your free 30-minute consultation directly through our website below.
-                  </p>
-                  <a href="#scheduler">
-                    <Button variant="default" size="lg" className="w-full">
-                      Schedule Below <Clock className="w-4 h-4 ml-2" />
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Direct Scheduler */}
-            <div id="scheduler" className="scroll-mt-24">
-              {fallbackMode ? (
-                <Card className="border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800">
-                  <CardHeader className="text-center">
-                    <div className="w-14 h-14 mx-auto bg-amber-100 dark:bg-amber-800/40 rounded-full flex items-center justify-center mb-3">
-                      <Clock className="w-7 h-7 text-amber-600 dark:text-amber-400" />
-                    </div>
-                    <CardTitle className="text-2xl text-amber-800 dark:text-amber-300">
-                      No Online Slots Available Right Now
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center space-y-4">
-                    <p className="text-amber-700 dark:text-amber-400">
-                      All upcoming online slots are currently booked. Please call us to schedule:
-                    </p>
-                    <a href="tel:703-547-4499">
-                      <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                        <Phone className="w-5 h-5 mr-2" />
-                        703-547-4499
-                      </Button>
-                    </a>
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card className="border-2 border-accent/30">
-                  <CardHeader>
-                    <CardTitle className="text-2xl flex items-center gap-2">
-                      <Calendar className="w-6 h-6 text-accent" /> Pick a Date &amp; Time
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      All times Eastern. 30-minute complimentary consultation.
-                    </p>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    {/* Date grid */}
-                    <div>
-                      <Label className="mb-3 block font-semibold">Select a date</Label>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-72 overflow-y-auto pr-1">
-                        {availableDates.map((d) => {
-                          const isSelected = selectedDate && toDateString(selectedDate) === toDateString(d);
-                          return (
-                            <button
-                              key={toDateString(d)}
-                              type="button"
-                              onClick={() => setSelectedDate(d)}
-                              className={`px-3 py-2 rounded-md border text-sm transition-colors text-left ${
-                                isSelected
-                                  ? "bg-accent text-primary border-accent font-semibold"
-                                  : "bg-background border-border hover:border-accent/60"
-                              }`}
-                            >
-                              {formatShortDate(d)}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {/* Time grid */}
-                    {selectedDate && (
-                      <div>
-                        <Label className="mb-3 block font-semibold">
-                          Select a time for {formatDate(selectedDate)}
-                        </Label>
-                        {loadingSlots ? (
-                          <div className="flex items-center gap-2 text-muted-foreground text-sm py-4">
-                            <Loader2 className="w-4 h-4 animate-spin" /> Loading availability…
-                          </div>
-                        ) : closureReason ? (
-                          <p className="text-sm text-muted-foreground py-4">
-                            Office closed: {closureReason}. Please pick another date.
-                          </p>
-                        ) : (
-                          <TooltipProvider delayDuration={150}>
-                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-                              {timeSlots.map((t) => {
-                                const dateStr = toDateString(selectedDate);
-                                const cutoffMs = Date.now() + minAdvanceHours * 60 * 60 * 1000;
-                                const isTooSoon = slotInstant(dateStr, t) < cutoffMs;
-                                const isBooked = bookedSlots.includes(t) && !isTooSoon;
-                                const isSelected = selectedTime === t;
-                                const disabled = isBooked || isTooSoon;
-                                const btn = (
-                                  <button
-                                    type="button"
-                                    disabled={disabled}
-                                    onClick={() => !disabled && setSelectedTime(t)}
-                                    className={`px-2 py-2 rounded-md border text-sm transition-colors w-full ${
-                                      isTooSoon
-                                        ? "bg-muted text-muted-foreground/60 cursor-not-allowed border-border"
-                                        : isBooked
-                                          ? "bg-muted text-muted-foreground/50 line-through cursor-not-allowed border-border"
-                                          : isSelected
-                                            ? "bg-accent text-primary border-accent font-semibold"
-                                            : "bg-background border-border hover:border-accent/60"
-                                    }`}
-                                  >
-                                    {formatTime(t)}
-                                  </button>
-                                );
-                                if (isTooSoon) {
-                                  return (
-                                    <Tooltip key={t}>
-                                      <TooltipTrigger asChild>
-                                        <span className="block">{btn}</span>
-                                      </TooltipTrigger>
-                                      <TooltipContent>
-                                        Bookings require {minAdvanceHours}h notice — please call 703-547-4499
-                                      </TooltipContent>
-                                    </Tooltip>
-                                  );
-                                }
-                                return <span key={t}>{btn}</span>;
-                              })}
-                              {timeSlots.every((t) => {
-                                const dateStr = toDateString(selectedDate);
-                                const cutoffMs = Date.now() + minAdvanceHours * 60 * 60 * 1000;
-                                return bookedSlots.includes(t) || slotInstant(dateStr, t) < cutoffMs;
-                              }) && (
-                                <p className="col-span-full text-sm text-muted-foreground py-2">
-                                  No openings on this date — please pick another.
-                                </p>
-                              )}
-                            </div>
-                          </TooltipProvider>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Form */}
-                    {selectedDate && selectedTime && !closureReason && (
-                      <form onSubmit={handleSubmit} className="space-y-4 pt-4 border-t border-border">
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="firstName">First name *</Label>
-                            <Input
-                              id="firstName"
-                              required
-                              value={formData.firstName}
-                              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="lastName">Last name *</Label>
-                            <Input
-                              id="lastName"
-                              required
-                              value={formData.lastName}
-                              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <Label htmlFor="email">Email *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="phone">Phone (optional)</Label>
-                          <Input
-                            id="phone"
-                            type="tel"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="treatment">Treatment interest *</Label>
-                          <Select
-                            value={formData.treatmentInterest}
-                            onValueChange={(v) => setFormData({ ...formData, treatmentInterest: v })}
-                          >
-                            <SelectTrigger id="treatment">
-                              <SelectValue placeholder="Select a treatment" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {TREATMENT_OPTIONS.map((opt) => (
-                                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label htmlFor="notes">Notes (optional)</Label>
-                          <Textarea
-                            id="notes"
-                            rows={3}
-                            value={formData.notes}
-                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                          />
-                        </div>
-                        <Button type="submit" variant="accent" size="lg" className="w-full" disabled={loading}>
-                          {loading ? (
-                            <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Booking…</>
-                          ) : (
-                            <>Confirm {formatTime(selectedTime)} on {formatShortDate(selectedDate)}</>
-                          )}
-                        </Button>
-                      </form>
-                    )}
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>
