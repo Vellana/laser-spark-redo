@@ -10,7 +10,7 @@ const CherryFinancingBadge = ({ className = "", variant = "inline" }: CherryFina
   if (variant === "card") {
     return (
       <div className={`bg-secondary/50 border border-border rounded-lg p-4 flex items-center gap-3 ${className}`}>
-        <img src={cherryLogo} alt="Cherry Financing" className="h-8 w-auto" />
+        <img src={cherryLogo} alt="Cherry Financing" className="h-8 w-auto dark:invert dark:brightness-200" />
         <div>
           <p className="text-sm font-medium text-foreground">Financing Available</p>
           <p className="text-xs text-muted-foreground">Flexible payment plans through Cherry</p>
