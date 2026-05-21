@@ -33,21 +33,25 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-6xl xl:max-w-7xl mx-auto space-y-6">
-          <div className="inline-block">
-            <div className="w-16 h-1 bg-accent mx-auto mb-4 rounded-full" />
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg whitespace-normal lg:whitespace-nowrap" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.45)' }}>
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center flex-1 flex flex-col">
+        {/* Title at top */}
+        <div className="max-w-6xl xl:max-w-7xl mx-auto w-full">
+          <div className="w-16 h-1 bg-accent mx-auto mb-4 rounded-full" />
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.45)' }}>
             Laser Hair Removal & CoolPeel Skin Resurfacing in Tysons, VA
           </h1>
+        </div>
 
+        {/* Spacer to push subtitle/CTAs toward bottom of video */}
+        <div className="flex-1 min-h-[3rem]" />
+
+        {/* Subtitle + CTAs near bottom */}
+        <div className="max-w-4xl mx-auto w-full space-y-6">
           <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto font-light" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>
             Expert laser hair removal with Lutronic Clarity II and CoolPeel CO₂ resurfacing - safe for all skin types. Serving Tysons, Vienna & McLean.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
               <Button
                 size="lg"
@@ -68,7 +72,7 @@ const Hero = () => {
             </Link>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8 text-white/90">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-white/90">
             <a href="tel:703-547-4499" className="flex items-center gap-2 hover:text-accent transition-colors">
               <Phone className="w-5 h-5" />
               <span className="font-medium">703-547-4499</span>
