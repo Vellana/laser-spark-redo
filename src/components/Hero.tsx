@@ -9,9 +9,8 @@ const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <section className="relative min-h-[90vh] flex items-start justify-center overflow-hidden pt-24 sm:pt-28 lg:pt-32">
-      {/* Background Video with Overlay */}
     <section className="relative min-h-[90vh] flex flex-col overflow-hidden pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16">
+      {/* Background Video with Overlay */}
       <div className="absolute inset-0">
         {/* Skeleton placeholder */}
         <div
