@@ -398,38 +398,16 @@ const BookConsultation = () => {
           </div>
         </section>
 
-        {/* Vagaro-only Booking (website scheduler temporarily disabled) */}
+        {/* Embedded Vagaro consultation widget (in-house picker disabled pending calendar sync) */}
         <section className="py-12 bg-background">
-          <div className="container mx-auto px-4 max-w-2xl">
-            <Card className="border-2 border-accent/30 bg-accent/5">
-              <CardHeader className="text-center pb-4">
-                <div className="w-14 h-14 mx-auto bg-accent/20 rounded-full flex items-center justify-center mb-3">
-                  <ExternalLink className="w-7 h-7 text-accent" />
-                </div>
-                <CardTitle className="text-2xl">Book via Vagaro</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center space-y-5">
-                <p className="text-muted-foreground">
-                  All consultations and appointments are currently scheduled through our Vagaro platform — instant online booking with automated reminders.
-                </p>
-                <a
-                  href={VAGARO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => pushEvent("click_vagaro_booking")}
-                >
-                  <Button variant="accent" size="lg" className="w-full sm:w-auto px-10">
-                    Book on Vagaro <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
-                </a>
-                <div className="pt-4 border-t border-border">
-                  <p className="text-sm text-muted-foreground mb-2">Prefer to call?</p>
-                  <a href="tel:703-547-4499" className="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
-                    <Phone className="w-4 h-4" /> 703-547-4499
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="container mx-auto px-4 max-w-4xl">
+            <VagaroConsultWidget />
+            <div className="pt-8 mt-8 border-t border-border text-center">
+              <p className="text-sm text-muted-foreground mb-2">Prefer to call?</p>
+              <a href="tel:703-547-4499" className="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
+                <Phone className="w-4 h-4" /> 703-547-4499
+              </a>
+            </div>
           </div>
         </section>
       </main>
