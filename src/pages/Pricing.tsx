@@ -111,7 +111,7 @@ const Pricing = () => {
                   </table>
                 </div>
                 <div className="mt-8 text-center">
-                  <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer" onClick={() => pushEvent("free_consult_booking")}>
+                  <a href="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
                     <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold">
                       Book Free Consultation
                     </Button>

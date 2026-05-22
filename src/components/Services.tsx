@@ -408,7 +408,7 @@ const Services = () => {
             <p className="text-muted-foreground mb-6">
               Schedule a free consultation with our experts to discuss your goals and create a personalized treatment plan.
             </p>
-            <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+            <a href="/book-free-consultation">
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8 shadow-gold"
