@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import VagaroConsultWidget from "@/components/VagaroConsultWidget";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
