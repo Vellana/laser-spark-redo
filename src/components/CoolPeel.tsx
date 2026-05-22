@@ -134,7 +134,7 @@ const CoolPeel = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center lg:justify-start items-center">
-              <a href="https://www.vagaro.com/virginialaserspecialists/services" target="_blank" rel="noopener noreferrer">
+              <a href="/book-free-consultation">
                 <Button
                   size="lg"
                   className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8 shadow-gold"
