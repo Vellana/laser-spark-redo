@@ -394,7 +394,7 @@ const BookConsultation = () => {
               Book Your Free Consultation
             </h1>
             <p className="text-lg text-muted-foreground">
-              Choose your preferred booking method below. All consultations are complimentary.
+              All consultations are complimentary.
             </p>
           </div>
         </section>
