@@ -34,8 +34,8 @@ const VagaroConsultWidget = () => {
         srcDoc={VAGARO_EMBED_HTML}
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
-        className="block w-full border-0 mx-auto h-[1200px] sm:h-[760px] md:h-[720px] lg:h-[700px]"
-        style={{ minHeight: "680px" }}
+        className="block w-full border-0 mx-auto h-[1200px] sm:h-[860px] md:h-[860px] lg:h-[860px]"
+        style={{ minHeight: "860px" }}
       />
     </div>
   );
