@@ -6,6 +6,10 @@
  * The Vagaro loader uses document.write, which no-ops after the host page has
  * finished parsing. We embed it inside an <iframe srcdoc> so document.write
  * runs during the iframe's initial parse and renders correctly.
+ *
+ * Width: full container up to ~1100px so the Vagaro embed reflows the two
+ * consult cards (Skin Resurfacing + Hair Removal) side-by-side on
+ * desktop/tablet. On narrow viewports it naturally stacks and scrolls.
  */
 const VAGARO_EMBED_HTML = `<!doctype html>
 <html>
@@ -21,20 +25,17 @@ const VAGARO_EMBED_HTML = `<!doctype html>
 
 const VagaroConsultWidget = () => {
   return (
-    <div className="w-full flex flex-col items-center">
+    <div
+      className="w-full mx-auto"
+      style={{ maxWidth: "1100px" }}
+    >
       <iframe
         title="Book a Free Consultation"
         srcDoc={VAGARO_EMBED_HTML}
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
-        style={{
-          width: "100%",
-          maxWidth: "480px",
-          height: "760px",
-          border: 0,
-          margin: "0 auto",
-          display: "block",
-        }}
+        className="block w-full border-0 mx-auto h-[1200px] sm:h-[760px] md:h-[720px] lg:h-[700px]"
+        style={{ minHeight: "680px" }}
       />
     </div>
   );
