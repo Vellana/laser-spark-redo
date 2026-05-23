@@ -26,16 +26,16 @@ const VAGARO_EMBED_HTML = `<!doctype html>
 const VagaroConsultWidget = () => {
   return (
     <div
-      className="w-full mx-auto"
-      style={{ maxWidth: "1100px" }}
+      className="w-full"
+      style={{ maxWidth: "340px", margin: "0 auto" }}
     >
       <iframe
         title="Book a Free Consultation"
         srcDoc={VAGARO_EMBED_HTML}
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
-        className="block w-full border-0 mx-auto h-[1200px] sm:h-[860px] md:h-[860px] lg:h-[860px]"
-        style={{ minHeight: "860px" }}
+        className="block border-0"
+        style={{ width: "340px", height: "900px", margin: "0 auto" }}
       />
     </div>
   );
