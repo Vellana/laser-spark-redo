@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -261,6 +262,11 @@ const AdminEmailList = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Email Subscribers Admin | Virginia Laser Specialists</title>
+        <meta name="description" content="Private administrative view for managing Virginia Laser Specialists newsletter subscribers." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <Navigation />
       <main className="pt-28 sm:pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
