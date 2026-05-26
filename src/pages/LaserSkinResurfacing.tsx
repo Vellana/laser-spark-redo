@@ -71,7 +71,7 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CO₂ Laser Skin Resurfacing Near Me Tysons VA | CoolPeel & DEKA | Cartessa Tetra Pro"
+        title="CO₂ Laser Skin Resurfacing | Tysons VA"
         description="Top-rated CO₂ laser skin resurfacing in Tysons VA — CoolPeel & DEKA Pulse with Cartessa Tetra Pro. Book your free consultation — 703-547-4499."
         canonicalUrl="/laser-skin-resurfacing"
       />

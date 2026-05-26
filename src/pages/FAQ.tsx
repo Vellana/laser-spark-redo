@@ -192,7 +192,7 @@ const FAQ = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="FAQ | CoolPeel, Tetra Pro & Laser Hair Removal | Virginia Laser Specialists"
+        title="Laser Treatment FAQ | Tysons VA"
         description="CoolPeel, Tetra Pro & laser hair removal FAQs for Tysons VA patients. Book your free consultation at Virginia Laser Specialists — 703-547-4499."
         canonicalUrl="/faq"
       />

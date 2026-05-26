@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -704,6 +705,11 @@ const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Helmet>
+          <title>Admin Login | Virginia Laser Specialists</title>
+          <meta name="description" content="Private administrative dashboard for Virginia Laser Specialists staff." />
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <div className="w-full max-w-sm space-y-6 relative">
           <button
             onClick={() => window.location.href = '/'}
@@ -736,6 +742,11 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Admin Dashboard | Virginia Laser Specialists</title>
+        <meta name="description" content="Private administrative dashboard for Virginia Laser Specialists staff." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-foreground">Admin Dashboard</h1>
