@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal & CoolPeel Tysons VA | Virginia Laser Specialists"
+        title="Laser Hair Removal & CoolPeel | Tysons VA"
         description="Expert laser hair removal & CoolPeel CO₂ resurfacing in Tysons VA. Safe for all skin types. Book your free consultation — 703-547-4499."
         canonicalUrl="/"
       />

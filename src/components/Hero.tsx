@@ -23,7 +23,9 @@ const Hero = () => {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
+          // @ts-expect-error - fetchpriority is valid HTML
+          fetchpriority="high"
           aria-label="CoolPeel CO2 laser skin resurfacing treatment at Virginia Laser Specialists in Tysons, VA"
           className="w-full h-full object-cover lg:scale-[1.1]"
           onLoadedData={() => setImageLoaded(true)}
@@ -77,7 +79,7 @@ const Hero = () => {
               <Phone className="w-5 h-5" />
               <span className="font-medium">703-547-4499</span>
             </a>
-            <span className="hidden sm:inline text-white/50">|</span>
+            <span className="hidden sm:inline text-white/80" aria-hidden="true">|</span>
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5" />
               <span className="font-medium">Tysons, VA</span>
