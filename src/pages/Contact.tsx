@@ -197,7 +197,7 @@ const Contact = () => {
     return (
         <div className="min-h-screen">
             <SEO 
-                title="Contact Virginia Laser Specialists | Book Free Consultation Tysons VA"
+                title="Contact Virginia Laser Specialists | Tysons VA"
                 description="Visit us at 8100 Boone Blvd, Suite 270, Vienna VA. Tue–Fri 10–6, Sat 9–1. Book your free laser consultation — 703-547-4499."
                 canonicalUrl="/contact"
             />

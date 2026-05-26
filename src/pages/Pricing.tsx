@@ -36,7 +36,7 @@ const Pricing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Treatment Pricing Tysons VA | Cherry Financing | 25% Off Packages"
+        title="Laser Treatment Pricing & Financing | Tysons VA"
         description="Transparent laser hair removal & CoolPeel pricing in Tysons VA. 25% off 5-packs, Cherry financing $0 down. Book your free consultation — 703-547-4499."
         canonicalUrl="/pricing"
       />

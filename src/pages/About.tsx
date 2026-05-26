@@ -33,7 +33,7 @@ const About = () => {
     return (
         <div className="min-h-screen">
             <SEO 
-                title="About Virginia Laser Specialists | Expert Laser Technicians Tysons VA"
+                title="About Virginia Laser Specialists | Tysons VA"
                 description="Meet our licensed estheticians & certified laser techs in Tysons VA. Book your free consultation at Virginia Laser Specialists — 703-547-4499."
                 canonicalUrl="/about"
             />

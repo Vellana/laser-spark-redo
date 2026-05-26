@@ -277,7 +277,7 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Best Laser Hair Removal Near Me Tysons VA | Lutronic Clarity II | All Skin Types"
+        title="Laser Hair Removal | Tysons VA | All Skin Types"
         description="Safe laser hair removal for all skin types in Tysons VA with Lutronic Clarity II. 25% off packages. Book your free consultation — 703-547-4499."
         canonicalUrl="/laser-hair-removal"
       />

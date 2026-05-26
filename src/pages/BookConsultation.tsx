@@ -376,7 +376,7 @@ const BookConsultation = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Book Free Consultation | Laser Hair Removal & CoolPeel Tysons VA"
+        title="Book Free Consultation | Tysons VA"
         description="Book your free laser hair removal or CoolPeel consultation in Tysons VA. Online scheduling at Virginia Laser Specialists — call 703-547-4499."
         canonicalUrl="/book-free-consultation"
       />
