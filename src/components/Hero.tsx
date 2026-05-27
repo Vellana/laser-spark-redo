@@ -26,7 +26,7 @@ const Hero = () => {
           preload="auto"
           // @ts-expect-error - fetchpriority is valid HTML
           fetchpriority="high"
-          aria-label="CoolPeel CO2 laser skin resurfacing treatment at Virginia Laser Specialists in Tysons, VA"
+          aria-label="laser hair removal Vienna VA"
           className="w-full h-full object-cover lg:scale-[1.1]"
           onLoadedData={() => setImageLoaded(true)}
           onLoadedMetadata={() => setImageLoaded(true)}
