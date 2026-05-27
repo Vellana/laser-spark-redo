@@ -36,7 +36,7 @@ const SkinResurfacingFAQSchema = () => {
         "name": "How much does laser skin resurfacing cost near me in Tysons VA?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Laser skin resurfacing pricing at Virginia Laser Specialists varies by treatment type and area. We offer competitive pricing with Cherry financing available at $0 down. Schedule a free consultation at our Tysons/Vienna location for an accurate quote. Call 703-547-4499."
+          "text": "Laser skin resurfacing pricing at Virginia Laser Specialists varies by treatment type and area. We offer competitive pricing with Cherry financing available at $0 down. Schedule a free consultation at our Tysons/Vienna location for an accurate quote. Call 703-752-6608."
         }
       },
       {
@@ -72,7 +72,7 @@ const LaserSkinResurfacing = () => {
     <div className="min-h-screen">
       <SEO 
         title="CO₂ Laser Skin Resurfacing | Tysons VA"
-        description="Top-rated CO₂ laser skin resurfacing in Tysons VA — CoolPeel & DEKA Pulse with Cartessa Tetra Pro. Book your free consultation — 703-547-4499."
+        description="Top-rated CO₂ laser skin resurfacing in Tysons VA — CoolPeel & DEKA Pulse with Cartessa Tetra Pro. Book your free consultation — 703-752-6608."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />

@@ -142,7 +142,7 @@ const Contact = () => {
             console.error("Failed to save inquiry:", dbError);
             toast({
                 title: "Error",
-                description: "Something went wrong. Please try again or call us at 703-547-4499.",
+                description: "Something went wrong. Please try again or call us at 703-752-6608.",
                 variant: "destructive",
             });
             setIsSubmitting(false);
@@ -198,7 +198,7 @@ const Contact = () => {
         <div className="min-h-screen">
             <SEO 
                 title="Contact Virginia Laser Specialists | Tysons VA"
-                description="Visit us at 8100 Boone Blvd, Suite 270, Vienna VA. Tue–Fri 10–6, Sat 9–1. Book your free laser consultation — 703-547-4499."
+                description="Visit us at 8100 Boone Blvd, Suite 270, Vienna VA. Tue–Fri 10–6, Sat 9–1. Book your free laser consultation — 703-752-6608."
                 canonicalUrl="/contact"
             />
             <LocalBusinessSchema />
@@ -391,10 +391,10 @@ const Contact = () => {
                                             <div>
                                                 <h3 className="font-semibold text-foreground mb-1">Phone</h3>
                                                 <a
-                                                    href="tel:703-547-4499"
+                                                    href="tel:703-752-6608"
                                                     className="text-muted-foreground hover:text-accent transition-colors"
                                                 >
-                                                    703-547-4499
+                                                    703-752-6608
                                                 </a>
                                             </div>
                                         </div>

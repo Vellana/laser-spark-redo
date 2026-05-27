@@ -28,7 +28,7 @@ const Unsubscribe = () => {
     const { error } = await supabase.rpc("unsubscribe_email", { p_email: parsed.data });
     setSubmitting(false);
     if (error) {
-      toast.error("Something went wrong. Please try again or call 703-547-4499.");
+      toast.error("Something went wrong. Please try again or call 703-752-6608.");
       return;
     }
     setDone(true);

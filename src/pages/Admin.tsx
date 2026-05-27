@@ -687,7 +687,7 @@ const Admin = () => {
       <div style="background:${navyDark};padding:24px 28px;text-align:center;">
         <p style="color:${seafoamLight};margin:0 0 4px;font-size:13px;font-weight:700;">Virginia Laser Specialists</p>
         <p style="color:rgba(255,255,255,0.6);margin:0;font-size:11px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-        <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:11px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+        <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:11px;">703-752-6608 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
       </div>
     </div>`;
   };
@@ -889,7 +889,7 @@ const Admin = () => {
                                   <div style="background:${cream};border-left:4px solid ${seafoam};border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 18px;">
                                     <p style="color:${textDark};font-size:13px;line-height:1.7;margin:0;">${msg}</p>
                                   </div>
-                                  <p style="color:${textMedium};font-size:12px;line-height:1.6;margin:0 0 18px;">If you have any further questions, feel free to reply to this email or call us at <strong style="color:${textDark};">703-547-4499</strong>.</p>
+                                  <p style="color:${textMedium};font-size:12px;line-height:1.6;margin:0 0 18px;">If you have any further questions, feel free to reply to this email or call us at <strong style="color:${textDark};">703-752-6608</strong>.</p>
                                   <div style="text-align:center;">
                                     <span style="display:inline-block;background:${navy};color:${white};padding:10px 28px;border-radius:8px;font-size:13px;font-weight:700;">BOOK A FREE CONSULTATION</span>
                                   </div>
@@ -897,7 +897,7 @@ const Admin = () => {
                                 <div style="background:${navyDark};padding:20px 26px;text-align:center;">
                                   <p style="color:${seafoamLight};margin:0 0 4px;font-size:12px;font-weight:700;">Virginia Laser Specialists</p>
                                   <p style="color:rgba(255,255,255,0.6);margin:0;font-size:10px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-                                  <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:10px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+                                  <p style="color:rgba(255,255,255,0.6);margin:3px 0 0;font-size:10px;">703-752-6608 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
                                 </div>
                               </div>`;
                             })() }}
