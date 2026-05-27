@@ -42,7 +42,7 @@ const MedicalProcedureSchema = ({
       "@type": ["MedicalBusiness", "LocalBusiness"],
       "@id": "https://virginialaserspecialists.com/#business",
       "name": "Virginia Laser Specialists",
-      "telephone": "+1-703-547-4499",
+      "telephone": "+1-703-752-6608",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "8100 Boone Blvd, Suite 270",

@@ -8,8 +8,8 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: "703-547-4499",
-      link: "tel:703-547-4499",
+      details: "703-752-6608",
+      link: "tel:703-752-6608",
     },
     {
       icon: MapPin,

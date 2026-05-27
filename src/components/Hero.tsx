@@ -75,9 +75,9 @@ const Hero = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-white/90">
-            <a href="tel:703-547-4499" className="flex items-center gap-2 hover:text-accent transition-colors">
+            <a href="tel:703-752-6608" className="flex items-center gap-2 hover:text-accent transition-colors">
               <Phone className="w-5 h-5" />
-              <span className="font-medium">703-547-4499</span>
+              <span className="font-medium">703-752-6608</span>
             </a>
             <span className="hidden sm:inline text-white/80" aria-hidden="true">|</span>
             <div className="flex items-center gap-2">

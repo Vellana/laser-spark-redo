@@ -42,7 +42,7 @@ function generateICS(date: string, time: string, name: string, uid: string, sequ
     `DTSTART;TZID=America/New_York:${startDate}`,
     `DTEND;TZID=America/New_York:${endDate}`,
     `SUMMARY:Free Consultation - Virginia Laser Specialists (Updated)`,
-    `DESCRIPTION:Consultation for ${name} at Virginia Laser Specialists\\n8100 Boone Blvd\\, Suite 270\\, Vienna\\, VA 22182\\nPhone: 703-547-4499`,
+    `DESCRIPTION:Consultation for ${name} at Virginia Laser Specialists\\n8100 Boone Blvd\\, Suite 270\\, Vienna\\, VA 22182\\nPhone: 703-752-6608`,
     `LOCATION:8100 Boone Blvd\\, Suite 270\\, Vienna\\, VA 22182`,
     "STATUS:CONFIRMED",
     "END:VEVENT",
@@ -129,12 +129,12 @@ serve(async (req: Request) => {
       </div>
 
       <p style="color:${textMedium};font-size:14px;line-height:1.6;margin:0 0 8px;"><strong>Location:</strong> 8100 Boone Blvd, Suite 270, Vienna, VA 22182</p>
-      <p style="color:${textMedium};font-size:13px;margin:0 0 20px;">Questions? Call us at <strong style="color:${textDark};">703-547-4499</strong></p>
+      <p style="color:${textMedium};font-size:13px;margin:0 0 20px;">Questions? Call us at <strong style="color:${textDark};">703-752-6608</strong></p>
     </div>
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-752-6608 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
     </div>
   </div>
 </body>

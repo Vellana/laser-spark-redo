@@ -169,7 +169,7 @@ const handler = async (req: Request): Promise<Response> => {
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-752-6608 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
       <p style="color:rgba(255,255,255,0.6);margin:16px 0 0;font-size:11px;line-height:1.5;">
         You're receiving this email because you signed up for offers from Virginia Laser Specialists.<br>
         <a href="https://virginialaserspecialists.com/unsubscribe" style="color:${seafoamLight};text-decoration:underline;">Unsubscribe</a>

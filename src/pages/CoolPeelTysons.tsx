@@ -29,7 +29,7 @@ const CoolPeelTysonsSchema = () => {
         "name": "Virginia Laser Specialists",
         "description": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing treatments in Tysons and Vienna, VA. Expert skin rejuvenation with minimal downtime using advanced Cartessa Tetra Pro technology.",
         "url": "https://virginialaserspecialists.com",
-        "telephone": "703-547-4499",
+        "telephone": "703-752-6608",
         "email": "info@virginialaserspecialists.com",
         "address": {
           "@type": "PostalAddress",
@@ -109,7 +109,7 @@ const CoolPeelTysonsSchema = () => {
             "name": "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
+              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-752-6608 to schedule your free consultation."
             }
           },
           {
@@ -202,7 +202,7 @@ const benefits = [
 const faqs = [
   {
     question: "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
-    answer: "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, Arlington, Reston, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
+    answer: "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, Arlington, Reston, and the greater Northern Virginia area. Call 703-752-6608 to schedule your free consultation."
   },
   {
     question: "How long is the recovery after CoolPeel treatment?",
@@ -239,7 +239,7 @@ const CoolPeelTysons = () => {
     <div className="min-h-screen">
       <SEO 
         title="CoolPeel CO₂ Laser | Tysons & Vienna VA"
-        description="CoolPeel CO₂ laser resurfacing in Tysons & Vienna VA. 1–3 day recovery for wrinkles, sun damage, acne scars. Book your free consultation — 703-547-4499."
+        description="CoolPeel CO₂ laser resurfacing in Tysons & Vienna VA. 1–3 day recovery for wrinkles, sun damage, acne scars. Book your free consultation — 703-752-6608."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
@@ -635,8 +635,8 @@ const CoolPeelTysons = () => {
                       <div>
                         <h3 className="font-bold text-foreground mb-1">Contact Us</h3>
                         <p className="text-muted-foreground">
-                          <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
-                            (703) 547-4499
+                          <a href="tel:703-752-6608" className="hover:text-accent transition-colors">
+                            (703) 752-6608
                           </a>
                         </p>
                       </div>
@@ -737,9 +737,9 @@ const CoolPeelTysons = () => {
                   Book Your Free Consultation
                 </Button>
               </a>
-              <a href="tel:703-547-4499">
+              <a href="tel:703-752-6608">
                 <Button size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8">
-                  Call (703) 547-4499
+                  Call (703) 752-6608
                 </Button>
               </a>
             </div>

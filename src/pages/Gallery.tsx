@@ -50,7 +50,7 @@ const Gallery = () => {
     <div className="min-h-screen">
       <SEO 
         title="Photo Gallery | Virginia Laser Specialists"
-        description="Tour our laser treatment facility at 8100 Boone Blvd, Vienna VA. Lutronic Clarity II & Cartessa Tetra Pro. Book your free consultation — 703-547-4499."
+        description="Tour our laser treatment facility at 8100 Boone Blvd, Vienna VA. Lutronic Clarity II & Cartessa Tetra Pro. Book your free consultation — 703-752-6608."
         canonicalUrl="/gallery"
       />
       <LocalBusinessSchema />

@@ -74,8 +74,8 @@ const Footer = () => {
               <p>8100 Boone Blvd, Suite 270</p>
               <p>Vienna, VA 22182</p>
               <p>
-                <a href="tel:703-547-4499" className="hover:text-accent transition-colors" onClick={() => pushEvent("click_call")}>
-                  703-547-4499
+                <a href="tel:703-752-6608" className="hover:text-accent transition-colors" onClick={() => pushEvent("click_call")}>
+                  703-752-6608
                 </a>
               </p>
               <p className="text-sm">Tue-Fri: 10am-6pm | Sat: 9am-1pm</p>

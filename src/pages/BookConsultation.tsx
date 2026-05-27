@@ -329,7 +329,7 @@ const BookConsultation = () => {
 
       setSubmitted(true);
     } catch (err) {
-      toast.error("Something went wrong. Please try again or call us at 703-547-4499.");
+      toast.error("Something went wrong. Please try again or call us at 703-752-6608.");
     } finally {
       setLoading(false);
     }
@@ -363,7 +363,7 @@ const BookConsultation = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
                 <a href="/"><Button variant="outline">Back to Home</Button></a>
-                <a href="tel:703-547-4499"><Button variant="accent">Call Us: 703-547-4499</Button></a>
+                <a href="tel:703-752-6608"><Button variant="accent">Call Us: 703-752-6608</Button></a>
               </div>
             </div>
           </section>
@@ -377,7 +377,7 @@ const BookConsultation = () => {
     <div className="min-h-screen">
       <SEO
         title="Book Free Consultation | Tysons VA"
-        description="Book your free laser hair removal or CoolPeel consultation in Tysons VA. Online scheduling at Virginia Laser Specialists — call 703-547-4499."
+        description="Book your free laser hair removal or CoolPeel consultation in Tysons VA. Online scheduling at Virginia Laser Specialists — call 703-752-6608."
         canonicalUrl="/book-free-consultation"
       />
       <LocalBusinessSchema />
@@ -405,8 +405,8 @@ const BookConsultation = () => {
             <VagaroConsultWidget />
             <div className="pt-8 mt-8 border-t border-border text-center">
               <p className="text-sm text-muted-foreground mb-2">Prefer to call?</p>
-              <a href="tel:703-547-4499" className="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
-                <Phone className="w-4 h-4" /> 703-547-4499
+              <a href="tel:703-752-6608" className="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
+                <Phone className="w-4 h-4" /> 703-752-6608
               </a>
             </div>
           </div>

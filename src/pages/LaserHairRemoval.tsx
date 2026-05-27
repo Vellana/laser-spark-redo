@@ -245,7 +245,7 @@ const postTreatmentInstructions = [
   "Do not scrub, exfoliate, or wax the treated area for at least one week.",
   "Avoid tanning beds, spray tans, or self-tanners for one week after treatment.",
   "Seek medical advice if you experience severe redness, swelling, blistering, or signs of infection.",
-  "Questions, concerns or appointment scheduling: 703-547-4499"
+  "Questions, concerns or appointment scheduling: 703-752-6608"
 ];
 
 const LaserHairRemoval = () => {
@@ -278,7 +278,7 @@ const LaserHairRemoval = () => {
     <div className="min-h-screen">
       <SEO 
         title="Laser Hair Removal | Tysons VA | All Skin Types"
-        description="Safe laser hair removal for all skin types in Tysons VA with Lutronic Clarity II. 25% off packages. Book your free consultation — 703-547-4499."
+        description="Safe laser hair removal for all skin types in Tysons VA with Lutronic Clarity II. 25% off packages. Book your free consultation — 703-752-6608."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
