@@ -37,6 +37,16 @@ const Index = () => {
           </div>
         </section>
         <ServiceCategories />
+        <section className="py-12 bg-secondary/20">
+          <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
+              CO2 Laser Resurfacing in Vienna VA and Tysons
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Our CO2 laser Tysons treatments harness the precision of the Cartessa Tetra Pro for CoolPeel CO2 laser resurfacing Vienna VA patients trust for radiant, refreshed skin with minimal downtime. For deeper rejuvenation, our fractional CO2 laser Tysons option using the DEKA SmartXide stimulates collagen to smooth wrinkles, acne scars, and sun damage. As a leading provider of laser skin resurfacing Northern Virginia residents rely on, we tailor every treatment to your skin type and goals. Conveniently located minutes from McLean, Falls Church, and Arlington.
+            </p>
+          </div>
+        </section>
         <CoolPeel />
         <div className="bg-secondary/30 py-6">
           <div className="container mx-auto px-4 text-center">
