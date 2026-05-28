@@ -19,7 +19,7 @@ const Index = () => {
       <SEO 
         title="Laser Hair Removal Vienna VA | CoolPeel Tysons Corner - Virginia Laser Specialists"
         description="Laser hair removal Vienna VA and Tysons Corner. CoolPeel skin resurfacing, Clarity II laser, scar and stretch mark removal. Book your consultation today."
-        canonicalUrl="/"
+        description="Virginia Laser Specialists offers expert laser hair removal in Vienna VA and Tysons Corner. CoolPeel CO2 laser resurfacing, scar removal, and stretch mark treatments. Book a free consultation."
       />
       <LocalBusinessSchema />
       <Navigation />
