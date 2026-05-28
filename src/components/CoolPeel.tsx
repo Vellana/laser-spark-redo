@@ -45,7 +45,7 @@ const CoolPeel = () => {
     "Stop retinols or products that may dehydrate the skin (2-7 days prior to treatment)",
     "Discontinue use of all exfoliating products 1 week prior to treatment",
     "Avoid sun exposure (2+ weeks) and use a sunscreen that protects against UVA and UVB rays with a SPF of 30+",
-    "Stop Accutane® (3+ months – or as directed by your provider)",
+    "Stop Accutane® (3+ months - or as directed by your provider)",
     "No aspirin or supplements that may thin the blood (7 days or as directed by your provider)",
     "Start antiviral prophylactic treatment for those with a history of viral infection / cold sores",
     "For patients that are prone to hyperpigmentation, consider pre-treating with a melanin suppressing agent 2x daily for 2 weeks (or an appropriate length of time) before the treatment",
