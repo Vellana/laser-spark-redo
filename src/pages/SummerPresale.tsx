@@ -206,14 +206,20 @@ const SummerPresale = () => {
         </section>
 
         {/* Bottom CTA */}
-        <section className="py-20 bg-gradient-to-br from-primary to-primary/80">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-gradient-to-br from-primary to-primary/80 relative overflow-hidden">
+          {/* Subtle radial accent */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent opacity-60" />
+          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/20 border border-destructive/30 text-destructive text-sm font-bold uppercase tracking-wider">
+                <AlertTriangle className="w-4 h-4" />
+                Don't Miss Out
+              </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground">
                 Ready to lock in your Summer Pre-Sale pricing?
               </h2>
               <p className="text-lg text-primary-foreground/85">
-                Offer ends June 20, 2026. Buy now, treat later — on your schedule.
+                This exclusive offer ends June 20, 2026. Buy now, treat later — before it's gone.
               </p>
               <div className="flex justify-center pt-2">
                 <BookNowButton />
