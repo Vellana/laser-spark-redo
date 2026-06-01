@@ -99,7 +99,15 @@ const SummerPresale = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
               {/* Laser Hair Removal */}
-              <Card className="border-accent/30 shadow-lg flex flex-col">
+              <Card className="relative border-accent/40 shadow-xl flex flex-col overflow-hidden">
+                {/* Limited time badge */}
+                <div className="absolute top-0 right-0">
+                  <div className="bg-destructive text-destructive-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg">
+                    Limited Time
+                  </div>
+                </div>
+                {/* Accent top border */}
+                <div className="h-1.5 bg-gradient-to-r from-accent via-primary to-accent" />
                 <CardContent className="p-8 flex flex-col flex-1 text-center md:text-left space-y-5">
                   <div className="flex items-center justify-center md:justify-start gap-2 text-accent">
                     <Sparkles className="w-5 h-5" />
@@ -111,9 +119,12 @@ const SummerPresale = () => {
                   <p className="text-muted-foreground">
                     Stock up on smooth, hair-free skin with our Lutronic Clarity II dual-wavelength platform. Packages purchased during the pre-sale can be redeemed any time.
                   </p>
-                  <div className="rounded-xl bg-secondary/40 border border-border px-4 py-5">
+                  <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5">
                     <p className="text-2xl font-bold text-foreground">[PRICING TBD]</p>
-                    <p className="text-xs text-muted-foreground mt-1">Pre-sale pricing available June 7-20, 2026</p>
+                    <p className="text-xs text-muted-foreground mt-1 flex items-center justify-center md:justify-start gap-1">
+                      <Calendar className="w-3 h-3" />
+                      Pre-sale pricing available June 7-20, 2026
+                    </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Flexible monthly payments from $XX/mo through Cherry.
@@ -125,7 +136,15 @@ const SummerPresale = () => {
               </Card>
 
               {/* CoolPeel */}
-              <Card className="border-accent/30 shadow-lg flex flex-col">
+              <Card className="relative border-accent/40 shadow-xl flex flex-col overflow-hidden">
+                {/* Limited time badge */}
+                <div className="absolute top-0 right-0">
+                  <div className="bg-destructive text-destructive-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg">
+                    Limited Time
+                  </div>
+                </div>
+                {/* Accent top border */}
+                <div className="h-1.5 bg-gradient-to-r from-accent via-primary to-accent" />
                 <CardContent className="p-8 flex flex-col flex-1 text-center md:text-left space-y-5">
                   <div className="flex items-center justify-center md:justify-start gap-2 text-accent">
                     <Sparkles className="w-5 h-5" />
@@ -137,9 +156,12 @@ const SummerPresale = () => {
                   <p className="text-muted-foreground">
                     The gold-standard fractional CO2 resurfacing treatment for tone, texture, and fine lines — with minimal downtime. Lock in your sessions at pre-sale pricing.
                   </p>
-                  <div className="rounded-xl bg-secondary/40 border border-border px-4 py-5">
+                  <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5">
                     <p className="text-2xl font-bold text-foreground">[PRICING TBD]</p>
-                    <p className="text-xs text-muted-foreground mt-1">Pre-sale pricing available June 7-20, 2026</p>
+                    <p className="text-xs text-muted-foreground mt-1 flex items-center justify-center md:justify-start gap-1">
+                      <Calendar className="w-3 h-3" />
+                      Pre-sale pricing available June 7-20, 2026
+                    </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Flexible monthly payments from $XX/mo through Cherry.
