@@ -16,6 +16,7 @@ const Navigation = () => {
     { name: "Skin Resurfacing", href: "/laser-skin-resurfacing" },
     { name: "Hair Removal", href: "/laser-hair-removal" },
     { name: "Specials/Events", href: "/specials" },
+    { name: "Summer Pre-Sale", href: "/summer-presale" },
     { name: "Pricing", href: "/pricing" },
     { name: "Financing", href: "/#cherry-financing" },
     { name: "Gallery", href: "/gallery" },
