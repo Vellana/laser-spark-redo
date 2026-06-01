@@ -147,8 +147,6 @@ const CoolPeel = () => {
                   Book Now
                 </Button>
               </a>
-                </Button>
-              </a>
               <Link to="/pricing">
                 <Button
                   size="lg"
