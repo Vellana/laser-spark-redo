@@ -113,7 +113,7 @@ const SummerPresale = () => {
                     <p className="text-xs text-muted-foreground mt-1">Pre-sale pricing available June 7-20, 2026</p>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Flexible monthly payments available with Cherry financing.
+                    Flexible monthly payments from $XX/mo through Cherry.
                   </p>
                   <div className="pt-2 mt-auto">
                     <BookNowButton />
@@ -139,7 +139,7 @@ const SummerPresale = () => {
                     <p className="text-xs text-muted-foreground mt-1">Pre-sale pricing available June 7-20, 2026</p>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Flexible monthly payments available with Cherry financing.
+                    Flexible monthly payments from $XX/mo through Cherry.
                   </p>
                   <div className="pt-2 mt-auto">
                     <BookNowButton />
