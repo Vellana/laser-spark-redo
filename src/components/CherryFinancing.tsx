@@ -29,7 +29,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
           </div>
           
           <p className="text-center text-muted-foreground">
-            Apply for financing in under 30 seconds with no hard credit check. Finance up to $10,000 for your treatments with low monthly payments.
+            Don't let cost hold you back. Cherry offers simple, flexible payment plans so you can get the treatment you want today and pay over time.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -66,7 +66,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               Affordable Monthly Payments with Cherry
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Apply for financing in under 30 seconds with no hard credit check. Finance up to $10,000 for your laser hair removal and skin resurfacing treatments with low monthly payments.
+              Don't let cost hold you back. Cherry offers simple, flexible payment plans so you can get the treatment you want today and pay over time.
             </p>
           </div>
 
