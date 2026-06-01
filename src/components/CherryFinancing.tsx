@@ -29,7 +29,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
           </div>
           
           <p className="text-center text-muted-foreground">
-            Don't let cost hold you back. Cherry offers simple, flexible payment plans so you can get the treatment you want today and pay over time.
+            Flexible monthly payments from $XX/mo through Cherry. Simple, flexible payment plans so you can get the treatment you want today and pay over time.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -48,7 +48,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               </Button>
             </a>
             <p className="text-sm text-muted-foreground italic">
-              Ask us about Cherry financing when booking your consultation!
+              Flexible monthly payments from $XX/mo through Cherry. Ask us about financing when booking your consultation!
             </p>
           </div>
         </CardContent>
@@ -66,7 +66,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               Affordable Monthly Payments with Cherry
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Don't let cost hold you back. Cherry offers simple, flexible payment plans so you can get the treatment you want today and pay over time.
+              Flexible monthly payments from $XX/mo through Cherry. Simple, flexible payment plans so you can get the treatment you want today and pay over time.
             </p>
           </div>
 
@@ -94,7 +94,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               </Button>
             </a>
             <p className="text-muted-foreground italic">
-              Ask us about Cherry financing when booking your consultation!
+              Flexible monthly payments from $XX/mo through Cherry. Ask us about financing when booking your consultation!
             </p>
           </div>
         </div>
