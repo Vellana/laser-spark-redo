@@ -166,6 +166,7 @@ const hairRemovalFAQs: QA[] = [
 ];
 
 const sections: { id: string; title: string; items: QA[]; keyPrefix: string }[] = [
+  { id: "general-faq", title: "General", items: generalFAQs, keyPrefix: "gn" },
   { id: "coolpeel-faq", title: "CoolPeel", items: coolpeelFAQs, keyPrefix: "cp" },
   { id: "tetrapro-faq", title: "Tetra Pro Advanced Treatments", items: tetraProFAQs, keyPrefix: "tp" },
   { id: "lhr-faq", title: "Laser Hair Removal", items: hairRemovalFAQs, keyPrefix: "hr" },
