@@ -137,9 +137,14 @@ const SpecialsPopup = () => {
               <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <Link to="/book-free-consultation" className="flex-1">
-                <Button variant="accent" className="w-full" onClick={handleClose}>Book Consultation</Button>
-              </Link>
+              <a
+                href="https://www.vagaro.com/virginialaserspecialists/services"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+              >
+                <Button variant="accent" className="w-full" onClick={handleClose}>Book Now</Button>
+              </a>
               <Button variant="outline" className="flex-1" onClick={handleClose}>Continue Browsing</Button>
             </div>
           </div>

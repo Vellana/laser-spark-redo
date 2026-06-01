@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import { pushEvent } from "@/lib/analytics";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
@@ -274,11 +275,16 @@ const FAQ = () => {
               Book a free consultation with our team - we'll answer every question and create a treatment plan tailored to you.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/book-free-consultation">
+              <a
+                href="https://www.vagaro.com/virginialaserspecialists/services"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => pushEvent("free_consult_booking")}
+              >
                 <Button variant="accent" size="lg" className="w-full sm:w-auto">
-                  Book Free Consultation
+                  Book Now
                 </Button>
-              </Link>
+              </a>
               <Link to="/contact">
                 <Button variant="outline" size="lg" className="w-full sm:w-auto">
                   Contact Us

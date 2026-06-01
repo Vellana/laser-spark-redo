@@ -102,12 +102,17 @@ const Contact = () => {
         </div>
 
         <div className="text-center space-y-6">
-          <a href="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
+          <a
+            href="https://www.vagaro.com/virginialaserspecialists/services"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => pushEvent("free_consult_booking")}
+          >
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"
             >
-              Book Your Free Consultation
+              Book Now
             </Button>
           </a>
           <p className="text-white/80 text-sm">
