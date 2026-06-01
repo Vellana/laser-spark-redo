@@ -273,9 +273,14 @@ const CoolPeelTysons = () => {
                   busy professionals in Tysons, Vienna, and Northern Virginia.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href="/book-free-consultation">
+                  <a
+                    href="https://www.vagaro.com/virginialaserspecialists/services"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => pushEvent("free_consult_booking")}
+                  >
                     <Button size="lg" className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                      Schedule Your Consultation
+                      Book Now
                     </Button>
                   </a>
                   <Link to="/pricing">
@@ -732,9 +737,14 @@ const CoolPeelTysons = () => {
               advanced CO₂ laser technology can rejuvenate your skin with minimal downtime.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/book-free-consultation">
+              <a
+                href="https://www.vagaro.com/virginialaserspecialists/services"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => pushEvent("free_consult_booking")}
+              >
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                  Book Your Free Consultation
+                  Book Now
                 </Button>
               </a>
               <a href="tel:703-752-6608">

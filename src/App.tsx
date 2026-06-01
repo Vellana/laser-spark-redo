@@ -18,7 +18,7 @@ const LaserSkinResurfacing = lazy(() => import("./pages/LaserSkinResurfacing"));
 const CoolPeelTysons = lazy(() => import("./pages/CoolPeelTysons"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
-const BookConsultation = lazy(() => import("./pages/BookConsultation"));
+
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
 const AdminEmailList = lazy(() => import("./pages/AdminEmailList"));
@@ -71,7 +71,7 @@ const App = () => {
                 <Route path="/laser-hair-removal" element={<LaserHairRemoval />} />
                 <Route path="/laser-skin-resurfacing" element={<LaserSkinResurfacing />} />
                 <Route path="/coolpeel-co2-laser-tysons-va" element={<CoolPeelTysons />} />
-                <Route path="/book-free-consultation" element={<BookConsultation />} />
+                
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/unsubscribe" element={<Unsubscribe />} />
                 <Route path="/admin" element={<Admin />} />

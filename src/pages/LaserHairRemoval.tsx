@@ -322,9 +322,14 @@ const LaserHairRemoval = () => {
                   delivering exceptional results with minimal discomfort.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href="/book-free-consultation" onClick={() => pushEvent("free_consult_booking")}>
+                  <a
+                    href="https://www.vagaro.com/virginialaserspecialists/services"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => pushEvent("free_consult_booking")}
+                  >
                     <Button size="lg" className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                      Book Free Consultation
+                      Book Now
                     </Button>
                   </a>
                   <Link to="/pricing">
@@ -541,9 +546,14 @@ const LaserHairRemoval = () => {
             </p>
             <CherryFinancingBadge className="mb-6 bg-primary-foreground/10 border-primary-foreground/20" />
             <div>
-              <a href="/book-free-consultation">
+              <a
+                href="https://www.vagaro.com/virginialaserspecialists/services"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => pushEvent("free_consult_booking")}
+              >
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                  Book Free Consultation
+                  Book Now
                 </Button>
               </a>
             </div>
