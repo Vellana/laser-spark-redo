@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { pushEvent } from "@/lib/analytics";
 import heroPoster from "@/assets/Homepage_mainphoto.jpg";
