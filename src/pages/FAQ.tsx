@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import { pushEvent } from "@/lib/analytics";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
