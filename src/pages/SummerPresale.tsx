@@ -71,12 +71,15 @@ const SummerPresale = () => {
 
       <main className="pt-20">
         {/* Hero */}
-        <section className="py-16 sm:py-24 bg-gradient-to-b from-accent/10 via-primary/5 to-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-16 sm:py-24 overflow-hidden">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-background" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent" />
+          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/15 text-accent text-sm font-medium">
-                <Sun className="w-4 h-4" />
-                Summer Pre-Sale
+              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-destructive/10 border border-destructive/20 text-destructive text-sm font-bold uppercase tracking-wider animate-pulse">
+                <Timer className="w-4 h-4" />
+                Limited Time Only
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
                 Buy Now, Treat Later
