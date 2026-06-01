@@ -12,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ExternalLink, Sparkles, Sun } from "lucide-react";
+import { ExternalLink, Sparkles, Sun, Timer, Calendar, AlertTriangle } from "lucide-react";
 import { pushEvent } from "@/lib/analytics";
 
 const VAGARO_URL = "https://www.vagaro.com/virginialaserspecialists/services";
