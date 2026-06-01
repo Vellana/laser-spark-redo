@@ -21,6 +21,13 @@ interface QA {
   a: Answer;
 }
 
+const generalFAQs: QA[] = [
+  {
+    q: "How do I book?",
+    a: "Click Book Now to visit our Vagaro page and select your service.",
+  },
+];
+
 const coolpeelFAQs: QA[] = [
   {
     q: "What is CoolPeel?",
