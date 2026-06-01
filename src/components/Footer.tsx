@@ -10,7 +10,7 @@ const Footer = () => {
     { name: "Laser Hair Removal", href: "/laser-hair-removal" },
     { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
     { name: "CoolPeel CO₂ Tysons VA", href: "/coolpeel-co2-laser-tysons-va" },
-    { name: "Book Free Consultation", href: "/book-free-consultation" },
+    { name: "Book Now", href: "https://www.vagaro.com/virginialaserspecialists/services", external: true },
     { name: "Specials", href: "/specials" },
     { name: "Pricing", href: "/pricing" },
     { name: "Financing", href: "/#cherry-financing" },
@@ -47,7 +47,16 @@ const Footer = () => {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  {link.href.startsWith("/#") ? (
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ) : link.href.startsWith("/#") ? (
                     <a
                       href={link.href}
                       className="text-muted-foreground hover:text-accent transition-colors"
