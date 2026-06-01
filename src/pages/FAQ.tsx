@@ -187,7 +187,7 @@ const FAQ = () => {
     }
   }, [location.hash]);
 
-  const allItems = [...coolpeelFAQs, ...tetraProFAQs, ...hairRemovalFAQs];
+  const allItems = [...generalFAQs, ...coolpeelFAQs, ...tetraProFAQs, ...hairRemovalFAQs];
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
