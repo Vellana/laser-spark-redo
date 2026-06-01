@@ -21,6 +21,13 @@ interface QA {
   a: Answer;
 }
 
+const generalFAQs: QA[] = [
+  {
+    q: "How do I book?",
+    a: "Click Book Now to visit our Vagaro page and select your service.",
+  },
+];
+
 const coolpeelFAQs: QA[] = [
   {
     q: "What is CoolPeel?",
@@ -159,6 +166,7 @@ const hairRemovalFAQs: QA[] = [
 ];
 
 const sections: { id: string; title: string; items: QA[]; keyPrefix: string }[] = [
+  { id: "general-faq", title: "General", items: generalFAQs, keyPrefix: "gn" },
   { id: "coolpeel-faq", title: "CoolPeel", items: coolpeelFAQs, keyPrefix: "cp" },
   { id: "tetrapro-faq", title: "Tetra Pro Advanced Treatments", items: tetraProFAQs, keyPrefix: "tp" },
   { id: "lhr-faq", title: "Laser Hair Removal", items: hairRemovalFAQs, keyPrefix: "hr" },
@@ -179,7 +187,7 @@ const FAQ = () => {
     }
   }, [location.hash]);
 
-  const allItems = [...coolpeelFAQs, ...tetraProFAQs, ...hairRemovalFAQs];
+  const allItems = [...generalFAQs, ...coolpeelFAQs, ...tetraProFAQs, ...hairRemovalFAQs];
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
