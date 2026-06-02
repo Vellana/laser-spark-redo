@@ -28,7 +28,7 @@ const PromoBanner = () => {
           className="text-sm md:text-base font-medium hover:underline underline-offset-4"
         >
           <span className="font-semibold">Summer Pre-Sale:</span> Buy Now, Treat Later
-          <span className="hidden sm:inline"> — Limited Time June 7-20</span>
+          <span className="hidden sm:inline">: Limited Time June 7-20</span>
         </Link>
         <button
           onClick={dismiss}
