@@ -176,6 +176,9 @@ const SummerPresale = () => {
                 </CardContent>
               </Card>
             </div>
+            <p className="text-xs text-muted-foreground text-center mt-6">
+              Limited time deal. Cannot be combined with other discounts or promotions.
+            </p>
           </div>
         </section>
 
