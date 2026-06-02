@@ -138,7 +138,7 @@ const SpecialsPopup = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <a
-                href="https://www.vagaro.com/virginialaserspecialists/services"
+                href="https://www.vagaro.com/virginialaserspecialists/book-now"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1"

@@ -55,7 +55,7 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a 
-              href="https://www.vagaro.com/virginialaserspecialists/services"
+              href="https://www.vagaro.com/virginialaserspecialists/book-now"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => pushEvent("free_consult_booking")}
