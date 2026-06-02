@@ -35,7 +35,7 @@ const BookNowButton = ({ className = "" }: { className?: string }) => (
 const faqs = [
   {
     q: "What does \"Buy Now, Treat Later\" mean?",
-    a: "Purchase your treatment package at exclusive pre-sale pricing between June 7-20, 2026, and redeem your sessions any time after — perfect for planning ahead without rushing your schedule.",
+    a: "Purchase your treatment package at exclusive pre-sale pricing between June 7-20, 2026, and redeem your sessions any time after, perfect for planning ahead without rushing your schedule.",
   },
   {
     q: "How do I book?",
@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Is financing available?",
-    a: "Yes. Cherry financing is available for all pre-sale packages — apply in under 30 seconds with no hard credit check and pay over time in flexible monthly installments.",
+    a: "Yes. Cherry financing is available for all pre-sale packages. Apply in under 30 seconds with no hard credit check and pay over time in flexible monthly installments.",
   },
   {
     q: "Which treatments are included?",
@@ -56,7 +56,7 @@ const SummerPresale = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Summer Pre-Sale: Buy Now, Treat Later | Virginia Laser Specialists"
-        description="Exclusive Summer Pre-Sale June 7-20, 2026. Buy CoolPeel and Laser Hair Removal packages now at special pricing — treat later. Cherry financing available."
+        description="Exclusive Summer Pre-Sale June 7-20, 2026. Buy CoolPeel and Laser Hair Removal packages now at special pricing. Treat later. Cherry financing available."
         canonicalUrl="/summer-presale"
       />
       <LocalBusinessSchema />
@@ -85,10 +85,10 @@ const SummerPresale = () => {
                 Buy Now, Treat Later
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                Exclusive Summer Pre-Sale — June 7-20, 2026
+                Exclusive Summer Pre-Sale - June 7-20, 2026
               </p>
               <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-                Lock in your discounted price now and schedule your treatment whenever you are ready — there is no cutoff date to redeem.
+                Lock in your discounted price now and schedule your treatment whenever you are ready. There is no cutoff date to redeem.
               </p>
               <div className="flex justify-center pt-2">
                 <BookNowButton />
@@ -131,7 +131,7 @@ const SummerPresale = () => {
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Cherry financing available — apply in seconds with no hard credit check.
+                    Cherry financing available. Apply in seconds with no hard credit check.
                   </p>
                   <div className="pt-2 mt-auto">
                     <BookNowButton />
@@ -158,7 +158,7 @@ const SummerPresale = () => {
                     CoolPeel CO2 Laser
                   </h2>
                   <p className="text-muted-foreground">
-                    The gold-standard fractional CO2 resurfacing treatment for tone, texture, and fine lines — with minimal downtime. Lock in your sessions at pre-sale pricing.
+                    The gold-standard fractional CO2 resurfacing treatment for tone, texture, and fine lines, with minimal downtime. Lock in your sessions at pre-sale pricing.
                   </p>
                   <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5">
                     <p className="text-2xl font-bold text-foreground">$500 off CoolPeel packages of 3</p>
@@ -168,7 +168,7 @@ const SummerPresale = () => {
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Cherry financing available — apply in seconds with no hard credit check.
+                    Cherry financing available. Apply in seconds with no hard credit check.
                   </p>
                   <div className="pt-2 mt-auto">
                     <BookNowButton />
@@ -226,7 +226,7 @@ const SummerPresale = () => {
                 Ready to lock in your Summer Pre-Sale pricing?
               </h2>
               <p className="text-lg text-primary-foreground/85">
-                This exclusive offer ends June 20, 2026. Buy now, treat later — before it's gone.
+                This exclusive offer ends June 20, 2026. Buy now, treat later, before it's gone.
               </p>
               <div className="flex justify-center pt-2">
                 <BookNowButton />
