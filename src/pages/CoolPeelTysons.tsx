@@ -275,7 +275,7 @@ const CoolPeelTysons = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
-                    href="https://www.vagaro.com/virginialaserspecialists/services"
+                    href="https://www.vagaro.com/virginialaserspecialists/book-now"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => pushEvent("free_consult_booking")}
@@ -739,7 +739,7 @@ const CoolPeelTysons = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://www.vagaro.com/virginialaserspecialists/services"
+                href="https://www.vagaro.com/virginialaserspecialists/book-now"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushEvent("free_consult_booking")}

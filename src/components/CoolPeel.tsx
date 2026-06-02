@@ -136,7 +136,7 @@ const CoolPeel = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center lg:justify-start items-center">
               <a
-                href="https://www.vagaro.com/virginialaserspecialists/services"
+                href="https://www.vagaro.com/virginialaserspecialists/book-now"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushEvent("free_consult_booking")}

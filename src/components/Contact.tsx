@@ -103,7 +103,7 @@ const Contact = () => {
 
         <div className="text-center space-y-6">
           <a
-            href="https://www.vagaro.com/virginialaserspecialists/services"
+            href="https://www.vagaro.com/virginialaserspecialists/book-now"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => pushEvent("free_consult_booking")}
