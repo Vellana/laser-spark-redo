@@ -9,10 +9,10 @@ interface CherryFinancingProps {
 
 const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
   const benefits = [
-    { icon: Clock, text: "Quick application (takes < 30 seconds)" },
-    { icon: Shield, text: "No hard credit check" },
-    { icon: DollarSign, text: "Finance up to $10,000" },
-    { icon: CheckCircle2, text: "Low monthly payments" },
+    { icon: Clock, text: "Get approved in seconds" },
+    { icon: Shield, text: "Zero hard credit checks" },
+    { icon: DollarSign, text: "No impact on your score" },
+    { icon: CheckCircle2, text: "Easy monthly payments" },
   ];
 
   const cherryUrl = "https://pay.withcherry.com/virginia-laser-specialists/?utm_source=mobilepracticeportal";
@@ -29,7 +29,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
           </div>
           
           <p className="text-center text-muted-foreground">
-            Flexible monthly payments from $XX/mo through Cherry. Simple, flexible payment plans so you can get the treatment you want today and pay over time.
+            Split your treatment into easy monthly payments with Cherry! Get approved in seconds with zero hard credit checks and no impact on your score.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -48,7 +48,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               </Button>
             </a>
             <p className="text-sm text-muted-foreground italic">
-              Flexible monthly payments from $XX/mo through Cherry. Ask us about financing when booking your consultation!
+              Example: $1,000 financed as low as $100/month with no interest, or $3,000 as low as $230.77/month with no interest.
             </p>
           </div>
         </CardContent>
@@ -66,7 +66,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               Affordable Monthly Payments with Cherry
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Flexible monthly payments from $XX/mo through Cherry. Simple, flexible payment plans so you can get the treatment you want today and pay over time.
+              Split your treatment into easy monthly payments with Cherry! Get approved in seconds with zero hard credit checks and no impact on your score.
             </p>
           </div>
 
@@ -94,7 +94,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
               </Button>
             </a>
             <p className="text-muted-foreground italic">
-              Flexible monthly payments from $XX/mo through Cherry. Ask us about financing when booking your consultation!
+              Example: $1,000 financed as low as $100/month with no interest, or $3,000 as low as $230.77/month with no interest.
             </p>
           </div>
         </div>
