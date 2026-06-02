@@ -9,6 +9,7 @@ import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SpecialsPopup from "@/components/SpecialsPopup";
+import PromoBanner from "@/components/PromoBanner";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import { Link } from "react-router-dom";
@@ -21,6 +22,7 @@ const Index = () => {
         description="Virginia Laser Specialists offers expert laser hair removal in Vienna VA and Tysons Corner. CoolPeel CO2 laser resurfacing, scar removal, and stretch mark treatments. Book a free consultation."
       />
       <LocalBusinessSchema />
+      <PromoBanner />
       <Navigation />
       <SpecialsPopup />
       <main>
