@@ -87,6 +87,9 @@ const SummerPresale = () => {
               <p className="text-lg sm:text-xl text-muted-foreground">
                 Exclusive Summer Pre-Sale — June 7-20, 2026
               </p>
+              <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+                Lock in your discounted price now and schedule your treatment whenever you are ready — there is no cutoff date to redeem.
+              </p>
               <div className="flex justify-center pt-2">
                 <BookNowButton />
               </div>
