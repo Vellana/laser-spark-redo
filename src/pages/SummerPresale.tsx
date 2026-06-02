@@ -123,14 +123,15 @@ const SummerPresale = () => {
                     Stock up on smooth, hair-free skin with our Lutronic Clarity II dual-wavelength platform. Packages purchased during the pre-sale can be redeemed any time.
                   </p>
                   <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5">
-                    <p className="text-2xl font-bold text-foreground">[PRICING TBD]</p>
-                    <p className="text-xs text-muted-foreground mt-1 flex items-center justify-center md:justify-start gap-1">
+                    <p className="text-2xl font-bold text-foreground">40% off all Laser Hair Removal packages of 5 treatments</p>
+                    <p className="text-sm text-muted-foreground mt-1">off original price</p>
+                    <p className="text-xs text-muted-foreground mt-2 flex items-center justify-center md:justify-start gap-1">
                       <Calendar className="w-3 h-3" />
                       Pre-sale pricing available June 7-20, 2026
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Flexible monthly payments from $XX/mo through Cherry.
+                    Cherry financing available — apply in seconds with no hard credit check.
                   </p>
                   <div className="pt-2 mt-auto">
                     <BookNowButton />
@@ -160,14 +161,14 @@ const SummerPresale = () => {
                     The gold-standard fractional CO2 resurfacing treatment for tone, texture, and fine lines — with minimal downtime. Lock in your sessions at pre-sale pricing.
                   </p>
                   <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5">
-                    <p className="text-2xl font-bold text-foreground">[PRICING TBD]</p>
-                    <p className="text-xs text-muted-foreground mt-1 flex items-center justify-center md:justify-start gap-1">
+                    <p className="text-2xl font-bold text-foreground">$500 off CoolPeel packages of 3</p>
+                    <p className="text-xs text-muted-foreground mt-2 flex items-center justify-center md:justify-start gap-1">
                       <Calendar className="w-3 h-3" />
                       Pre-sale pricing available June 7-20, 2026
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Flexible monthly payments from $XX/mo through Cherry.
+                    Cherry financing available — apply in seconds with no hard credit check.
                   </p>
                   <div className="pt-2 mt-auto">
                     <BookNowButton />

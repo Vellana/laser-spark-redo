@@ -15,7 +15,7 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
     { icon: CheckCircle2, text: "Low monthly payments" },
   ];
 
-  const cherryUrl = "https://pay.withcherry.com/virginia-laser-specialists";
+  const cherryUrl = "https://pay.withcherry.com/virginia-laser-specialists/?utm_source=mobilepracticeportal";
 
   if (variant === "card") {
     return (
