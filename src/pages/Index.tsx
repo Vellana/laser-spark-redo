@@ -12,16 +12,18 @@ import SpecialsPopup from "@/components/SpecialsPopup";
 import PromoBanner from "@/components/PromoBanner";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import MedicalSpaSchema from "@/components/MedicalSpaSchema";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal Vienna VA | CoolPeel Tysons Corner - Virginia Laser Specialists"
-        description="Virginia Laser Specialists offers expert laser hair removal in Vienna VA and Tysons Corner. CoolPeel CO2 laser resurfacing, scar removal, and stretch mark treatments. Book a free consultation."
+        title="Laser Hair Removal Vienna VA | Laser Hair Removal Tysons Corner | CoolPeel"
+        description="Virginia Laser Specialists offers laser hair removal Vienna VA and laser hair removal Tysons Corner with Clarity II, plus CoolPeel CO2 skin resurfacing. Book a free consultation."
       />
       <LocalBusinessSchema />
+      <MedicalSpaSchema />
       <PromoBanner />
       <Navigation />
       <SpecialsPopup />
@@ -59,6 +61,16 @@ const Index = () => {
           </div>
         </section>
         <CoolPeel />
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
+              CoolPeel Skin Resurfacing Tysons
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              CoolPeel skin resurfacing Tysons patients love is a fractional CO2 treatment that refreshes tone and texture with only 1 to 3 days of downtime. At our Vienna studio, just minutes from Tysons Corner, McLean, and Falls Church, our team tailors every CoolPeel session to your skin goals.
+            </p>
+          </div>
+        </section>
         <div className="bg-secondary/30 py-6">
           <div className="container mx-auto px-4 text-center">
             <p className="text-muted-foreground">
