@@ -11,7 +11,7 @@ const LocalBusinessSchema = () => {
         "alternateName": "VLS Tysons",
         "description": "Premier laser hair removal and CoolPeel CO₂ skin resurfacing clinic in Tysons, Vienna, McLean VA. Using advanced Lutronic Clarity II dual-wavelength laser and Cartessa Tetra Pro CO₂ technology. Safe for all skin types. Board-certified laser specialists.",
         "url": "https://virginialaserspecialists.com",
-        "telephone": "+1-703-752-6608",
+        "telephone": "+17037526608",
         "email": "info@virginialaserspecialists.com",
         "address": {
           "@type": "PostalAddress",
