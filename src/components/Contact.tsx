@@ -116,7 +116,7 @@ const Contact = () => {
             </Button>
           </a>
           <p className="text-white/80 text-sm">
-            We accept most insurance plans and offer flexible payment options
+            Flexible financing available through Cherry
           </p>
         </div>
       </div>
