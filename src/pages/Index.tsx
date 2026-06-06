@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import SummerPresaleBanner from "@/components/SummerPresaleBanner";
 import CherryFinancing from "@/components/CherryFinancing";
 import ServiceCategories from "@/components/ServiceCategories";
 import CoolPeel from "@/components/CoolPeel";
