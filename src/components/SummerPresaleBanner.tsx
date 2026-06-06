@@ -30,7 +30,7 @@ const SummerPresaleBanner = () => {
 
               {/* Headline */}
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Buy Now, Treat Later — Limited Time Offer
+                Buy Now, Treat Later: Limited Time Offer
               </h2>
 
               {/* Subcopy */}
