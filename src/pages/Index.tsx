@@ -30,6 +30,7 @@ const Index = () => {
       <SpecialsPopup />
       <main>
         <Hero />
+        <SummerPresaleBanner />
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
