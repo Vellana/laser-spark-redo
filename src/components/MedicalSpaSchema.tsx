@@ -7,7 +7,7 @@ const MedicalSpaSchema = () => {
     "@id": "https://virginialaserspecialists.com/#medicalspa",
     "name": "Virginia Laser Specialists",
     "url": "https://virginialaserspecialists.com",
-    "telephone": "+1-703-547-4499",
+    "telephone": "+17037526608",
     "image": "https://virginialaserspecialists.com/favicon.png",
     "priceRange": "$$",
     "address": {
