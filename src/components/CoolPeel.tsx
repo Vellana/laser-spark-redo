@@ -253,6 +253,25 @@ const CoolPeel = () => {
                     </div>
                   </div>
 
+                  <div className="mt-6 grid md:grid-cols-2 gap-4">
+                    <div className="p-5 bg-secondary/30 rounded-xl border border-border/50 space-y-2">
+                      <div className="flex items-center gap-2 text-accent">
+                        <Tag className="w-5 h-5" />
+                        <span className="font-semibold">Single Session</span>
+                      </div>
+                      <p className="text-2xl font-bold text-foreground">$750</p>
+                      <p className="text-sm text-muted-foreground">Per CoolPeel treatment</p>
+                    </div>
+                    <div className="p-5 bg-secondary/30 rounded-xl border border-border/50 space-y-2">
+                      <div className="flex items-center gap-2 text-accent">
+                        <Package className="w-5 h-5" />
+                        <span className="font-semibold">Package of 3</span>
+                      </div>
+                      <p className="text-2xl font-bold text-foreground">$2,000</p>
+                      <p className="text-sm text-muted-foreground">Save $250 vs. single sessions</p>
+                    </div>
+                  </div>
+
                   <div className="mt-6 p-4 bg-accent/10 rounded-lg">
                     <p className="text-sm text-foreground">
                       <strong>Perfect if:</strong> You want effective results without significant social downtime
