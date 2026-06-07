@@ -12,7 +12,9 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const navLinks = [
+    { name: "Book Online", href: "/booking" },
     { name: "CoolPeel", href: "/coolpeel-co2-laser-tysons-va" },
+
     { name: "Skin Resurfacing", href: "/laser-skin-resurfacing" },
     { name: "Hair Removal", href: "/laser-hair-removal" },
     { name: "Specials/Events", href: "/specials" },
