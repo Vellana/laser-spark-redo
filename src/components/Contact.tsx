@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, MapPin, Clock } from "lucide-react";
 import { pushEvent } from "@/lib/analytics";
+import VagaroConsultWidget from "@/components/VagaroConsultWidget";
+
 
 const Contact = () => {
   const contactInfo = [
@@ -101,7 +103,17 @@ const Contact = () => {
           </div>
         </div>
 
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+            <h3 className="text-2xl font-bold text-primary text-center mb-4">
+              Book a Free Consultation
+            </h3>
+            <VagaroConsultWidget />
+          </div>
+        </div>
+
         <div className="text-center space-y-6">
+
           <a
             href="https://www.vagaro.com/virginialaserspecialists/book-now"
             target="_blank"
