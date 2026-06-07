@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, MapPin, Clock } from "lucide-react";
 import { pushEvent } from "@/lib/analytics";
+import VagaroConsultWidget from "@/components/VagaroConsultWidget";
+
 
 const Contact = () => {
   const contactInfo = [
