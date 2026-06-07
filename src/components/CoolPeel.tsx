@@ -101,7 +101,7 @@ const CoolPeel = () => {
             </h2>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              The Tetra Pro by Cartessa offers two powerful CO2 laser treatments: CoolPeel for
+              The DEKA SmartXide CO2 laser platform offers two powerful treatments: CoolPeel for
               minimal downtime and Deka Pulse for deeper, more dramatic results. Both stimulate
               collagen production for smoother, more youthful-looking skin.
             </p>
