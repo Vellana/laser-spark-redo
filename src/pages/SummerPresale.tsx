@@ -158,10 +158,16 @@ const SummerPresale = () => {
                     CoolPeel CO2 Laser
                   </h2>
                   <p className="text-muted-foreground">
-                    The gold-standard fractional CO2 resurfacing treatment for tone, texture, and fine lines, with minimal downtime. Lock in your sessions at pre-sale pricing.
+                    The gold-standard fractional CO2 resurfacing treatment, powered by the DEKA SmartXide CO2 laser, for tone, texture, and fine lines with minimal downtime.
                   </p>
-                  <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5">
-                    <p className="text-2xl font-bold text-foreground">$500 off CoolPeel packages of 3</p>
+                  <div className="rounded-xl bg-gradient-to-br from-accent/10 to-secondary/40 border border-accent/20 px-4 py-5 space-y-2">
+                    <p className="text-2xl font-bold text-foreground">$500 Off CoolPeel Packages of 3</p>
+                    <div className="flex items-baseline justify-center md:justify-start gap-2">
+                      <span className="text-xl font-bold text-foreground">$1,500</span>
+                      <span className="text-base text-muted-foreground line-through">$2,000</span>
+                      <span className="text-xs font-semibold text-accent uppercase">Summer Sale</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Single session: $750 · DEKA SmartXide CO2 laser · Minimal downtime</p>
                     <p className="text-xs text-muted-foreground mt-2 flex items-center justify-center md:justify-start gap-1">
                       <Calendar className="w-3 h-3" />
                       Pre-sale pricing available June 7-20, 2026
