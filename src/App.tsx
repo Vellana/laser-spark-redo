@@ -19,6 +19,8 @@ const CoolPeelTysons = lazy(() => import("./pages/CoolPeelTysons"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const SummerPresale = lazy(() => import("./pages/SummerPresale"));
+const Booking = lazy(() => import("./pages/Booking"));
+
 
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
@@ -64,6 +66,8 @@ const App = () => {
             <div className="page-transition">
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/booking" element={<Booking />} />
+
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/specials" element={<Specials />} />
                 <Route path="/summer-presale" element={<SummerPresale />} />
