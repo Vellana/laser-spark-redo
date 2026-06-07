@@ -50,6 +50,16 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
             <p className="text-sm text-muted-foreground italic">
               Example: $1,000 financed as low as $100/month with no interest, or $3,000 as low as $230.77/month with no interest.
             </p>
+            <div className="rounded-xl overflow-hidden border border-border/50 shadow-sm mt-4">
+              <iframe
+                src={cherryUrl}
+                title="Cherry Payment Calculator"
+                width="100%"
+                height="600px"
+                style={{ border: "none" }}
+                loading="lazy"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -96,6 +106,16 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
             <p className="text-muted-foreground italic">
               Example: $1,000 financed as low as $100/month with no interest, or $3,000 as low as $230.77/month with no interest.
             </p>
+            <div className="rounded-xl overflow-hidden border border-border/50 shadow-sm mt-4">
+              <iframe
+                src={cherryUrl}
+                title="Cherry Payment Calculator"
+                width="100%"
+                height="600px"
+                style={{ border: "none" }}
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </div>
