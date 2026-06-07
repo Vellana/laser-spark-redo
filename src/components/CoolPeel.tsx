@@ -182,7 +182,7 @@ const CoolPeel = () => {
             Compare Our Treatments
           </h3>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Both treatments use the Cartessa Tetra Pro CO2 laser. Choose based on your skin concerns and preferred downtime.
+            Both treatments use the DEKA SmartXide CO2 laser. Choose based on your skin concerns and preferred downtime.
           </p>
 
           {/* Custom Button Selector */}
