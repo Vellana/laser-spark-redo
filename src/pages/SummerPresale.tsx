@@ -82,13 +82,13 @@ const SummerPresale = () => {
                 Limited Time Only
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
-                Buy Now, Treat Later
+                Summer Pre-Sale
               </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground">
-                Exclusive Summer Pre-Sale - June 7-20, 2026
+              <p className="text-lg sm:text-xl text-muted-foreground font-medium">
+                Buy Now, Treat Later
               </p>
               <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-                Lock in your discounted price now and schedule your treatment whenever you are ready. There is no cutoff date to redeem.
+                Exclusive pricing available June 7-20, 2026. Lock in your discounted price now and schedule your treatment whenever you are ready. There is no cutoff date to redeem.
               </p>
               <div className="flex justify-center pt-2">
                 <BookNowButton />
