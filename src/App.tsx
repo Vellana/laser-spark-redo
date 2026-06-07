@@ -66,6 +66,8 @@ const App = () => {
             <div className="page-transition">
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/booking" element={<Booking />} />
+
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/specials" element={<Specials />} />
                 <Route path="/summer-presale" element={<SummerPresale />} />
