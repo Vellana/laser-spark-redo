@@ -18,7 +18,7 @@ const CoolPeel = () => {
       icon: Sparkles,
       title: "Revolutionary Technology",
       description: "Advanced CO2 laser resurfaces skin with customizable intensity",
-      details: "The Tetra Pro CO2 platform resurfacing technology allows customizable intensity and offers two modes-CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing-to stimulate collagen production and rejuvenate skin.",
+      details: "The DEKA SmartXide CO2 laser platform resurfacing technology allows customizable intensity and offers two modes-CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing-to stimulate collagen production and rejuvenate skin.",
     },
     {
       icon: Zap,
@@ -30,7 +30,7 @@ const CoolPeel = () => {
       icon: Heart,
       title: "Safe & Effective",
       description: "Suitable for all skin types with proven results",
-      details: "The Tetra laser has proven safety for all skin types and produces lasting results by stimulating collagen and improving skin texture.",
+      details: "The DEKA SmartXide CO2 laser has proven safety for all skin types and produces lasting results by stimulating collagen and improving skin texture.",
     },
     {
       icon: Clock,
@@ -166,7 +166,7 @@ const CoolPeel = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-medium bg-white/95 p-12 flex items-center justify-center">
               <img
                 src={tetraProLogo}
-                alt="CoolPeel CO2 laser treatment results with advanced Cartessa Tetra Pro technology for minimal downtime skin resurfacing"
+                alt="CoolPeel CO2 laser treatment results with advanced DEKA SmartXide CO2 technology for minimal downtime skin resurfacing"
                 className="w-full max-w-md h-auto object-contain"
               />
             </div>
