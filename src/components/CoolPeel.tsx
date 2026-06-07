@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { pushEvent } from "@/lib/analytics";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sparkles, Zap, Heart, Clock, TrendingUp, AlertCircle } from "lucide-react";
+import { Sparkles, Zap, Heart, Clock, TrendingUp, AlertCircle, Tag, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
@@ -101,7 +101,7 @@ const CoolPeel = () => {
             </h2>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              The Tetra Pro by Cartessa offers two powerful CO2 laser treatments: CoolPeel for
+              The DEKA SmartXide CO2 laser platform offers two powerful treatments: CoolPeel for
               minimal downtime and Deka Pulse for deeper, more dramatic results. Both stimulate
               collagen production for smoother, more youthful-looking skin.
             </p>
@@ -182,7 +182,7 @@ const CoolPeel = () => {
             Compare Our Treatments
           </h3>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Both treatments use the Cartessa Tetra Pro CO2 laser. Choose based on your skin concerns and preferred downtime.
+            Both treatments use the DEKA SmartXide CO2 laser. Choose based on your skin concerns and preferred downtime.
           </p>
 
           {/* Custom Button Selector */}
@@ -250,6 +250,25 @@ const CoolPeel = () => {
                         <h5 className="font-semibold text-foreground mb-2">Ideal For</h5>
                         <p className="text-muted-foreground">Busy lifestyles, gradual improvement seekers</p>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid md:grid-cols-2 gap-4">
+                    <div className="p-5 bg-secondary/30 rounded-xl border border-border/50 space-y-2">
+                      <div className="flex items-center gap-2 text-accent">
+                        <Tag className="w-5 h-5" />
+                        <span className="font-semibold">Single Session</span>
+                      </div>
+                      <p className="text-2xl font-bold text-foreground">$750</p>
+                      <p className="text-sm text-muted-foreground">Per CoolPeel treatment</p>
+                    </div>
+                    <div className="p-5 bg-secondary/30 rounded-xl border border-border/50 space-y-2">
+                      <div className="flex items-center gap-2 text-accent">
+                        <Package className="w-5 h-5" />
+                        <span className="font-semibold">Package of 3</span>
+                      </div>
+                      <p className="text-2xl font-bold text-foreground">$2,000</p>
+                      <p className="text-sm text-muted-foreground">Save $250 vs. single sessions</p>
                     </div>
                   </div>
 
