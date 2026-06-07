@@ -19,6 +19,8 @@ const CoolPeelTysons = lazy(() => import("./pages/CoolPeelTysons"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const SummerPresale = lazy(() => import("./pages/SummerPresale"));
+const Booking = lazy(() => import("./pages/Booking"));
+
 
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
