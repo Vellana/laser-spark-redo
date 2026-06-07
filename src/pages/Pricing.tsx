@@ -134,43 +134,32 @@ const Pricing = () => {
                     CoolPeel Pricing
                   </CardTitle>
                   <p className="text-center text-muted-foreground">
-                    Series of 3 treatments, spaced 1 month apart
+                    DEKA SmartXide CO2 laser · Series of 3, spaced 1 month apart
                   </p>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
-                      <span className="font-medium text-foreground">Full Face</span>
+                      <span className="font-medium text-foreground">Single Session</span>
                       <div className="text-right">
-                        <div className="text-accent font-semibold">Contact for Quote</div>
-                        <div className="text-sm text-muted-foreground">Per session</div>
+                        <div className="text-accent font-semibold text-xl">$750</div>
+                        <div className="text-sm text-muted-foreground">Per treatment</div>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
-                      <span className="font-medium text-foreground">Neck</span>
+                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg border border-accent/40">
+                      <span className="font-medium text-foreground">Package of 3</span>
                       <div className="text-right">
-                        <div className="text-accent font-semibold">Contact for Quote</div>
-                        <div className="text-sm text-muted-foreground">Per session</div>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
-                      <span className="font-medium text-foreground">Décolletage</span>
-                      <div className="text-right">
-                        <div className="text-accent font-semibold">Contact for Quote</div>
-                        <div className="text-sm text-muted-foreground">Per session</div>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
-                      <span className="font-medium text-foreground">Hands</span>
-                      <div className="text-right">
-                        <div className="text-accent font-semibold">Contact for Quote</div>
-                        <div className="text-sm text-muted-foreground">Per session</div>
+                        <div className="flex items-baseline justify-end gap-2">
+                          <span className="text-accent font-semibold text-xl">$1,500</span>
+                          <span className="text-sm text-muted-foreground line-through">$2,000</span>
+                        </div>
+                        <div className="text-xs font-semibold uppercase tracking-wide text-destructive">Summer Sale · Save $500</div>
                       </div>
                     </div>
                   </div>
                   <div className="mt-6 p-4 bg-accent/10 rounded-lg">
                     <p className="text-sm text-foreground text-center">
-                      <strong>Package Discount:</strong> Save when you purchase all 3 sessions
+                      <strong>Summer Sale pricing:</strong> Valid June 7–20, 2026. Cannot be combined with other discounts.
                     </p>
                   </div>
                 </CardContent>
