@@ -323,7 +323,7 @@ const LaserHairRemoval = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
-                    href="https://www.vagaro.com/virginialaserspecialists/book-now"
+                    href="/booking"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => pushEvent("free_consult_booking")}
@@ -465,7 +465,7 @@ const LaserHairRemoval = () => {
               </div>
               <CherryFinancingBadge className="mt-4" />
               <div className="pt-4">
-                <a href="https://www.vagaro.com/virginialaserspecialists/book-now" target="_blank" rel="noopener noreferrer">
+                <a href="/booking" target="_blank" rel="noopener noreferrer">
                   <Button className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold">
                     Book This Treatment
                   </Button>
@@ -547,7 +547,7 @@ const LaserHairRemoval = () => {
             <CherryFinancingBadge className="mb-6 bg-primary-foreground/10 border-primary-foreground/20" />
             <div>
               <a
-                href="https://www.vagaro.com/virginialaserspecialists/book-now"
+                href="/booking"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushEvent("free_consult_booking")}

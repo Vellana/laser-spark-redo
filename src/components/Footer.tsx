@@ -10,7 +10,7 @@ const Footer = () => {
     { name: "Laser Hair Removal", href: "/laser-hair-removal" },
     { name: "Laser Skin Resurfacing", href: "/laser-skin-resurfacing" },
     { name: "CoolPeel CO₂ Tysons VA", href: "/coolpeel-co2-laser-tysons-va" },
-    { name: "Book Now", href: "https://www.vagaro.com/virginialaserspecialists/book-now", external: true },
+    { name: "Book Now", href: "/booking", external: true },
     { name: "Specials", href: "/specials" },
     { name: "Pricing", href: "/pricing" },
     { name: "Financing", href: "/#cherry-financing" },

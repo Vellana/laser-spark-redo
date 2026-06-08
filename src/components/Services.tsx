@@ -290,7 +290,7 @@ const Services = () => {
                   </p>
                 </div>
 
-                <a href="https://www.vagaro.com/virginialaserspecialists/book-now" target="_blank" rel="noopener noreferrer" className="block">
+                <a href="/booking" target="_blank" rel="noopener noreferrer" className="block">
                   <Button className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold">
                     Book This Treatment
                   </Button>
@@ -410,7 +410,7 @@ const Services = () => {
               Schedule a free consultation with our experts to discuss your goals and create a personalized treatment plan.
             </p>
             <a
-              href="https://www.vagaro.com/virginialaserspecialists/book-now"
+              href="/booking"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => pushEvent("free_consult_booking")}
