@@ -7,9 +7,7 @@
  * finished parsing. We embed it inside an <iframe srcdoc> so document.write
  * runs during the iframe's initial parse and renders correctly.
  *
- * Width: full container up to ~1100px so the Vagaro embed reflows the two
- * consult cards (Skin Resurfacing + Hair Removal) side-by-side on
- * desktop/tablet. On narrow viewports it naturally stacks and scrolls.
+ * Always uses mobile-optimized width (single-column consult cards).
  */
 const VAGARO_EMBED_HTML = `<!doctype html>
 <html>
@@ -31,32 +29,14 @@ const VAGARO_EMBED_HTML = `<!doctype html>
   </body>
 </html>`;
 
-import { useEffect, useState } from "react";
-
-const MOBILE_BREAKPOINT = 768;
-
 const VagaroConsultWidget = () => {
-  const [isMobile, setIsMobile] = useState<boolean>(() =>
-    typeof window !== "undefined" ? window.innerWidth < MOBILE_BREAKPOINT : false
-  );
-
-  useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    setIsMobile(mql.matches);
-    mql.addEventListener("change", onChange);
-    return () => mql.removeEventListener("change", onChange);
-  }, []);
-
-  // Vagaro's embed reflows based on the iframe width: narrow → single-column
-  // (mobile-optimized), wide → side-by-side cards (desktop-optimized).
-  const width = isMobile ? 340 : 1080;
-  const height = isMobile ? 900 : 760;
+  // Always mobile dimensions for single-column layout
+  const width = 340;
+  const height = 900;
 
   return (
     <div className="w-full" style={{ maxWidth: `${width}px`, margin: "0 auto" }}>
       <iframe
-        key={isMobile ? "m" : "d"}
         title="Book a Free Consultation"
         srcDoc={VAGARO_EMBED_HTML}
         loading="lazy"
