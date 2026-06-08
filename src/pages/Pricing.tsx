@@ -80,26 +80,25 @@ const Pricing = () => {
                         </th>
                         <th className="text-center py-4 px-4 text-foreground font-semibold">
                           <div className="inline-flex flex-col items-center gap-1.5">
-                            <span className="inline-flex items-center rounded-full bg-accent/20 text-accent border border-accent/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
-                              25% Discount
-                            </span>
                             <div>Package of 5</div>
                             <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
-                              Discount applied off the full single-session price
+                              Save on a series of 5 treatments
                             </div>
                           </div>
                         </th>
-                        <th className="text-center py-4 px-4 text-foreground font-semibold">
-                          <div className="inline-flex flex-col items-center gap-1.5">
-                            <span className="inline-flex items-center rounded-full bg-destructive/15 text-destructive border border-destructive/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
-                              Summer Sale · 40% Off
-                            </span>
-                            <div>Package of 5</div>
-                            <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
-                              Valid June 7–20, 2026
+                        {summerSaleActive && (
+                          <th className="text-center py-4 px-4 text-foreground font-semibold">
+                            <div className="inline-flex flex-col items-center gap-1.5">
+                              <span className="inline-flex items-center rounded-full bg-destructive/15 text-destructive border border-destructive/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
+                                Summer Sale · 40% Off
+                              </span>
+                              <div>Package of 5</div>
+                              <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
+                                Valid June 7–20, 2026
+                              </div>
                             </div>
-                          </div>
-                        </th>
+                          </th>
+                        )}
                       </tr>
                     </thead>
                     <tbody>
@@ -118,19 +117,23 @@ const Pricing = () => {
                           <td className="py-4 px-4 text-center text-accent font-semibold">
                             {item.package}
                           </td>
-                          <td className="py-4 px-4 text-center text-destructive font-bold">
-                            {item.summerSale}
-                          </td>
+                          {summerSaleActive && (
+                            <td className="py-4 px-4 text-center text-destructive font-bold">
+                              {item.summerSale}
+                            </td>
+                          )}
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
-                <div className="mt-6 p-4 bg-accent/10 rounded-lg text-center">
-                  <p className="text-sm text-foreground">
-                    <strong>Summer Sale pricing:</strong> 40% off all Laser Hair Removal packages of 5. Valid June 7–20, 2026. Cannot be combined with other discounts or promotions.
-                  </p>
-                </div>
+                {summerSaleActive && (
+                  <div className="mt-6 p-4 bg-accent/10 rounded-lg text-center">
+                    <p className="text-sm text-foreground">
+                      <strong>Summer Sale pricing:</strong> 40% off all Laser Hair Removal packages of 5. Valid June 7–20, 2026. Cannot be combined with other discounts or promotions.
+                    </p>
+                  </div>
+                )}
                 <div className="mt-8 text-center">
                   <a
                     href="/booking"
