@@ -284,7 +284,7 @@ const FAQ = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="https://www.vagaro.com/virginialaserspecialists/book-now"
+                href="/booking"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushEvent("free_consult_booking")}

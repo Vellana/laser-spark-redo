@@ -84,25 +84,14 @@ const Navigation = () => {
 
             <div className="flex items-center gap-2 sm:gap-3">
               <ThemeToggle />
-              <a
-                href="/#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  pushEvent("free_consult_booking");
-                  if (location.pathname === "/") {
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    navigate("/");
-                    setTimeout(() => {
-                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
-                  }
-                }}
+              <Link
+                to="/booking"
+                onClick={() => pushEvent("free_consult_booking")}
               >
                 <Button variant="accent" className="animate-pulse-subtle text-xs sm:text-sm px-3 sm:px-5 py-2 h-auto">
                   Book Now
                 </Button>
-              </a>
+              </Link>
               {/* Hamburger - below md (covers phone + small tablet to prevent nav cut-off) */}
               <button
                 onClick={() => setIsOpen(!isOpen)}

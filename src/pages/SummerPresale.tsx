@@ -15,7 +15,7 @@ import {
 import { ExternalLink, Sparkles, Sun, Timer, Calendar, AlertTriangle } from "lucide-react";
 import { pushEvent } from "@/lib/analytics";
 
-const VAGARO_URL = "https://www.vagaro.com/virginialaserspecialists/book-now";
+const VAGARO_URL = "/booking";
 
 const BookNowButton = ({ className = "" }: { className?: string }) => (
   <a

@@ -112,7 +112,7 @@ const Pricing = () => {
                 </div>
                 <div className="mt-8 text-center">
                   <a
-                    href="https://www.vagaro.com/virginialaserspecialists/book-now"
+                    href="/booking"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => pushEvent("free_consult_booking")}
