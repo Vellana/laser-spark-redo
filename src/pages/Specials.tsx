@@ -21,6 +21,7 @@ interface Special {
 const Specials = () => {
   const [specials, setSpecials] = useState<Special[]>([]);
   const [loading, setLoading] = useState(true);
+  const summerSaleActive = isSummerSaleActive();
 
   useEffect(() => {
     const fetchSpecials = async () => {
