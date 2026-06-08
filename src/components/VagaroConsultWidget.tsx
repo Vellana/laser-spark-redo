@@ -31,19 +31,38 @@ const VAGARO_EMBED_HTML = `<!doctype html>
   </body>
 </html>`;
 
+import { useEffect, useState } from "react";
+
+const MOBILE_BREAKPOINT = 768;
+
 const VagaroConsultWidget = () => {
+  const [isMobile, setIsMobile] = useState<boolean>(() =>
+    typeof window !== "undefined" ? window.innerWidth < MOBILE_BREAKPOINT : false
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  // Vagaro's embed reflows based on the iframe width: narrow → single-column
+  // (mobile-optimized), wide → side-by-side cards (desktop-optimized).
+  const width = isMobile ? 340 : 1080;
+  const height = isMobile ? 900 : 760;
+
   return (
-    <div
-      className="w-full"
-      style={{ maxWidth: "340px", margin: "0 auto" }}
-    >
+    <div className="w-full" style={{ maxWidth: `${width}px`, margin: "0 auto" }}>
       <iframe
+        key={isMobile ? "m" : "d"}
         title="Book a Free Consultation"
         srcDoc={VAGARO_EMBED_HTML}
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
         className="block border-0"
-        style={{ width: "340px", height: "900px", margin: "0 auto" }}
+        style={{ width: "100%", height: `${height}px`, margin: "0 auto" }}
       />
     </div>
   );
