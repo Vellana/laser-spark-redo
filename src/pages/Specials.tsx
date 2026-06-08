@@ -6,6 +6,8 @@ import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
+import { isSummerSaleActive } from "@/lib/summerSale";
 
 interface Special {
   id: string;
