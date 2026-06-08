@@ -173,19 +173,27 @@ const Pricing = () => {
                     <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg border border-accent/40">
                       <span className="font-medium text-foreground">Package of 3</span>
                       <div className="text-right">
-                        <div className="flex items-baseline justify-end gap-2">
-                          <span className="text-accent font-semibold text-xl">$1,500</span>
-                          <span className="text-sm text-muted-foreground line-through">$2,000</span>
-                        </div>
-                        <div className="text-xs font-semibold uppercase tracking-wide text-destructive">Summer Sale · Save $500</div>
+                        {summerSaleActive ? (
+                          <>
+                            <div className="flex items-baseline justify-end gap-2">
+                              <span className="text-accent font-semibold text-xl">$1,500</span>
+                              <span className="text-sm text-muted-foreground line-through">$2,000</span>
+                            </div>
+                            <div className="text-xs font-semibold uppercase tracking-wide text-destructive">Summer Sale · Save $500</div>
+                          </>
+                        ) : (
+                          <div className="text-accent font-semibold text-xl">$2,000</div>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <div className="mt-6 p-4 bg-accent/10 rounded-lg">
-                    <p className="text-sm text-foreground text-center">
-                      <strong>Summer Sale pricing:</strong> Valid June 7–20, 2026. Cannot be combined with other discounts.
-                    </p>
-                  </div>
+                  {summerSaleActive && (
+                    <div className="mt-6 p-4 bg-accent/10 rounded-lg">
+                      <p className="text-sm text-foreground text-center">
+                        <strong>Summer Sale pricing:</strong> Valid June 7–20, 2026. Cannot be combined with other discounts.
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
