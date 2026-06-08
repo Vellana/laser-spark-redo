@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ExternalLink } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -85,14 +85,22 @@ const Navigation = () => {
             <div className="flex items-center gap-2 sm:gap-3">
               <ThemeToggle />
               <a
-                href="https://www.vagaro.com/virginialaserspecialists/book-now"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => pushEvent("free_consult_booking")}
+                href="/#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  pushEvent("free_consult_booking");
+                  if (location.pathname === "/") {
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  } else {
+                    navigate("/");
+                    setTimeout(() => {
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }
+                }}
               >
                 <Button variant="accent" className="animate-pulse-subtle text-xs sm:text-sm px-3 sm:px-5 py-2 h-auto">
                   Book Now
-                  <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
                 </Button>
               </a>
               {/* Hamburger - below md (covers phone + small tablet to prevent nav cut-off) */}

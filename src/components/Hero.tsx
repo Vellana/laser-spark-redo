@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, MapPin, ExternalLink } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { pushEvent } from "@/lib/analytics";
 import heroPoster from "@/assets/Homepage_mainphoto.jpg";
@@ -54,19 +54,20 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="https://www.vagaro.com/virginialaserspecialists/book-now"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => pushEvent("free_consult_booking")}
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                pushEvent("free_consult_booking");
+              }}
             >
               <Button
                 size="lg"
                 variant="accent"
                 className="px-8 py-6 text-lg transition-all hover:scale-105"
               >
-                Book Now
-                <ExternalLink className="w-4 h-4 ml-2" />
+                Book a Free Consultation
               </Button>
             </a>
             <Link to="/pricing">
