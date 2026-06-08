@@ -103,7 +103,7 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto mb-12">
+        <div id="vagaro-widget" className="max-w-4xl mx-auto mb-12">
           <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
             <h3 className="text-2xl font-bold text-primary text-center mb-4">
               Book a Free Consultation
@@ -115,16 +115,17 @@ const Contact = () => {
         <div className="text-center space-y-6">
 
           <a
-            href="https://www.vagaro.com/virginialaserspecialists/book-now"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => pushEvent("free_consult_booking")}
+            href="#vagaro-widget"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("vagaro-widget")?.scrollIntoView({ behavior: "smooth" });
+            }}
           >
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"
             >
-              Book Now
+              Book a Free Consultation
             </Button>
           </a>
           <p className="text-white/80 text-sm">
