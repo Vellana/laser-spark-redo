@@ -10,27 +10,27 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancing from "@/components/CherryFinancing";
 const Pricing = () => {
   const laserHairRemovalPricing = [
-    { area: "Abdomen", single: "$250", package: "$937.50" },
-    { area: "Arms (Half)", single: "$300", package: "$1,125" },
-    { area: "Arms (Full)", single: "$400", package: "$1,500" },
-    { area: "Back (Half)", single: "$250", package: "$937.50" },
-    { area: "Back (Full)", single: "$400", package: "$1,500" },
-    { area: "Bikini Line", single: "$250", package: "$937.50" },
-    { area: "Brazilian/Brozilian", single: "$300", package: "$1,125" },
-    { area: "Breasts", single: "$100", package: "$375" },
-    { area: "Chest", single: "$250", package: "$937.50" },
-    { area: "Chin", single: "$100", package: "$375" },
-    { area: "Face (Full)", single: "$250", package: "$937.50" },
-    { area: "Feet", single: "$100", package: "$375" },
-    { area: "Hands", single: "$100", package: "$375" },
-    { area: "Legs (Half)", single: "$350", package: "$1,312.50" },
-    { area: "Legs (Full)", single: "$500", package: "$1,875" },
-    { area: "Neck (Front or Back)", single: "$100", package: "$375" },
-    { area: "Shoulders", single: "$100", package: "$375" },
-    { area: "Sideburns", single: "$100", package: "$375" },
-    { area: "Underarms", single: "$150", package: "$562.50" },
-    { area: "Upper Lip", single: "$100", package: "$375" },
-    { area: "Full Body", single: "$1,850", package: "$6,937.50" },
+    { area: "Abdomen", single: "$250", package: "$937.50", summerSale: "$750" },
+    { area: "Arms (Half)", single: "$300", package: "$1,125", summerSale: "$900" },
+    { area: "Arms (Full)", single: "$400", package: "$1,500", summerSale: "$1,200" },
+    { area: "Back (Half)", single: "$250", package: "$937.50", summerSale: "$750" },
+    { area: "Back (Full)", single: "$400", package: "$1,500", summerSale: "$1,200" },
+    { area: "Bikini Line", single: "$250", package: "$937.50", summerSale: "$750" },
+    { area: "Brazilian/Brozilian", single: "$300", package: "$1,125", summerSale: "$900" },
+    { area: "Breasts", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Chest", single: "$250", package: "$937.50", summerSale: "$750" },
+    { area: "Chin", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Face (Full)", single: "$250", package: "$937.50", summerSale: "$750" },
+    { area: "Feet", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Hands", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Legs (Half)", single: "$350", package: "$1,312.50", summerSale: "$1,050" },
+    { area: "Legs (Full)", single: "$500", package: "$1,875", summerSale: "$1,500" },
+    { area: "Neck (Front or Back)", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Shoulders", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Sideburns", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Underarms", single: "$150", package: "$562.50", summerSale: "$450" },
+    { area: "Upper Lip", single: "$100", package: "$375", summerSale: "$300" },
+    { area: "Full Body", single: "$1,850", package: "$6,937.50", summerSale: "$5,550" },
   ];
 
   return (
@@ -87,6 +87,17 @@ const Pricing = () => {
                             </div>
                           </div>
                         </th>
+                        <th className="text-center py-4 px-4 text-foreground font-semibold">
+                          <div className="inline-flex flex-col items-center gap-1.5">
+                            <span className="inline-flex items-center rounded-full bg-destructive/15 text-destructive border border-destructive/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
+                              Summer Sale · 40% Off
+                            </span>
+                            <div>Package of 5</div>
+                            <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
+                              Valid June 7–20, 2026
+                            </div>
+                          </div>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -105,10 +116,18 @@ const Pricing = () => {
                           <td className="py-4 px-4 text-center text-accent font-semibold">
                             {item.package}
                           </td>
+                          <td className="py-4 px-4 text-center text-destructive font-bold">
+                            {item.summerSale}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                </div>
+                <div className="mt-6 p-4 bg-accent/10 rounded-lg text-center">
+                  <p className="text-sm text-foreground">
+                    <strong>Summer Sale pricing:</strong> 40% off all Laser Hair Removal packages of 5. Valid June 7–20, 2026. Cannot be combined with other discounts or promotions.
+                  </p>
                 </div>
                 <div className="mt-8 text-center">
                   <a
