@@ -103,31 +103,16 @@ const Contact = () => {
           </div>
         </div>
 
-        <div id="vagaro-widget" className="max-w-4xl mx-auto mb-12">
-          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-            <h3 className="text-2xl font-bold text-primary text-center mb-4">
-              Book a Free Consultation
-            </h3>
-            <VagaroConsultWidget />
-          </div>
-        </div>
-
         <div className="text-center space-y-6">
-
-          <a
-            href="#vagaro-widget"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("vagaro-widget")?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
+          <Link to="/booking">
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-primary font-semibold px-12 py-6 text-lg shadow-gold transition-all hover:scale-105"
+              onClick={() => pushEvent("free_consult_booking")}
             >
               Book a Free Consultation
             </Button>
-          </a>
+          </Link>
           <p className="text-white/80 text-sm">
             Flexible financing available through Cherry
           </p>
