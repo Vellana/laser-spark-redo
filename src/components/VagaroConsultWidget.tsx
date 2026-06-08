@@ -19,7 +19,15 @@ const VAGARO_EMBED_HTML = `<!doctype html>
     <style>html,body{margin:0;padding:0;background:transparent;}</style>
   </head>
   <body>
-    <div class="vagaro" style="width:100%;padding:0;border:0;margin:0 auto;text-align:center;"><script type="text/javascript" src="https://www.vagaro.com//resources/WidgetEmbeddedLoader/OZqpD3KrDZKcT3qmV35y6JuPlXez3Ly6puSdBuOc1WJD1wOc1WO61CxdfkJE1wgEJgoapOUc9CvdfoS6XgQc9YO4pkvdfYP6PWP6O?v=uS8wb4IQMLQyEGgQDzZAGDOBDJvZEZ44J2VsUEfOlkX#"></script></div>
+    <div id="frameTitle" class="embedded-widget-title" style="font-size: 23px; color: #333; font-family: Arial, Helvetica, sans-serif; line-height: 24px; padding: 18px 10px 8px; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;"></div>
+    <div class="vagaro" style="width:250px; padding:0; border:0; margin:0 auto; text-align:center;">
+      <style>.vagaro a { font-size: 14px; color: #AAA; text-decoration: none; }</style>
+      <a href="https://www.vagaro.com/pro/">Powered by Vagaro</a>&nbsp;
+      <a href="https://www.vagaro.com/pro/salon-software">Salon Software</a>,&nbsp;
+      <a href="https://www.vagaro.com/pro/spa-software">Spa Software</a>&nbsp;&amp;&nbsp;
+      <a href="https://www.vagaro.com/pro/fitness-software">Fitness Software</a>
+      <script type="text/javascript" src="https://www.vagaro.com//resources/WidgetEmbeddedLoader/OZqpD3KrDZKcT3qmV35y79oz34mC2PeFJ4mC30m9dSycvCu7gCmjZcoapOUc9CvdfoS6XgQc9YO0?v=vhAbavvjpYdIUc0l5kIhATwM2tpAlfZYK02XBwE6Yle#"></script>
+    </div>
   </body>
 </html>`;
 
