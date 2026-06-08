@@ -8,7 +8,9 @@ import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancing from "@/components/CherryFinancing";
+import { isSummerSaleActive } from "@/lib/summerSale";
 const Pricing = () => {
+  const summerSaleActive = isSummerSaleActive();
   const laserHairRemovalPricing = [
     { area: "Abdomen", single: "$250", package: "$937.50", summerSale: "$750" },
     { area: "Arms (Half)", single: "$300", package: "$1,125", summerSale: "$900" },
