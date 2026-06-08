@@ -42,11 +42,6 @@ const CherryFinancing = ({ variant = "section" }: CherryFinancingProps) => {
           </div>
 
           <div className="text-center space-y-4">
-            <a href={cherryUrl} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold px-8">
-                🍒 Check Your Eligibility
-              </Button>
-            </a>
             <p className="text-sm text-muted-foreground italic">
               Example: $1,000 financed as low as $100/month with no interest, or $3,000 as low as $230.77/month with no interest.
             </p>
