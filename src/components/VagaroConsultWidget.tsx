@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const MOBILE_BREAKPOINT = 768;
+
 /**
  * Embeds the Vagaro consultation booking widget (Amy Kirschner — consultation only).
  * This is the ONLY customer-facing booking path while the in-house picker awaits
@@ -9,7 +11,7 @@ import { useEffect, useState } from "react";
  * finished parsing. We embed it inside an <iframe srcdoc> so document.write
  * runs during the iframe's initial parse and renders correctly.
  *
- * Always uses mobile-optimized width (single-column consult cards).
+ * Uses mobile layout on small screens and desktop layout on larger screens.
  * Supports dark mode by injecting an override stylesheet inside the iframe
  * keyed to the parent site's current theme (matches system dark mode).
  */
@@ -66,9 +68,10 @@ const getIsDark = () =>
   document.documentElement.classList.contains("dark");
 
 const VagaroConsultWidget = () => {
-  const width = 340;
-  const height = 900;
   const [isDark, setIsDark] = useState<boolean>(getIsDark);
+  const [isMobile, setIsMobile] = useState<boolean>(
+    typeof window !== "undefined" ? window.innerWidth < MOBILE_BREAKPOINT : false
+  );
 
   useEffect(() => {
     // Track <html class="dark"> toggles (site supports system dark mode).
@@ -80,10 +83,21 @@ const VagaroConsultWidget = () => {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    mql.addEventListener("change", onChange);
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  const width = isMobile ? 340 : 1080;
+  const height = isMobile ? 900 : 760;
+
   return (
     <div className="w-full" style={{ maxWidth: `${width}px`, margin: "0 auto" }}>
       <iframe
-        key={isDark ? "dark" : "light"}
+        key={`${isDark ? "dark" : "light"}-${isMobile ? "m" : "d"}`}
         title="Book a Free Consultation"
         srcDoc={buildEmbedHtml(isDark)}
         loading="lazy"
