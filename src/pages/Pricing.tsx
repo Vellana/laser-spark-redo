@@ -94,7 +94,7 @@ const Pricing = () => {
                               </span>
                               <div>Package of 5</div>
                               <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
-                                Valid June 7–20, 2026
+                                Valid June 15–20, 2026
                               </div>
                             </div>
                           </th>
@@ -130,7 +130,7 @@ const Pricing = () => {
                 {summerSaleActive && (
                   <div className="mt-6 p-4 bg-accent/10 rounded-lg text-center">
                     <p className="text-sm text-foreground">
-                      <strong>Summer Sale pricing:</strong> 40% off all Laser Hair Removal packages of 5. Valid June 7–20, 2026. Cannot be combined with other discounts or promotions.
+                      <strong>Summer Sale pricing:</strong> 40% off all Laser Hair Removal packages of 5. Valid June 15–20, 2026. Cannot be combined with other discounts or promotions.
                     </p>
                   </div>
                 )}
@@ -190,7 +190,7 @@ const Pricing = () => {
                   {summerSaleActive && (
                     <div className="mt-6 p-4 bg-accent/10 rounded-lg">
                       <p className="text-sm text-foreground text-center">
-                        <strong>Summer Sale pricing:</strong> Valid June 7–20, 2026. Cannot be combined with other discounts.
+                        <strong>Summer Sale pricing:</strong> Valid June 15–20, 2026. Cannot be combined with other discounts.
                       </p>
                     </div>
                   )}
