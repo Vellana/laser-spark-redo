@@ -7,7 +7,7 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
-import { isSummerSaleActive } from "@/lib/summerSale";
+import { isSummerSaleActive, isSummerSaleUpcoming } from "@/lib/summerSale";
 
 interface Special {
   id: string;
@@ -22,6 +22,7 @@ const Specials = () => {
   const [specials, setSpecials] = useState<Special[]>([]);
   const [loading, setLoading] = useState(true);
   const summerSaleActive = isSummerSaleActive();
+  const summerSaleUpcoming = isSummerSaleUpcoming();
 
   useEffect(() => {
     const fetchSpecials = async () => {
@@ -65,12 +66,36 @@ const Specials = () => {
           </div>
         </section>
 
+        {summerSaleUpcoming && (
+          <section className="py-12 bg-background">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-3xl mx-auto bg-card border-2 border-primary/40 rounded-2xl shadow-lg p-8 space-y-6 text-center">
+                <span className="inline-flex items-center rounded-full bg-primary/15 text-primary border border-primary/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
+                  Summer Sale · Coming Soon
+                </span>
+                <h2 className="text-3xl font-bold text-foreground">Buy Now, Treat Later</h2>
+                <p className="text-muted-foreground">
+                  Our biggest sale of the summer is almost here. Check back soon for exclusive pricing on Laser Hair Removal and CoolPeel packages.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <Link
+                    to="/pricing"
+                    className="inline-flex items-center justify-center rounded-md border border-border text-foreground hover:bg-secondary/30 font-semibold px-6 py-2.5"
+                  >
+                    View Pricing
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {summerSaleActive && (
           <section className="py-12 bg-background">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl mx-auto bg-card border-2 border-destructive/40 rounded-2xl shadow-lg p-8 space-y-6 text-center">
                 <span className="inline-flex items-center rounded-full bg-destructive/15 text-destructive border border-destructive/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
-                  Summer Sale · June 7–20, 2026
+                  Summer Sale · June 15–20, 2026
                 </span>
                 <h2 className="text-3xl font-bold text-foreground">Buy Now, Treat Later</h2>
                 <div className="grid sm:grid-cols-2 gap-6 text-left">

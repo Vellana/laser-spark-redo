@@ -35,7 +35,7 @@ const BookNowButton = ({ className = "" }: { className?: string }) => (
 const faqs = [
   {
     q: "What does \"Buy Now, Treat Later\" mean?",
-    a: "Purchase your treatment package at exclusive pre-sale pricing between June 7-20, 2026, and redeem your sessions any time after, perfect for planning ahead without rushing your schedule.",
+    a: "Purchase your treatment package at exclusive pre-sale pricing between June 15-20, 2026, and redeem your sessions any time after, perfect for planning ahead without rushing your schedule.",
   },
   {
     q: "How do I book?",
@@ -88,7 +88,7 @@ const SummerPresale = () => {
                 Buy Now, Treat Later
               </p>
               <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-                Exclusive pricing available June 7-20, 2026. Lock in your discounted price now and schedule your treatment whenever you are ready. There is no cutoff date to redeem.
+                Exclusive pricing available June 15-20, 2026. Lock in your discounted price now and schedule your treatment whenever you are ready. There is no cutoff date to redeem.
               </p>
               <div className="flex justify-center pt-2">
                 <BookNowButton />
@@ -127,7 +127,7 @@ const SummerPresale = () => {
                     <p className="text-sm text-foreground mt-1">Package of 5 treatments · All skin types</p>
                     <p className="text-xs text-muted-foreground mt-2 flex items-center justify-center md:justify-start gap-1">
                       <Calendar className="w-3 h-3" />
-                      Pre-sale pricing available June 7-20, 2026
+                      Pre-sale pricing available June 15-20, 2026
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -170,7 +170,7 @@ const SummerPresale = () => {
                     <p className="text-sm text-muted-foreground">Single session: $750 · DEKA SmartXide CO2 laser · Minimal downtime</p>
                     <p className="text-xs text-muted-foreground mt-2 flex items-center justify-center md:justify-start gap-1">
                       <Calendar className="w-3 h-3" />
-                      Pre-sale pricing available June 7-20, 2026
+                      Pre-sale pricing available June 15-20, 2026
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">

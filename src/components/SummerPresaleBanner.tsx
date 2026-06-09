@@ -11,7 +11,7 @@ const SummerPresaleBanner = () => {
           <div className="text-center space-y-2">
             <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
               <Calendar className="w-3.5 h-3.5" />
-              Summer Pre-Sale · June 7-20, 2026
+              Summer Pre-Sale · June 15-20, 2026
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
               Limited-Time Summer Offers
@@ -90,7 +90,7 @@ const SummerPresaleBanner = () => {
 
           {/* Fine print */}
           <p className="text-xs text-muted-foreground/70 text-center">
-            Offers cannot be combined with other discounts or promotions. Valid June 7-20, 2026.
+            Offers cannot be combined with other discounts or promotions. Valid June 15-20, 2026.
           </p>
         </div>
       </div>
