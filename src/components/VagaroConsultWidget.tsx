@@ -31,9 +31,9 @@ const DARK_OVERRIDES = `
   }
   /* Buttons keep brand accent, ensure readable text */
   button, [class*="btn"], [class*="Button"], a[role="button"] {
-    background-color: #3d5a80 !important;
+    background-color: #46b99c !important;
     color: #ffffff !important;
-    border-color: #3d5a80 !important;
+    border-color: #46b99c !important;
   }
   /* Pricing / meta text */
   span, p, h1, h2, h3, h4, h5, h6, label, small, strong, em {
