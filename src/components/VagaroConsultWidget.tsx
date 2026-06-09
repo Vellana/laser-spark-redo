@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const MOBILE_BREAKPOINT = 768;
+
 /**
  * Embeds the Vagaro consultation booking widget (Amy Kirschner — consultation only).
  * This is the ONLY customer-facing booking path while the in-house picker awaits
@@ -9,7 +11,7 @@ import { useEffect, useState } from "react";
  * finished parsing. We embed it inside an <iframe srcdoc> so document.write
  * runs during the iframe's initial parse and renders correctly.
  *
- * Always uses mobile-optimized width (single-column consult cards).
+ * Uses mobile layout on small screens and desktop layout on larger screens.
  * Supports dark mode by injecting an override stylesheet inside the iframe
  * keyed to the parent site's current theme (matches system dark mode).
  */
