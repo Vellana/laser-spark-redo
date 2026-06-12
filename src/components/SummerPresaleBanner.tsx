@@ -93,7 +93,7 @@ const SummerPresaleBanner = () => {
 
           {/* Fine print */}
           <p className="text-xs text-muted-foreground/70 text-center">
-            Offers cannot be combined with other discounts or promotions. Valid June 15-20, 2026.
+            Offers cannot be combined with other discounts or promotions. Valid June 15-28, 2026.
           </p>
         </div>
       </div>
