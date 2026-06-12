@@ -266,16 +266,27 @@ const CoolPeel = () => {
                       <p className="text-sm text-muted-foreground">Per CoolPeel treatment</p>
                     </div>
                     <div className="p-5 bg-secondary/30 rounded-xl border border-accent/40 space-y-2 relative">
-                      <span className="absolute top-2 right-2 text-[10px] font-bold uppercase tracking-wider bg-destructive text-destructive-foreground px-2 py-0.5 rounded">Summer Sale</span>
+                      {summerOffersActive && (
+                        <span className="absolute top-2 right-2 text-[10px] font-bold uppercase tracking-wider bg-destructive text-destructive-foreground px-2 py-0.5 rounded">Summer Sale</span>
+                      )}
                       <div className="flex items-center gap-2 text-accent">
                         <Package className="w-5 h-5" />
                         <span className="font-semibold">Package of 3</span>
                       </div>
-                      <div className="flex items-baseline gap-2">
-                        <p className="text-2xl font-bold text-foreground">$1,500</p>
-                        <p className="text-base text-muted-foreground line-through">$2,000</p>
-                      </div>
-                      <p className="text-sm text-accent font-medium">$500 off — Summer Pre-Sale (June 7–20, 2026)</p>
+                      {summerOffersActive ? (
+                        <>
+                          <div className="flex items-baseline gap-2">
+                            <p className="text-2xl font-bold text-foreground">$1,500</p>
+                            <p className="text-base text-muted-foreground line-through">$2,000</p>
+                          </div>
+                          <p className="text-sm text-accent font-medium">$500 off - Summer Pre-Sale (June 15-28, 2026)</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-2xl font-bold text-foreground">$2,000</p>
+                          <p className="text-sm text-muted-foreground">3 CoolPeel treatments</p>
+                        </>
+                      )}
                     </div>
                   </div>
 
