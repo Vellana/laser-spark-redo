@@ -38,8 +38,8 @@ const Pricing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Treatment Pricing & Financing | Tysons VA"
-        description="Transparent laser hair removal & CoolPeel pricing in Tysons VA. 25% off 5-packs, Cherry financing $0 down. Book your free consultation — 703-752-6608."
+        title="Laser Hair Removal Cost Northern Virginia | CoolPeel Laser Cost Tysons VA"
+        description="Laser hair removal cost Northern Virginia and CoolPeel laser cost in Tysons VA. Laser hair removal packages near me with 25% off 5-packs and Cherry financing. 703-752-6608."
         canonicalUrl="/pricing"
       />
       <LocalBusinessSchema />
@@ -234,6 +234,21 @@ const Pricing = () => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Local SEO Cost Content */}
+            <div className="max-w-4xl mx-auto mt-12 space-y-4">
+              <h2 className="text-3xl font-bold text-foreground text-center">
+                Laser Hair Removal Cost Northern Virginia and Packages Near Me
+              </h2>
+              <p className="text-muted-foreground leading-relaxed text-center">
+                Laser hair removal cost Northern Virginia patients see at Virginia Laser Specialists is set by treatment area, not by the visit. Small areas like the upper lip, chin, or underarms start at $100 to $150 per session, mid-size areas like the bikini line or Brazilian fall between $250 and $300, and full body sessions run $1,850. We serve clients from Vienna, Tysons, McLean, Falls Church, Arlington, and Fairfax from our office at 8100 Boone Blvd.
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-center">
+                If you have been searching for laser hair removal packages near me, our 5-session series saves 25% across every body area and is the recommended path for permanent reduction with the Lutronic Clarity II dual wavelength laser. Cherry financing is available with $0 down so you can split package pricing into monthly payments. See the <Link to="/laser-hair-removal" className="text-accent hover:underline">laser hair removal</Link> page for treatment details or call 703-752-6608 to book a free consultation.
+              </p>
+            </div>
+
+
 
             {/* Cherry Financing */}
             <div className="max-w-4xl mx-auto mt-12">
