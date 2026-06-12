@@ -2,7 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Sparkles, Zap } from "lucide-react";
 
+const SUMMER_OFFERS_START = new Date("2026-06-15T00:00:00-04:00");
+
 const SummerPresaleBanner = () => {
+  if (new Date() < SUMMER_OFFERS_START) return null;
   return (
     <section className="py-12 bg-gradient-to-b from-accent/10 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,13 +14,13 @@ const SummerPresaleBanner = () => {
           <div className="text-center space-y-2">
             <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
               <Calendar className="w-3.5 h-3.5" />
-              Summer Pre-Sale · June 15-20, 2026
+              Summer Pre-Sale · June 15-28, 2026
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
               Limited-Time Summer Offers
             </h2>
             <p className="text-muted-foreground">
-              Buy now, treat later. Two separate offers — pick the one for you.
+              Buy now, treat later. Two separate offers - pick the one for you.
             </p>
           </div>
 
@@ -40,7 +43,7 @@ const SummerPresaleBanner = () => {
                   40% Off Laser Hair Removal
                 </h3>
                 <p className="text-muted-foreground text-sm flex-1">
-                  Save 40% on packages of 5 treatments with the Lutronic Clarity II —
+                  Save 40% on packages of 5 treatments with the Lutronic Clarity II -
                   safe and effective for all skin types. Monthly payments available
                   through Cherry.
                 </p>
@@ -72,7 +75,7 @@ const SummerPresaleBanner = () => {
                   $500 Off CoolPeel Packages
                 </h3>
                 <p className="text-muted-foreground text-sm flex-1">
-                  Save $500 on a package of 3 CoolPeel treatments — powered by the
+                  Save $500 on a package of 3 CoolPeel treatments - powered by the
                   DEKA SmartXide CO2 laser for skin resurfacing with minimal downtime.
                   Monthly payments available through Cherry.
                 </p>
@@ -90,7 +93,7 @@ const SummerPresaleBanner = () => {
 
           {/* Fine print */}
           <p className="text-xs text-muted-foreground/70 text-center">
-            Offers cannot be combined with other discounts or promotions. Valid June 15-20, 2026.
+            Offers cannot be combined with other discounts or promotions. Valid June 15-28, 2026.
           </p>
         </div>
       </div>
