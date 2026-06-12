@@ -542,7 +542,7 @@ const LaserHairRemoval = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-lg text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
-              Book your free consultation today and take the first step toward smooth, hair-free skin.
+              Book your free consultation today and take the first step toward smooth, hair-free skin. Compare <Link to="/pricing" className="underline hover:no-underline">laser hair removal cost Northern Virginia</Link> options and <Link to="/pricing" className="underline hover:no-underline">laser hair removal packages near me</Link> on our pricing page.
             </p>
             <CherryFinancingBadge className="mb-6 bg-primary-foreground/10 border-primary-foreground/20" />
             <div>
