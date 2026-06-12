@@ -35,7 +35,7 @@ const BookNowButton = ({ className = "" }: { className?: string }) => (
 const faqs = [
   {
     q: "What does \"Buy Now, Treat Later\" mean?",
-    a: "Purchase your treatment package at exclusive pre-sale pricing between June 15-20, 2026, and redeem your sessions any time after, perfect for planning ahead without rushing your schedule.",
+    a: "Purchase your treatment package at exclusive pre-sale pricing between June 15-28, 2026, and redeem your sessions any time after, perfect for planning ahead without rushing your schedule.",
   },
   {
     q: "How do I book?",
