@@ -75,7 +75,7 @@ const SummerPresaleBanner = () => {
                   $500 Off CoolPeel Packages
                 </h3>
                 <p className="text-muted-foreground text-sm flex-1">
-                  Save $500 on a package of 3 CoolPeel treatments — powered by the
+                  Save $500 on a package of 3 CoolPeel treatments - powered by the
                   DEKA SmartXide CO2 laser for skin resurfacing with minimal downtime.
                   Monthly payments available through Cherry.
                 </p>
