@@ -43,7 +43,7 @@ const SummerPresaleBanner = () => {
                   40% Off Laser Hair Removal
                 </h3>
                 <p className="text-muted-foreground text-sm flex-1">
-                  Save 40% on packages of 5 treatments with the Lutronic Clarity II —
+                  Save 40% on packages of 5 treatments with the Lutronic Clarity II -
                   safe and effective for all skin types. Monthly payments available
                   through Cherry.
                 </p>
