@@ -20,7 +20,7 @@ const SummerPresaleBanner = () => {
               Limited-Time Summer Offers
             </h2>
             <p className="text-muted-foreground">
-              Buy now, treat later. Two separate offers — pick the one for you.
+              Buy now, treat later. Two separate offers - pick the one for you.
             </p>
           </div>
 
