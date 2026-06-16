@@ -541,10 +541,36 @@ const SpecialsManager = () => {
 
           {/* Live preview */}
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-foreground">Live Preview</h3>
-            <p className="text-xs text-muted-foreground">Button link targets are shown below each button for verification. They will not appear in the live popup.</p>
-            <div className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[700px] sticky top-4" dangerouslySetInnerHTML={{ __html: previewHtml }} />
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <h3 className="text-sm font-semibold text-foreground">Live Preview</h3>
+              <div className="inline-flex rounded-md border border-border overflow-hidden text-xs">
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode("popup")}
+                  className={`px-3 py-1.5 font-medium transition-colors ${previewMode === "popup" ? "bg-accent text-accent-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                >
+                  Pop-up
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode("page")}
+                  className={`px-3 py-1.5 font-medium border-l border-border transition-colors ${previewMode === "page" ? "bg-accent text-accent-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                >
+                  Specials page
+                </button>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {previewMode === "popup"
+                ? "Site-wide pop-up. Button link targets shown for verification only."
+                : "Card as it appears on the /specials page."}
+            </p>
+            <div
+              className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[700px] sticky top-4"
+              dangerouslySetInnerHTML={{ __html: previewMode === "popup" ? previewHtml : pagePreviewHtml }}
+            />
           </div>
+
         </div>
       </div>
     );
