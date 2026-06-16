@@ -30,6 +30,8 @@ interface Special {
   button_order: ButtonOrder;
   is_active: boolean;
   display_order: number;
+  start_date: string | null;
+  end_date: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -46,6 +48,8 @@ const DEFAULT_FORM = {
   secondary_cta_label: "Maybe Later",
   secondary_cta_url: "",
   button_order: "primary_first" as ButtonOrder,
+  start_date: "",
+  end_date: "",
   is_active: true,
 };
 
