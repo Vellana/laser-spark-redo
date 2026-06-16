@@ -187,15 +187,15 @@ const SpecialsPopup = () => {
     <>
       {special.body && (
         <div
-          className="prose prose-sm dark:prose-invert max-w-none text-foreground [&_*]:text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground [&_em]:text-foreground [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:border-border"
+          className={`prose prose-sm dark:prose-invert max-w-none text-foreground ${isSideLayout ? "" : "text-center [&_p]:text-center [&_h1]:text-center [&_h2]:text-center [&_h3]:text-center [&_h4]:text-center [&_ul]:list-none [&_ul]:pl-0 [&_ol]:list-none [&_ol]:pl-0 [&_li]:text-center"} [&_*]:text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground [&_em]:text-foreground [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_a]:text-accent [&_a]:underline [&_hr]:border-border`}
           dangerouslySetInnerHTML={{ __html: special.body }}
         />
       )}
       {special.highlight_text && (
-        <p className="text-xl font-bold text-accent">{special.highlight_text}</p>
+        <p className={`text-xl font-bold text-accent ${isSideLayout ? "" : "text-center"}`}>{special.highlight_text}</p>
       )}
       {special.disclaimer && (
-        <p className="text-xs text-muted-foreground italic">{special.disclaimer}</p>
+        <p className={`text-xs text-muted-foreground italic ${isSideLayout ? "" : "text-center"}`}>{special.disclaimer}</p>
       )}
     </>
   );
