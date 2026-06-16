@@ -134,7 +134,7 @@ const SpecialsPopup = () => {
               <p className="text-xs text-muted-foreground">Your discount code:</p>
               <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
               <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
-              <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
+              <p className="text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <a
@@ -161,7 +161,7 @@ const SpecialsPopup = () => {
 
           {special.body && (
             <div
-              className="text-foreground prose prose-sm max-w-none [&_h2]:text-xl [&_h2]:font-bold [&_h3]:text-lg [&_h3]:font-semibold [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+              className="prose prose-sm dark:prose-invert max-w-none text-foreground [&_*]:text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground [&_em]:text-foreground [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:border-border"
               dangerouslySetInnerHTML={{ __html: special.body }}
             />
           )}
@@ -201,7 +201,7 @@ const SpecialsPopup = () => {
                 <p className="text-xs text-muted-foreground">Your discount code:</p>
                 <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
                 <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
-                <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
+                <p className="text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
               </div>
             </div>
           )}
