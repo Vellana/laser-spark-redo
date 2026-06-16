@@ -205,14 +205,14 @@ const SpecialsPopup = () => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300 overscroll-contain">
       <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-5 sm:p-7 animate-in zoom-in-95 duration-300 max-h-[92vh] overflow-y-auto">
-        <div className={isSideLayout ? "space-y-4" : "text-center space-y-4"}>
+        <div className="text-center space-y-4">
           <h3 className="text-xl sm:text-2xl font-bold text-foreground text-center leading-tight">{special.title}</h3>
 
           {isSideLayout ? (
-            <div className="flex flex-wrap gap-4 items-start text-left">
-              {imagePosition === "left" && hasImages && <div className="flex-1 min-w-[120px]">{imagesBlock}</div>}
-              <div className="flex-[2] min-w-[180px] space-y-3">{textBlock}</div>
-              {imagePosition === "right" && hasImages && <div className="flex-1 min-w-[120px]">{imagesBlock}</div>}
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center sm:items-start text-center sm:text-left">
+              {imagePosition === "left" && hasImages && <div className="w-full sm:flex-1 sm:min-w-[120px] flex justify-center">{imagesBlock}</div>}
+              <div className="w-full sm:flex-[2] sm:min-w-[180px] space-y-3">{textBlock}</div>
+              {imagePosition === "right" && hasImages && <div className="w-full sm:flex-1 sm:min-w-[120px] flex justify-center">{imagesBlock}</div>}
             </div>
           ) : (
             <>
