@@ -60,6 +60,7 @@ const SpecialsManager = () => {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [previewMode, setPreviewMode] = useState<"popup" | "page">("popup");
   const editorRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
