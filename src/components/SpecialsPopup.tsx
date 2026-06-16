@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { pushEvent } from "@/lib/analytics";
 
-const POPUP_DISMISSED_KEY = "specials_popup_dismissed";
+const POPUP_SHOWN_SESSION_KEY = "specials_popup_shown_session";
 const SESSION_EMAIL_KEY = "vls_user_email";
 const emailSchema = z.string().trim().email("Please enter a valid email").max(255);
 
@@ -50,23 +50,19 @@ const SpecialsPopup = () => {
 
       setSpecial(activeSpecial);
 
-      const dismissed = localStorage.getItem(POPUP_DISMISSED_KEY);
-      if (dismissed) {
-        const savedEmail = sessionStorage.getItem(SESSION_EMAIL_KEY);
-        if (savedEmail) return;
-        const wasSubscriber = localStorage.getItem("vls_subscribed_email");
-        if (!wasSubscriber) return;
-        setTimeout(() => { setIsReturning(true); setIsVisible(true); }, 3000);
-        return;
-      }
+      // Show once per browser session, 5s after first arrival
+      if (sessionStorage.getItem(POPUP_SHOWN_SESSION_KEY)) return;
 
-      setTimeout(() => setIsVisible(true), 3000);
+      setTimeout(() => {
+        sessionStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
+        setIsVisible(true);
+      }, 5000);
     };
     load();
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+    localStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
     if (isReturning) sessionStorage.setItem("vls_welcome_back_shown", "true");
     setIsVisible(false);
   };
@@ -93,7 +89,7 @@ const SpecialsPopup = () => {
 
       if (error && error.code === "23505") {
         sessionStorage.setItem(SESSION_EMAIL_KEY, result.data);
-        localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+        localStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
         localStorage.setItem("vls_subscribed_email", result.data);
         setIsReturning(true);
         setIsSubmitting(false);
@@ -113,7 +109,7 @@ const SpecialsPopup = () => {
       if (res.error) console.error("Email send error:", res.error);
 
       sessionStorage.setItem(SESSION_EMAIL_KEY, result.data);
-      localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+      localStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
       localStorage.setItem("vls_subscribed_email", result.data);
       setIsSubscribed(true);
       pushEvent("email_signup", { email: result.data, source: "specials_popup" });
