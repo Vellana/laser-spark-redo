@@ -175,6 +175,13 @@ const SpecialsPopup = () => {
   const hasImages = !!(special.image_urls && special.image_urls.length > 0);
   const isSideLayout = hasImages && (imagePosition === "left" || imagePosition === "right");
 
+  // Strip inline style/class attributes from rich-text body so the popup's own
+  // design tokens (text-foreground, alignment, spacing) fully control rendering
+  // in both light and dark mode. Also collapse runs of empty <br> paragraphs.
+  const sanitizedBody = (special.body || "")
+    .replace(/\s(style|class)="[^"]*"/gi, "")
+    .replace(/(<p>\s*(<br\s*\/?>)?\s*<\/p>\s*){2,}/gi, "<p></p>");
+
   const imagesBlock = hasImages ? (
     <div className={`flex flex-wrap justify-center gap-3 ${isSideLayout ? "" : ""}`}>
       {special.image_urls!.map((url, idx) => (
@@ -187,8 +194,8 @@ const SpecialsPopup = () => {
     <>
       {special.body && (
         <div
-          className={`prose prose-sm dark:prose-invert max-w-none text-foreground ${isSideLayout ? "" : "text-center [&_p]:text-center [&_h1]:text-center [&_h2]:text-center [&_h3]:text-center [&_h4]:text-center [&_ul]:list-none [&_ul]:pl-0 [&_ol]:list-none [&_ol]:pl-0 [&_li]:text-center"} [&_*]:text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground [&_em]:text-foreground [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_a]:text-accent [&_a]:underline [&_hr]:border-border`}
-          dangerouslySetInnerHTML={{ __html: special.body }}
+          className={`prose prose-sm dark:prose-invert max-w-none ${isSideLayout ? "" : "text-center [&_p]:text-center [&_h1]:text-center [&_h2]:text-center [&_h3]:text-center [&_h4]:text-center [&_ul]:list-none [&_ul]:pl-0 [&_ol]:list-none [&_ol]:pl-0 [&_li]:text-center"} [&_*]:!text-foreground [&_a]:!text-accent [&_a]:underline [&_h2]:text-xl [&_h2]:font-bold [&_h3]:text-lg [&_h3]:font-semibold [&_hr]:border-border [&_p:empty]:hidden [&_p>br:only-child]:hidden`}
+          dangerouslySetInnerHTML={{ __html: sanitizedBody }}
         />
       )}
       {special.highlight_text && (
