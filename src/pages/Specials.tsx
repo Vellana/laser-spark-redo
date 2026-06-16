@@ -7,7 +7,7 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
-import { isSummerSaleActive, isSummerSaleUpcoming } from "@/lib/summerSale";
+
 
 interface Special {
   id: string;
