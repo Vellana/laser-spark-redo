@@ -282,6 +282,9 @@ const AdminEmailList = () => {
               <Button variant="outline" onClick={exportCsv} disabled={subscribers.length === 0}>
                 <Download className="w-4 h-4 mr-2" /> Export CSV
               </Button>
+              <Button variant="outline" onClick={() => setSpecialsOpen(true)}>
+                <Sparkles className="w-4 h-4 mr-2" /> Edit Specials
+              </Button>
               <Button variant="accent" onClick={() => setAddOpen(true)}>
                 <Plus className="w-4 h-4 mr-2" /> Add Subscriber
               </Button>
