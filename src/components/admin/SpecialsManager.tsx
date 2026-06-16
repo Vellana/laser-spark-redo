@@ -257,7 +257,7 @@ const SpecialsManager = () => {
           <div style="flex:1;padding:6px 8px;font-size:12px;opacity:0.6;">your@email.com</div>
           <div style="background:hsl(var(--accent));color:hsl(var(--accent-foreground));padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Sign Up</div>
         </div>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">${primaryBtn}${secondaryBtn}</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">${form.button_order === "secondary_first" ? `${secondaryBtn}${primaryBtn}` : `${primaryBtn}${secondaryBtn}`}</div>
       </div>
     </div>`;
   }, [form]);
