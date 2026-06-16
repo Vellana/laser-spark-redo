@@ -6,7 +6,6 @@ import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { supabase } from "@/integrations/supabase/client";
-import { Link } from "react-router-dom";
 
 
 interface Special {
@@ -108,7 +107,7 @@ const Specials = () => {
                       )}
                       {special.body && (
                         <div
-                          className="text-base text-foreground prose prose-sm max-w-none [&_h2]:text-xl [&_h2]:font-bold [&_h3]:text-lg [&_h3]:font-semibold [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+                          className="text-base text-foreground prose prose-sm dark:prose-invert max-w-none [&_h2]:text-xl [&_h2]:font-bold [&_h3]:text-lg [&_h3]:font-semibold [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
                           dangerouslySetInnerHTML={{ __html: special.body }}
                         />
                       )}
