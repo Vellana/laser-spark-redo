@@ -159,6 +159,8 @@ const SpecialsManager = () => {
         secondary_cta_label: form.secondary_cta_label.trim(),
         secondary_cta_url: form.secondary_cta_url.trim(),
         button_order: form.button_order,
+        start_date: form.start_date || null,
+        end_date: form.end_date || null,
         is_active: form.is_active,
         updated_at: new Date().toISOString(),
       };
