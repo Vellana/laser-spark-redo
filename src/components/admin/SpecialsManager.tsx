@@ -60,6 +60,7 @@ const SpecialsManager = () => {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [previewMode, setPreviewMode] = useState<"popup" | "page">("popup");
   const editorRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -269,6 +270,41 @@ const SpecialsManager = () => {
       </div>
     </div>`;
   }, [form]);
+
+  // Live preview HTML for the Specials page card (mirrors src/pages/Specials.tsx rendering)
+  const pagePreviewHtml = useMemo(() => {
+    const esc = (s: string) => s.replace(/</g, "&lt;");
+    const title = esc(form.title || "Special Title");
+
+    const endLine = form.end_date
+      ? (() => {
+          const [y, m, d] = form.end_date.split("-").map(Number);
+          const label = new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+          return `<p style="font-size:14px;font-weight:600;color:hsl(var(--accent));margin:0;">Offer ends ${label}</p>`;
+        })()
+      : "";
+
+    const body = form.body
+      ? `<div style="color:hsl(var(--foreground));font-size:16px;line-height:1.65;">${form.body}</div>`
+      : "";
+    const highlight = form.highlight_text
+      ? `<p style="font-size:20px;font-weight:700;color:hsl(var(--accent));margin:0;">${esc(form.highlight_text)}</p>` : "";
+    const disclaimer = form.disclaimer
+      ? `<p style="font-size:12px;color:hsl(var(--muted-foreground));font-style:italic;margin:0;">${esc(form.disclaimer)}</p>` : "";
+    const images = form.image_urls.length
+      ? `<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">${form.image_urls.map((u) => `<img src="${u}" style="max-width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);" />`).join("")}</div>`
+      : "";
+
+    return `<div style="background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:24px;text-align:center;display:flex;flex-direction:column;gap:16px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+      <h3 style="font-size:24px;font-weight:700;color:hsl(var(--foreground));margin:0;">${title}</h3>
+      ${endLine}
+      ${body}
+      ${highlight}
+      ${images}
+      ${disclaimer}
+    </div>`;
+  }, [form]);
+
 
   const toolbarButtons = [
     { icon: Bold, label: "Bold", cmd: "bold" },
@@ -505,10 +541,36 @@ const SpecialsManager = () => {
 
           {/* Live preview */}
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-foreground">Live Preview</h3>
-            <p className="text-xs text-muted-foreground">Button link targets are shown below each button for verification. They will not appear in the live popup.</p>
-            <div className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[700px] sticky top-4" dangerouslySetInnerHTML={{ __html: previewHtml }} />
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <h3 className="text-sm font-semibold text-foreground">Live Preview</h3>
+              <div className="inline-flex rounded-md border border-border overflow-hidden text-xs">
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode("popup")}
+                  className={`px-3 py-1.5 font-medium transition-colors ${previewMode === "popup" ? "bg-accent text-accent-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                >
+                  Pop-up
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode("page")}
+                  className={`px-3 py-1.5 font-medium border-l border-border transition-colors ${previewMode === "page" ? "bg-accent text-accent-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                >
+                  Specials page
+                </button>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {previewMode === "popup"
+                ? "Site-wide pop-up. Button link targets shown for verification only."
+                : "Card as it appears on the /specials page."}
+            </p>
+            <div
+              className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[700px] sticky top-4"
+              dangerouslySetInnerHTML={{ __html: previewMode === "popup" ? previewHtml : pagePreviewHtml }}
+            />
           </div>
+
         </div>
       </div>
     );
