@@ -11,6 +11,8 @@ import {
   List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, GripVertical,
 } from "lucide-react";
 
+type ImagePosition = "above" | "below" | "left" | "right";
+
 interface Special {
   id: string;
   title: string;
@@ -18,17 +20,36 @@ interface Special {
   highlight_text: string;
   disclaimer: string;
   image_urls: string[];
+  image_position: ImagePosition;
+  primary_cta_label: string;
+  primary_cta_url: string;
+  secondary_cta_label: string;
+  secondary_cta_url: string;
   is_active: boolean;
   display_order: number;
   created_at: string;
   updated_at: string;
 }
 
+const DEFAULT_FORM = {
+  title: "",
+  body: "",
+  highlight_text: "",
+  disclaimer: "",
+  image_urls: [] as string[],
+  image_position: "above" as ImagePosition,
+  primary_cta_label: "View Specials",
+  primary_cta_url: "/specials",
+  secondary_cta_label: "Maybe Later",
+  secondary_cta_url: "",
+  is_active: true,
+};
+
 const SpecialsManager = () => {
   const [specials, setSpecials] = useState<Special[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState({ title: "", body: "", highlight_text: "", disclaimer: "", image_urls: [] as string[], is_active: true });
+  const [form, setForm] = useState(DEFAULT_FORM);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
@@ -61,7 +82,7 @@ const SpecialsManager = () => {
 
   const startNew = () => {
     setEditingId("new");
-    setForm({ title: "", body: "", highlight_text: "", disclaimer: "", image_urls: [], is_active: true });
+    setForm(DEFAULT_FORM);
     setTimeout(() => { if (editorRef.current) editorRef.current.innerHTML = ""; }, 50);
   };
 
@@ -73,6 +94,11 @@ const SpecialsManager = () => {
       highlight_text: s.highlight_text || "",
       disclaimer: s.disclaimer || "",
       image_urls: s.image_urls || [],
+      image_position: (s.image_position as ImagePosition) || "above",
+      primary_cta_label: s.primary_cta_label || "View Specials",
+      primary_cta_url: s.primary_cta_url || "/specials",
+      secondary_cta_label: s.secondary_cta_label || "Maybe Later",
+      secondary_cta_url: s.secondary_cta_url || "",
       is_active: s.is_active,
     });
     setTimeout(() => { if (editorRef.current) editorRef.current.innerHTML = s.body; }, 50);
@@ -105,6 +131,9 @@ const SpecialsManager = () => {
 
   const handleSave = async () => {
     if (!form.title.trim()) { toast.error("Title is required"); return; }
+    if (!form.primary_cta_label.trim() || !form.primary_cta_url.trim()) {
+      toast.error("Primary button needs both label and link"); return;
+    }
     setSaving(true);
     try {
       const payload = {
@@ -113,11 +142,15 @@ const SpecialsManager = () => {
         highlight_text: form.highlight_text.trim(),
         disclaimer: form.disclaimer.trim(),
         image_urls: form.image_urls,
+        image_position: form.image_position,
+        primary_cta_label: form.primary_cta_label.trim(),
+        primary_cta_url: form.primary_cta_url.trim(),
+        secondary_cta_label: form.secondary_cta_label.trim(),
+        secondary_cta_url: form.secondary_cta_url.trim(),
         is_active: form.is_active,
         updated_at: new Date().toISOString(),
       };
 
-      // If saving as active, deactivate all others first
       if (payload.is_active) {
         await supabase.from("specials").update({ is_active: false } as any).neq("id", editingId === "new" ? "" : editingId!);
       }
@@ -149,7 +182,6 @@ const SpecialsManager = () => {
 
   const toggleActive = async (s: Special) => {
     const newActive = !s.is_active;
-    // If activating, deactivate all others first (only one active at a time)
     if (newActive) {
       await supabase.from("specials").update({ is_active: false } as any).neq("id", s.id);
     }
@@ -161,28 +193,65 @@ const SpecialsManager = () => {
     }
   };
 
-  // Live preview HTML
+  // Live preview HTML - mirrors SpecialsPopup styling using theme tokens
   const previewHtml = useMemo(() => {
-    const title = (form.title || "Special Title").replace(/</g, "&lt;");
-    const body = form.body || '<p style="color:#a0aec0;">Your content will appear here...</p>';
-    const highlight = form.highlight_text ? `<p style="font-size:20px;font-weight:700;color:#6dbfa0;margin:16px 0;">${form.highlight_text.replace(/</g, "&lt;")}</p>` : "";
-    const disclaimer = form.disclaimer ? `<p style="font-size:12px;color:#a0aec0;font-style:italic;margin:12px 0 0;">${form.disclaimer.replace(/</g, "&lt;")}</p>` : "";
-    const imgs = form.image_urls.map((u) => `<div style="text-align:center;margin:12px 0;"><img src="${u}" style="max-width:100%;max-height:192px;object-fit:cover;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" /></div>`).join("");
-    return `<div style="max-width:448px;margin:0 auto;background:var(--card, #1a2332);border:1px solid var(--border, #2d3748);border-radius:16px;overflow:hidden;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding:32px;">
-      <div style="text-align:center;">
-        <h3 style="color:var(--foreground, #fff);font-size:24px;margin:0 0 16px;font-weight:700;">${title}</h3>
-        <div style="color:var(--foreground, #e2e8f0);font-size:14px;line-height:1.7;">${body}</div>
-        ${highlight}
-        ${imgs}
-        ${disclaimer}
-        <div style="border-top:1px solid var(--border, #2d3748);padding-top:16px;margin-top:16px;">
-          <p style="font-size:14px;font-weight:500;color:var(--foreground, #e2e8f0);margin:0 0 8px;">Get <span style="color:#6dbfa0;font-weight:700;">10% off</span> your next service when you join our email list!</p>
-          <p style="font-size:12px;color:#a0aec0;margin:4px 0 12px;">*Cannot be combined with other offers.</p>
-          <div style="display:flex;gap:8px;justify-content:center;">
-            <div style="flex:1;background:#6dbfa0;color:#fff;text-align:center;padding:8px 16px;border-radius:6px;font-size:14px;font-weight:500;">View Specials</div>
-            <div style="flex:1;border:1px solid var(--border, #4a5568);color:var(--foreground, #e2e8f0);text-align:center;padding:8px 16px;border-radius:6px;font-size:14px;">Maybe Later</div>
-          </div>
+    const esc = (s: string) => s.replace(/</g, "&lt;");
+    const title = esc(form.title || "Special Title");
+    const body = form.body || '<p style="opacity:0.5;">Your content will appear here...</p>';
+    const highlight = form.highlight_text
+      ? `<p style="font-size:20px;font-weight:700;color:hsl(var(--accent));margin:16px 0 0;">${esc(form.highlight_text)}</p>` : "";
+    const disclaimer = form.disclaimer
+      ? `<p style="font-size:12px;opacity:0.7;font-style:italic;margin:12px 0 0;">${esc(form.disclaimer)}</p>` : "";
+
+    const imgsBlock = form.image_urls.length
+      ? `<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:12px 0;">${
+          form.image_urls.map((u) => `<img src="${u}" style="max-width:100%;max-height:180px;object-fit:cover;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.15);" />`).join("")
+        }</div>`
+      : "";
+
+    const textBlock = `
+      <div style="color:hsl(var(--foreground));font-size:14px;line-height:1.7;">${body}</div>
+      ${highlight}
+      ${disclaimer}
+    `;
+
+    let mediaAndText = "";
+    if (form.image_position === "above") {
+      mediaAndText = `<div style="text-align:center;">${imgsBlock}${textBlock}</div>`;
+    } else if (form.image_position === "below") {
+      mediaAndText = `<div style="text-align:center;">${textBlock}${imgsBlock}</div>`;
+    } else if (form.image_position === "left") {
+      mediaAndText = `<div style="display:flex;gap:16px;align-items:flex-start;text-align:left;flex-wrap:wrap;">
+        <div style="flex:1 1 140px;min-width:140px;">${imgsBlock || ""}</div>
+        <div style="flex:2 1 220px;min-width:200px;">${textBlock}</div>
+      </div>`;
+    } else {
+      mediaAndText = `<div style="display:flex;gap:16px;align-items:flex-start;text-align:left;flex-wrap:wrap;">
+        <div style="flex:2 1 220px;min-width:200px;">${textBlock}</div>
+        <div style="flex:1 1 140px;min-width:140px;">${imgsBlock || ""}</div>
+      </div>`;
+    }
+
+    const primaryLabel = esc(form.primary_cta_label || "View Specials");
+    const primaryUrl = esc(form.primary_cta_url || "#");
+    const secondaryLabel = esc(form.secondary_cta_label || "");
+    const secondaryUrl = esc(form.secondary_cta_url || "");
+
+    const primaryBtn = `<a href="${primaryUrl}" style="flex:1;background:hsl(var(--accent));color:hsl(var(--accent-foreground));text-align:center;padding:10px 16px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;">${primaryLabel}<div style="font-size:10px;opacity:0.8;font-weight:400;margin-top:2px;">→ ${primaryUrl}</div></a>`;
+    const secondaryBtn = secondaryLabel
+      ? `<a href="${secondaryUrl || "#"}" style="flex:1;border:1px solid hsl(var(--border));color:hsl(var(--foreground));text-align:center;padding:10px 16px;border-radius:6px;font-size:14px;text-decoration:none;display:inline-block;background:transparent;">${secondaryLabel}<div style="font-size:10px;opacity:0.7;margin-top:2px;">→ ${secondaryUrl || "(closes popup)"}</div></a>`
+      : "";
+
+    return `<div style="max-width:448px;margin:0 auto;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding:28px;color:hsl(var(--foreground));">
+      <h3 style="color:hsl(var(--foreground));font-size:24px;margin:0 0 16px;font-weight:700;text-align:center;">${title}</h3>
+      ${mediaAndText}
+      <div style="border-top:1px solid hsl(var(--border));padding-top:16px;margin-top:20px;">
+        <p style="font-size:14px;font-weight:500;color:hsl(var(--foreground));margin:0 0 8px;text-align:center;">Get <span style="color:hsl(var(--accent));font-weight:700;">10% off</span> your next service when you join our email list!</p>
+        <div style="display:flex;gap:8px;background:hsl(var(--background));border:1px solid hsl(var(--border));border-radius:6px;padding:6px;margin-bottom:12px;">
+          <div style="flex:1;padding:6px 8px;font-size:12px;opacity:0.6;">your@email.com</div>
+          <div style="background:hsl(var(--accent));color:hsl(var(--accent-foreground));padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Sign Up</div>
         </div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">${primaryBtn}${secondaryBtn}</div>
       </div>
     </div>`;
   }, [form]);
@@ -299,7 +368,47 @@ const SpecialsManager = () => {
               {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="space-y-2">
+              <Label>Image Position (relative to text)</Label>
+              <div className="grid grid-cols-4 gap-2">
+                {(["above", "left", "right", "below"] as ImagePosition[]).map((pos) => (
+                  <button
+                    key={pos}
+                    type="button"
+                    onClick={() => setForm((f) => ({ ...f, image_position: pos }))}
+                    className={`px-3 py-2 rounded-md border text-xs font-medium capitalize transition-colors ${
+                      form.image_position === pos
+                        ? "bg-accent text-accent-foreground border-accent"
+                        : "bg-background border-border text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {pos}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3 pt-2 border-t border-border">
+              <Label className="text-sm font-semibold">Buttons</Label>
+
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Primary Button (accent color) *</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={form.primary_cta_label} onChange={(e) => setForm((f) => ({ ...f, primary_cta_label: e.target.value }))} placeholder="Label e.g. Book Now" maxLength={50} />
+                  <Input value={form.primary_cta_url} onChange={(e) => setForm((f) => ({ ...f, primary_cta_url: e.target.value }))} placeholder="Link e.g. /booking or https://..." />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Secondary Button (outline) - leave label blank to hide</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={form.secondary_cta_label} onChange={(e) => setForm((f) => ({ ...f, secondary_cta_label: e.target.value }))} placeholder="Label e.g. Maybe Later" maxLength={50} />
+                  <Input value={form.secondary_cta_url} onChange={(e) => setForm((f) => ({ ...f, secondary_cta_url: e.target.value }))} placeholder="Link (blank = closes popup)" />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 pt-2 border-t border-border">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={form.is_active} onChange={(e) => setForm((f) => ({ ...f, is_active: e.target.checked }))} className="rounded" />
                 <span className="text-sm text-foreground">Active (visible on website)</span>
@@ -317,7 +426,8 @@ const SpecialsManager = () => {
           {/* Live preview */}
           <div className="space-y-2">
             <h3 className="text-sm font-semibold text-foreground">Live Preview</h3>
-            <div className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[600px]" dangerouslySetInnerHTML={{ __html: previewHtml }} />
+            <p className="text-xs text-muted-foreground">Button link targets are shown below each button for verification. They will not appear in the live popup.</p>
+            <div className="bg-muted/30 border border-border rounded-lg p-4 overflow-y-auto max-h-[700px] sticky top-4" dangerouslySetInnerHTML={{ __html: previewHtml }} />
           </div>
         </div>
       </div>
