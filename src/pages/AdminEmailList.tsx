@@ -69,6 +69,7 @@ const AdminEmailList = () => {
 
   // Add subscriber modal
   const [addOpen, setAddOpen] = useState(false);
+  const [specialsOpen, setSpecialsOpen] = useState(false);
   const [addEmail, setAddEmail] = useState("");
   const [addFirst, setAddFirst] = useState("");
   const [addLast, setAddLast] = useState("");
