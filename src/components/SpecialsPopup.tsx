@@ -25,6 +25,8 @@ interface ActiveSpecial {
   secondary_cta_label: string | null;
   secondary_cta_url: string | null;
   button_order: "primary_first" | "secondary_first" | null;
+  start_date: string | null;
+  end_date: string | null;
 }
 
 const SpecialsPopup = () => {
@@ -40,15 +42,29 @@ const SpecialsPopup = () => {
       // Fetch the single active special
       const { data } = await supabase
         .from("specials")
-        .select("id, title, body, highlight_text, disclaimer, image_urls, image_position, primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url, button_order")
+        .select("id, title, body, highlight_text, disclaimer, image_urls, image_position, primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url, button_order, start_date, end_date")
         .eq("is_active", true)
         .order("display_order", { ascending: true })
         .limit(1);
 
-      const activeSpecial = (data as ActiveSpecial[] | null)?.[0] ?? null;
-      if (!activeSpecial) return; // No active special, don't show popup
+      const rawSpecial = (data as ActiveSpecial[] | null)?.[0] ?? null;
+      if (!rawSpecial) return; // No active special, don't show popup
 
-      setSpecial(activeSpecial);
+      // Date range check
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (rawSpecial.start_date) {
+        const start = new Date(rawSpecial.start_date);
+        start.setHours(0, 0, 0, 0);
+        if (today < start) return;
+      }
+      if (rawSpecial.end_date) {
+        const end = new Date(rawSpecial.end_date);
+        end.setHours(23, 59, 59, 999);
+        if (today > end) return;
+      }
+
+      setSpecial(rawSpecial);
 
       // Show once per browser session, 5s after first arrival
       if (sessionStorage.getItem(POPUP_SHOWN_SESSION_KEY)) return;

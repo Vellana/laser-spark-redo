@@ -30,6 +30,8 @@ interface Special {
   button_order: ButtonOrder;
   is_active: boolean;
   display_order: number;
+  start_date: string | null;
+  end_date: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -46,6 +48,8 @@ const DEFAULT_FORM = {
   secondary_cta_label: "Maybe Later",
   secondary_cta_url: "",
   button_order: "primary_first" as ButtonOrder,
+  start_date: "",
+  end_date: "",
   is_active: true,
 };
 
@@ -104,6 +108,8 @@ const SpecialsManager = () => {
       secondary_cta_label: s.secondary_cta_label || "Maybe Later",
       secondary_cta_url: s.secondary_cta_url || "",
       button_order: (s.button_order as ButtonOrder) || "primary_first",
+      start_date: s.start_date ? s.start_date.split("T")[0] : "",
+      end_date: s.end_date ? s.end_date.split("T")[0] : "",
       is_active: s.is_active,
     });
     setTimeout(() => { if (editorRef.current) editorRef.current.innerHTML = s.body; }, 50);
@@ -153,6 +159,8 @@ const SpecialsManager = () => {
         secondary_cta_label: form.secondary_cta_label.trim(),
         secondary_cta_url: form.secondary_cta_url.trim(),
         button_order: form.button_order,
+        start_date: form.start_date || null,
+        end_date: form.end_date || null,
         is_active: form.is_active,
         updated_at: new Date().toISOString(),
       };
@@ -355,6 +363,19 @@ const SpecialsManager = () => {
               <Input value={form.disclaimer} onChange={(e) => setForm((f) => ({ ...f, disclaimer: e.target.value }))} placeholder="e.g. *Cannot be combined with other offers. Expires 1/31/26." maxLength={500} />
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Start Date</Label>
+                <Input type="date" value={form.start_date} onChange={(e) => setForm((f) => ({ ...f, start_date: e.target.value }))} />
+                <p className="text-xs text-muted-foreground">Leave blank to start immediately.</p>
+              </div>
+              <div className="space-y-2">
+                <Label>End Date</Label>
+                <Input type="date" value={form.end_date} onChange={(e) => setForm((f) => ({ ...f, end_date: e.target.value }))} />
+                <p className="text-xs text-muted-foreground">Leave blank for no expiration.</p>
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Label>Images</Label>
               <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
@@ -522,7 +543,14 @@ const SpecialsManager = () => {
                   </span>
                 </div>
                 {s.highlight_text && <p className="text-sm text-accent truncate">{s.highlight_text}</p>}
-                <p className="text-xs text-muted-foreground">Updated {new Date(s.updated_at).toLocaleDateString()}</p>
+                <p className="text-xs text-muted-foreground">
+                  Updated {new Date(s.updated_at).toLocaleDateString()}
+                  {s.start_date || s.end_date ? (
+                    <span className="ml-2">
+                      {s.start_date ? new Date(s.start_date).toLocaleDateString() : "Anytime"} → {s.end_date ? new Date(s.end_date).toLocaleDateString() : "No end"}
+                    </span>
+                  ) : null}
+                </p>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <Button variant="ghost" size="sm" onClick={() => toggleActive(s)} title={s.is_active ? "Deactivate" : "Activate"}>
