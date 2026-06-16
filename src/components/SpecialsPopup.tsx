@@ -50,17 +50,13 @@ const SpecialsPopup = () => {
 
       setSpecial(activeSpecial);
 
-      const dismissed = localStorage.getItem(POPUP_DISMISSED_KEY);
-      if (dismissed) {
-        const savedEmail = sessionStorage.getItem(SESSION_EMAIL_KEY);
-        if (savedEmail) return;
-        const wasSubscriber = localStorage.getItem("vls_subscribed_email");
-        if (!wasSubscriber) return;
-        setTimeout(() => { setIsReturning(true); setIsVisible(true); }, 3000);
-        return;
-      }
+      // Show once per browser session, 5s after first arrival
+      if (sessionStorage.getItem(POPUP_SHOWN_SESSION_KEY)) return;
 
-      setTimeout(() => setIsVisible(true), 3000);
+      setTimeout(() => {
+        sessionStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
+        setIsVisible(true);
+      }, 5000);
     };
     load();
   }, []);
