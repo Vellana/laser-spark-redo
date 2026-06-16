@@ -158,39 +158,77 @@ const SpecialsPopup = () => {
     );
   }
 
+  const imagePosition = special.image_position || "above";
+  const hasImages = !!(special.image_urls && special.image_urls.length > 0);
+  const isSideLayout = hasImages && (imagePosition === "left" || imagePosition === "right");
+
+  const imagesBlock = hasImages ? (
+    <div className={`flex flex-wrap justify-center gap-3 ${isSideLayout ? "" : ""}`}>
+      {special.image_urls!.map((url, idx) => (
+        <img key={idx} src={url} alt={`${special.title} promotional image`} className="max-w-full rounded-lg shadow-md max-h-48 object-cover" loading="lazy" />
+      ))}
+    </div>
+  ) : null;
+
+  const textBlock = (
+    <>
+      {special.body && (
+        <div
+          className="prose prose-sm dark:prose-invert max-w-none text-foreground [&_*]:text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground [&_em]:text-foreground [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:border-border"
+          dangerouslySetInnerHTML={{ __html: special.body }}
+        />
+      )}
+      {special.highlight_text && (
+        <p className="text-xl font-bold text-accent">{special.highlight_text}</p>
+      )}
+      {special.disclaimer && (
+        <p className="text-xs text-muted-foreground italic">{special.disclaimer}</p>
+      )}
+    </>
+  );
+
+  const primaryLabel = special.primary_cta_label || "View Specials";
+  const primaryUrl = special.primary_cta_url || "/specials";
+  const secondaryLabel = special.secondary_cta_label || "";
+  const secondaryUrl = special.secondary_cta_url || "";
+  const isExternal = (u: string) => /^https?:\/\//i.test(u);
+
+  const renderCta = (label: string, url: string, variant: "accent" | "outline") => {
+    if (!label) return null;
+    const btn = <Button variant={variant} className="w-full" onClick={handleClose}>{label}</Button>;
+    if (!url) return <div className="flex-1">{<Button variant={variant} className="w-full" onClick={handleClose}>{label}</Button>}</div>;
+    if (isExternal(url)) {
+      return (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="flex-1">{btn}</a>
+      );
+    }
+    return <Link to={url} className="flex-1">{btn}</Link>;
+  };
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
-        <div className="text-center space-y-4">
-          <h3 className="text-2xl font-bold text-foreground">{special.title}</h3>
+        <div className={isSideLayout ? "space-y-4" : "text-center space-y-4"}>
+          <h3 className="text-2xl font-bold text-foreground text-center">{special.title}</h3>
 
-          {special.body && (
-            <div
-              className="prose prose-sm dark:prose-invert max-w-none text-foreground [&_*]:text-foreground [&_p]:text-foreground [&_li]:text-foreground [&_strong]:text-foreground [&_em]:text-foreground [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_hr]:border-border"
-              dangerouslySetInnerHTML={{ __html: special.body }}
-            />
-          )}
-
-          {special.highlight_text && (
-            <p className="text-xl font-bold text-accent">{special.highlight_text}</p>
-          )}
-
-          {special.image_urls && special.image_urls.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-3">
-              {special.image_urls.map((url, idx) => (
-                <img key={idx} src={url} alt={`${special.title} promotional image`} className="max-w-full rounded-lg shadow-md max-h-48 object-cover" loading="lazy" />
-              ))}
+          {isSideLayout ? (
+            <div className="flex flex-wrap gap-4 items-start text-left">
+              {imagePosition === "left" && hasImages && <div className="flex-1 min-w-[120px]">{imagesBlock}</div>}
+              <div className="flex-[2] min-w-[180px] space-y-3">{textBlock}</div>
+              {imagePosition === "right" && hasImages && <div className="flex-1 min-w-[120px]">{imagesBlock}</div>}
             </div>
-          )}
-
-          {special.disclaimer && (
-            <p className="text-xs text-muted-foreground italic">{special.disclaimer}</p>
+          ) : (
+            <>
+              {imagePosition === "above" && imagesBlock}
+              {textBlock}
+              {imagePosition === "below" && imagesBlock}
+            </>
           )}
 
           {/* Newsletter Signup */}
           {!isSubscribed ? (
             <div className="border-t border-border pt-4 mt-4 space-y-3">
-              <p className="text-sm font-medium text-foreground">
+              <p className="text-sm font-medium text-foreground text-center">
                 Get <span className="text-accent font-bold">10% off</span> your next service when you join our email list!
                 <span className="block text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</span>
               </p>
@@ -200,7 +238,7 @@ const SpecialsPopup = () => {
               </form>
             </div>
           ) : (
-            <div className="border-t border-border pt-4 mt-4 space-y-2">
+            <div className="border-t border-border pt-4 mt-4 space-y-2 text-center">
               <p className="text-sm font-medium text-accent">✓ You're signed up! Check your email for your discount.</p>
               <div className="bg-accent/10 rounded-lg p-3">
                 <p className="text-xs text-muted-foreground">Your discount code:</p>
@@ -212,10 +250,8 @@ const SpecialsPopup = () => {
           )}
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Link to="/specials" className="flex-1">
-              <Button variant="accent" className="w-full" onClick={handleClose}>View Specials</Button>
-            </Link>
-            <Button variant="outline" className="flex-1" onClick={handleClose}>Maybe Later</Button>
+            {renderCta(primaryLabel, primaryUrl, "accent")}
+            {renderCta(secondaryLabel, secondaryUrl, "outline")}
           </div>
         </div>
       </div>
