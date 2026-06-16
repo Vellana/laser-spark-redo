@@ -175,6 +175,13 @@ const SpecialsPopup = () => {
   const hasImages = !!(special.image_urls && special.image_urls.length > 0);
   const isSideLayout = hasImages && (imagePosition === "left" || imagePosition === "right");
 
+  // Strip inline style/class attributes from rich-text body so the popup's own
+  // design tokens (text-foreground, alignment, spacing) fully control rendering
+  // in both light and dark mode. Also collapse runs of empty <br> paragraphs.
+  const sanitizedBody = (special.body || "")
+    .replace(/\s(style|class)="[^"]*"/gi, "")
+    .replace(/(<p>\s*(<br\s*\/?>)?\s*<\/p>\s*){2,}/gi, "<p></p>");
+
   const imagesBlock = hasImages ? (
     <div className={`flex flex-wrap justify-center gap-3 ${isSideLayout ? "" : ""}`}>
       {special.image_urls!.map((url, idx) => (
