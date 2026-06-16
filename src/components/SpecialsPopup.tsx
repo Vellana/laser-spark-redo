@@ -62,7 +62,7 @@ const SpecialsPopup = () => {
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+    localStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
     if (isReturning) sessionStorage.setItem("vls_welcome_back_shown", "true");
     setIsVisible(false);
   };
@@ -89,7 +89,7 @@ const SpecialsPopup = () => {
 
       if (error && error.code === "23505") {
         sessionStorage.setItem(SESSION_EMAIL_KEY, result.data);
-        localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+        localStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
         localStorage.setItem("vls_subscribed_email", result.data);
         setIsReturning(true);
         setIsSubmitting(false);
@@ -109,7 +109,7 @@ const SpecialsPopup = () => {
       if (res.error) console.error("Email send error:", res.error);
 
       sessionStorage.setItem(SESSION_EMAIL_KEY, result.data);
-      localStorage.setItem(POPUP_DISMISSED_KEY, "true");
+      localStorage.setItem(POPUP_SHOWN_SESSION_KEY, "true");
       localStorage.setItem("vls_subscribed_email", result.data);
       setIsSubscribed(true);
       pushEvent("email_signup", { email: result.data, source: "specials_popup" });
