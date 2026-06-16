@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { pushEvent } from "@/lib/analytics";
 
-const POPUP_DISMISSED_KEY = "specials_popup_dismissed";
+const POPUP_SHOWN_SESSION_KEY = "specials_popup_shown_session";
 const SESSION_EMAIL_KEY = "vls_user_email";
 const emailSchema = z.string().trim().email("Please enter a valid email").max(255);
 
