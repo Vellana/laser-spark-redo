@@ -33,8 +33,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { Search, Users, MailX, Plus, Trash2, Download } from "lucide-react";
+import { Search, Users, MailX, Plus, Trash2, Download, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import SpecialsManager from "@/components/admin/SpecialsManager";
 
 interface Subscriber {
   id: string;
