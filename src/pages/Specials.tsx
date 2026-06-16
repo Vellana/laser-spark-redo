@@ -28,8 +28,6 @@ const formatEndDate = (iso: string) => {
 const Specials = () => {
   const [specials, setSpecials] = useState<Special[]>([]);
   const [loading, setLoading] = useState(true);
-  const summerSaleActive = isSummerSaleActive();
-  const summerSaleUpcoming = isSummerSaleUpcoming();
 
   useEffect(() => {
     const fetchSpecials = async () => {
