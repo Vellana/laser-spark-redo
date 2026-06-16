@@ -63,6 +63,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <GlobalSpecialsPopup />
           <Suspense fallback={<PageLoader />}>
             <div className="page-transition">
               <Routes>
