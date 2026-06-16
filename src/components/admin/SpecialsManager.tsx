@@ -13,6 +13,8 @@ import {
 
 type ImagePosition = "above" | "below" | "left" | "right";
 
+type ButtonOrder = "primary_first" | "secondary_first";
+
 interface Special {
   id: string;
   title: string;
@@ -25,6 +27,7 @@ interface Special {
   primary_cta_url: string;
   secondary_cta_label: string;
   secondary_cta_url: string;
+  button_order: ButtonOrder;
   is_active: boolean;
   display_order: number;
   created_at: string;
@@ -42,6 +45,7 @@ const DEFAULT_FORM = {
   primary_cta_url: "/specials",
   secondary_cta_label: "Maybe Later",
   secondary_cta_url: "",
+  button_order: "primary_first" as ButtonOrder,
   is_active: true,
 };
 
@@ -99,6 +103,7 @@ const SpecialsManager = () => {
       primary_cta_url: s.primary_cta_url || "/specials",
       secondary_cta_label: s.secondary_cta_label || "Maybe Later",
       secondary_cta_url: s.secondary_cta_url || "",
+      button_order: (s.button_order as ButtonOrder) || "primary_first",
       is_active: s.is_active,
     });
     setTimeout(() => { if (editorRef.current) editorRef.current.innerHTML = s.body; }, 50);
@@ -147,6 +152,7 @@ const SpecialsManager = () => {
         primary_cta_url: form.primary_cta_url.trim(),
         secondary_cta_label: form.secondary_cta_label.trim(),
         secondary_cta_url: form.secondary_cta_url.trim(),
+        button_order: form.button_order,
         is_active: form.is_active,
         updated_at: new Date().toISOString(),
       };
@@ -251,7 +257,7 @@ const SpecialsManager = () => {
           <div style="flex:1;padding:6px 8px;font-size:12px;opacity:0.6;">your@email.com</div>
           <div style="background:hsl(var(--accent));color:hsl(var(--accent-foreground));padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Sign Up</div>
         </div>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">${primaryBtn}${secondaryBtn}</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">${form.button_order === "secondary_first" ? `${secondaryBtn}${primaryBtn}` : `${primaryBtn}${secondaryBtn}`}</div>
       </div>
     </div>`;
   }, [form]);
@@ -389,23 +395,76 @@ const SpecialsManager = () => {
             </div>
 
             <div className="space-y-3 pt-2 border-t border-border">
-              <Label className="text-sm font-semibold">Buttons</Label>
-
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground">Primary Button (accent color) *</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <Input value={form.primary_cta_label} onChange={(e) => setForm((f) => ({ ...f, primary_cta_label: e.target.value }))} placeholder="Label e.g. Book Now" maxLength={50} />
-                  <Input value={form.primary_cta_url} onChange={(e) => setForm((f) => ({ ...f, primary_cta_url: e.target.value }))} placeholder="Link e.g. /booking or https://..." />
-                </div>
+              <div className="flex items-center justify-between">
+                <Label className="text-sm font-semibold">Buttons</Label>
+                <p className="text-xs text-muted-foreground">Drag a card by its handle to reorder, or use the arrows.</p>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground">Secondary Button (outline) - leave label blank to hide</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <Input value={form.secondary_cta_label} onChange={(e) => setForm((f) => ({ ...f, secondary_cta_label: e.target.value }))} placeholder="Label e.g. Maybe Later" maxLength={50} />
-                  <Input value={form.secondary_cta_url} onChange={(e) => setForm((f) => ({ ...f, secondary_cta_url: e.target.value }))} placeholder="Link (blank = closes popup)" />
-                </div>
-              </div>
+              {(() => {
+                const order: Array<"primary" | "secondary"> = form.button_order === "secondary_first"
+                  ? ["secondary", "primary"]
+                  : ["primary", "secondary"];
+
+                const swap = () => setForm((f) => ({ ...f, button_order: f.button_order === "primary_first" ? "secondary_first" : "primary_first" }));
+
+                const renderCard = (kind: "primary" | "secondary", idx: number) => {
+                  const isPrimary = kind === "primary";
+                  return (
+                    <div
+                      key={kind}
+                      draggable
+                      onDragStart={(e) => { e.dataTransfer.setData("text/plain", kind); e.dataTransfer.effectAllowed = "move"; }}
+                      onDragOver={(e) => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        const dragged = e.dataTransfer.getData("text/plain");
+                        if (dragged && dragged !== kind) swap();
+                      }}
+                      className="group bg-background border border-border rounded-lg p-3 space-y-2 cursor-move hover:border-accent/50 transition-colors"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <GripVertical className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                          <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                            Position {idx + 1} · {isPrimary ? "Primary (accent)" : "Secondary (outline)"}
+                            {isPrimary && " *"}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={swap}
+                          className="text-xs text-accent hover:underline"
+                          title="Swap button order"
+                        >
+                          {idx === 0 ? "Move down ↓" : "Move up ↑"}
+                        </button>
+                      </div>
+                      {!isPrimary && (
+                        <p className="text-[11px] text-muted-foreground">Leave label blank to hide. Leave link blank to just close the popup.</p>
+                      )}
+                      <div className="grid grid-cols-2 gap-2">
+                        <Input
+                          value={isPrimary ? form.primary_cta_label : form.secondary_cta_label}
+                          onChange={(e) => setForm((f) => isPrimary
+                            ? { ...f, primary_cta_label: e.target.value }
+                            : { ...f, secondary_cta_label: e.target.value })}
+                          placeholder={isPrimary ? "Label e.g. Book Now" : "Label e.g. Maybe Later"}
+                          maxLength={50}
+                        />
+                        <Input
+                          value={isPrimary ? form.primary_cta_url : form.secondary_cta_url}
+                          onChange={(e) => setForm((f) => isPrimary
+                            ? { ...f, primary_cta_url: e.target.value }
+                            : { ...f, secondary_cta_url: e.target.value })}
+                          placeholder={isPrimary ? "Link e.g. /booking or https://..." : "Link (blank = closes popup)"}
+                        />
+                      </div>
+                    </div>
+                  );
+                };
+
+                return <div className="space-y-2">{order.map((k, i) => renderCard(k, i))}</div>;
+              })()}
             </div>
 
             <div className="flex items-center gap-4 pt-2 border-t border-border">

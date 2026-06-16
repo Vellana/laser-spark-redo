@@ -388,6 +388,7 @@ export type Database = {
       specials: {
         Row: {
           body: string
+          button_order: string
           created_at: string
           disclaimer: string | null
           display_order: number
@@ -405,6 +406,7 @@ export type Database = {
         }
         Insert: {
           body?: string
+          button_order?: string
           created_at?: string
           disclaimer?: string | null
           display_order?: number
@@ -422,6 +424,7 @@ export type Database = {
         }
         Update: {
           body?: string
+          button_order?: string
           created_at?: string
           disclaimer?: string | null
           display_order?: number

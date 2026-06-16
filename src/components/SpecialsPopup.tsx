@@ -24,6 +24,7 @@ interface ActiveSpecial {
   primary_cta_url: string | null;
   secondary_cta_label: string | null;
   secondary_cta_url: string | null;
+  button_order: "primary_first" | "secondary_first" | null;
 }
 
 const SpecialsPopup = () => {
@@ -39,7 +40,7 @@ const SpecialsPopup = () => {
       // Fetch the single active special
       const { data } = await supabase
         .from("specials")
-        .select("id, title, body, highlight_text, disclaimer, image_urls, image_position, primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url")
+        .select("id, title, body, highlight_text, disclaimer, image_urls, image_position, primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url, button_order")
         .eq("is_active", true)
         .order("display_order", { ascending: true })
         .limit(1);
@@ -250,8 +251,17 @@ const SpecialsPopup = () => {
           )}
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            {renderCta(primaryLabel, primaryUrl, "accent")}
-            {renderCta(secondaryLabel, secondaryUrl, "outline")}
+            {special.button_order === "secondary_first" ? (
+              <>
+                {renderCta(secondaryLabel, secondaryUrl, "outline")}
+                {renderCta(primaryLabel, primaryUrl, "accent")}
+              </>
+            ) : (
+              <>
+                {renderCta(primaryLabel, primaryUrl, "accent")}
+                {renderCta(secondaryLabel, secondaryUrl, "outline")}
+              </>
+            )}
           </div>
         </div>
       </div>
