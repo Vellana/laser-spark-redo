@@ -39,7 +39,7 @@ const SpecialsPopup = () => {
       // Fetch the single active special
       const { data } = await supabase
         .from("specials")
-        .select("id, title, body, highlight_text, disclaimer, image_urls")
+        .select("id, title, body, highlight_text, disclaimer, image_urls, image_position, primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url")
         .eq("is_active", true)
         .order("display_order", { ascending: true })
         .limit(1);
