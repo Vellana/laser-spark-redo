@@ -33,8 +33,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { Search, Users, MailX, Plus, Trash2, Download } from "lucide-react";
+import { Search, Users, MailX, Plus, Trash2, Download, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import SpecialsManager from "@/components/admin/SpecialsManager";
 
 interface Subscriber {
   id: string;
@@ -68,6 +69,7 @@ const AdminEmailList = () => {
 
   // Add subscriber modal
   const [addOpen, setAddOpen] = useState(false);
+  const [specialsOpen, setSpecialsOpen] = useState(false);
   const [addEmail, setAddEmail] = useState("");
   const [addFirst, setAddFirst] = useState("");
   const [addLast, setAddLast] = useState("");
@@ -280,6 +282,9 @@ const AdminEmailList = () => {
               <Button variant="outline" onClick={exportCsv} disabled={subscribers.length === 0}>
                 <Download className="w-4 h-4 mr-2" /> Export CSV
               </Button>
+              <Button variant="outline" onClick={() => setSpecialsOpen(true)}>
+                <Sparkles className="w-4 h-4 mr-2" /> Edit Specials
+              </Button>
               <Button variant="accent" onClick={() => setAddOpen(true)}>
                 <Plus className="w-4 h-4 mr-2" /> Add Subscriber
               </Button>
@@ -438,6 +443,19 @@ const AdminEmailList = () => {
               {addSubmitting ? "Adding..." : "Add subscriber"}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Specials editor modal */}
+      <Dialog open={specialsOpen} onOpenChange={setSpecialsOpen}>
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Specials Page</DialogTitle>
+            <DialogDescription>
+              Manage promos shown on the Specials page and the site-wide popup.
+            </DialogDescription>
+          </DialogHeader>
+          <SpecialsManager />
         </DialogContent>
       </Dialog>
 
