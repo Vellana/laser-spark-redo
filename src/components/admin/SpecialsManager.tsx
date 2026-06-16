@@ -13,6 +13,8 @@ import {
 
 type ImagePosition = "above" | "below" | "left" | "right";
 
+type ButtonOrder = "primary_first" | "secondary_first";
+
 interface Special {
   id: string;
   title: string;
@@ -25,6 +27,7 @@ interface Special {
   primary_cta_url: string;
   secondary_cta_label: string;
   secondary_cta_url: string;
+  button_order: ButtonOrder;
   is_active: boolean;
   display_order: number;
   created_at: string;
@@ -42,6 +45,7 @@ const DEFAULT_FORM = {
   primary_cta_url: "/specials",
   secondary_cta_label: "Maybe Later",
   secondary_cta_url: "",
+  button_order: "primary_first" as ButtonOrder,
   is_active: true,
 };
 
