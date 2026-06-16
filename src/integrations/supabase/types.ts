@@ -392,6 +392,7 @@ export type Database = {
           created_at: string
           disclaimer: string | null
           display_order: number
+          end_date: string | null
           highlight_text: string | null
           id: string
           image_position: string
@@ -401,6 +402,7 @@ export type Database = {
           primary_cta_url: string
           secondary_cta_label: string
           secondary_cta_url: string
+          start_date: string | null
           title: string
           updated_at: string
         }
@@ -410,6 +412,7 @@ export type Database = {
           created_at?: string
           disclaimer?: string | null
           display_order?: number
+          end_date?: string | null
           highlight_text?: string | null
           id?: string
           image_position?: string
@@ -419,6 +422,7 @@ export type Database = {
           primary_cta_url?: string
           secondary_cta_label?: string
           secondary_cta_url?: string
+          start_date?: string | null
           title: string
           updated_at?: string
         }
@@ -428,6 +432,7 @@ export type Database = {
           created_at?: string
           disclaimer?: string | null
           display_order?: number
+          end_date?: string | null
           highlight_text?: string | null
           id?: string
           image_position?: string
@@ -437,6 +442,7 @@ export type Database = {
           primary_cta_url?: string
           secondary_cta_label?: string
           secondary_cta_url?: string
+          start_date?: string | null
           title?: string
           updated_at?: string
         }
