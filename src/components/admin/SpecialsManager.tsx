@@ -271,6 +271,41 @@ const SpecialsManager = () => {
     </div>`;
   }, [form]);
 
+  // Live preview HTML for the Specials page card (mirrors src/pages/Specials.tsx rendering)
+  const pagePreviewHtml = useMemo(() => {
+    const esc = (s: string) => s.replace(/</g, "&lt;");
+    const title = esc(form.title || "Special Title");
+
+    const endLine = form.end_date
+      ? (() => {
+          const [y, m, d] = form.end_date.split("-").map(Number);
+          const label = new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+          return `<p style="font-size:14px;font-weight:600;color:hsl(var(--accent));margin:0;">Offer ends ${label}</p>`;
+        })()
+      : "";
+
+    const body = form.body
+      ? `<div style="color:hsl(var(--foreground));font-size:16px;line-height:1.65;">${form.body}</div>`
+      : "";
+    const highlight = form.highlight_text
+      ? `<p style="font-size:20px;font-weight:700;color:hsl(var(--accent));margin:0;">${esc(form.highlight_text)}</p>` : "";
+    const disclaimer = form.disclaimer
+      ? `<p style="font-size:12px;color:hsl(var(--muted-foreground));font-style:italic;margin:0;">${esc(form.disclaimer)}</p>` : "";
+    const images = form.image_urls.length
+      ? `<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">${form.image_urls.map((u) => `<img src="${u}" style="max-width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);" />`).join("")}</div>`
+      : "";
+
+    return `<div style="background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:24px;text-align:center;display:flex;flex-direction:column;gap:16px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+      <h3 style="font-size:24px;font-weight:700;color:hsl(var(--foreground));margin:0;">${title}</h3>
+      ${endLine}
+      ${body}
+      ${highlight}
+      ${images}
+      ${disclaimer}
+    </div>`;
+  }, [form]);
+
+
   const toolbarButtons = [
     { icon: Bold, label: "Bold", cmd: "bold" },
     { icon: Italic, label: "Italic", cmd: "italic" },
