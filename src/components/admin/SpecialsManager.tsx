@@ -108,6 +108,8 @@ const SpecialsManager = () => {
       secondary_cta_label: s.secondary_cta_label || "Maybe Later",
       secondary_cta_url: s.secondary_cta_url || "",
       button_order: (s.button_order as ButtonOrder) || "primary_first",
+      start_date: s.start_date ? s.start_date.split("T")[0] : "",
+      end_date: s.end_date ? s.end_date.split("T")[0] : "",
       is_active: s.is_active,
     });
     setTimeout(() => { if (editorRef.current) editorRef.current.innerHTML = s.body; }, 50);
