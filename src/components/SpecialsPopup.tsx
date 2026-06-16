@@ -19,6 +19,11 @@ interface ActiveSpecial {
   highlight_text: string | null;
   disclaimer: string | null;
   image_urls: string[] | null;
+  image_position: "above" | "below" | "left" | "right" | null;
+  primary_cta_label: string | null;
+  primary_cta_url: string | null;
+  secondary_cta_label: string | null;
+  secondary_cta_url: string | null;
 }
 
 const SpecialsPopup = () => {
