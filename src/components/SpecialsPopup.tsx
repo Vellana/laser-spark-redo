@@ -134,7 +134,7 @@ const SpecialsPopup = () => {
               <p className="text-xs text-muted-foreground">Your discount code:</p>
               <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
               <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
-              <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
+              <p className="text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <a
@@ -201,7 +201,7 @@ const SpecialsPopup = () => {
                 <p className="text-xs text-muted-foreground">Your discount code:</p>
                 <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
                 <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
-                <p className="text-xs text-muted-foreground/60 mt-1">*Cannot be combined with other offers.</p>
+                <p className="text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
               </div>
             </div>
           )}
