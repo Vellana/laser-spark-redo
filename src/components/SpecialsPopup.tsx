@@ -251,8 +251,17 @@ const SpecialsPopup = () => {
           )}
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            {renderCta(primaryLabel, primaryUrl, "accent")}
-            {renderCta(secondaryLabel, secondaryUrl, "outline")}
+            {special.button_order === "secondary_first" ? (
+              <>
+                {renderCta(secondaryLabel, secondaryUrl, "outline")}
+                {renderCta(primaryLabel, primaryUrl, "accent")}
+              </>
+            ) : (
+              <>
+                {renderCta(primaryLabel, primaryUrl, "accent")}
+                {renderCta(secondaryLabel, secondaryUrl, "outline")}
+              </>
+            )}
           </div>
         </div>
       </div>
