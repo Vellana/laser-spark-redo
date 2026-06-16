@@ -229,9 +229,9 @@ const SpecialsPopup = () => {
                 Get <span className="text-accent font-bold">10% off</span> your next service when you join our email list!
                 <span className="block text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</span>
               </p>
-              <form onSubmit={handleSubscribe} className="flex gap-2">
-                <Input type="email" placeholder="Your email address" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1" aria-label="Email for newsletter" />
-                <Button type="submit" variant="accent" disabled={isSubmitting} size="sm">{isSubmitting ? "..." : "Sign Up"}</Button>
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-sm mx-auto w-full">
+                <Input type="email" placeholder="Your email address" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1 bg-background text-foreground placeholder:text-muted-foreground" aria-label="Email for newsletter" />
+                <Button type="submit" variant="accent" disabled={isSubmitting} className="w-full sm:w-auto">{isSubmitting ? "..." : "Sign Up"}</Button>
               </form>
             </div>
           ) : (
