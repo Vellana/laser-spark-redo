@@ -9,7 +9,7 @@ import Testimonials from "@/components/Testimonials";
 import InstagramFeed from "@/components/InstagramFeed";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import SpecialsPopup from "@/components/SpecialsPopup";
+
 import PromoBanner from "@/components/PromoBanner";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
