@@ -16,7 +16,14 @@ interface Special {
   highlight_text: string;
   disclaimer: string;
   image_urls: string[];
+  start_date: string | null;
+  end_date: string | null;
 }
+
+const formatEndDate = (iso: string) => {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+};
 
 const Specials = () => {
   const [specials, setSpecials] = useState<Special[]>([]);
@@ -28,10 +35,26 @@ const Specials = () => {
     const fetchSpecials = async () => {
       const { data } = await supabase
         .from("specials")
-        .select("id, title, body, highlight_text, disclaimer, image_urls")
+        .select("id, title, body, highlight_text, disclaimer, image_urls, start_date, end_date")
         .eq("is_active", true)
         .order("display_order", { ascending: true });
-      setSpecials((data as any) || []);
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const filtered = ((data as any[]) || []).filter((s) => {
+        if (s.start_date) {
+          const start = new Date(s.start_date);
+          start.setHours(0, 0, 0, 0);
+          if (today < start) return false;
+        }
+        if (s.end_date) {
+          const end = new Date(s.end_date);
+          end.setHours(23, 59, 59, 999);
+          if (today > end) return false;
+        }
+        return true;
+      });
+      setSpecials(filtered as Special[]);
       setLoading(false);
     };
     fetchSpecials();
@@ -143,6 +166,11 @@ const Specials = () => {
                   {specials.map((special) => (
                     <div key={special.id} className="bg-card border border-border rounded-2xl shadow-lg p-6 text-center space-y-4">
                       <h3 className="text-2xl font-bold text-foreground">{special.title}</h3>
+                      {special.end_date && (
+                        <p className="text-sm font-semibold text-accent">
+                          Offer ends {formatEndDate(special.end_date)}
+                        </p>
+                      )}
                       {special.body && (
                         <div
                           className="text-base text-foreground prose prose-sm max-w-none [&_h2]:text-xl [&_h2]:font-bold [&_h3]:text-lg [&_h3]:font-semibold [&_a]:text-accent [&_a]:underline [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
