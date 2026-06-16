@@ -393,8 +393,13 @@ export type Database = {
           display_order: number
           highlight_text: string | null
           id: string
+          image_position: string
           image_urls: string[] | null
           is_active: boolean
+          primary_cta_label: string
+          primary_cta_url: string
+          secondary_cta_label: string
+          secondary_cta_url: string
           title: string
           updated_at: string
         }
@@ -405,8 +410,13 @@ export type Database = {
           display_order?: number
           highlight_text?: string | null
           id?: string
+          image_position?: string
           image_urls?: string[] | null
           is_active?: boolean
+          primary_cta_label?: string
+          primary_cta_url?: string
+          secondary_cta_label?: string
+          secondary_cta_url?: string
           title: string
           updated_at?: string
         }
@@ -417,8 +427,13 @@ export type Database = {
           display_order?: number
           highlight_text?: string | null
           id?: string
+          image_position?: string
           image_urls?: string[] | null
           is_active?: boolean
+          primary_cta_label?: string
+          primary_cta_url?: string
+          secondary_cta_label?: string
+          secondary_cta_url?: string
           title?: string
           updated_at?: string
         }
