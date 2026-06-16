@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import GlobalSpecialsPopup from "./components/GlobalSpecialsPopup";
 
 // Lazy load pages for optimized bundle splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -62,6 +63,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <GlobalSpecialsPopup />
           <Suspense fallback={<PageLoader />}>
             <div className="page-transition">
               <Routes>

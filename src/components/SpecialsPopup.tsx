@@ -128,10 +128,10 @@ const SpecialsPopup = () => {
   // Returning subscriber view
   if (isReturning) {
     return (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
-        <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300 overscroll-contain">
+        <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-5 sm:p-7 animate-in zoom-in-95 duration-300 max-h-[92vh] overflow-y-auto">
           <div className="text-center space-y-4">
-            <h3 className="text-2xl font-bold text-foreground">Welcome Back! 👋</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-tight">Welcome Back! 👋</h3>
             <p className="text-foreground">
               Great to see you again! Don't forget - your <span className="text-accent font-bold">10% discount</span> is still available.
             </p>
@@ -206,10 +206,10 @@ const SpecialsPopup = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300 overscroll-contain">
+      <div className="relative bg-card border border-border rounded-2xl shadow-lg max-w-md w-full p-5 sm:p-7 animate-in zoom-in-95 duration-300 max-h-[92vh] overflow-y-auto">
         <div className={isSideLayout ? "space-y-4" : "text-center space-y-4"}>
-          <h3 className="text-2xl font-bold text-foreground text-center">{special.title}</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground text-center leading-tight">{special.title}</h3>
 
           {isSideLayout ? (
             <div className="flex flex-wrap gap-4 items-start text-left">
