@@ -24,6 +24,7 @@ interface ActiveSpecial {
   primary_cta_url: string | null;
   secondary_cta_label: string | null;
   secondary_cta_url: string | null;
+  button_order: "primary_first" | "secondary_first" | null;
 }
 
 const SpecialsPopup = () => {
