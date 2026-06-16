@@ -446,6 +446,19 @@ const AdminEmailList = () => {
         </DialogContent>
       </Dialog>
 
+      {/* Specials editor modal */}
+      <Dialog open={specialsOpen} onOpenChange={setSpecialsOpen}>
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Specials Page</DialogTitle>
+            <DialogDescription>
+              Manage promos shown on the Specials page and the site-wide popup.
+            </DialogDescription>
+          </DialogHeader>
+          <SpecialsManager />
+        </DialogContent>
+      </Dialog>
+
       {/* Re-opt-in signature modal */}
       <Dialog open={!!reoptTarget} onOpenChange={(open) => !open && setReoptTarget(null)}>
         <DialogContent>
