@@ -27,7 +27,6 @@ const Index = () => {
       <MedicalSpaSchema />
       <PromoBanner />
       <Navigation />
-      <SpecialsPopup />
       <main>
         <Hero />
         <SummerPresaleBanner />
