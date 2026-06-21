@@ -278,8 +278,8 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal Vienna VA | Laser Hair Removal Tysons Corner | Clarity II"
-        description="Laser hair removal Vienna VA and laser hair removal Tysons Corner with the Lutronic Clarity II. Safe for all skin types. 25% off packages. Book a free consultation at 703-547-4499."
+        title="Laser Hair Removal Tysons Corner | Laser Hair Removal Vienna VA | Clarity II"
+        description="Laser hair removal Tysons Corner and laser hair removal Vienna VA with the Lutronic Clarity II. Safe for all skin types. 25% off packages. Book a free consultation at 703-547-4499."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
@@ -316,7 +316,7 @@ const LaserHairRemoval = () => {
                   Gold Standard Technology
                 </span>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
-                  Laser Hair Removal Vienna VA and Tysons Corner
+                  Laser Hair Removal Tysons Corner and Vienna VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
                   Experience Clarity II laser hair removal Vienna patients trust for permanent hair reduction. The Lutronic Clarity II is the gold standard dual-wavelength system, safe for all skin types and tones, delivering exceptional results with minimal discomfort across Tysons, Vienna, and McLean.

@@ -33,8 +33,8 @@ const About = () => {
     return (
         <div className="min-h-screen">
             <SEO 
-                title="About Virginia Laser Specialists | Tysons VA"
-                description="Meet our licensed estheticians & certified laser techs in Tysons VA. Book your free consultation at Virginia Laser Specialists — 703-752-6608."
+                title="Medical Spa Tysons &amp; Medical Spa Vienna VA | Virginia Laser Specialists"
+                description="Medical spa Tysons and medical spa Vienna VA offering laser hair removal, CoolPeel CO2 resurfacing, and scar treatments. Licensed estheticians and certified laser techs. 703-752-6608."
                 canonicalUrl="/about"
             />
             <LocalBusinessSchema />
@@ -83,15 +83,12 @@ const About = () => {
                                         ABOUT OUR STUDIO
                                     </span>
                                     <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-                                        Excellence in Laser Technology, Tailored to You
+                                        Your Medical Spa in Tysons and Vienna VA
                                     </h2>
                                 </div>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">
-                                    At Virginia Laser Specialists we strive to provide safe and effective
-                                    treatments in a comfortable space where ALL are welcome. We are committed
-                                    to delivering exceptional results, building lasting relationships with our
-                                    clients, and ensuring transparency in every aspect of their experience.
+                                    As a dedicated <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">medical spa Tysons</Link> and medical spa Vienna VA patients trust, Virginia Laser Specialists provides safe and effective laser treatments in a comfortable space where ALL are welcome. We are committed to delivering exceptional results, building lasting relationships with our clients, and ensuring transparency in every aspect of their experience.
                                 </p>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">
