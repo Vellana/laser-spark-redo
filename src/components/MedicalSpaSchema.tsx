@@ -8,7 +8,9 @@ const MedicalSpaSchema = () => {
     "name": "Virginia Laser Specialists",
     "url": "https://virginialaserspecialists.com",
     "telephone": "+17037526608",
+    "email": "info@virginialaserspecialists.com",
     "image": "https://virginialaserspecialists.com/favicon.png",
+    "logo": "https://virginialaserspecialists.com/favicon.png",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
@@ -18,12 +20,24 @@ const MedicalSpaSchema = () => {
       "postalCode": "22182",
       "addressCountry": "US"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 38.9187,
+      "longitude": -77.2311
+    },
     "areaServed": [
       { "@type": "City", "name": "Tysons" },
       { "@type": "City", "name": "Vienna" },
       { "@type": "City", "name": "McLean" },
       { "@type": "City", "name": "Falls Church" },
-      { "@type": "City", "name": "Arlington" }
+      { "@type": "City", "name": "Arlington" },
+      { "@type": "City", "name": "Fairfax" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/virginialaserspecialists",
+      "https://www.facebook.com/profile.php?id=61573588844302",
+      "https://www.tiktok.com/@virginialaserspecialists",
+      "https://www.linkedin.com/company/virginia-laser-specialists"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
