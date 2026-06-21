@@ -598,13 +598,13 @@ const LaserSkinResurfacing = () => {
 
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-foreground">
-                  Acne Scar Treatment Vienna VA and Scar Removal Vienna VA
+                  Acne Scar Treatment, Scar Removal, and Stretch Mark Removal Vienna VA
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
                   For acne scar treatment Vienna VA patients ask about most often, fractional CO2 resurfacing remains one of the most effective in-office options. The DEKA Tetra Pro Vienna platform fires precise microcolumns of CO2 energy into the skin, breaking up scar tissue and triggering fresh collagen to fill in pitted, boxcar, and rolling acne scars over the months after treatment.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  The same approach supports scar removal Vienna VA appointments for surgical scars, traumatic scars, and stretch-mark-like texture changes. Results build gradually and often require a short series of CoolPeel sessions or a single deeper DEKA Pulse treatment, depending on scar depth. Visit our <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel laser cost</Link> page or call 703-752-6608 to schedule a complimentary evaluation.
+                  The same approach supports scar removal Vienna VA appointments for surgical and traumatic scars, and stretch mark removal Vienna VA sessions that soften the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-752-6608 to schedule a complimentary evaluation.
                 </p>
               </div>
             </div>
