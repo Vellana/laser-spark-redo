@@ -78,8 +78,52 @@ const CoolPeelTysonsSchema = () => {
         },
         "image": "https://virginialaserspecialists.com/favicon.png",
         "sameAs": [
-          "https://www.instagram.com/virginialaserspecialists/"
+          "https://www.instagram.com/virginialaserspecialists",
+          "https://www.facebook.com/profile.php?id=61573588844302",
+          "https://www.tiktok.com/@virginialaserspecialists",
+          "https://www.linkedin.com/company/virginia-laser-specialists"
         ]
+      },
+      {
+        "@type": "MedicalSpa",
+        "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#medicalspa",
+        "name": "Virginia Laser Specialists - CoolPeel Tysons",
+        "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va",
+        "telephone": "+17037526608",
+        "email": "info@virginialaserspecialists.com",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "8100 Boone Blvd, Suite 270",
+          "addressLocality": "Vienna",
+          "addressRegion": "VA",
+          "postalCode": "22182",
+          "addressCountry": "US"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Tysons" },
+          { "@type": "City", "name": "Vienna" },
+          { "@type": "City", "name": "McLean" },
+          { "@type": "City", "name": "Falls Church" },
+          { "@type": "City", "name": "Arlington" },
+          { "@type": "City", "name": "Fairfax" }
+        ],
+        "medicalSpecialty": { "@type": "MedicalSpecialty", "name": "Dermatology" },
+        "availableService": {
+          "@type": "MedicalProcedure",
+          "name": "CoolPeel CO2 Laser Resurfacing Tysons",
+          "procedureType": "NoninvasiveProcedure"
+        }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#service",
+        "serviceType": "CoolPeel CO2 Laser Resurfacing",
+        "name": "CoolPeel skin resurfacing Tysons",
+        "description": "CoolPeel skin resurfacing Tysons performed with the Cartessa Tetra Pro fractional CO2 laser. Treats fine lines, sun damage, large pores, and uneven texture with 1-3 days of downtime.",
+        "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va",
+        "areaServed": ["Tysons, VA", "Vienna, VA", "McLean, VA", "Falls Church, VA", "Arlington, VA", "Fairfax, VA"],
+        "provider": { "@id": "https://virginialaserspecialists.com/#business" }
       },
       {
         "@type": "MedicalProcedure",
