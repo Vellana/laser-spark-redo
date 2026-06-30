@@ -1730,7 +1730,7 @@ const Admin = () => {
                       <div key={idx} className="flex items-center justify-between gap-2 rounded-md border border-border bg-muted/30 px-3 py-2 text-sm">
                         <div className="min-w-0 flex-1">
                           <p className="truncate font-medium text-foreground">{att.name}</p>
-                          <p className="text-xs text-muted-foreground">{(att.size / 1024).toFixed(att.size > 1024 * 1024 ? 0 : 1)} {att.size > 1024 * 1024 ? "MB" : "KB"}{att.size > 1024 * 1024 ? "" : ""}</p>
+                          <p className="text-xs text-muted-foreground">{att.size > 1024 * 1024 ? `${(att.size / (1024 * 1024)).toFixed(1)} MB` : `${(att.size / 1024).toFixed(0)} KB`}</p>
                         </div>
                         <button
                           type="button"
