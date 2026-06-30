@@ -277,13 +277,17 @@ const handler = async (req: Request): Promise<Response> => {
     const BATCH_SIZE = 100;
     const BATCH_GAP_MS = 600; // <2 req/sec to respect Resend default limit
 
-    const buildPayload = (to: string) => ({
-      from: "Virginia Laser Specialists <hello@virginialaserspecialists.com>",
-      to: [to],
-      subject: subject.trim(),
-      html: newsletterHtml,
-      reply_to: "hello@virginialaserspecialists.com",
-    });
+    const buildPayload = (to: string) => {
+      const p: any = {
+        from: "Virginia Laser Specialists <hello@virginialaserspecialists.com>",
+        to: [to],
+        subject: subject.trim(),
+        html: newsletterHtml,
+        reply_to: "hello@virginialaserspecialists.com",
+      };
+      if (fetchedAttachments.length > 0) p.attachments = fetchedAttachments;
+      return p;
+    };
 
     const sendOne = async (to: string, attempt = 1): Promise<void> => {
       try {
