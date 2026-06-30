@@ -74,6 +74,9 @@ const Admin = () => {
   const [newsletterImages, setNewsletterImages] = useState<string[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [newsletterAttachments, setNewsletterAttachments] = useState<Array<{ url: string; name: string; size: number; contentType: string }>>([]);
+  const [attachmentUploading, setAttachmentUploading] = useState(false);
+  const attachmentInputRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<HTMLDivElement>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(false);
