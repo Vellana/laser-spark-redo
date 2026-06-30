@@ -1628,6 +1628,58 @@ const Admin = () => {
               </div>
             </div>
 
+            {/* Scheduled Newsletters */}
+            <Card className="mt-6">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Scheduled Newsletters</CardTitle>
+                    <CardDescription>Newsletters queued to send automatically</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchScheduled} disabled={scheduledLoading}>
+                    {scheduledLoading ? "Loading..." : "Refresh"}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {scheduled.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No scheduled newsletters.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {scheduled.map((s) => {
+                      const when = new Date(s.scheduled_for);
+                      const recipientCount = Array.isArray(s.recipient_emails) ? s.recipient_emails.length : null;
+                      return (
+                        <div key={s.id} className="border border-border rounded-lg p-3 flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <div className="font-medium text-sm truncate">{s.subject}</div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              {when.toLocaleString()} · status: <span className="font-medium">{s.status}</span>
+                              {recipientCount !== null ? ` · ${recipientCount} selected recipient(s)` : " · all active subscribers"}
+                              {s.sent_count != null ? ` · sent ${s.sent_count}/${s.total_count}` : ""}
+                            </div>
+                            {s.last_error && (
+                              <div className="text-xs text-destructive mt-1 line-clamp-2">Error: {s.last_error}</div>
+                            )}
+                          </div>
+                          {(s.status === "pending" || s.status === "failed") && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => cancelScheduled(s.id)}
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
             {/* Send History */}
             <Card className="mt-6">
               <CardHeader>
