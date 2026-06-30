@@ -152,15 +152,25 @@ const handler = async (req: Request): Promise<Response> => {
 
     function sanitizeHtml(html: string): string {
       let s = html.trim();
+      // Strip MS Office conditional comments (<!--[if ...]>...<![endif]-->)
+      s = s.replace(/<!--\[if[\s\S]*?<!\[endif\]-->/gi, "");
+      // Strip Word/Outlook namespaced tags (<o:p>, <w:*>, <v:*>, <m:*>, etc.)
+      s = s.replace(/<\/?[a-z]+:[a-z0-9]+[^>]*>/gi, "");
       // Remove script tags, iframes, objects, embeds, style tags, SVGs
       s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[\s\S]*?<\/\1>/gi, "");
       s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[^>]*\/?>/gi, "");
       // Remove event handlers
       s = s.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, "");
-      // Remove javascript: and data: URIs in href/src attributes
-      s = s.replace(/(href|src)\s*=\s*(?:"(?:javascript|data|vbscript):[^"]*"|'(?:javascript|data|vbscript):[^']*')/gi, "$1=\"\"");
+      // Remove javascript:/vbscript: URIs in href/src attributes
+      s = s.replace(/(href|src)\s*=\s*(?:"(?:javascript|vbscript):[^"]*"|'(?:javascript|vbscript):[^']*')/gi, "$1=\"\"");
+      // Strip <img> tags that reference local-only sources (cid:, file:, blob:) — they break in inboxes
+      s = s.replace(/<img[^>]+src\s*=\s*["'](?:cid|file|blob):[^"']*["'][^>]*\/?>/gi, "");
+      // Drop base64 data: image payloads (often huge, frequently rejected) — keep other data: uris removed too
+      s = s.replace(/(href|src)\s*=\s*(?:"data:[^"]*"|'data:[^']*')/gi, "$1=\"\"");
       // Remove any remaining script-like content
       s = s.replace(/javascript\s*:/gi, "");
+      // Collapse empty paragraphs left behind by Word
+      s = s.replace(/<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "");
       s = s.replace(/\n/g, "<br>");
       return s;
     }
