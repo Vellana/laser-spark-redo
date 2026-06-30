@@ -756,6 +756,39 @@ const Admin = () => {
     setNewsletterImages((prev) => prev.filter((_, i) => i !== idx));
   };
 
+  const handleAttachmentUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setAttachmentUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        if (file.size > 20 * 1024 * 1024) { toast.error(`${file.name}: max 20MB per attachment`); continue; }
+        const safeName = file.name.replace(/[^A-Za-z0-9._-]/g, "_").slice(0, 200);
+        const path = `newsletter-attachments/${Date.now()}-${Math.random().toString(36).slice(2)}-${safeName}`;
+        const { error } = await supabase.storage.from("email-assets").upload(path, file, {
+          contentType: file.type || "application/octet-stream",
+          upsert: false,
+        });
+        if (error) { toast.error(`Upload failed: ${error.message}`); continue; }
+        const { data: urlData } = supabase.storage.from("email-assets").getPublicUrl(path);
+        setNewsletterAttachments((prev) => [...prev, {
+          url: urlData.publicUrl,
+          name: file.name,
+          size: file.size,
+          contentType: file.type || "application/octet-stream",
+        }]);
+        toast.success(`Attached ${file.name}`);
+      }
+    } finally {
+      setAttachmentUploading(false);
+      if (attachmentInputRef.current) attachmentInputRef.current.value = "";
+    }
+  };
+
+  const removeAttachment = (idx: number) => {
+    setNewsletterAttachments((prev) => prev.filter((_, i) => i !== idx));
+  };
+
     const stripTags = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
     const handleSendNewsletter = async () => {
