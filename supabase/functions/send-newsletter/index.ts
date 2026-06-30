@@ -68,7 +68,7 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    if (subject.length > 200 || body.length > 10000) {
+    if (subject.length > 300 || body.length > 500000) {
       return new Response(JSON.stringify({ error: "Content too long" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
