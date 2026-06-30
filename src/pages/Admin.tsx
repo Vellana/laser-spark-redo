@@ -629,14 +629,18 @@ const Admin = () => {
     setImageUploading(true);
     try {
       for (const file of Array.from(files)) {
-        if (!file.type.startsWith("image/")) { toast.error("Only images allowed"); continue; }
-        if (file.size > 5 * 1024 * 1024) { toast.error("Max 5MB per image"); continue; }
-        const ext = file.name.split(".").pop();
+        if (!file.type.startsWith("image/")) { toast.error(`${file.name}: only images allowed`); continue; }
+        if (file.size > 15 * 1024 * 1024) { toast.error(`${file.name}: max 15MB per image`); continue; }
+        const ext = (file.name.split(".").pop() || "bin").toLowerCase();
         const path = `newsletter/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-        const { error } = await supabase.storage.from("email-assets").upload(path, file);
-        if (error) { toast.error("Upload failed"); continue; }
+        const { error } = await supabase.storage.from("email-assets").upload(path, file, {
+          contentType: file.type,
+          upsert: false,
+        });
+        if (error) { toast.error(`Upload failed: ${error.message}`); continue; }
         const { data: urlData } = supabase.storage.from("email-assets").getPublicUrl(path);
         setNewsletterImages((prev) => [...prev, urlData.publicUrl]);
+        toast.success(`Uploaded ${file.name}`);
       }
     } finally {
       setImageUploading(false);
