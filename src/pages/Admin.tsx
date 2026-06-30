@@ -459,6 +459,7 @@ const Admin = () => {
         subject: newsletterSubject,
         body: bodyContent,
         image_urls: newsletterImages,
+        attachments: newsletterAttachments,
         recipient_emails: recipientEmails,
       };
       if (currentDraftId) {
