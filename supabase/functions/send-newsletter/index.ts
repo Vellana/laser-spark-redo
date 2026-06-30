@@ -222,27 +222,32 @@ const handler = async (req: Request): Promise<Response> => {
 </body>
 </html>`;
 
-    // Send sequentially with throttling to respect Resend rate limits (2 req/s on free, 10 req/s default).
-    // Concurrent sends caused silent rate-limit failures (Resend returns {error} instead of throwing).
+    // Send via Resend batch endpoint to stay well within edge-function time limits.
+    // Resend batch: up to 100 emails per request, 2 req/sec default -> ~200 emails/sec.
+    // We chunk recipients, send each chunk as a batch, retry rate-limit errors,
+    // and fall back to per-recipient sends only if a whole batch fails.
     const emails = Array.from(new Set(leads.map((l) => l.email.toLowerCase().trim())));
     let sentCount = 0;
     const errors: string[] = [];
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+    const BATCH_SIZE = 100;
+    const BATCH_GAP_MS = 600; // <2 req/sec to respect Resend default limit
+
+    const buildPayload = (to: string) => ({
+      from: "Virginia Laser Specialists <hello@virginialaserspecialists.com>",
+      to: [to],
+      subject: subject.trim(),
+      html: newsletterHtml,
+      reply_to: "hello@virginialaserspecialists.com",
+    });
+
     const sendOne = async (to: string, attempt = 1): Promise<void> => {
       try {
-        const result: any = await resend.emails.send({
-          from: "Virginia Laser Specialists <hello@virginialaserspecialists.com>",
-          to: [to],
-          subject: subject.trim(),
-          html: newsletterHtml,
-          reply_to: "hello@virginialaserspecialists.com",
-        });
-        // Resend returns { data, error } — error does NOT throw
+        const result: any = await resend.emails.send(buildPayload(to));
         if (result?.error) {
           const errName = result.error?.name || "";
           const errMsg = result.error?.message || JSON.stringify(result.error);
-          // Retry rate-limit errors up to 3 times with backoff
           if (attempt < 4 && /rate|429|too_many/i.test(`${errName} ${errMsg}`)) {
             await sleep(1000 * attempt);
             return sendOne(to, attempt + 1);
@@ -260,11 +265,60 @@ const handler = async (req: Request): Promise<Response> => {
       }
     };
 
-    // Throttle: ~2 sends/sec (500ms gap) — safe for Resend free tier and well under default paid limits
-    for (const to of emails) {
-      await sendOne(to);
-      await sleep(500);
+    const sendBatch = async (chunk: string[], attempt = 1): Promise<void> => {
+      try {
+        const payloads = chunk.map(buildPayload);
+        const result: any = await (resend as any).batch.send(payloads);
+        if (result?.error) {
+          const errMsg = result.error?.message || JSON.stringify(result.error);
+          if (attempt < 4 && /rate|429|too_many/i.test(errMsg)) {
+            await sleep(1000 * attempt);
+            return sendBatch(chunk, attempt + 1);
+          }
+          // Batch-level failure -> fall back to per-recipient with throttling
+          for (const to of chunk) {
+            await sendOne(to);
+            await sleep(250);
+          }
+          return;
+        }
+        // Resend batch returns { data: [{ id }, ...] } in submission order
+        const items: any[] = Array.isArray(result?.data) ? result.data
+          : Array.isArray(result?.data?.data) ? result.data.data : [];
+        if (items.length === chunk.length) {
+          for (let i = 0; i < chunk.length; i++) {
+            if (items[i]?.id) sentCount++;
+            else errors.push(`${chunk[i]}: ${items[i]?.error?.message || "no id returned"}`);
+          }
+        } else {
+          // Count succeeded conservatively, then re-try missing ones individually
+          sentCount += items.filter((it) => it?.id).length;
+          const missingFrom = items.length;
+          for (let i = missingFrom; i < chunk.length; i++) {
+            await sendOne(chunk[i]);
+            await sleep(250);
+          }
+        }
+      } catch (e: any) {
+        if (attempt < 3) {
+          await sleep(1000 * attempt);
+          return sendBatch(chunk, attempt + 1);
+        }
+        // Fall back to per-recipient if the batch SDK throws
+        for (const to of chunk) {
+          await sendOne(to);
+          await sleep(250);
+        }
+      }
+    };
+
+    for (let i = 0; i < emails.length; i += BATCH_SIZE) {
+      const chunk = emails.slice(i, i + BATCH_SIZE);
+      await sendBatch(chunk);
+      if (i + BATCH_SIZE < emails.length) await sleep(BATCH_GAP_MS);
     }
+
+
 
     console.log(`Newsletter sent to ${sentCount}/${emails.length} recipients`);
     if (errors.length) console.error("Send errors:", errors);
