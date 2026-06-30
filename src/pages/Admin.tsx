@@ -837,6 +837,7 @@ const Admin = () => {
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
+      setNewsletterAttachments([]);
       setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
       fetchSendHistory();
