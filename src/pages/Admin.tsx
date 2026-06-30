@@ -177,6 +177,7 @@ const Admin = () => {
       fetchInquiries();
       fetchAppointments();
       fetchSendHistory();
+      fetchScheduled();
       fetchClosures();
       fetchSiteSettings();
     } else {
