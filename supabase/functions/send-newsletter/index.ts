@@ -72,7 +72,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
 
-    const { subject, body, imageUrls, singleRecipient, recipientEmails } = await req.json();
+    const { subject, body, imageUrls, singleRecipient, recipientEmails, attachments: attachmentInput } = await req.json();
 
     if (!subject || !body || typeof subject !== "string" || typeof body !== "string") {
       return new Response(JSON.stringify({ error: "Missing subject or body" }), {
@@ -93,6 +93,43 @@ const handler = async (req: Request): Promise<Response> => {
     const imagesHtml = images.length > 0
       ? images.map((url: string) => `<div style="text-align:center;margin:0 0 20px;"><img src="${url}" alt="Newsletter image" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("")
       : "";
+
+    // Normalize attachments: accept [{url,name,contentType?}] from client.
+    // Fetch once, base64-encode, reuse across all sends. Resend caps total message size ~40MB.
+    type Attachment = { filename: string; content: string; content_type?: string };
+    const rawAttachments: any[] = Array.isArray(attachmentInput) ? attachmentInput : [];
+    const fetchedAttachments: Attachment[] = [];
+    let totalAttachmentBytes = 0;
+    const MAX_TOTAL_ATTACHMENT_BYTES = 35 * 1024 * 1024;
+    for (const a of rawAttachments) {
+      if (!a || typeof a.url !== "string" || !a.url.startsWith("http")) continue;
+      try {
+        const r = await fetch(a.url);
+        if (!r.ok) { console.error("Attachment fetch failed:", a.url, r.status); continue; }
+        const buf = new Uint8Array(await r.arrayBuffer());
+        totalAttachmentBytes += buf.byteLength;
+        if (totalAttachmentBytes > MAX_TOTAL_ATTACHMENT_BYTES) {
+          console.error("Attachment total exceeds 35MB cap; skipping remaining");
+          break;
+        }
+        let bin = "";
+        const CHUNK = 0x8000;
+        for (let i = 0; i < buf.length; i += CHUNK) {
+          bin += String.fromCharCode.apply(null, Array.from(buf.subarray(i, i + CHUNK)) as any);
+        }
+        const b64 = btoa(bin);
+        const filename = (typeof a.name === "string" && a.name.trim())
+          ? a.name.trim().replace(/[\r\n"<>]/g, "").slice(0, 200)
+          : (a.url.split("/").pop() || "attachment");
+        fetchedAttachments.push({
+          filename,
+          content: b64,
+          content_type: typeof a.contentType === "string" ? a.contentType : undefined,
+        });
+      } catch (err) {
+        console.error("Attachment fetch error:", a?.url, err);
+      }
+    }
 
     let leads: { email: string }[] | null = null;
 
