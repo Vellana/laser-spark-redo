@@ -611,8 +611,9 @@ const Admin = () => {
       setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
       fetchSendHistory();
-    } catch (err) {
-      toast.error("Failed to send newsletter");
+    } catch (err: any) {
+      const msg = err?.context?.error || err?.message || "Failed to send newsletter";
+      toast.error(msg);
     } finally {
       setNewsletterSending(false);
     }
