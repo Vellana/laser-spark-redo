@@ -186,6 +186,7 @@ const Admin = () => {
       fetchAppointments();
       fetchSendHistory();
       fetchScheduled();
+      fetchDrafts();
       fetchClosures();
       fetchSiteSettings();
     } else {
