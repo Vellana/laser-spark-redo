@@ -102,6 +102,10 @@ const Admin = () => {
   const [selectedRecipientIds, setSelectedRecipientIds] = useState<Set<string> | null>(null);
   const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
+  const [scheduleAt, setScheduleAt] = useState("");
+  const [scheduling, setScheduling] = useState(false);
+  const [scheduled, setScheduled] = useState<Array<any>>([]);
+  const [scheduledLoading, setScheduledLoading] = useState(false);
 
   // Office closures
   const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
@@ -173,6 +177,7 @@ const Admin = () => {
       fetchInquiries();
       fetchAppointments();
       fetchSendHistory();
+      fetchScheduled();
       fetchClosures();
       fetchSiteSettings();
     } else {
@@ -339,6 +344,74 @@ const Admin = () => {
     if (!error) setSendHistory((data as any) || []);
     setHistoryLoading(false);
   };
+
+  const fetchScheduled = async () => {
+    setScheduledLoading(true);
+    const { data, error } = await (supabase as any)
+      .from("scheduled_newsletters")
+      .select("*")
+      .order("scheduled_for", { ascending: true })
+      .limit(50);
+    if (!error) setScheduled(data || []);
+    setScheduledLoading(false);
+  };
+
+  const handleScheduleNewsletter = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    if (!newsletterSubject.trim() || !stripTags(bodyContent)) {
+      toast.error("Please enter both subject and body");
+      return;
+    }
+    if (!scheduleAt) {
+      toast.error("Pick a date and time to schedule");
+      return;
+    }
+    const when = new Date(scheduleAt);
+    if (isNaN(when.getTime())) { toast.error("Invalid date/time"); return; }
+    if (when.getTime() < Date.now() + 60_000) {
+      toast.error("Schedule a time at least 1 minute in the future");
+      return;
+    }
+    const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+    let recipientEmails: string[] | null = null;
+    if (selectedRecipientIds) {
+      recipientEmails = eligible.filter((l) => selectedRecipientIds.has(l.id)).map((l) => l.email);
+      if (recipientEmails.length === 0) { toast.error("Select at least one recipient"); return; }
+    }
+    setScheduling(true);
+    try {
+      const { error } = await (supabase as any).from("scheduled_newsletters").insert({
+        subject: newsletterSubject.trim(),
+        body: bodyContent.trim(),
+        image_urls: newsletterImages,
+        recipient_emails: recipientEmails,
+        scheduled_for: when.toISOString(),
+      });
+      if (error) throw error;
+      toast.success(`Newsletter scheduled for ${when.toLocaleString()}`);
+      setNewsletterSubject("");
+      setNewsletterImages([]);
+      setScheduleAt("");
+      setSelectedRecipientIds(null);
+      if (editorRef.current) editorRef.current.innerHTML = "";
+      fetchScheduled();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to schedule newsletter");
+    } finally {
+      setScheduling(false);
+    }
+  };
+
+  const cancelScheduled = async (id: string) => {
+    if (!confirm("Cancel this scheduled newsletter?")) return;
+    const { error } = await (supabase as any)
+      .from("scheduled_newsletters")
+      .delete()
+      .eq("id", id);
+    if (error) toast.error("Failed to cancel");
+    else { toast.success("Scheduled newsletter cancelled"); fetchScheduled(); }
+  };
+
 
   const cancelAppointment = async (apt: Appointment) => {
     setCancellingId(apt.id);
@@ -1523,6 +1596,28 @@ const Admin = () => {
                       } Subscriber(s)`}
                 </Button>
               </div>
+
+              {/* Schedule for later */}
+              <div className="flex flex-wrap items-end gap-3 p-4 border border-border rounded-lg bg-muted/20">
+                <div className="flex-1 min-w-[220px]">
+                  <Label htmlFor="schedule-at" className="text-sm">Schedule for later (your local time)</Label>
+                  <Input
+                    id="schedule-at"
+                    type="datetime-local"
+                    value={scheduleAt}
+                    onChange={(e) => setScheduleAt(e.target.value)}
+                  />
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={handleScheduleNewsletter}
+                  disabled={scheduling || !scheduleAt || !newsletterSubject.trim()}
+                >
+                  <CalendarDays className="w-4 h-4 mr-2" />
+                  {scheduling ? "Scheduling..." : "Schedule"}
+                </Button>
+              </div>
+
               {/* Preview */}
               <div className="space-y-2">
                 <h3 className="text-sm font-semibold text-foreground">Email Preview</h3>
@@ -1532,6 +1627,58 @@ const Admin = () => {
                 />
               </div>
             </div>
+
+            {/* Scheduled Newsletters */}
+            <Card className="mt-6">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Scheduled Newsletters</CardTitle>
+                    <CardDescription>Newsletters queued to send automatically</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchScheduled} disabled={scheduledLoading}>
+                    {scheduledLoading ? "Loading..." : "Refresh"}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {scheduled.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No scheduled newsletters.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {scheduled.map((s) => {
+                      const when = new Date(s.scheduled_for);
+                      const recipientCount = Array.isArray(s.recipient_emails) ? s.recipient_emails.length : null;
+                      return (
+                        <div key={s.id} className="border border-border rounded-lg p-3 flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <div className="font-medium text-sm truncate">{s.subject}</div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              {when.toLocaleString()} · status: <span className="font-medium">{s.status}</span>
+                              {recipientCount !== null ? ` · ${recipientCount} selected recipient(s)` : " · all active subscribers"}
+                              {s.sent_count != null ? ` · sent ${s.sent_count}/${s.total_count}` : ""}
+                            </div>
+                            {s.last_error && (
+                              <div className="text-xs text-destructive mt-1 line-clamp-2">Error: {s.last_error}</div>
+                            )}
+                          </div>
+                          {(s.status === "pending" || s.status === "failed") && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => cancelScheduled(s.id)}
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
 
             {/* Send History */}
             <Card className="mt-6">
