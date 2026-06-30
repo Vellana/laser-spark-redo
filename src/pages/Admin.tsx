@@ -409,6 +409,7 @@ const Admin = () => {
       }
       setNewsletterSubject("");
       setNewsletterImages([]);
+      setNewsletterAttachments([]);
       setScheduleAt("");
       setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
