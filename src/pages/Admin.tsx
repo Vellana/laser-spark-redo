@@ -1715,6 +1715,44 @@ const Admin = () => {
                   </div>
                   {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
                 </div>
+                <div className="space-y-2">
+                  <Label>Attachments</Label>
+                  <p className="text-xs text-muted-foreground">PDFs, docs, or any file (max 20MB each, ~35MB total per email).</p>
+                  <input
+                    ref={attachmentInputRef}
+                    type="file"
+                    multiple
+                    className="hidden"
+                    onChange={handleAttachmentUpload}
+                  />
+                  <div className="space-y-1.5">
+                    {newsletterAttachments.map((att, idx) => (
+                      <div key={idx} className="flex items-center justify-between gap-2 rounded-md border border-border bg-muted/30 px-3 py-2 text-sm">
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate font-medium text-foreground">{att.name}</p>
+                          <p className="text-xs text-muted-foreground">{(att.size / 1024).toFixed(att.size > 1024 * 1024 ? 0 : 1)} {att.size > 1024 * 1024 ? "MB" : "KB"}{att.size > 1024 * 1024 ? "" : ""}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeAttachment(idx)}
+                          className="text-muted-foreground hover:text-foreground"
+                          aria-label={`Remove ${att.name}`}
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => attachmentInputRef.current?.click()}
+                    disabled={attachmentUploading}
+                  >
+                    {attachmentUploading ? "Uploading..." : "Add attachment"}
+                  </Button>
+                </div>
                 <div className="space-y-2 pt-2 border-t border-border">
                   <Label>Recipients</Label>
                   <div className="flex flex-wrap items-center gap-2">
