@@ -661,6 +661,22 @@ const Admin = () => {
     }
   };
 
+  const sanitizeForPreview = (html: string): string => {
+    let s = (html || "").trim();
+    // Match server-side sanitizer in supabase/functions/send-newsletter
+    s = s.replace(/<!--\[if[\s\S]*?<!\[endif\]-->/gi, "");
+    s = s.replace(/<\/?[a-z]+:[a-z0-9]+[^>]*>/gi, "");
+    s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[\s\S]*?<\/\1>/gi, "");
+    s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[^>]*\/?>/gi, "");
+    s = s.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, "");
+    s = s.replace(/(href|src)\s*=\s*(?:"(?:javascript|vbscript):[^"]*"|'(?:javascript|vbscript):[^']*')/gi, 'href=""');
+    s = s.replace(/<img[^>]+src\s*=\s*["'](?:cid|file|blob):[^"']*["'][^>]*\/?>/gi, "");
+    s = s.replace(/(href|src)\s*=\s*(?:"data:[^"]*"|'data:[^']*')/gi, 'href=""');
+    s = s.replace(/javascript\s*:/gi, "");
+    s = s.replace(/<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "");
+    return s;
+  };
+
   const buildPreviewHtml = (subject: string, bodyHtml: string, images: string[]) => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
@@ -670,7 +686,8 @@ const Admin = () => {
     const textMedium = "#2d3748";
     const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
     const subj = (subject || "Your Subject Line").replace(/</g, "&lt;");
-    const body = bodyHtml ? bodyHtml.replace(/<script[\s\S]*?<\/script>/gi, "") : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
+    const sanitized = sanitizeForPreview(bodyHtml);
+    const body = sanitized ? sanitized : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
     const imgs = images.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
     return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="background:${navy};padding:32px 30px;text-align:center;">
