@@ -822,6 +822,7 @@ const Admin = () => {
           subject: newsletterSubject.trim(),
           body: bodyContent.trim(),
           imageUrls: newsletterImages,
+          attachments: newsletterAttachments,
           ...(recipientEmails ? { recipientEmails } : {}),
         },
       });
