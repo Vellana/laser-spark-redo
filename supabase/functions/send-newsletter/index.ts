@@ -339,8 +339,8 @@ const handler = async (req: Request): Promise<Response> => {
         sent_count: sentCount,
         failed_count: errors.length,
         errors: errors.slice(0, 50),
-        sent_by: claims.claims.sub,
-        sent_by_email: (claims.claims as any).email ?? null,
+        sent_by: userId,
+        sent_by_email: userEmail,
       });
     } catch (logErr) {
       console.error("Failed to log newsletter send:", logErr);
