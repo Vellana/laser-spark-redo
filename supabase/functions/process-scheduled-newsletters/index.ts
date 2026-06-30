@@ -60,6 +60,7 @@ Deno.serve(async (req) => {
         subject: row.subject,
         body: row.body,
         imageUrls: Array.isArray(row.image_urls) ? row.image_urls : [],
+        attachments: Array.isArray((row as any).attachments) ? (row as any).attachments : [],
       };
       if (recipientEmails && recipientEmails.length > 0) payload.recipientEmails = recipientEmails;
 
