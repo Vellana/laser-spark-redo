@@ -376,6 +376,9 @@ const handler = async (req: Request): Promise<Response> => {
         subject: subject.trim(),
         body: body,
         image_urls: images,
+        attachments: rawAttachments
+          .filter((a: any) => a && typeof a.url === "string")
+          .map((a: any) => ({ url: a.url, name: a.name, contentType: a.contentType, size: a.size })),
         recipient_count: emails.length,
         sent_count: sentCount,
         failed_count: errors.length,
