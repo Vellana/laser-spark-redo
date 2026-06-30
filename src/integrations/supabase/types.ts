@@ -249,6 +249,7 @@ export type Database = {
       }
       newsletter_drafts: {
         Row: {
+          attachments: Json
           body: string
           created_at: string
           created_by: string | null
@@ -259,6 +260,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          attachments?: Json
           body?: string
           created_at?: string
           created_by?: string | null
@@ -269,6 +271,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          attachments?: Json
           body?: string
           created_at?: string
           created_by?: string | null
@@ -282,6 +285,7 @@ export type Database = {
       }
       newsletter_send_log: {
         Row: {
+          attachments: Json
           body: string
           created_at: string
           errors: string[] | null
@@ -295,6 +299,7 @@ export type Database = {
           subject: string
         }
         Insert: {
+          attachments?: Json
           body: string
           created_at?: string
           errors?: string[] | null
@@ -308,6 +313,7 @@ export type Database = {
           subject: string
         }
         Update: {
+          attachments?: Json
           body?: string
           created_at?: string
           errors?: string[] | null
@@ -399,6 +405,7 @@ export type Database = {
       }
       scheduled_newsletters: {
         Row: {
+          attachments: Json
           attempts: number
           body: string
           created_at: string
@@ -417,6 +424,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          attachments?: Json
           attempts?: number
           body: string
           created_at?: string
@@ -435,6 +443,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          attachments?: Json
           attempts?: number
           body?: string
           created_at?: string

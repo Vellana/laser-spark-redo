@@ -74,6 +74,9 @@ const Admin = () => {
   const [newsletterImages, setNewsletterImages] = useState<string[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [newsletterAttachments, setNewsletterAttachments] = useState<Array<{ url: string; name: string; size: number; contentType: string }>>([]);
+  const [attachmentUploading, setAttachmentUploading] = useState(false);
+  const attachmentInputRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<HTMLDivElement>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentsLoading, setAppointmentsLoading] = useState(false);
@@ -393,6 +396,7 @@ const Admin = () => {
         subject: newsletterSubject.trim(),
         body: bodyContent.trim(),
         image_urls: newsletterImages,
+        attachments: newsletterAttachments,
         recipient_emails: recipientEmails,
         scheduled_for: when.toISOString(),
       });
@@ -405,6 +409,7 @@ const Admin = () => {
       }
       setNewsletterSubject("");
       setNewsletterImages([]);
+      setNewsletterAttachments([]);
       setScheduleAt("");
       setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
@@ -454,6 +459,7 @@ const Admin = () => {
         subject: newsletterSubject,
         body: bodyContent,
         image_urls: newsletterImages,
+        attachments: newsletterAttachments,
         recipient_emails: recipientEmails,
       };
       if (currentDraftId) {
@@ -485,6 +491,7 @@ const Admin = () => {
     setCurrentDraftId(d.id);
     setNewsletterSubject(d.subject || "");
     setNewsletterImages(Array.isArray(d.image_urls) ? d.image_urls : []);
+    setNewsletterAttachments(Array.isArray(d.attachments) ? d.attachments : []);
     if (editorRef.current) editorRef.current.innerHTML = d.body || "";
     if (Array.isArray(d.recipient_emails) && d.recipient_emails.length > 0) {
       const set = new Set<string>();
@@ -511,6 +518,7 @@ const Admin = () => {
     setCurrentDraftId(null);
     setNewsletterSubject("");
     setNewsletterImages([]);
+    setNewsletterAttachments([]);
     setSelectedRecipientIds(null);
     if (editorRef.current) editorRef.current.innerHTML = "";
     toast.success("Cleared editor for a new draft");
@@ -753,6 +761,39 @@ const Admin = () => {
     setNewsletterImages((prev) => prev.filter((_, i) => i !== idx));
   };
 
+  const handleAttachmentUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files?.length) return;
+    setAttachmentUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        if (file.size > 20 * 1024 * 1024) { toast.error(`${file.name}: max 20MB per attachment`); continue; }
+        const safeName = file.name.replace(/[^A-Za-z0-9._-]/g, "_").slice(0, 200);
+        const path = `newsletter-attachments/${Date.now()}-${Math.random().toString(36).slice(2)}-${safeName}`;
+        const { error } = await supabase.storage.from("email-assets").upload(path, file, {
+          contentType: file.type || "application/octet-stream",
+          upsert: false,
+        });
+        if (error) { toast.error(`Upload failed: ${error.message}`); continue; }
+        const { data: urlData } = supabase.storage.from("email-assets").getPublicUrl(path);
+        setNewsletterAttachments((prev) => [...prev, {
+          url: urlData.publicUrl,
+          name: file.name,
+          size: file.size,
+          contentType: file.type || "application/octet-stream",
+        }]);
+        toast.success(`Attached ${file.name}`);
+      }
+    } finally {
+      setAttachmentUploading(false);
+      if (attachmentInputRef.current) attachmentInputRef.current.value = "";
+    }
+  };
+
+  const removeAttachment = (idx: number) => {
+    setNewsletterAttachments((prev) => prev.filter((_, i) => i !== idx));
+  };
+
     const stripTags = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
     const handleSendNewsletter = async () => {
@@ -781,6 +822,7 @@ const Admin = () => {
           subject: newsletterSubject.trim(),
           body: bodyContent.trim(),
           imageUrls: newsletterImages,
+          attachments: newsletterAttachments,
           ...(recipientEmails ? { recipientEmails } : {}),
         },
       });
@@ -795,6 +837,7 @@ const Admin = () => {
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
+      setNewsletterAttachments([]);
       setSelectedRecipientIds(null);
       if (editorRef.current) editorRef.current.innerHTML = "";
       fetchSendHistory();
@@ -1671,6 +1714,44 @@ const Admin = () => {
                     </Button>
                   </div>
                   {imageUploading && <p className="text-xs text-muted-foreground">Uploading...</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label>Attachments</Label>
+                  <p className="text-xs text-muted-foreground">PDFs, docs, or any file (max 20MB each, ~35MB total per email).</p>
+                  <input
+                    ref={attachmentInputRef}
+                    type="file"
+                    multiple
+                    className="hidden"
+                    onChange={handleAttachmentUpload}
+                  />
+                  <div className="space-y-1.5">
+                    {newsletterAttachments.map((att, idx) => (
+                      <div key={idx} className="flex items-center justify-between gap-2 rounded-md border border-border bg-muted/30 px-3 py-2 text-sm">
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate font-medium text-foreground">{att.name}</p>
+                          <p className="text-xs text-muted-foreground">{att.size > 1024 * 1024 ? `${(att.size / (1024 * 1024)).toFixed(1)} MB` : `${(att.size / 1024).toFixed(0)} KB`}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeAttachment(idx)}
+                          className="text-muted-foreground hover:text-foreground"
+                          aria-label={`Remove ${att.name}`}
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => attachmentInputRef.current?.click()}
+                    disabled={attachmentUploading}
+                  >
+                    {attachmentUploading ? "Uploading..." : "Add attachment"}
+                  </Button>
                 </div>
                 <div className="space-y-2 pt-2 border-t border-border">
                   <Label>Recipients</Label>
