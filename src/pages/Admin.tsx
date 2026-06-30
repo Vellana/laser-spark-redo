@@ -398,6 +398,11 @@ const Admin = () => {
       });
       if (error) throw error;
       toast.success(`Newsletter scheduled for ${when.toLocaleString()}`);
+      if (currentDraftId) {
+        await (supabase as any).from("newsletter_drafts").delete().eq("id", currentDraftId);
+        setCurrentDraftId(null);
+        fetchDrafts();
+      }
       setNewsletterSubject("");
       setNewsletterImages([]);
       setScheduleAt("");
