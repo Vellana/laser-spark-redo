@@ -132,14 +132,24 @@ const handler = async (req: Request): Promise<Response> => {
 </html>`;
 
     // Send reply from info@
-    const emailResult = await resend.emails.send({
+    const emailResult: any = await resend.emails.send({
       from: "Virginia Laser Specialists <info@virginialaserspecialists.com>",
       to: [inquiry.email],
       bcc: ["info@virginialaserspecialists.com"],
-      subject: `Re: Your Inquiry – Virginia Laser Specialists`,
+      subject: `Re: Your Inquiry - Virginia Laser Specialists`,
       html: replyHtml,
       reply_to: "info@virginialaserspecialists.com",
     });
+
+    // Resend returns { data, error } — error does NOT throw
+    if (emailResult?.error) {
+      const errMsg = emailResult.error?.message || JSON.stringify(emailResult.error);
+      console.error("Resend reply error:", errMsg);
+      return new Response(JSON.stringify({ error: errMsg }), {
+        status: 502,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
     console.log("Reply sent:", emailResult);
 
@@ -171,7 +181,7 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: any) {
     console.error("Error sending reply:", error);
-    return new Response(JSON.stringify({ error: "An error occurred" }), {
+    return new Response(JSON.stringify({ error: error?.message || "An error occurred" }), {
       status: 500,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });

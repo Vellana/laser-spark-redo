@@ -152,15 +152,25 @@ const handler = async (req: Request): Promise<Response> => {
 
     function sanitizeHtml(html: string): string {
       let s = html.trim();
+      // Strip MS Office conditional comments (<!--[if ...]>...<![endif]-->)
+      s = s.replace(/<!--\[if[\s\S]*?<!\[endif\]-->/gi, "");
+      // Strip Word/Outlook namespaced tags (<o:p>, <w:*>, <v:*>, <m:*>, etc.)
+      s = s.replace(/<\/?[a-z]+:[a-z0-9]+[^>]*>/gi, "");
       // Remove script tags, iframes, objects, embeds, style tags, SVGs
       s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[\s\S]*?<\/\1>/gi, "");
       s = s.replace(/<(script|iframe|object|embed|style|svg|form|input|textarea|button|link|meta|base)[^>]*\/?>/gi, "");
       // Remove event handlers
       s = s.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, "");
-      // Remove javascript: and data: URIs in href/src attributes
-      s = s.replace(/(href|src)\s*=\s*(?:"(?:javascript|data|vbscript):[^"]*"|'(?:javascript|data|vbscript):[^']*')/gi, "$1=\"\"");
+      // Remove javascript:/vbscript: URIs in href/src attributes
+      s = s.replace(/(href|src)\s*=\s*(?:"(?:javascript|vbscript):[^"]*"|'(?:javascript|vbscript):[^']*')/gi, "$1=\"\"");
+      // Strip <img> tags that reference local-only sources (cid:, file:, blob:) — they break in inboxes
+      s = s.replace(/<img[^>]+src\s*=\s*["'](?:cid|file|blob):[^"']*["'][^>]*\/?>/gi, "");
+      // Drop base64 data: image payloads (often huge, frequently rejected) — keep other data: uris removed too
+      s = s.replace(/(href|src)\s*=\s*(?:"data:[^"]*"|'data:[^']*')/gi, "$1=\"\"");
       // Remove any remaining script-like content
       s = s.replace(/javascript\s*:/gi, "");
+      // Collapse empty paragraphs left behind by Word
+      s = s.replace(/<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "");
       s = s.replace(/\n/g, "<br>");
       return s;
     }
@@ -269,8 +279,23 @@ const handler = async (req: Request): Promise<Response> => {
       console.error("Failed to log newsletter send:", logErr);
     }
 
+    // Surface a friendlier diagnostic when a known systemic failure occurred
+    let hint: string | undefined;
+    if (sentCount === 0 && errors.length > 0) {
+      const blob = errors.join(" | ").toLowerCase();
+      if (/domain.*not.*verified|not_found.*domain|from.*not.*verified/.test(blob)) {
+        hint = "Sender domain isn't verified in Resend. Check DNS (SPF/DKIM) for virginialaserspecialists.com.";
+      } else if (/daily.*quota|monthly.*quota|quota.*exceeded|plan.*limit/.test(blob)) {
+        hint = "Resend account quota hit. Upgrade plan or wait for the quota window to reset.";
+      } else if (/invalid.*api.*key|unauthorized|forbidden/.test(blob)) {
+        hint = "RESEND_API_KEY is invalid or revoked. Rotate it and re-save.";
+      } else if (/suppress|bounced|complained/.test(blob)) {
+        hint = "All recipients are on Resend's suppression list (prior bounce/complaint).";
+      }
+    }
+
     return new Response(
-      JSON.stringify({ success: true, sent: sentCount, total: emails.length, errors: errors.length }),
+      JSON.stringify({ success: true, sent: sentCount, total: emails.length, errors: errors.length, hint, sampleErrors: errors.slice(0, 3) }),
       {
         status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -278,7 +303,7 @@ const handler = async (req: Request): Promise<Response> => {
     );
   } catch (error: any) {
     console.error("Error sending newsletter:", error);
-    return new Response(JSON.stringify({ error: "An error occurred" }), {
+    return new Response(JSON.stringify({ error: error?.message || "An error occurred" }), {
       status: 500,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
