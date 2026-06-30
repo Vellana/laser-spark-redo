@@ -518,6 +518,7 @@ const Admin = () => {
     setCurrentDraftId(null);
     setNewsletterSubject("");
     setNewsletterImages([]);
+    setNewsletterAttachments([]);
     setSelectedRecipientIds(null);
     if (editorRef.current) editorRef.current.innerHTML = "";
     toast.success("Cleared editor for a new draft");
