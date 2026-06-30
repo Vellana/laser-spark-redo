@@ -1690,26 +1690,40 @@ const Admin = () => {
                     )}
                   </div>
                 </div>
-                <Button
-                  onClick={handleSendNewsletter}
-                  disabled={
-                    newsletterSending ||
-                    !newsletterSubject.trim() ||
-                    (selectedRecipientIds
-                      ? selectedRecipientIds.size === 0
-                      : leads.filter((l) => l.subscribed && !l.opted_out).length === 0)
-                  }
-                >
-                  <Send className="w-4 h-4 mr-2" />
-                  {newsletterSending
-                    ? "Sending..."
-                    : `Send to ${
-                        selectedRecipientIds
-                          ? selectedRecipientIds.size
-                          : leads.filter((l) => l.subscribed && !l.opted_out).length
-                      } Subscriber(s)`}
-                </Button>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    onClick={handleSendNewsletter}
+                    disabled={
+                      newsletterSending ||
+                      !newsletterSubject.trim() ||
+                      (selectedRecipientIds
+                        ? selectedRecipientIds.size === 0
+                        : leads.filter((l) => l.subscribed && !l.opted_out).length === 0)
+                    }
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    {newsletterSending
+                      ? "Sending..."
+                      : `Send to ${
+                          selectedRecipientIds
+                            ? selectedRecipientIds.size
+                            : leads.filter((l) => l.subscribed && !l.opted_out).length
+                        } Subscriber(s)`}
+                  </Button>
+                  <Button variant="outline" onClick={handleSaveDraft} disabled={savingDraft}>
+                    {savingDraft ? "Saving..." : currentDraftId ? "Update Draft" : "Save as Draft"}
+                  </Button>
+                  {currentDraftId && (
+                    <>
+                      <span className="text-xs text-muted-foreground">Editing existing draft</span>
+                      <Button variant="ghost" size="sm" onClick={newDraft}>
+                        New
+                      </Button>
+                    </>
+                  )}
+                </div>
               </div>
+
 
               {/* Schedule for later */}
               <div className="flex flex-wrap items-end gap-3 p-4 border border-border rounded-lg bg-muted/20">
