@@ -396,6 +396,7 @@ const Admin = () => {
         subject: newsletterSubject.trim(),
         body: bodyContent.trim(),
         image_urls: newsletterImages,
+        attachments: newsletterAttachments,
         recipient_emails: recipientEmails,
         scheduled_for: when.toISOString(),
       });
