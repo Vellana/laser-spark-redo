@@ -25,6 +25,9 @@ const handler = async (req: Request): Promise<Response> => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
+    let userId: string | null = null;
+    let userEmail: string | null = null;
+
     if (!isCronCall) {
       // Verify admin auth
       const authHeader = req.headers.get("Authorization");
@@ -63,6 +66,9 @@ const handler = async (req: Request): Promise<Response> => {
           headers: { "Content-Type": "application/json", ...corsHeaders },
         });
       }
+
+      userId = claims.claims.sub as string;
+      userEmail = (claims.claims as any).email ?? null;
     }
 
 
