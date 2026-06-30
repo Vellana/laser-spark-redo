@@ -364,6 +364,63 @@ export type Database = {
         }
         Relationships: []
       }
+      scheduled_newsletters: {
+        Row: {
+          attempts: number
+          body: string
+          created_at: string
+          created_by: string | null
+          failed_count: number | null
+          id: string
+          image_urls: Json
+          last_error: string | null
+          recipient_emails: Json | null
+          scheduled_for: string
+          sent_at: string | null
+          sent_count: number | null
+          status: string
+          subject: string
+          total_count: number | null
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          body: string
+          created_at?: string
+          created_by?: string | null
+          failed_count?: number | null
+          id?: string
+          image_urls?: Json
+          last_error?: string | null
+          recipient_emails?: Json | null
+          scheduled_for: string
+          sent_at?: string | null
+          sent_count?: number | null
+          status?: string
+          subject: string
+          total_count?: number | null
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          failed_count?: number | null
+          id?: string
+          image_urls?: Json
+          last_error?: string | null
+          recipient_emails?: Json | null
+          scheduled_for?: string
+          sent_at?: string | null
+          sent_count?: number | null
+          status?: string
+          subject?: string
+          total_count?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
