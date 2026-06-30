@@ -963,8 +963,8 @@ const Admin = () => {
   );
 
   const composePreviewHtml = useMemo(
-    () => buildPreviewHtml(composeSubject, composeBody, []),
-    [composeSubject, composeBody]
+    () => buildPreviewHtml(composeSubject, composeBody, composeImages),
+    [composeSubject, composeBody, composeImages]
   );
 
   if (!isAuthenticated) {
