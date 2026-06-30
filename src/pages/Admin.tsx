@@ -907,7 +907,12 @@ const Admin = () => {
     return s;
   };
 
-  const buildPreviewHtml = (subject: string, bodyHtml: string, images: string[]) => {
+  const buildPreviewHtml = (
+    subject: string,
+    bodyHtml: string,
+    images: string[],
+    attachments: Array<{ url: string; name: string; size: number; contentType: string }> = []
+  ) => {
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoamLight = "#85ccb3";
@@ -919,6 +924,17 @@ const Admin = () => {
     const sanitized = sanitizeForPreview(bodyHtml);
     const body = sanitized ? sanitized : '<p style="color:#a0aec0;">Your email content will appear here...</p>';
     const imgs = images.map((u) => `<div style="text-align:center;margin:0 0 20px;"><img src="${u}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`).join("");
+    const fmtSize = (b: number) => b > 1024 * 1024 ? `${(b / (1024 * 1024)).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`;
+    const isImg = (a: { contentType: string; name: string }) => (a.contentType || "").startsWith("image/") || /\.(png|jpe?g|gif|webp|svg)$/i.test(a.name || "");
+    const attachList = attachments.length > 0
+      ? `<div style="text-align:left;margin:0 0 20px;padding:14px 16px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;">
+          <p style="margin:0 0 10px;font-size:12px;font-weight:700;color:${textDark};text-transform:uppercase;letter-spacing:1px;">${attachments.length} Attachment${attachments.length === 1 ? "" : "s"}</p>
+          ${attachments.map((a) => isImg(a)
+            ? `<div style="margin:0 0 10px;"><img src="${a.url}" alt="${(a.name || "").replace(/"/g, "&quot;")}" style="max-width:100%;height:auto;border-radius:6px;display:block;" /><p style="margin:6px 0 0;font-size:11px;color:#64748b;">${a.name} · ${fmtSize(a.size)}</p></div>`
+            : `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #edf2f7;"><span style="display:inline-block;width:28px;height:28px;border-radius:6px;background:${navy};color:${white};text-align:center;line-height:28px;font-size:11px;font-weight:700;">${(a.name.split(".").pop() || "FILE").slice(0,4).toUpperCase()}</span><span style="font-size:12px;color:${textMedium};flex:1;">${a.name}</span><span style="font-size:11px;color:#64748b;">${fmtSize(a.size)}</span></div>`
+          ).join("")}
+        </div>`
+      : "";
     return `<div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
       <div style="background:${navy};padding:32px 30px;text-align:center;">
         <img src="${LOGO_URL}" alt="VLS" width="140" style="display:block;margin:0 auto 12px;max-width:140px;height:auto;" />
@@ -928,6 +944,7 @@ const Admin = () => {
         <h1 style="color:${textDark};font-size:20px;margin:0 0 20px;font-weight:700;text-align:center;">${subj}</h1>
         <div style="color:${textMedium};font-size:14px;line-height:1.7;margin:0 0 24px;text-align:center;">${body}</div>
         ${imgs}
+        ${attachList}
         <div style="text-align:center;margin:0 0 24px;">
           <span style="display:inline-block;background:${navy};color:${white};padding:12px 32px;border-radius:8px;font-size:14px;font-weight:700;">BOOK AN APPOINTMENT</span>
         </div>
@@ -941,8 +958,8 @@ const Admin = () => {
   };
 
   const previewHtml = useMemo(
-    () => buildPreviewHtml(newsletterSubject, newsletterBody, newsletterImages),
-    [newsletterSubject, newsletterBody, newsletterImages]
+    () => buildPreviewHtml(newsletterSubject, newsletterBody, newsletterImages, newsletterAttachments),
+    [newsletterSubject, newsletterBody, newsletterImages, newsletterAttachments]
   );
 
   const composePreviewHtml = useMemo(
