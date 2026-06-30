@@ -421,6 +421,97 @@ const Admin = () => {
     else { toast.success("Scheduled newsletter cancelled"); fetchScheduled(); }
   };
 
+  const fetchDrafts = async () => {
+    setDraftsLoading(true);
+    const { data, error } = await (supabase as any)
+      .from("newsletter_drafts")
+      .select("*")
+      .order("updated_at", { ascending: false })
+      .limit(50);
+    if (!error) setDrafts(data || []);
+    setDraftsLoading(false);
+  };
+
+  const handleSaveDraft = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    if (!newsletterSubject.trim() && !stripTags(bodyContent)) {
+      toast.error("Add a subject or body before saving");
+      return;
+    }
+    const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+    let recipientEmails: string[] | null = null;
+    if (selectedRecipientIds) {
+      recipientEmails = eligible.filter((l) => selectedRecipientIds.has(l.id)).map((l) => l.email);
+    }
+    setSavingDraft(true);
+    try {
+      const payload = {
+        subject: newsletterSubject,
+        body: bodyContent,
+        image_urls: newsletterImages,
+        recipient_emails: recipientEmails,
+      };
+      if (currentDraftId) {
+        const { error } = await (supabase as any)
+          .from("newsletter_drafts")
+          .update(payload)
+          .eq("id", currentDraftId);
+        if (error) throw error;
+        toast.success("Draft updated");
+      } else {
+        const { data, error } = await (supabase as any)
+          .from("newsletter_drafts")
+          .insert(payload)
+          .select("id")
+          .single();
+        if (error) throw error;
+        setCurrentDraftId(data.id);
+        toast.success("Draft saved");
+      }
+      fetchDrafts();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to save draft");
+    } finally {
+      setSavingDraft(false);
+    }
+  };
+
+  const loadDraft = (d: any) => {
+    setCurrentDraftId(d.id);
+    setNewsletterSubject(d.subject || "");
+    setNewsletterImages(Array.isArray(d.image_urls) ? d.image_urls : []);
+    if (editorRef.current) editorRef.current.innerHTML = d.body || "";
+    if (Array.isArray(d.recipient_emails) && d.recipient_emails.length > 0) {
+      const set = new Set<string>();
+      const emailSet = new Set(d.recipient_emails.map((e: string) => e.toLowerCase()));
+      leads.forEach((l) => { if (emailSet.has(l.email.toLowerCase())) set.add(l.id); });
+      setSelectedRecipientIds(set);
+    } else {
+      setSelectedRecipientIds(null);
+    }
+    toast.success("Draft loaded into editor");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const deleteDraft = async (id: string) => {
+    if (!confirm("Delete this draft?")) return;
+    const { error } = await (supabase as any).from("newsletter_drafts").delete().eq("id", id);
+    if (error) { toast.error("Failed to delete draft"); return; }
+    if (currentDraftId === id) setCurrentDraftId(null);
+    toast.success("Draft deleted");
+    fetchDrafts();
+  };
+
+  const newDraft = () => {
+    setCurrentDraftId(null);
+    setNewsletterSubject("");
+    setNewsletterImages([]);
+    setSelectedRecipientIds(null);
+    if (editorRef.current) editorRef.current.innerHTML = "";
+    toast.success("Cleared editor for a new draft");
+  };
+
+
 
   const cancelAppointment = async (apt: Appointment) => {
     setCancellingId(apt.id);
