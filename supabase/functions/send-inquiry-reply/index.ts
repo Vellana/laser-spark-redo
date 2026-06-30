@@ -171,7 +171,7 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: any) {
     console.error("Error sending reply:", error);
-    return new Response(JSON.stringify({ error: "An error occurred" }), {
+    return new Response(JSON.stringify({ error: error?.message || "An error occurred" }), {
       status: 500,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
