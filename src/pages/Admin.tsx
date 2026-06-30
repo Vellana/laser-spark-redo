@@ -491,6 +491,7 @@ const Admin = () => {
     setCurrentDraftId(d.id);
     setNewsletterSubject(d.subject || "");
     setNewsletterImages(Array.isArray(d.image_urls) ? d.image_urls : []);
+    setNewsletterAttachments(Array.isArray(d.attachments) ? d.attachments : []);
     if (editorRef.current) editorRef.current.innerHTML = d.body || "";
     if (Array.isArray(d.recipient_emails) && d.recipient_emails.length > 0) {
       const set = new Set<string>();
