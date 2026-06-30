@@ -1596,6 +1596,28 @@ const Admin = () => {
                       } Subscriber(s)`}
                 </Button>
               </div>
+
+              {/* Schedule for later */}
+              <div className="flex flex-wrap items-end gap-3 p-4 border border-border rounded-lg bg-muted/20">
+                <div className="flex-1 min-w-[220px]">
+                  <Label htmlFor="schedule-at" className="text-sm">Schedule for later (your local time)</Label>
+                  <Input
+                    id="schedule-at"
+                    type="datetime-local"
+                    value={scheduleAt}
+                    onChange={(e) => setScheduleAt(e.target.value)}
+                  />
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={handleScheduleNewsletter}
+                  disabled={scheduling || !scheduleAt || !newsletterSubject.trim()}
+                >
+                  <CalendarDays className="w-4 h-4 mr-2" />
+                  {scheduling ? "Scheduling..." : "Schedule"}
+                </Button>
+              </div>
+
               {/* Preview */}
               <div className="space-y-2">
                 <h3 className="text-sm font-semibold text-foreground">Email Preview</h3>
