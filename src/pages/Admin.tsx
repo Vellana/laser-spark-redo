@@ -102,6 +102,10 @@ const Admin = () => {
   const [selectedRecipientIds, setSelectedRecipientIds] = useState<Set<string> | null>(null);
   const [recipientSearch, setRecipientSearch] = useState("");
   const [composeSending, setComposeSending] = useState(false);
+  const [scheduleAt, setScheduleAt] = useState("");
+  const [scheduling, setScheduling] = useState(false);
+  const [scheduled, setScheduled] = useState<Array<any>>([]);
+  const [scheduledLoading, setScheduledLoading] = useState(false);
 
   // Office closures
   const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
