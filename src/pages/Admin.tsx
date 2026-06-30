@@ -345,6 +345,74 @@ const Admin = () => {
     setHistoryLoading(false);
   };
 
+  const fetchScheduled = async () => {
+    setScheduledLoading(true);
+    const { data, error } = await (supabase as any)
+      .from("scheduled_newsletters")
+      .select("*")
+      .order("scheduled_for", { ascending: true })
+      .limit(50);
+    if (!error) setScheduled(data || []);
+    setScheduledLoading(false);
+  };
+
+  const handleScheduleNewsletter = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    if (!newsletterSubject.trim() || !stripTags(bodyContent)) {
+      toast.error("Please enter both subject and body");
+      return;
+    }
+    if (!scheduleAt) {
+      toast.error("Pick a date and time to schedule");
+      return;
+    }
+    const when = new Date(scheduleAt);
+    if (isNaN(when.getTime())) { toast.error("Invalid date/time"); return; }
+    if (when.getTime() < Date.now() + 60_000) {
+      toast.error("Schedule a time at least 1 minute in the future");
+      return;
+    }
+    const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+    let recipientEmails: string[] | null = null;
+    if (selectedRecipientIds) {
+      recipientEmails = eligible.filter((l) => selectedRecipientIds.has(l.id)).map((l) => l.email);
+      if (recipientEmails.length === 0) { toast.error("Select at least one recipient"); return; }
+    }
+    setScheduling(true);
+    try {
+      const { error } = await (supabase as any).from("scheduled_newsletters").insert({
+        subject: newsletterSubject.trim(),
+        body: bodyContent.trim(),
+        image_urls: newsletterImages,
+        recipient_emails: recipientEmails,
+        scheduled_for: when.toISOString(),
+      });
+      if (error) throw error;
+      toast.success(`Newsletter scheduled for ${when.toLocaleString()}`);
+      setNewsletterSubject("");
+      setNewsletterImages([]);
+      setScheduleAt("");
+      setSelectedRecipientIds(null);
+      if (editorRef.current) editorRef.current.innerHTML = "";
+      fetchScheduled();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to schedule newsletter");
+    } finally {
+      setScheduling(false);
+    }
+  };
+
+  const cancelScheduled = async (id: string) => {
+    if (!confirm("Cancel this scheduled newsletter?")) return;
+    const { error } = await (supabase as any)
+      .from("scheduled_newsletters")
+      .delete()
+      .eq("id", id);
+    if (error) toast.error("Failed to cancel");
+    else { toast.success("Scheduled newsletter cancelled"); fetchScheduled(); }
+  };
+
+
   const cancelAppointment = async (apt: Appointment) => {
     setCancellingId(apt.id);
     try {
