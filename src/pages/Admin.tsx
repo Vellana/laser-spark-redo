@@ -782,6 +782,11 @@ const Admin = () => {
       if (res.error) throw res.error;
       const result = res.data;
       toast.success(`Newsletter sent to ${result.sent}/${result.total} subscribers`);
+      if (currentDraftId) {
+        await (supabase as any).from("newsletter_drafts").delete().eq("id", currentDraftId);
+        setCurrentDraftId(null);
+        fetchDrafts();
+      }
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
