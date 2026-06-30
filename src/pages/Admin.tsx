@@ -106,6 +106,10 @@ const Admin = () => {
   const [scheduling, setScheduling] = useState(false);
   const [scheduled, setScheduled] = useState<Array<any>>([]);
   const [scheduledLoading, setScheduledLoading] = useState(false);
+  const [drafts, setDrafts] = useState<Array<any>>([]);
+  const [draftsLoading, setDraftsLoading] = useState(false);
+  const [currentDraftId, setCurrentDraftId] = useState<string | null>(null);
+  const [savingDraft, setSavingDraft] = useState(false);
 
   // Office closures
   const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
