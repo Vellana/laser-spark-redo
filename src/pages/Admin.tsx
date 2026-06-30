@@ -106,6 +106,10 @@ const Admin = () => {
   const [scheduling, setScheduling] = useState(false);
   const [scheduled, setScheduled] = useState<Array<any>>([]);
   const [scheduledLoading, setScheduledLoading] = useState(false);
+  const [drafts, setDrafts] = useState<Array<any>>([]);
+  const [draftsLoading, setDraftsLoading] = useState(false);
+  const [currentDraftId, setCurrentDraftId] = useState<string | null>(null);
+  const [savingDraft, setSavingDraft] = useState(false);
 
   // Office closures
   const [closures, setClosures] = useState<Array<{ id: string; closure_date: string; reason: string; created_at: string }>>([]);
@@ -182,6 +186,7 @@ const Admin = () => {
       fetchAppointments();
       fetchSendHistory();
       fetchScheduled();
+      fetchDrafts();
       fetchClosures();
       fetchSiteSettings();
     } else {
@@ -393,6 +398,11 @@ const Admin = () => {
       });
       if (error) throw error;
       toast.success(`Newsletter scheduled for ${when.toLocaleString()}`);
+      if (currentDraftId) {
+        await (supabase as any).from("newsletter_drafts").delete().eq("id", currentDraftId);
+        setCurrentDraftId(null);
+        fetchDrafts();
+      }
       setNewsletterSubject("");
       setNewsletterImages([]);
       setScheduleAt("");
@@ -415,6 +425,97 @@ const Admin = () => {
     if (error) toast.error("Failed to cancel");
     else { toast.success("Scheduled newsletter cancelled"); fetchScheduled(); }
   };
+
+  const fetchDrafts = async () => {
+    setDraftsLoading(true);
+    const { data, error } = await (supabase as any)
+      .from("newsletter_drafts")
+      .select("*")
+      .order("updated_at", { ascending: false })
+      .limit(50);
+    if (!error) setDrafts(data || []);
+    setDraftsLoading(false);
+  };
+
+  const handleSaveDraft = async () => {
+    const bodyContent = editorRef.current?.innerHTML || "";
+    if (!newsletterSubject.trim() && !stripTags(bodyContent)) {
+      toast.error("Add a subject or body before saving");
+      return;
+    }
+    const eligible = leads.filter((l) => l.subscribed && !l.opted_out);
+    let recipientEmails: string[] | null = null;
+    if (selectedRecipientIds) {
+      recipientEmails = eligible.filter((l) => selectedRecipientIds.has(l.id)).map((l) => l.email);
+    }
+    setSavingDraft(true);
+    try {
+      const payload = {
+        subject: newsletterSubject,
+        body: bodyContent,
+        image_urls: newsletterImages,
+        recipient_emails: recipientEmails,
+      };
+      if (currentDraftId) {
+        const { error } = await (supabase as any)
+          .from("newsletter_drafts")
+          .update(payload)
+          .eq("id", currentDraftId);
+        if (error) throw error;
+        toast.success("Draft updated");
+      } else {
+        const { data, error } = await (supabase as any)
+          .from("newsletter_drafts")
+          .insert(payload)
+          .select("id")
+          .single();
+        if (error) throw error;
+        setCurrentDraftId(data.id);
+        toast.success("Draft saved");
+      }
+      fetchDrafts();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to save draft");
+    } finally {
+      setSavingDraft(false);
+    }
+  };
+
+  const loadDraft = (d: any) => {
+    setCurrentDraftId(d.id);
+    setNewsletterSubject(d.subject || "");
+    setNewsletterImages(Array.isArray(d.image_urls) ? d.image_urls : []);
+    if (editorRef.current) editorRef.current.innerHTML = d.body || "";
+    if (Array.isArray(d.recipient_emails) && d.recipient_emails.length > 0) {
+      const set = new Set<string>();
+      const emailSet = new Set(d.recipient_emails.map((e: string) => e.toLowerCase()));
+      leads.forEach((l) => { if (emailSet.has(l.email.toLowerCase())) set.add(l.id); });
+      setSelectedRecipientIds(set);
+    } else {
+      setSelectedRecipientIds(null);
+    }
+    toast.success("Draft loaded into editor");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const deleteDraft = async (id: string) => {
+    if (!confirm("Delete this draft?")) return;
+    const { error } = await (supabase as any).from("newsletter_drafts").delete().eq("id", id);
+    if (error) { toast.error("Failed to delete draft"); return; }
+    if (currentDraftId === id) setCurrentDraftId(null);
+    toast.success("Draft deleted");
+    fetchDrafts();
+  };
+
+  const newDraft = () => {
+    setCurrentDraftId(null);
+    setNewsletterSubject("");
+    setNewsletterImages([]);
+    setSelectedRecipientIds(null);
+    if (editorRef.current) editorRef.current.innerHTML = "";
+    toast.success("Cleared editor for a new draft");
+  };
+
 
 
   const cancelAppointment = async (apt: Appointment) => {
@@ -686,6 +787,11 @@ const Admin = () => {
       if (res.error) throw res.error;
       const result = res.data;
       toast.success(`Newsletter sent to ${result.sent}/${result.total} subscribers`);
+      if (currentDraftId) {
+        await (supabase as any).from("newsletter_drafts").delete().eq("id", currentDraftId);
+        setCurrentDraftId(null);
+        fetchDrafts();
+      }
       setNewsletterSubject("");
       setNewsletterBody("");
       setNewsletterImages([]);
@@ -1584,26 +1690,40 @@ const Admin = () => {
                     )}
                   </div>
                 </div>
-                <Button
-                  onClick={handleSendNewsletter}
-                  disabled={
-                    newsletterSending ||
-                    !newsletterSubject.trim() ||
-                    (selectedRecipientIds
-                      ? selectedRecipientIds.size === 0
-                      : leads.filter((l) => l.subscribed && !l.opted_out).length === 0)
-                  }
-                >
-                  <Send className="w-4 h-4 mr-2" />
-                  {newsletterSending
-                    ? "Sending..."
-                    : `Send to ${
-                        selectedRecipientIds
-                          ? selectedRecipientIds.size
-                          : leads.filter((l) => l.subscribed && !l.opted_out).length
-                      } Subscriber(s)`}
-                </Button>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    onClick={handleSendNewsletter}
+                    disabled={
+                      newsletterSending ||
+                      !newsletterSubject.trim() ||
+                      (selectedRecipientIds
+                        ? selectedRecipientIds.size === 0
+                        : leads.filter((l) => l.subscribed && !l.opted_out).length === 0)
+                    }
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    {newsletterSending
+                      ? "Sending..."
+                      : `Send to ${
+                          selectedRecipientIds
+                            ? selectedRecipientIds.size
+                            : leads.filter((l) => l.subscribed && !l.opted_out).length
+                        } Subscriber(s)`}
+                  </Button>
+                  <Button variant="outline" onClick={handleSaveDraft} disabled={savingDraft}>
+                    {savingDraft ? "Saving..." : currentDraftId ? "Update Draft" : "Save as Draft"}
+                  </Button>
+                  {currentDraftId && (
+                    <>
+                      <span className="text-xs text-muted-foreground">Editing existing draft</span>
+                      <Button variant="ghost" size="sm" onClick={newDraft}>
+                        New
+                      </Button>
+                    </>
+                  )}
+                </div>
               </div>
+
 
               {/* Schedule for later */}
               <div className="flex flex-wrap items-end gap-3 p-4 border border-border rounded-lg bg-muted/20">
@@ -1635,6 +1755,61 @@ const Admin = () => {
                 />
               </div>
             </div>
+
+            {/* Drafts */}
+            <Card className="mt-6">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Newsletter Drafts</CardTitle>
+                    <CardDescription>Saved drafts you can load back into the editor</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchDrafts} disabled={draftsLoading}>
+                    {draftsLoading ? "Loading..." : "Refresh"}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {drafts.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No saved drafts.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {drafts.map((d) => {
+                      const recipientCount = Array.isArray(d.recipient_emails) ? d.recipient_emails.length : null;
+                      return (
+                        <div key={d.id} className="border border-border rounded-lg p-3 flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <div className="font-medium text-sm truncate">
+                              {d.subject || <span className="text-muted-foreground italic">Untitled</span>}
+                              {currentDraftId === d.id && (
+                                <span className="ml-2 text-xs text-primary">(editing)</span>
+                              )}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              Updated {new Date(d.updated_at).toLocaleString()}
+                              {recipientCount !== null ? ` · ${recipientCount} selected recipient(s)` : " · all active subscribers"}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1 shrink-0">
+                            <Button variant="outline" size="sm" onClick={() => loadDraft(d)}>
+                              Load
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => deleteDraft(d.id)}
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
 
             {/* Scheduled Newsletters */}
             <Card className="mt-6">

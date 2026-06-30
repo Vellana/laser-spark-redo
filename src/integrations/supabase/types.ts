@@ -247,6 +247,39 @@ export type Database = {
           },
         ]
       }
+      newsletter_drafts: {
+        Row: {
+          body: string
+          created_at: string
+          created_by: string | null
+          id: string
+          image_urls: Json
+          recipient_emails: Json | null
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_urls?: Json
+          recipient_emails?: Json | null
+          subject?: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_urls?: Json
+          recipient_emails?: Json | null
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       newsletter_send_log: {
         Row: {
           body: string
