@@ -33,10 +33,10 @@ const Index = () => {
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              Laser Hair Removal in Vienna VA and Tysons Corner
+              Clarity II Laser Hair Removal Vienna and Tysons Corner
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Virginia Laser Specialists provides expert laser hair removal in Vienna VA and laser hair removal in Tysons Corner, powered by the dual-wavelength Lutronic Clarity II laser. Safe and effective for all skin types and tones, our Clarity II treatments deliver fast, comfortable sessions with long-lasting results - just minutes from McLean, Falls Church, and Arlington.
+              Virginia Laser Specialists provides expert <Link to="/laser-hair-removal" className="text-accent hover:underline">Clarity II laser hair removal Vienna</Link> and Tysons Corner patients trust, powered by the dual-wavelength Lutronic Clarity II. Safe for all skin types and tones, our Clarity II treatments deliver fast, comfortable sessions with long-lasting results, minutes from McLean, Falls Church, and Arlington. Explore <Link to="/pricing" className="text-accent hover:underline">laser hair removal packages near me</Link> for our 25% off 5-session series.
             </p>
           </div>
         </section>
