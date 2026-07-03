@@ -108,12 +108,10 @@ const LaserSkinResurfacing = () => {
                   Revolutionary Technology
                 </span>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
-                  CoolPeel & DEKA CO₂ Laser Skin Resurfacing in Tysons, VA
+                  CO2 Laser Resurfacing Vienna VA and CO2 Laser Tysons
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Transform your skin with the Cartessa Tetra Pro CO₂ laser platform. Choose between 
-                  CoolPeel for minimal downtime or DEKA Pulse for deeper, more dramatic results. 
-                  Both treatments stimulate collagen production for smoother, more youthful-looking skin.
+                  Laser skin resurfacing Northern Virginia patients trust, powered by the Cartessa Tetra Pro CO2 platform. Choose CoolPeel for minimal downtime or DEKA Pulse for deeper, more dramatic results.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
