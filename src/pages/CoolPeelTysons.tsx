@@ -120,9 +120,16 @@ const CoolPeelTysonsSchema = () => {
         "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#service",
         "serviceType": "CoolPeel CO2 Laser Resurfacing",
         "name": "CoolPeel skin resurfacing Tysons",
+        "alternateName": [
+          "CoolPeel skin resurfacing Tysons",
+          "CoolPeel CO2 laser Tysons",
+          "CoolPeel Vienna VA",
+          "CoolPeel near me Tysons"
+        ],
         "description": "CoolPeel skin resurfacing Tysons performed with the Cartessa Tetra Pro fractional CO2 laser. Treats fine lines, sun damage, large pores, and uneven texture with 1-3 days of downtime.",
         "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va",
         "areaServed": ["Tysons, VA", "Vienna, VA", "McLean, VA", "Falls Church, VA", "Arlington, VA", "Fairfax, VA"],
+        "keywords": "CoolPeel skin resurfacing Tysons, CoolPeel laser cost, CO2 laser Tysons, CO2 laser resurfacing Vienna VA, DEKA Tetra Pro Vienna, laser skin resurfacing Northern Virginia",
         "provider": { "@id": "https://virginialaserspecialists.com/#business" }
       },
       {
