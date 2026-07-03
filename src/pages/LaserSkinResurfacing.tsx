@@ -71,8 +71,8 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CO2 Laser Resurfacing Vienna VA | Acne Scar, Scar &amp; Stretch Mark Removal"
-        description="CO2 laser resurfacing Vienna VA with CoolPeel and DEKA Tetra Pro for acne scar treatment Vienna VA, scar removal Vienna VA, and stretch mark removal Vienna VA. Free consult: 703-752-6608."
+        title="CO2 Laser Resurfacing Vienna VA | CO2 Laser Tysons | DEKA Tetra Pro"
+        description="CO2 laser resurfacing Vienna VA and CO2 laser Tysons with CoolPeel and DEKA Tetra Pro. Acne scar treatment Vienna VA, scar removal Vienna VA, laser skin resurfacing Northern Virginia. 703-752-6608."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
@@ -108,12 +108,10 @@ const LaserSkinResurfacing = () => {
                   Revolutionary Technology
                 </span>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
-                  CoolPeel & DEKA CO₂ Laser Skin Resurfacing in Tysons, VA
+                  CO2 Laser Resurfacing Vienna VA and CO2 Laser Tysons
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Transform your skin with the Cartessa Tetra Pro CO₂ laser platform. Choose between 
-                  CoolPeel for minimal downtime or DEKA Pulse for deeper, more dramatic results. 
-                  Both treatments stimulate collagen production for smoother, more youthful-looking skin.
+                  Laser skin resurfacing Northern Virginia patients trust, powered by the Cartessa Tetra Pro CO2 platform. Choose CoolPeel for minimal downtime or DEKA Pulse for deeper, more dramatic results.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
@@ -162,12 +160,10 @@ const LaserSkinResurfacing = () => {
                 className="h-20 mx-auto mb-6"
               />
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-                The Tetra Pro CO₂ Platform
+                DEKA Tetra Pro Vienna: The Cartessa Tetra Pro CO2 Platform
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                The Tetra Pro by Cartessa offers advanced CO₂ laser technology with two treatment modes. 
-                This versatile system allows us to customize treatments based on your specific skin concerns 
-                and downtime preferences, delivering exceptional results with personalized aftercare.
+                The DEKA Tetra Pro Vienna clients experience at our studio pairs advanced CO2 laser technology with two treatment modes. This versatile system lets us tailor every session to your skin concerns and downtime, from CoolPeel to DEKA Pulse.
               </p>
             </div>
           </div>
@@ -261,8 +257,11 @@ const LaserSkinResurfacing = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center text-foreground mb-8">
-                Skin Concerns We Address
+                Acne Scar Treatment Vienna VA and Scar Removal Vienna VA
               </h2>
+              <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+                Fractional CO2 protocols deliver <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">acne scar treatment Vienna VA</Link> patients rely on and <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">scar removal Vienna VA</Link> results that soften surgical, traumatic, and acne scars by stimulating fresh collagen.
+              </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {["Fine Lines & Wrinkles", "Sun Damage", "Uneven Skin Texture", "Age Spots", "Acne Scars", "Skin Laxity", "Large Pores", "Dull Skin", "Hyperpigmentation"].map((concern) => (
                   <div key={concern} className="flex items-center gap-2 bg-background p-3 rounded-lg">

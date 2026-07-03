@@ -33,10 +33,10 @@ const Index = () => {
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              Laser Hair Removal in Vienna VA and Tysons Corner
+              Clarity II Laser Hair Removal Vienna and Tysons Corner
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Virginia Laser Specialists provides expert laser hair removal in Vienna VA and laser hair removal in Tysons Corner, powered by the dual-wavelength Lutronic Clarity II laser. Safe and effective for all skin types and tones, our Clarity II treatments deliver fast, comfortable sessions with long-lasting results - just minutes from McLean, Falls Church, and Arlington.
+              Virginia Laser Specialists provides expert <Link to="/laser-hair-removal" className="text-accent hover:underline">Clarity II laser hair removal Vienna</Link> and Tysons Corner patients trust, powered by the dual-wavelength Lutronic Clarity II. Safe for all skin types and tones, our Clarity II treatments deliver fast, comfortable sessions with long-lasting results, minutes from McLean, Falls Church, and Arlington. Explore <Link to="/pricing" className="text-accent hover:underline">laser hair removal packages near me</Link> for our 25% off 5-session series.
             </p>
           </div>
         </section>
@@ -44,20 +44,20 @@ const Index = () => {
         <section className="py-12 bg-secondary/20">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              CO2 Laser Resurfacing in Vienna VA and Tysons
+              CO2 Laser Resurfacing Vienna VA and CO2 Laser Tysons
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Our CO2 laser Tysons treatments harness the precision of the Cartessa Tetra Pro for CoolPeel CO2 laser resurfacing Vienna VA patients trust for radiant, refreshed skin with minimal downtime. For deeper rejuvenation, our fractional CO2 laser Tysons option using the DEKA SmartXide stimulates collagen to smooth wrinkles, acne scars, and sun damage. As a leading provider of laser skin resurfacing Northern Virginia residents rely on, we tailor every treatment to your skin type and goals. Conveniently located minutes from McLean, Falls Church, and Arlington.
+              Our <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">CO2 laser Tysons</Link> treatments use the Cartessa Tetra Pro for CoolPeel <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">CO2 laser resurfacing Vienna VA</Link> patients trust for radiant, refreshed skin with minimal downtime. For deeper rejuvenation, our fractional <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">DEKA Tetra Pro Vienna</Link> option smooths wrinkles, acne scars, and sun damage. As a leading provider of <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">laser skin resurfacing Northern Virginia</Link> residents rely on, we tailor every treatment to your skin type and goals, minutes from McLean, Falls Church, and Arlington.
             </p>
           </div>
         </section>
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              Acne Scar and Stretch Mark Treatment in Vienna VA
+              Acne Scar Treatment Vienna VA and Scar Removal Vienna VA
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Looking for acne scar treatment Vienna VA patients can count on? Our fractional CO2 laser protocols resurface pitted and uneven skin to dramatically improve texture and tone. We also specialize in scar removal Vienna VA - softening surgical, traumatic, and acne scars by stimulating fresh collagen growth. For new and mature marks alike, our stretch mark removal Vienna VA treatments smooth and blend the skin so you can feel confident again. Book a free consultation to build a personalized treatment plan.
+              Looking for <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">acne scar treatment Vienna VA</Link> patients can count on? Our fractional CO2 protocols resurface pitted and uneven skin to improve texture and tone. We also provide <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">scar removal Vienna VA</Link> that softens surgical, traumatic, and acne scars, plus stretch mark treatments that smooth and blend the skin. Book a free consultation to build a personalized plan.
             </p>
           </div>
         </section>
@@ -68,7 +68,7 @@ const Index = () => {
               CoolPeel Skin Resurfacing Tysons
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              CoolPeel skin resurfacing Tysons patients love is a fractional CO2 treatment that refreshes tone and texture with only 1 to 3 days of downtime. At our Vienna studio, just minutes from Tysons Corner, McLean, and Falls Church, our team tailors every CoolPeel session to your skin goals.
+              <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> patients love is a fractional CO2 treatment that refreshes tone and texture with only 1 to 3 days of downtime. See <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> and packages, or visit our <Link to="/about" className="text-accent hover:underline">medical spa Tysons</Link> and <Link to="/about" className="text-accent hover:underline">medical spa Vienna VA</Link> in Vienna, minutes from Tysons Corner, McLean, and Falls Church.
             </p>
           </div>
         </section>
