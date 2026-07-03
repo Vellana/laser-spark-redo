@@ -83,12 +83,12 @@ const About = () => {
                                         ABOUT OUR STUDIO
                                     </span>
                                     <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-                                        Your Medical Spa in Tysons and Vienna VA
+                                        Medical Spa Tysons and Medical Spa Vienna VA
                                     </h2>
                                 </div>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">
-                                    As a dedicated <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">medical spa Tysons</Link> and medical spa Vienna VA patients trust, Virginia Laser Specialists provides safe and effective laser treatments in a comfortable space where ALL are welcome. We are committed to delivering exceptional results, building lasting relationships with our clients, and ensuring transparency in every aspect of their experience.
+                                    As the <Link to="/about" className="text-accent hover:underline">medical spa Tysons</Link> and <Link to="/about" className="text-accent hover:underline">medical spa Vienna VA</Link> patients trust, Virginia Laser Specialists provides safe, effective laser treatments in a welcoming space. We are committed to exceptional results, lasting client relationships, and full transparency at every step.
                                 </p>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">
