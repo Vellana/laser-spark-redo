@@ -360,13 +360,10 @@ const LaserHairRemoval = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
-                The Lutronic Clarity II Difference
+                The Clarity II Laser Hair Removal Vienna Difference
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                The Lutronic Clarity II laser is the gold standard for laser hair removal. Its dual wavelength 
-                system means that it is safe for use on all skin types and tones. It is also exceptionally 
-                capable of treating a variety of skin issues, from hyperpigmentation to spider veins to 
-                angiomas and broken capillaries.
+                Clarity II laser hair removal Vienna clients choose Virginia Laser Specialists for the gold standard dual wavelength system, safe on every skin tone. It also handles hyperpigmentation, spider veins, angiomas, and broken capillaries.
               </p>
             </div>
           </div>
