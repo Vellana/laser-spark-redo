@@ -257,8 +257,11 @@ const LaserSkinResurfacing = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center text-foreground mb-8">
-                Skin Concerns We Address
+                Acne Scar Treatment Vienna VA and Scar Removal Vienna VA
               </h2>
+              <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+                Fractional CO2 protocols deliver <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">acne scar treatment Vienna VA</Link> patients rely on and <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">scar removal Vienna VA</Link> results that soften surgical, traumatic, and acne scars by stimulating fresh collagen.
+              </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {["Fine Lines & Wrinkles", "Sun Damage", "Uneven Skin Texture", "Age Spots", "Acne Scars", "Skin Laxity", "Large Pores", "Dull Skin", "Hyperpigmentation"].map((concern) => (
                   <div key={concern} className="flex items-center gap-2 bg-background p-3 rounded-lg">
