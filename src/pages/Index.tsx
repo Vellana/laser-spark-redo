@@ -68,7 +68,7 @@ const Index = () => {
               CoolPeel Skin Resurfacing Tysons
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              CoolPeel skin resurfacing Tysons patients love is a fractional CO2 treatment that refreshes tone and texture with only 1 to 3 days of downtime. At our Vienna studio, just minutes from Tysons Corner, McLean, and Falls Church, our team tailors every CoolPeel session to your skin goals.
+              <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> patients love is a fractional CO2 treatment that refreshes tone and texture with only 1 to 3 days of downtime. See <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> and packages, or visit our <Link to="/about" className="text-accent hover:underline">medical spa Tysons</Link> and <Link to="/about" className="text-accent hover:underline">medical spa Vienna VA</Link> in Vienna, minutes from Tysons Corner, McLean, and Falls Church.
             </p>
           </div>
         </section>
