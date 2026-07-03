@@ -160,12 +160,10 @@ const LaserSkinResurfacing = () => {
                 className="h-20 mx-auto mb-6"
               />
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-                The Tetra Pro CO₂ Platform
+                DEKA Tetra Pro Vienna: The Cartessa Tetra Pro CO2 Platform
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                The Tetra Pro by Cartessa offers advanced CO₂ laser technology with two treatment modes. 
-                This versatile system allows us to customize treatments based on your specific skin concerns 
-                and downtime preferences, delivering exceptional results with personalized aftercare.
+                The DEKA Tetra Pro Vienna clients experience at our studio pairs advanced CO2 laser technology with two treatment modes. This versatile system lets us tailor every session to your skin concerns and downtime, from CoolPeel to DEKA Pulse.
               </p>
             </div>
           </div>
