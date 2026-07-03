@@ -54,10 +54,10 @@ const Index = () => {
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              Acne Scar and Stretch Mark Treatment in Vienna VA
+              Acne Scar Treatment Vienna VA and Scar Removal Vienna VA
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Looking for acne scar treatment Vienna VA patients can count on? Our fractional CO2 laser protocols resurface pitted and uneven skin to dramatically improve texture and tone. We also specialize in scar removal Vienna VA - softening surgical, traumatic, and acne scars by stimulating fresh collagen growth. For new and mature marks alike, our stretch mark removal Vienna VA treatments smooth and blend the skin so you can feel confident again. Book a free consultation to build a personalized treatment plan.
+              Looking for <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">acne scar treatment Vienna VA</Link> patients can count on? Our fractional CO2 protocols resurface pitted and uneven skin to improve texture and tone. We also provide <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">scar removal Vienna VA</Link> that softens surgical, traumatic, and acne scars, plus stretch mark treatments that smooth and blend the skin. Book a free consultation to build a personalized plan.
             </p>
           </div>
         </section>
