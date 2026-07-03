@@ -38,8 +38,8 @@ const Pricing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal Cost Northern Virginia | CoolPeel Laser Cost Tysons VA"
-        description="Laser hair removal cost Northern Virginia and CoolPeel laser cost in Tysons VA. Laser hair removal packages near me with 25% off 5-packs and Cherry financing. 703-752-6608."
+        title="CoolPeel Laser Cost Tysons VA | Laser Hair Removal Packages Near Me"
+        description="CoolPeel laser cost in Tysons VA plus laser hair removal packages near me with 25% off 5-packs. Transparent pricing and Cherry financing at Virginia Laser Specialists. 703-752-6608."
         canonicalUrl="/pricing"
       />
       <LocalBusinessSchema />
