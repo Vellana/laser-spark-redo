@@ -290,8 +290,8 @@ const CoolPeelTysons = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CoolPeel Laser Cost | CoolPeel CO2 Laser Tysons & Vienna VA"
-        description="CoolPeel laser cost, packages, and financing in Tysons and Vienna VA. CO2 laser resurfacing with 1-3 day recovery. Free consultation: 703-752-6608."
+        title="CoolPeel Vienna VA | CoolPeel Skin Resurfacing Tysons | DEKA Tetra Pro Vienna"
+        description="CoolPeel Vienna VA and CoolPeel skin resurfacing Tysons with the DEKA Tetra Pro Vienna CO2 platform. 1-3 day recovery, transparent pricing, and free consultations. 703-752-6608."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
