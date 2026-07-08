@@ -38,7 +38,7 @@ const Pricing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CoolPeel Laser Cost | Laser Hair Removal Cost Northern Virginia | Packages Near Me"
+        title="CoolPeel Laser Cost | Laser Hair Removal Packages and Pricing - Virginia Laser Specialists"
         description="CoolPeel laser cost and laser hair removal cost Northern Virginia at Virginia Laser Specialists, plus laser hair removal packages near me with 25% off 5-packs. 703-752-6608."
         canonicalUrl="/pricing"
       />
