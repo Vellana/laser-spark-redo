@@ -278,7 +278,7 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Clarity II Laser Hair Removal Vienna | Tysons Corner VA"
+        title="Clarity II Laser Hair Removal Vienna VA and Tysons - Virginia Laser Specialists"
         description="Clarity II laser hair removal Vienna and Tysons Corner patients trust. Lutronic Clarity II dual wavelength for all skin types. 25% off packages. Free consult: 703-547-4499."
         canonicalUrl="/laser-hair-removal"
       />
