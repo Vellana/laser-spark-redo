@@ -290,8 +290,8 @@ const CoolPeelTysons = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CoolPeel Laser Cost | CoolPeel CO2 Laser Tysons & Vienna VA"
-        description="CoolPeel laser cost, packages, and financing in Tysons and Vienna VA. CO2 laser resurfacing with 1-3 day recovery. Free consultation: 703-752-6608."
+        title="CoolPeel Vienna VA | CoolPeel Skin Resurfacing Tysons | DEKA Tetra Pro Vienna"
+        description="CoolPeel Vienna VA and CoolPeel skin resurfacing Tysons with the DEKA Tetra Pro Vienna CO2 platform. 1-3 day recovery, transparent pricing, and free consultations. 703-752-6608."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
@@ -776,13 +776,13 @@ const CoolPeelTysons = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto space-y-4">
               <h2 className="text-3xl font-bold text-foreground">
-                CoolPeel Laser Cost in Tysons, Vienna, and McLean
+                CoolPeel Vienna VA and CoolPeel Laser Cost in Tysons and McLean
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                CoolPeel laser cost at Virginia Laser Specialists is $750 for a single session and $2,000 for a series of three sessions spaced about one month apart, which is how most patients in Tysons, Vienna, and McLean achieve their best results. Treating smaller zones like the under-eyes or perioral area can come in lower, while combining CoolPeel with another resurfacing service is quoted during your free consultation.
+                CoolPeel Vienna VA appointments and CoolPeel skin resurfacing Tysons sessions are both performed at Virginia Laser Specialists on the DEKA Tetra Pro Vienna CO2 platform for consistent, tailored resurfacing. CoolPeel laser cost is $750 for a single session and $2,000 for a series of three sessions spaced about one month apart, which is how most patients in Tysons, Vienna, and McLean achieve their best results.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                We keep CoolPeel laser cost transparent and offer Cherry financing with $0 down so you can spread payments across monthly installments. For a full breakdown of single sessions, three-treatment series pricing, and current promotions, see our <Link to="/pricing" className="text-accent hover:underline">pricing page</Link> or call 703-752-6608 to book a complimentary skin evaluation at our Vienna office.
+                We keep pricing transparent and offer Cherry financing with $0 down so you can spread payments across monthly installments. For a full breakdown of single sessions, series pricing, and current promotions, see our <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> page or call 703-752-6608 to book a complimentary skin evaluation at our Vienna office.
               </p>
             </div>
           </div>
