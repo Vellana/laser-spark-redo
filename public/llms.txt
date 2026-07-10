@@ -1,22 +1,29 @@
 # Virginia Laser Specialists
 
-> Premier laser hair removal and CoolPeel CO₂ skin resurfacing clinic in Tysons / Vienna / McLean, Northern Virginia. Lutronic Clarity II dual-wavelength laser and Cartessa Tetra Pro CO₂ technology. Safe for all skin types. Call 703-752-6608.
+> Laser hair removal and CoolPeel CO2 skin resurfacing clinic at 8100 Boone Blvd, Suite 270, Vienna, VA 22182, serving Tysons, Vienna, and McLean in Northern Virginia.
 
-Virginia Laser Specialists is a medical laser clinic located at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. Services include laser hair removal (face, body, Brazilian, full body), CoolPeel CO₂ laser skin resurfacing, and DEKA Pulse deep CO₂ resurfacing. Free consultations available.
+Virginia Laser Specialists offers laser hair removal with the Lutronic Clarity II dual-wavelength laser (safe for all skin types), CoolPeel CO2 laser skin resurfacing with the Cartessa Tetra Pro, and DEKA Pulse deep CO2 resurfacing. Free consultations are available.
 
 ## Pages
 
 - [Home](/): Overview of services, technology, and clinic.
-- [Laser Hair Removal](/laser-hair-removal): Permanent hair reduction with Lutronic Clarity II — pricing, treatment areas, aftercare.
-- [CoolPeel CO₂ Laser (Tysons)](/coolpeel-co2-laser-tysons-va): CoolPeel CO₂ resurfacing landing page for the Tysons / Vienna / McLean area.
-- [Laser Skin Resurfacing](/laser-skin-resurfacing): CoolPeel and DEKA Pulse CO₂ resurfacing — protocols, downtime, before & after.
-- [Pricing](/pricing): Full price chart for all 28 treatment areas and resurfacing packages.
+- [Laser Hair Removal](/laser-hair-removal): Permanent hair reduction with Lutronic Clarity II - pricing, treatment areas, aftercare.
+- [CoolPeel CO2 Laser (Tysons)](/coolpeel-co2-laser-tysons-va): CoolPeel CO2 resurfacing landing page for the Tysons, Vienna, and McLean area.
+- [Laser Skin Resurfacing](/laser-skin-resurfacing): CoolPeel and DEKA Pulse CO2 resurfacing - protocols, downtime, before and after.
+- [Pricing](/pricing): Full price chart for treatment areas and resurfacing packages.
 - [Specials](/specials): Current limited-time promotions.
 - [Gallery](/gallery): Before-and-after results.
 - [FAQ](/faq): Common questions about safety, downtime, candidacy, and preparation.
 - [About](/about): Clinic, team, and technology.
 - [Contact](/contact): Location, hours, map, and contact form.
-- [Book Free Consultation](/book-free-consultation): Schedule a complimentary consultation.
+- [Book Free Consultation](/booking): Schedule a complimentary consultation.
+
+## Contact
+
+- Address: 8100 Boone Blvd, Suite 270, Vienna, VA 22182
+- Phone: 703-752-6608
+- Email: info@virginialaserspecialists.com
+- Hours: Tue-Fri 10am-6pm, Sat 9am-1pm
 
 ## Optional
 

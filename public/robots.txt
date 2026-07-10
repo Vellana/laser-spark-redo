@@ -1,5 +1,6 @@
 # Virginia Laser Specialists - Robots.txt
 # https://virginialaserspecialists.com
+# AI assistants: see /llms.txt for a structured site summary.
 
 User-agent: Googlebot
 Allow: /
@@ -19,6 +20,55 @@ Allow: /
 
 User-agent: LinkedInBot
 Allow: /
+
+# AI assistant crawlers - allowed on public pages
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+
+User-agent: Claude-User
+Allow: /
+Disallow: /admin
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /admin
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin
+
+User-agent: CCBot
+Allow: /
+Disallow: /admin
 
 User-agent: *
 Allow: /
