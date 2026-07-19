@@ -71,8 +71,8 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CO2 Laser Resurfacing Vienna VA | Laser Skin Resurfacing Northern Virginia"
-        description="CO2 laser resurfacing Vienna VA and CO2 laser Tysons with CoolPeel and DEKA Tetra Pro. Acne scar treatment Vienna VA, scar removal Vienna VA, laser skin resurfacing Northern Virginia. 703-752-6608."
+        title="Fractional CO2 Laser Tysons | CO2 Laser Resurfacing Vienna VA"
+        description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA with CoolPeel and DEKA Tetra Pro. Acne scar treatment, scar removal, and laser skin resurfacing Northern Virginia. 703-752-6608."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
