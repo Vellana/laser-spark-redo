@@ -71,8 +71,8 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CO2 Laser Resurfacing Vienna VA | Laser Skin Resurfacing Northern Virginia"
-        description="CO2 laser resurfacing Vienna VA and CO2 laser Tysons with CoolPeel and DEKA Tetra Pro. Acne scar treatment Vienna VA, scar removal Vienna VA, laser skin resurfacing Northern Virginia. 703-752-6608."
+        title="Fractional CO2 Laser Tysons | CO2 Laser Resurfacing Vienna VA"
+        description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA with CoolPeel and DEKA Tetra Pro. Acne scar treatment, scar removal, and laser skin resurfacing Northern Virginia. 703-752-6608."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
@@ -585,10 +585,10 @@ const LaserSkinResurfacing = () => {
             <div className="max-w-4xl mx-auto space-y-10">
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-foreground">
-                  CO2 Laser Resurfacing Vienna VA and Fractional CO2 Laser Tysons
+                  Fractional CO2 Laser Tysons and CO2 Laser Resurfacing Vienna VA
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Virginia Laser Specialists offers CO2 laser resurfacing Vienna VA patients rely on for smoother, clearer, more youthful skin. Our office at 8100 Boone Blvd in Vienna sits minutes from Tysons Corner and McLean, making fractional CO2 laser Tysons appointments easy to fit into a busy week. We use the Cartessa Tetra Pro platform to deliver both CoolPeel and DEKA Pulse modes, so we can match the depth of treatment to your skin goals and downtime tolerance.
+                  Looking for a fractional CO2 laser Tysons patients travel just minutes to reach? Virginia Laser Specialists is based at 8100 Boone Blvd in Vienna, a short drive from Tysons Corner, McLean, and Falls Church, and we treat with the Cartessa Tetra Pro platform in both CoolPeel and DEKA Pulse modes. That flexibility lets us match the depth of your fractional CO2 session to your skin, your downtime, and your calendar.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   As a dedicated provider of laser skin resurfacing Northern Virginia residents trust, we tailor every plan to your skin type, history, and target concerns. Whether you want a quick CoolPeel refresh between meetings or a deeper DEKA Pulse session to address years of sun damage, our team will walk you through preparation, recovery, and realistic expectations during a free consultation.
