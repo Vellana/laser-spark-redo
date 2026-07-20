@@ -72,7 +72,7 @@ const LaserSkinResurfacing = () => {
     <div className="min-h-screen">
       <SEO 
         title="Fractional CO2 Laser Tysons | CO2 Laser Resurfacing Vienna VA"
-        description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA with CoolPeel and DEKA Tetra Pro. Acne scar treatment, scar removal, and laser skin resurfacing Northern Virginia. 703-752-6608."
+        description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA with CoolPeel and DEKA Tetra Pro. From acne scar treatment to scar removal and stretch mark removal Vienna VA, choose laser skin resurfacing Northern Virginia. 703-752-6608."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
@@ -88,7 +88,7 @@ const LaserSkinResurfacing = () => {
       />
       <ServiceSchema
         name="CO₂ Laser Skin Resurfacing"
-        description="Advanced CO₂ laser skin resurfacing using Cartessa Tetra Pro technology in Tysons, VA. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, and acne scars."
+        description="Advanced CO₂ laser skin resurfacing using Cartessa Tetra Pro technology in Tysons, VA. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, acne scars, and stretch mark removal Vienna VA."
         url="/laser-skin-resurfacing"
       />
       <SkinResurfacingFAQSchema />
