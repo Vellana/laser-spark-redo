@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Sparkles, Zap } from "lucide-react";
-
-const SUMMER_OFFERS_START = new Date("2026-06-15T00:00:00-04:00");
+import { isSummerSaleActive } from "@/lib/summerSale";
 
 const SummerPresaleBanner = () => {
-  if (new Date() < SUMMER_OFFERS_START) return null;
+  if (!isSummerSaleActive()) return null;
   return (
     <section className="py-12 bg-gradient-to-b from-accent/10 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
