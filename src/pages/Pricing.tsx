@@ -238,13 +238,13 @@ const Pricing = () => {
             {/* Local SEO Cost Content */}
             <div className="max-w-4xl mx-auto mt-12 space-y-4">
               <h2 className="text-3xl font-bold text-foreground text-center">
-                CoolPeel Laser Cost and Laser Hair Removal Cost Northern Virginia
+                CoolPeel and Laser Hair Removal Pricing
               </h2>
               <p className="text-muted-foreground leading-relaxed text-center">
-                <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel laser cost</Link> at Virginia Laser Specialists is $750 per session or $2,000 for a series of three, and laser hair removal cost Northern Virginia patients pay is priced by area from $100 for small zones up to $1,850 for full body. We serve Vienna, Tysons, McLean, Falls Church, Arlington, and Fairfax from our office at 8100 Boone Blvd.
+                <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel laser cost</Link> at Virginia Laser Specialists is $750 per session or $2,000 for a series of three. Laser hair removal is priced by area, from $100 for small zones up to $1,850 for full body. We serve Vienna, Tysons, McLean, Falls Church, Arlington, and Fairfax from our office at 8100 Boone Blvd.
               </p>
               <p className="text-muted-foreground leading-relaxed text-center">
-                If you have been searching for <Link to="/pricing" className="text-accent hover:underline">laser hair removal packages near me</Link>, our 5-session series saves 25% across every body area and is the recommended path for permanent reduction with the Lutronic Clarity II. Cherry financing is available with $0 down so you can split package pricing into monthly payments. See the <Link to="/laser-hair-removal" className="text-accent hover:underline">laser hair removal</Link> page for treatment details or call 703-752-6608 to book a free consultation.
+                Our <Link to="/pricing" className="text-accent hover:underline">5-session series</Link> saves 25% across every body area and is the recommended path for permanent reduction with the Lutronic Clarity II. Cherry financing is available with $0 down so you can split package pricing into monthly payments. See the <Link to="/laser-hair-removal" className="text-accent hover:underline">laser hair removal</Link> page for treatment details or call 703-752-6608 to book a free consultation.
               </p>
             </div>
 
