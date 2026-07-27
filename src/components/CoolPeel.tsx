@@ -9,10 +9,10 @@ import tetraProLogo from "@/assets/tetra-pro-logo.png";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import BeforeAfterSlideshow from "@/components/BeforeAfterSlideshow";
 
-const SUMMER_OFFERS_START = new Date("2026-06-15T00:00:00-04:00");
+import { isSummerSaleActive } from "@/lib/summerSale";
 
 const CoolPeel = () => {
-  const summerOffersActive = new Date() >= SUMMER_OFFERS_START;
+  const summerOffersActive = isSummerSaleActive();
   const [activeTab, setActiveTab] = useState<"coolpeel" | "dekapulse">("coolpeel");
   const [expandedBenefit, setExpandedBenefit] = useState<string | null>(null);
 
