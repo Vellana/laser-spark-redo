@@ -69,7 +69,7 @@ const ROUTES = [
     title:
       "Clarity II Laser Hair Removal Vienna VA and Tysons - Virginia Laser Specialists",
     description:
-      "Clarity II laser hair removal Vienna and Tysons Corner patients trust. Lutronic Clarity II dual wavelength for all skin types. 25% off packages. Free consult: 703-547-4499.",
+      "Laser hair removal Tysons Corner and Vienna VA with the Lutronic Clarity II for all skin types. 25% off packages. Free consult: 703-547-4499.",
   },
   {
     path: "/laser-skin-resurfacing",
@@ -80,9 +80,9 @@ const ROUTES = [
   {
     path: "/coolpeel-co2-laser-tysons-va",
     title:
-      "CoolPeel Vienna VA | CoolPeel CO2 Laser Tysons - Virginia Laser Specialists",
+      "CoolPeel Skin Resurfacing Tysons | CoolPeel Vienna VA - Virginia Laser Specialists",
     description:
-      "CoolPeel Vienna VA and CoolPeel skin resurfacing Tysons with the DEKA Tetra Pro Vienna CO2 platform. 1-3 day recovery, transparent pricing, and free consultations. 703-752-6608.",
+      "CoolPeel skin resurfacing Tysons and CoolPeel Vienna VA with the DEKA Tetra Pro CO2 platform. 1-3 day recovery, transparent pricing, and free consultations. 703-752-6608.",
   },
   {
     path: "/faq",
