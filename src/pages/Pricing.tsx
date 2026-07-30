@@ -154,9 +154,9 @@ const Pricing = () => {
               {/* CoolPeel Pricing */}
               <Card className="border-accent/40">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-center">
-                    CoolPeel Pricing
-                  </CardTitle>
+                  <h2 className="text-2xl text-center font-semibold leading-none tracking-tight">
+                    CoolPeel Laser Cost
+                  </h2>
                   <p className="text-center text-muted-foreground">
                     DEKA SmartXide CO2 laser · Series of 3, spaced 1 month apart
                   </p>
