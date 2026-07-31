@@ -45,6 +45,7 @@ const ServiceSchema = ({
       "name": "Northern Virginia",
       "containsPlace": [
         { "@type": "City", "name": "Tysons" },
+        { "@type": "City", "name": "Tysons Corner" },
         { "@type": "City", "name": "Vienna" },
         { "@type": "City", "name": "McLean" },
         { "@type": "City", "name": "Falls Church" },
