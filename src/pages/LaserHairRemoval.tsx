@@ -278,8 +278,8 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Clarity II Laser Hair Removal Vienna VA and Tysons - Virginia Laser Specialists"
-        description="Laser hair removal Tysons Corner and Vienna VA with the Lutronic Clarity II, safe for all skin types. Book a free consultation at Virginia Laser Specialists."
+        title="Laser Hair Removal Vienna VA and Tysons Corner | Clarity II Laser"
+        description="Laser hair removal Vienna VA and Tysons Corner with the Lutronic Clarity II, safe for all skin types. Free consultation at Virginia Laser Specialists."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
