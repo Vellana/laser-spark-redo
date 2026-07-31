@@ -296,8 +296,8 @@ const LaserHairRemoval = () => {
         url="/laser-hair-removal"
       />
       <ServiceSchema
-        name="Laser Hair Removal"
-        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Tysons, Vienna, McLean, and Northern Virginia."
+        name="Laser Hair Removal in Vienna VA and Tysons Corner"
+        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Vienna, Tysons Corner, McLean, and Northern Virginia."
         url="/laser-hair-removal"
       />
       <BreadcrumbSchema items={[
