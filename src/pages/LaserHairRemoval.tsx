@@ -278,8 +278,8 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Clarity II Laser Hair Removal Vienna VA and Tysons - Virginia Laser Specialists"
-        description="Laser hair removal Tysons Corner and Vienna VA with the Lutronic Clarity II, safe for all skin types. Book a free consultation at Virginia Laser Specialists."
+        title="Laser Hair Removal Vienna VA and Tysons Corner | Clarity II Laser"
+        description="Laser hair removal Vienna VA and Tysons Corner with the Lutronic Clarity II, safe for all skin types. Free consultation at Virginia Laser Specialists."
         canonicalUrl="/laser-hair-removal"
       />
       <LocalBusinessSchema />
@@ -296,8 +296,8 @@ const LaserHairRemoval = () => {
         url="/laser-hair-removal"
       />
       <ServiceSchema
-        name="Laser Hair Removal"
-        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Tysons, Vienna, McLean, and Northern Virginia."
+        name="Laser Hair Removal in Vienna VA and Tysons Corner"
+        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Vienna, Tysons Corner, McLean, and Northern Virginia."
         url="/laser-hair-removal"
       />
       <BreadcrumbSchema items={[

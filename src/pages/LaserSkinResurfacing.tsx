@@ -71,8 +71,8 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Fractional CO2 Laser Tysons | CO2 Laser Resurfacing Vienna VA"
-        description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA with CoolPeel and DEKA Tetra Pro. From acne scar treatment to scar removal and stretch mark removal Vienna VA, choose laser skin resurfacing Northern Virginia. 703-752-6608."
+        title="Fractional CO2 Laser Tysons | Tetra Pro and Stretch Mark Treatment Vienna VA"
+        description="Fractional CO2 laser Tysons with the DEKA Tetra Pro, plus stretch mark removal and acne scar treatment in Vienna VA. Free consultations, 703-752-6608."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
@@ -87,10 +87,46 @@ const LaserSkinResurfacing = () => {
         url="/laser-skin-resurfacing"
       />
       <ServiceSchema
-        name="CO₂ Laser Skin Resurfacing"
-        description="Advanced CO₂ laser skin resurfacing using Cartessa Tetra Pro technology in Tysons, VA. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, acne scars, and stretch mark removal Vienna VA."
+        name="Fractional CO₂ Laser Skin Resurfacing in Tysons, VA"
+        description="Fractional CO₂ laser skin resurfacing using the Cartessa DEKA Tetra Pro platform. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, acne scars, and stretch marks. Serving Tysons Corner, Vienna, and Northern Virginia."
         url="/laser-skin-resurfacing"
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Service",
+                "@id": "https://virginialaserspecialists.com/laser-skin-resurfacing#tetra-pro",
+                "name": "Tetra Pro CO₂ Laser Treatment in Tysons, VA",
+                "description": "CO₂ laser skin resurfacing performed with the Cartessa DEKA Tetra Pro platform, offered as CoolPeel for minimal downtime or DEKA Pulse for deeper resurfacing.",
+                "url": "https://virginialaserspecialists.com/laser-skin-resurfacing",
+                "category": "MedicalProcedure",
+                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "areaServed": [
+                  { "@type": "City", "name": "Tysons Corner" },
+                  { "@type": "City", "name": "Tysons" },
+                  { "@type": "City", "name": "Vienna" }
+                ]
+              },
+              {
+                "@type": "Service",
+                "@id": "https://virginialaserspecialists.com/laser-skin-resurfacing#stretch-marks",
+                "name": "Stretch Mark Treatment in Vienna, VA",
+                "description": "Fractional CO₂ laser treatment for stretch marks using the Cartessa DEKA Tetra Pro platform at Virginia Laser Specialists in Vienna, VA.",
+                "url": "https://virginialaserspecialists.com/laser-skin-resurfacing",
+                "category": "MedicalProcedure",
+                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "areaServed": [
+                  { "@type": "City", "name": "Vienna" },
+                  { "@type": "City", "name": "Tysons Corner" }
+                ]
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
       <SkinResurfacingFAQSchema />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
