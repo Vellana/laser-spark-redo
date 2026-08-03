@@ -66,16 +66,16 @@ const ROUTES = [
   },
   {
     path: "/laser-hair-removal",
-    title:
-      "Laser Hair Removal Vienna VA and Tysons Corner | Clarity II Laser",
+    title: "Laser Hair Removal Tysons Corner and Vienna VA | Clarity II Laser",
     description:
-      "Laser hair removal Vienna VA and Tysons Corner with the Lutronic Clarity II, safe for all skin types. Free consultation at Virginia Laser Specialists.",
+      "Laser hair removal Tysons Corner and laser hair removal Vienna VA with the Lutronic Clarity II, safe for all skin types. Free consultation.",
   },
   {
     path: "/laser-skin-resurfacing",
-    title: "Fractional CO2 Laser Tysons | Tetra Pro and Stretch Mark Treatment Vienna VA",
+    title:
+      "CO2 Laser Resurfacing Vienna VA | Fractional CO2 Laser Tysons and Tetra Pro",
     description:
-      "Fractional CO2 laser Tysons with the DEKA Tetra Pro, plus stretch mark removal and acne scar treatment in Vienna VA. Free consultations, 703-752-6608.",
+      "CO2 laser resurfacing Vienna VA and fractional CO2 laser Tysons with the DEKA Tetra Pro, plus stretch mark removal Vienna VA. Free consultations.",
   },
   {
     path: "/coolpeel-co2-laser-tysons-va",
