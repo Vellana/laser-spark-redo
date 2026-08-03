@@ -88,7 +88,7 @@ const About = () => {
                                 </div>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">
-                                    As the <Link to="/about" className="text-accent hover:underline">medical spa Tysons</Link> and <Link to="/about" className="text-accent hover:underline">medical spa Vienna VA</Link> patients trust, Virginia Laser Specialists provides safe, effective laser treatments in a welcoming space. We are committed to exceptional results, lasting client relationships, and full transparency at every step.
+                                    As a medical spa serving Tysons and Vienna, Virginia Laser Specialists provides safe, effective laser treatments in a welcoming space. We are committed to exceptional results, lasting client relationships, and full transparency at every step.
                                 </p>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">

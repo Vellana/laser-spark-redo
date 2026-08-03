@@ -369,7 +369,7 @@ const CoolPeelTysons = () => {
                   className="h-16 mx-auto mb-6"
                 />
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  What is CoolPeel CO₂ Laser Resurfacing?
+                  CoolPeel Skin Resurfacing Tysons: What Is CoolPeel CO₂?
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   CoolPeel is a revolutionary CO₂ laser treatment that uses the Cartessa Tetra Pro platform 
