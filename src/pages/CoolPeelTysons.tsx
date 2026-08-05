@@ -291,7 +291,7 @@ const CoolPeelTysons = () => {
     <div className="min-h-screen">
       <SEO 
         title="CoolPeel Skin Resurfacing Tysons | CoolPeel Vienna VA - Virginia Laser Specialists"
-        description="CoolPeel skin resurfacing Tysons and CoolPeel Vienna VA with the DEKA Tetra Pro CO2 platform. 1-3 day recovery, transparent pricing, and free consultations. 703-752-6608."
+        description="CoolPeel skin resurfacing Tysons and CoolPeel Vienna VA with the DEKA Tetra Pro CO2 platform. 1-3 day recovery and free consultations. Call 703-752-6608."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
