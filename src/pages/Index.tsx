@@ -21,7 +21,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SEO 
         title="Medical Spa Vienna VA | Medical Spa Tysons | Laser Hair Removal & CoolPeel"
-        description="Virginia Laser Specialists is a medical spa Vienna VA and medical spa Tysons offering Clarity II laser hair removal and CoolPeel CO2 skin resurfacing. Book a free consultation."
+        description="Virginia Laser Specialists: medical spa Vienna VA and medical spa Tysons offering Clarity II laser hair removal and CoolPeel CO2 resurfacing. Free consults."
       />
       <LocalBusinessSchema />
       <MedicalSpaSchema />
