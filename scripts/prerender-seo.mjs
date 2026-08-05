@@ -5,8 +5,11 @@
  * After `vite build`, for every PUBLIC route below, write
  * dist/<route>/index.html: a copy of dist/index.html with that route's
  * title, meta description, canonical, og:*, and twitter:* substituted
- * in. Values are copied verbatim from the per-page <SEO ... /> props in
- * src/pages/*.tsx so they match what each page sets client-side.
+ * in.
+ *
+ * Titles and descriptions are PARSED AT BUILD TIME from each route's own
+ * <SEO title="..." description="..." /> props in src/pages/*.tsx, so the
+ * prerendered head and the client-side head can never drift apart.
  *
  * Excluded: "/" (root index.html), /admin, /admin/email-list,
  * /unsubscribe (noindex), /services/coolpeel (redirect), and NotFound.
@@ -16,81 +19,40 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DIST = path.resolve(__dirname, "..", "dist");
+const ROOT = path.resolve(__dirname, "..");
+const DIST = path.join(ROOT, "dist");
+const PAGES = path.join(ROOT, "src", "pages");
 const BASE_URL = "https://virginialaserspecialists.com";
 
-// Values below are copied verbatim from each page's <SEO title=... description=... canonicalUrl=... />.
+// route -> source page whose <SEO ... /> props are the single source of truth.
 const ROUTES = [
-  {
-    path: "/booking",
-    title: "Book Online | Virginia Laser Specialists - Vienna, VA",
-    description:
-      "Book your laser hair removal or CoolPeel CO2 resurfacing appointment online with Virginia Laser Specialists in Vienna, VA. Free consultations available.",
-  },
-  {
-    path: "/pricing",
-    title:
-      "CoolPeel Laser Cost | Laser Hair Removal Packages and Pricing - Virginia Laser Specialists",
-    description:
-      "CoolPeel laser cost and laser hair removal cost Northern Virginia at Virginia Laser Specialists, plus laser hair removal packages near me with 25% off 5-packs. 703-752-6608.",
-  },
-  {
-    path: "/specials",
-    title: "Laser Specials & Promotions | Tysons VA",
-    description:
-      "Limited-time laser specials on CoolPeel & laser hair removal in Tysons VA. Book your free consultation at Virginia Laser Specialists — 703-752-6608.",
-  },
-  {
-    path: "/summer-presale",
-    title: "Summer Pre-Sale: Buy Now, Treat Later | Virginia Laser Specialists",
-    description:
-      "Exclusive Summer Pre-Sale June 15-28, 2026. Buy CoolPeel and Laser Hair Removal packages now at special pricing. Treat later. Cherry financing available.",
-  },
-  {
-    path: "/gallery",
-    title: "Photo Gallery | Virginia Laser Specialists",
-    description:
-      "Tour our laser treatment facility at 8100 Boone Blvd, Vienna VA. Lutronic Clarity II & Cartessa Tetra Pro. Book your free consultation — 703-752-6608.",
-  },
-  {
-    path: "/about",
-    title: "Medical Spa Tysons and Vienna VA | About Virginia Laser Specialists",
-    description:
-      "Medical spa Tysons and medical spa Vienna VA for laser hair removal, CoolPeel CO2 resurfacing, and scar treatments. Licensed estheticians and certified laser techs. 703-752-6608.",
-  },
-  {
-    path: "/contact",
-    title: "Contact Virginia Laser Specialists | Tysons VA",
-    description:
-      "Visit us at 8100 Boone Blvd, Suite 270, Vienna VA. Tue–Fri 10–6, Sat 9–1. Book your free laser consultation — 703-752-6608.",
-  },
-  {
-    path: "/laser-hair-removal",
-    title: "Laser Hair Removal Tysons Corner and Vienna VA | Clarity II Laser",
-    description:
-      "Laser hair removal Tysons Corner and laser hair removal Vienna VA with the Lutronic Clarity II, safe for all skin types. Free consultation.",
-  },
-  {
-    path: "/laser-skin-resurfacing",
-    title:
-      "CO2 Laser Resurfacing Vienna VA | Fractional CO2 Laser Tysons and Tetra Pro",
-    description:
-      "CO2 laser resurfacing Vienna VA and fractional CO2 laser Tysons with the DEKA Tetra Pro, plus stretch mark removal Vienna VA. Free consultations.",
-  },
-  {
-    path: "/coolpeel-co2-laser-tysons-va",
-    title:
-      "CoolPeel Skin Resurfacing Tysons | CoolPeel Vienna VA - Virginia Laser Specialists",
-    description:
-      "CoolPeel skin resurfacing Tysons and CoolPeel Vienna VA with the DEKA Tetra Pro CO2 platform. 1-3 day recovery, transparent pricing, and free consultations. 703-752-6608.",
-  },
-  {
-    path: "/faq",
-    title: "Laser Treatment FAQ | Tysons VA",
-    description:
-      "CoolPeel, Tetra Pro & laser hair removal FAQs for Tysons VA patients. Book your free consultation at Virginia Laser Specialists — 703-752-6608.",
-  },
+  { path: "/booking", source: "Booking.tsx" },
+  { path: "/pricing", source: "Pricing.tsx" },
+  { path: "/specials", source: "Specials.tsx" },
+  { path: "/summer-presale", source: "SummerPresale.tsx" },
+  { path: "/gallery", source: "Gallery.tsx" },
+  { path: "/about", source: "About.tsx" },
+  { path: "/contact", source: "Contact.tsx" },
+  { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx" },
+  { path: "/laser-skin-resurfacing", source: "LaserSkinResurfacing.tsx" },
+  { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx" },
+  { path: "/faq", source: "FAQ.tsx" },
 ];
+
+/**
+ * Pull the first <SEO ... /> element's title/description props out of a page.
+ * Handles single- or multi-line prop lists and any prop ordering.
+ */
+function parseSeoProps(source) {
+  const tag = source.match(/<SEO\b([\s\S]*?)\/>/);
+  if (!tag) return {};
+  const props = tag[1];
+  const read = (name) => {
+    const m = props.match(new RegExp(`\\b${name}\\s*=\\s*"([^"]*)"`));
+    return m ? m[1].trim() : undefined;
+  };
+  return { title: read("title"), description: read("description") };
+}
 
 // Attribute-order-agnostic replacer for <tag ... key="oldvalue" ...>.
 function replaceAttr(html, tagPattern, keyAttr, keyVal, valueAttr, newValue) {
@@ -133,8 +95,10 @@ function transform(html, { title, description, canonical }) {
   // <title>
   out = out.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
 
-  // meta name="description"
+  // Descriptions (name/property variants).
   out = replaceAttr(out, "meta", "name", "description", "content", description);
+  out = replaceAttr(out, "meta", "property", "og:description", "content", description);
+  out = replaceAttr(out, "meta", "name", "twitter:description", "content", description);
 
   // canonical link
   out = out.replace(
@@ -153,12 +117,10 @@ function transform(html, { title, description, canonical }) {
 
   // OG / Twitter
   out = replaceAttr(out, "meta", "property", "og:title", "content", title);
-  out = replaceAttr(out, "meta", "property", "og:description", "content", description);
   out = replaceAttr(out, "meta", "property", "og:url", "content", canonical);
   out = replaceAttr(out, "meta", "name", "twitter:title", "content", title);
-  out = replaceAttr(out, "meta", "name", "twitter:description", "content", description);
 
-  // If og:title / twitter:title tags didn't exist in the source, inject them.
+  // Inject any tag the template did not already contain.
   const ensureMeta = (attr, key, value) => {
     const re = new RegExp(`<meta\\b[^>]*\\b${attr}\\s*=\\s*"${key}"`, "i");
     if (!re.test(out)) {
@@ -168,6 +130,9 @@ function transform(html, { title, description, canonical }) {
       );
     }
   };
+  ensureMeta("name", "description", description);
+  ensureMeta("property", "og:description", description);
+  ensureMeta("name", "twitter:description", description);
   ensureMeta("property", "og:title", title);
   ensureMeta("name", "twitter:title", title);
 
@@ -188,27 +153,38 @@ async function main() {
   const skipped = [];
 
   for (const route of ROUTES) {
-    if (!route.title || !route.description) {
-      skipped.push(`${route.path} (missing meta)`);
+    let pageSource;
+    try {
+      pageSource = await fs.readFile(path.join(PAGES, route.source), "utf8");
+    } catch (err) {
+      skipped.push(`${route.path} (source ${route.source} unreadable)`);
+      continue;
+    }
+    const { title, description } = parseSeoProps(pageSource);
+    if (!title || !description) {
+      skipped.push(
+        `${route.path} (missing ${!title ? "title" : ""}${!title && !description ? " and " : ""}${!description ? "description" : ""} in ${route.source} <SEO />)`,
+      );
       continue;
     }
     const canonical = `${BASE_URL}${route.path}`;
-    const html = transform(template, {
-      title: route.title,
-      description: route.description,
-      canonical,
-    });
+    const html = transform(template, { title, description, canonical });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");
-    written.push(route.path);
+    written.push({ path: route.path, title, description });
   }
 
   console.log(`[prerender-seo] Wrote ${written.length} route(s):`);
-  for (const r of written) console.log(`  ✓ dist${r}/index.html`);
+  for (const r of written) {
+    console.log(`  ✓ dist${r.path}/index.html`);
+    console.log(`      title: ${r.title}`);
+    console.log(`      desc (${r.description.length} chars): ${r.description}`);
+  }
   if (skipped.length) {
     console.log(`[prerender-seo] Skipped:`);
     for (const s of skipped) console.log(`  - ${s}`);
+    process.exitCode = 1;
   }
 }
 
