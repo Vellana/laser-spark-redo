@@ -29,7 +29,7 @@ const ROUTES = [
   { path: "/booking", source: "Booking.tsx" },
   { path: "/pricing", source: "Pricing.tsx" },
   { path: "/specials", source: "Specials.tsx" },
-  { path: "/summer-presale", source: "SummerPresale.tsx" },
+  { path: "/summer-presale", source: "SummerPresale.tsx", noindex: true },
   { path: "/gallery", source: "Gallery.tsx" },
   { path: "/about", source: "About.tsx" },
   { path: "/contact", source: "Contact.tsx" },
@@ -89,7 +89,9 @@ function escapeHtml(v) {
     .replace(/>/g, "&gt;");
 }
 
-function transform(html, { title, description, canonical }) {
+const PRERENDER_VERSION = "v2";
+
+function transform(html, { title, description, canonical, noindex }) {
   let out = html;
 
   // <title>
@@ -136,6 +138,22 @@ function transform(html, { title, description, canonical }) {
   ensureMeta("property", "og:title", title);
   ensureMeta("name", "twitter:title", title);
 
+  // Version marker so the deployed script version is verifiable from raw HTML.
+  out = out.replace(
+    /<\/head>/i,
+    `  <!-- prerender-seo ${PRERENDER_VERSION} -->\n  </head>`,
+  );
+
+  if (noindex) {
+    out = replaceAttr(out, "meta", "name", "robots", "content", "noindex, follow");
+    if (!/<meta\b[^>]*\bname\s*=\s*"robots"/i.test(out)) {
+      out = out.replace(
+        /<\/head>/i,
+        `  <meta name="robots" content="noindex, follow" />\n  </head>`,
+      );
+    }
+  }
+
   return out;
 }
 
@@ -168,7 +186,7 @@ async function main() {
       continue;
     }
     const canonical = `${BASE_URL}${route.path}`;
-    const html = transform(template, { title, description, canonical });
+    const html = transform(template, { title, description, canonical, noindex: route.noindex });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");

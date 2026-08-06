@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { Helmet } from "react-helmet-async";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import CherryFinancing from "@/components/CherryFinancing";
@@ -59,6 +60,9 @@ const SummerPresale = () => {
         description="Exclusive Summer Pre-Sale June 15-28, 2026. Buy CoolPeel and Laser Hair Removal packages now at special pricing. Treat later. Cherry financing available."
         canonicalUrl="/summer-presale"
       />
+      <Helmet>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <LocalBusinessSchema />
       <BreadcrumbSchema
         items={[
