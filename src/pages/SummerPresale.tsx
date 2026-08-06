@@ -59,6 +59,9 @@ const SummerPresale = () => {
         description="Exclusive Summer Pre-Sale June 15-28, 2026. Buy CoolPeel and Laser Hair Removal packages now at special pricing. Treat later. Cherry financing available."
         canonicalUrl="/summer-presale"
       />
+      <Helmet>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <LocalBusinessSchema />
       <BreadcrumbSchema
         items={[
