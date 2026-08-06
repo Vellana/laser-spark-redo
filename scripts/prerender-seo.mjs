@@ -89,6 +89,44 @@ function escapeHtml(v) {
     .replace(/>/g, "&gt;");
 }
 
+function escapeRegExp(v) {
+  return String(v).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Replace a matching meta tag regardless of attribute order/quotes, or insert
+// it when the template has no matching tag.
+function upsertMeta(html, keyAttr, keyValue, content) {
+  const tagRe = new RegExp(
+    `<meta\\b(?=[^>]*\\b${keyAttr}\\s*=\\s*(["'])${escapeRegExp(keyValue)}\\1)[^>]*>`,
+    "i",
+  );
+  const existing = html.match(tagRe);
+
+  if (existing) {
+    const tag = existing[0];
+    const contentRe = /\bcontent\s*=\s*(["'])[^"']*\1/i;
+    const replacement = contentRe.test(tag)
+      ? tag.replace(contentRe, `content="${escapeAttr(content)}"`)
+      : tag.replace(/\s*\/?\s*>$/, ` content="${escapeAttr(content)}" />`);
+    return html.replace(tagRe, replacement);
+  }
+
+  return html.replace(
+    /<\/head>/i,
+    `  <meta ${keyAttr}="${keyValue}" content="${escapeAttr(content)}" />\n  </head>`,
+  );
+}
+
+function readMetaContent(html, keyAttr, keyValue) {
+  const tagRe = new RegExp(
+    `<meta\\b(?=[^>]*\\b${keyAttr}\\s*=\\s*(["'])${escapeRegExp(keyValue)}\\1)[^>]*>`,
+    "i",
+  );
+  const tag = html.match(tagRe)?.[0];
+  if (!tag) return undefined;
+  return tag.match(/\bcontent\s*=\s*(["'])(.*?)\1/i)?.[2]?.trim();
+}
+
 const PRERENDER_VERSION = "v2";
 
 function transform(html, { title, description, canonical, noindex }) {
@@ -97,10 +135,10 @@ function transform(html, { title, description, canonical, noindex }) {
   // <title>
   out = out.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
 
-  // Descriptions (name/property variants).
-  out = replaceAttr(out, "meta", "name", "description", "content", description);
-  out = replaceAttr(out, "meta", "property", "og:description", "content", description);
-  out = replaceAttr(out, "meta", "name", "twitter:description", "content", description);
+  // Descriptions (name/property variants): replace when present, insert when absent.
+  out = upsertMeta(out, "name", "description", description);
+  out = upsertMeta(out, "property", "og:description", description);
+  out = upsertMeta(out, "name", "twitter:description", description);
 
   // canonical link
   out = out.replace(
@@ -132,9 +170,6 @@ function transform(html, { title, description, canonical, noindex }) {
       );
     }
   };
-  ensureMeta("name", "description", description);
-  ensureMeta("property", "og:description", description);
-  ensureMeta("name", "twitter:description", description);
   ensureMeta("property", "og:title", title);
   ensureMeta("name", "twitter:title", title);
 
@@ -189,7 +224,18 @@ async function main() {
     const html = transform(template, { title, description, canonical, noindex: route.noindex });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
-    await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");
+    const outPath = path.join(outDir, "index.html");
+    await fs.writeFile(outPath, html, "utf8");
+
+    // Re-read the emitted artifact so a silent replacement/insertion failure
+    // can never pass the deploy build.
+    const emitted = await fs.readFile(outPath, "utf8");
+    const emittedDescription = readMetaContent(emitted, "name", "description");
+    if (!emittedDescription) {
+      throw new Error(
+        `[prerender-seo] ${route.path}: emitted description meta tag is missing or empty`,
+      );
+    }
     written.push({ path: route.path, title, description });
   }
 
