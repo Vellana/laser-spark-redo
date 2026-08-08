@@ -74,5 +74,8 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
+User-agent: Applebot
+Allow: /
+
 # Sitemap location
 Sitemap: https://virginialaserspecialists.com/sitemap.xml
