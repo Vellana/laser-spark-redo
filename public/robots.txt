@@ -12,6 +12,11 @@ Allow: /
 Disallow: /admin
 Crawl-delay: 1
 
+User-agent: Applebot
+Allow: /
+Disallow: /admin
+Crawl-delay: 1
+
 User-agent: Twitterbot
 Allow: /
 
@@ -74,14 +79,6 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-User-agent: Applebot
-Allow: /
-
-User-agent: Applebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
 
 # Sitemap location
 Sitemap: https://virginialaserspecialists.com/sitemap.xml
