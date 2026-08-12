@@ -213,7 +213,9 @@ async function main() {
       skipped.push(`${route.path} (source ${route.source} unreadable)`);
       continue;
     }
-    const { title, description } = parseSeoProps(pageSource);
+    const { title } = parseSeoProps(pageSource);
+    let { description } = parseSeoProps(pageSource);
+    if (route.description) description = route.description;
     if (!title || !description) {
       skipped.push(
         `${route.path} (missing ${!title ? "title" : ""}${!title && !description ? " and " : ""}${!description ? "description" : ""} in ${route.source} <SEO />)`,
