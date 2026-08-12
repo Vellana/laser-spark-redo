@@ -33,7 +33,7 @@ const ROUTES = [
   { path: "/gallery", source: "Gallery.tsx" },
   { path: "/about", source: "About.tsx" },
   { path: "/contact", source: "Contact.tsx" },
-  { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx" },
+  { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx", description: "Laser hair removal in Tysons Corner and Vienna VA using the Lutronic Clarity II laser - safe for all skin types at Virginia Laser Specialists." },
   { path: "/laser-skin-resurfacing", source: "LaserSkinResurfacing.tsx" },
   { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx" },
   { path: "/faq", source: "FAQ.tsx" },
@@ -213,7 +213,9 @@ async function main() {
       skipped.push(`${route.path} (source ${route.source} unreadable)`);
       continue;
     }
-    const { title, description } = parseSeoProps(pageSource);
+    const { title } = parseSeoProps(pageSource);
+    let { description } = parseSeoProps(pageSource);
+    if (route.description) description = route.description;
     if (!title || !description) {
       skipped.push(
         `${route.path} (missing ${!title ? "title" : ""}${!title && !description ? " and " : ""}${!description ? "description" : ""} in ${route.source} <SEO />)`,
