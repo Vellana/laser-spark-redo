@@ -205,7 +205,7 @@ const About = () => {
                                         Cartessa Tetra Pro CO2 Laser
                                     </h3>
                                     <p className="text-lg text-muted-foreground leading-relaxed">
-                                        The Tetra Pro offers advanced CO2 laser technology with two treatment modes:
+                                        The <Link to="/coolpeel-co2-laser-tysons-va">Tetra Pro</Link> offers advanced CO2 laser technology with two treatment modes:
                                         CoolPeel for minimal downtime skin rejuvenation, and Deka Pulse for deeper,
                                         more intensive resurfacing. This versatile system allows us to customize
                                         treatments based on your specific skin concerns and downtime preferences.
