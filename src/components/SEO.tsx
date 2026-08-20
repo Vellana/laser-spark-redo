@@ -21,7 +21,7 @@ const setMeta = (selector: string, attr: string, value: string, create: () => HT
 const SEO = ({ title, description, canonicalUrl, type = "website", image }: SEOProps) => {
   const baseUrl = "https://virginialaserspecialists.com";
   const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
-  const defaultImage = "https://storage.googleapis.com/gpt-engineer-file-uploads/6irTnypLT0T0JetI2hSqoSKB96W2/social-images/social-1769708068627-ChatGPT Image Jan 21, 2026, 02_17_14 PM.png";
+  const defaultImage = "https://storage.googleapis.com/gpt-engineer-file-uploads/6irTnypLT0T0JetI2hSqoSKB96W2/social-images/social-1769708068627-ChatGPT%20Image%20Jan%2021%2C%202026%2C%2002_17_14%20PM.png";
   const finalImage = image || defaultImage;
 
   // Direct DOM fallback in case Helmet no-ops (e.g. provider timing issues).
