@@ -299,7 +299,15 @@ async function main() {
       continue;
     }
     const canonical = `${BASE_URL}${route.path}`;
-    const html = transform(template, { title, description, canonical, noindex: route.noindex });
+    let jsonLd;
+    if (route.faq) {
+      const entries = FAQ_BUILDERS[route.faq](pageSource);
+      if (!entries.length) {
+        throw new Error(`[prerender-seo] ${route.path}: no FAQ entries parsed from ${route.source}`);
+      }
+      jsonLd = faqSchema(entries);
+    }
+    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, "index.html");
