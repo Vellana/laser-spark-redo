@@ -155,56 +155,14 @@ const CoolPeelTysonsSchema = () => {
       },
       {
         "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How long is the recovery after CoolPeel treatment?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "CoolPeel recovery is typically 1-3 days. Most patients experience mild redness similar to a sunburn, which subsides quickly. You can usually return to normal activities within 24-48 hours."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Who is a good candidate for CoolPeel in Tysons, VA?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "CoolPeel is ideal for anyone looking to improve skin texture, reduce fine lines, minimize sun damage, or address uneven skin tone with minimal downtime. It works well on all skin types and is perfect for busy professionals in the Tysons/Vienna area."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How many CoolPeel sessions are needed?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Most patients see optimal results with 3 CoolPeel sessions spaced about 1 month apart. However, some patients notice improvements after just one treatment."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the cost of CoolPeel in Tysons, VA?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "CoolPeel pricing varies based on treatment area. Virginia Laser Specialists offers competitive pricing and package deals. Visit our pricing page or schedule a free consultation for an accurate quote."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What's the difference between CoolPeel and traditional CO2 laser resurfacing?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Traditional CO2 lasers deliver heat deep into the skin, requiring 1-2 weeks of recovery. CoolPeel uses advanced technology to deliver high energy in ultra-short pulses, treating only the superficial skin layer without heating surrounding tissue. This means you get CO2 laser benefits with minimal downtime."
-            }
+        "mainEntity": faqs.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
           }
-        ]
+        }))
       }
     ]
   };
