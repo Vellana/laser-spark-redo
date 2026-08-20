@@ -34,7 +34,7 @@ const About = () => {
         <div className="min-h-screen">
             <SEO 
                 title="Medical Spa Tysons and Vienna VA | About Virginia Laser Specialists"
-                description="Medical spa Tysons and medical spa Vienna VA for laser hair removal, CoolPeel CO2 resurfacing, and scar treatments. Licensed laser techs. 703-752-6608."
+                description="Medical spa Tysons and medical spa Vienna VA for laser hair removal, CoolPeel CO2 resurfacing, and scar treatments. Licensed laser techs. 703-547-4499."
                 canonicalUrl="/about"
             />
             <LocalBusinessSchema />

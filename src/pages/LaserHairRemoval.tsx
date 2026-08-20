@@ -246,7 +246,7 @@ const postTreatmentInstructions = [
   "Do not scrub, exfoliate, or wax the treated area for at least one week.",
   "Avoid tanning beds, spray tans, or self-tanners for one week after treatment.",
   "Seek medical advice if you experience severe redness, swelling, blistering, or signs of infection.",
-  "Questions, concerns or appointment scheduling: 703-752-6608"
+  "Questions, concerns or appointment scheduling: 703-547-4499"
 ];
 
 const LaserHairRemoval = () => {
