@@ -36,7 +36,7 @@ const SkinResurfacingFAQSchema = () => {
         "name": "How much does laser skin resurfacing cost near me in Tysons VA?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Laser skin resurfacing pricing at Virginia Laser Specialists varies by treatment type and area. We offer competitive pricing with Cherry financing available at $0 down. Schedule a free consultation at our Tysons/Vienna location for an accurate quote. Call 703-752-6608."
+          "text": "Laser skin resurfacing pricing at Virginia Laser Specialists varies by treatment type and area. We offer competitive pricing with Cherry financing available at $0 down. Schedule a free consultation at our Tysons/Vienna location for an accurate quote. Call 703-547-4499."
         }
       },
       {
@@ -639,7 +639,7 @@ const LaserSkinResurfacing = () => {
                   For acne scar treatment Vienna VA patients ask about most often, fractional CO2 resurfacing remains one of the most effective in-office options. The DEKA Tetra Pro Vienna platform fires precise microcolumns of CO2 energy into the skin, breaking up scar tissue and triggering fresh collagen to fill in pitted, boxcar, and rolling acne scars over the months after treatment.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  The same approach supports scar removal Vienna VA appointments for surgical and traumatic scars, and stretch mark removal Vienna VA sessions that soften the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-752-6608 to schedule a complimentary evaluation.
+                  The same approach supports scar removal Vienna VA appointments for surgical and traumatic scars, and stretch mark removal Vienna VA sessions that soften the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-547-4499 to schedule a complimentary evaluation.
                 </p>
               </div>
             </div>

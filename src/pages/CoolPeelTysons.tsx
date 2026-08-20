@@ -30,7 +30,7 @@ const CoolPeelTysonsSchema = () => {
         "name": "Virginia Laser Specialists",
         "description": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing treatments in Tysons and Vienna, VA. Expert skin rejuvenation with minimal downtime using advanced Cartessa Tetra Pro technology.",
         "url": "https://virginialaserspecialists.com",
-        "telephone": "703-752-6608",
+        "telephone": "703-547-4499",
         "email": "info@virginialaserspecialists.com",
         "address": {
           "@type": "PostalAddress",
@@ -89,7 +89,7 @@ const CoolPeelTysonsSchema = () => {
         "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#medicalspa",
         "name": "Virginia Laser Specialists - CoolPeel Tysons",
         "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va",
-        "telephone": "+17037526608",
+        "telephone": "+17035474499",
         "email": "info@virginialaserspecialists.com",
         "priceRange": "$$",
         "address": {
@@ -161,7 +161,7 @@ const CoolPeelTysonsSchema = () => {
             "name": "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-752-6608 to schedule your free consultation."
+              "text": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
             }
           },
           {
@@ -254,7 +254,7 @@ const benefits = [
 const faqs = [
   {
     question: "Where can I get CoolPeel near me in Tysons or Vienna, VA?",
-    answer: "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, Arlington, Reston, and the greater Northern Virginia area. Call 703-752-6608 to schedule your free consultation."
+    answer: "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing at 8100 Boone Blvd, Suite 270, Vienna, VA 22182. We serve Tysons, Vienna, McLean, Fairfax, Falls Church, Arlington, Reston, and the greater Northern Virginia area. Call 703-547-4499 to schedule your free consultation."
   },
   {
     question: "How long is the recovery after CoolPeel treatment?",
@@ -291,7 +291,7 @@ const CoolPeelTysons = () => {
     <div className="min-h-screen">
       <SEO 
         title="CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists"
-        description="Tetra Pro laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro CO2 platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-752-6608."
+        description="Tetra Pro laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro CO2 platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
       <CoolPeelTysonsSchema />
@@ -692,7 +692,7 @@ const CoolPeelTysons = () => {
                       <div>
                         <h3 className="font-bold text-foreground mb-1">Contact Us</h3>
                         <p className="text-muted-foreground">
-                          <a href="tel:703-752-6608" className="hover:text-accent transition-colors">
+                          <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
                             (703) 752-6608
                           </a>
                         </p>
@@ -782,7 +782,7 @@ const CoolPeelTysons = () => {
                 CoolPeel sessions are performed at Virginia Laser Specialists on the DEKA Tetra Pro CO2 platform for consistent, tailored resurfacing. CoolPeel laser cost is $750 for a single session and $2,000 for a series of three sessions spaced about one month apart, which is how most patients in Tysons, Vienna, and McLean achieve their best results.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                We keep pricing transparent and offer Cherry financing with $0 down so you can spread payments across monthly installments. For a full breakdown of single sessions, series pricing, and current promotions, see our <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> page or call 703-752-6608 to book a complimentary skin evaluation at our Vienna office.
+                We keep pricing transparent and offer Cherry financing with $0 down so you can spread payments across monthly installments. For a full breakdown of single sessions, series pricing, and current promotions, see our <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> page or call 703-547-4499 to book a complimentary skin evaluation at our Vienna office.
               </p>
             </div>
           </div>
@@ -817,7 +817,7 @@ const CoolPeelTysons = () => {
                   Book Now
                 </Button>
               </a>
-              <a href="tel:703-752-6608">
+              <a href="tel:703-547-4499">
                 <Button size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8">
                   Call (703) 752-6608
                 </Button>

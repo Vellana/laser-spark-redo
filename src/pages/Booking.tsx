@@ -21,7 +21,7 @@ const Booking = () => {
             </h1>
             <p className="text-lg text-muted-foreground">
               Schedule your free consultation or treatment directly below. Questions?
-              Call <a href="tel:703-752-6608" className="text-accent hover:underline font-medium">703-752-6608</a>.
+              Call <a href="tel:703-547-4499" className="text-accent hover:underline font-medium">703-547-4499</a>.
             </p>
           </div>
 
