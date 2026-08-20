@@ -693,7 +693,7 @@ const CoolPeelTysons = () => {
                         <h3 className="font-bold text-foreground mb-1">Contact Us</h3>
                         <p className="text-muted-foreground">
                           <a href="tel:703-547-4499" className="hover:text-accent transition-colors">
-                            (703) 752-6608
+                            (703) 547-4499
                           </a>
                         </p>
                       </div>
@@ -819,7 +819,7 @@ const CoolPeelTysons = () => {
               </a>
               <a href="tel:703-547-4499">
                 <Button size="lg" className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8">
-                  Call (703) 752-6608
+                  Call (703) 547-4499
                 </Button>
               </a>
             </div>
