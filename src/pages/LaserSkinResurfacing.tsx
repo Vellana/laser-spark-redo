@@ -17,55 +17,6 @@ import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 import { Helmet } from "react-helmet-async";
 
-// Laser Skin Resurfacing FAQ Schema
-const SkinResurfacingFAQSchema = () => {
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is the difference between CoolPeel and DEKA Pulse CO₂ laser?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CoolPeel delivers high energy in ultra-short pulses for superficial resurfacing with only 1-3 days of redness. DEKA Pulse penetrates deeper for more dramatic results but requires 5-10 days of recovery. Both use the Cartessa Tetra Pro CO₂ laser platform at Virginia Laser Specialists in Tysons, VA."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does laser skin resurfacing cost near me in Tysons VA?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Laser skin resurfacing pricing at Virginia Laser Specialists varies by treatment type and area. We offer competitive pricing with Cherry financing available at $0 down. Schedule a free consultation at our Tysons/Vienna location for an accurate quote. Call 703-547-4499."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is CO₂ laser resurfacing safe for all skin types?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CO₂ laser resurfacing is effective for most skin types. During your free consultation at Virginia Laser Specialists, our expert technicians will evaluate your skin type and recommend the best treatment approach-CoolPeel or DEKA Pulse-for your specific needs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does laser skin resurfacing treat?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Laser skin resurfacing treats fine lines and wrinkles, sun damage, age spots, uneven skin texture, acne scars, large pores, skin laxity, dull skin, and hyperpigmentation. Results include smoother, younger-looking skin through collagen stimulation."
-        }
-      }
-    ]
-  };
-
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(faqSchema)}
-      </script>
-    </Helmet>
-  );
-};
 
 const LaserSkinResurfacing = () => {
   return (
@@ -127,7 +78,6 @@ const LaserSkinResurfacing = () => {
           })}
         </script>
       </Helmet>
-      <SkinResurfacingFAQSchema />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Laser Skin Resurfacing", url: "/laser-skin-resurfacing" }
