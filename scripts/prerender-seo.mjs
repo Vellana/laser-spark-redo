@@ -35,9 +35,75 @@ const ROUTES = [
   { path: "/contact", source: "Contact.tsx" },
   { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx", description: "Laser hair removal in Tysons Corner and Vienna VA using the Lutronic Clarity II laser - safe for all skin types at Virginia Laser Specialists." },
   { path: "/laser-skin-resurfacing", source: "LaserSkinResurfacing.tsx" },
-  { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "Tetra Pro laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro CO2 platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499." },
-  { path: "/faq", source: "FAQ.tsx" },
+  { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "Tetra Pro laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro CO2 platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
+  { path: "/faq", source: "FAQ.tsx", faq: "faq" },
 ];
+
+/**
+ * Extract an array literal (`const <name> ... = [ ... ];`) from a page source
+ * and evaluate it. Q&A text is therefore always read from the same array the
+ * page renders from, so the prerendered JSON-LD cannot drift from the visible
+ * accordion copy.
+ */
+function extractArray(source, name) {
+  const decl = new RegExp(`\\bconst\\s+${name}\\b[^=]*=\\s*\\[`).exec(source);
+  if (!decl) throw new Error(`array "${name}" not found`);
+  const start = decl.index + decl[0].length - 1;
+  let depth = 0;
+  let inStr = null;
+  for (let i = start; i < source.length; i++) {
+    const ch = source[i];
+    if (inStr) {
+      if (ch === "\\") i++;
+      else if (ch === inStr) inStr = null;
+      continue;
+    }
+    if (ch === '"' || ch === "'" || ch === "`") inStr = ch;
+    else if (ch === "[") depth++;
+    else if (ch === "]") {
+      depth--;
+      if (depth === 0) {
+        const literal = source.slice(start, i + 1);
+        // eslint-disable-next-line no-new-func
+        return new Function(`return (${literal});`)();
+      }
+    }
+  }
+  throw new Error(`array "${name}" is unterminated`);
+}
+
+function answerToText(a) {
+  return typeof a === "string" ? a : [a.intro, ...a.bullets].filter(Boolean).join(" • ");
+}
+
+// Per-route FAQPage builders. Only these two routes get FAQPage markup, and
+// only because both render the same Q&A visibly on the page.
+const FAQ_BUILDERS = {
+  faq(source) {
+    return ["generalFAQs", "coolpeelFAQs", "tetraProFAQs", "hairRemovalFAQs"]
+      .flatMap((name) => extractArray(source, name))
+      .map((item) => ({ question: item.q, answer: answerToText(item.a) }));
+  },
+  coolpeel(source) {
+    return extractArray(source, "faqs").map((item) => ({
+      question: item.question,
+      answer: item.answer,
+    }));
+  },
+};
+
+function faqSchema(entries) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: entries.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+}
+
 
 /**
  * Pull the first <SEO ... /> element's title/description props out of a page.
