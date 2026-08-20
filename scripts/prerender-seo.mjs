@@ -239,6 +239,15 @@ function transform(html, { title, description, canonical, noindex, jsonLd }) {
   ensureMeta("property", "og:title", title);
   ensureMeta("name", "twitter:title", title);
 
+  // Per-route JSON-LD (crawler-visible without JavaScript).
+  if (jsonLd) {
+    const json = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+    out = out.replace(
+      /<\/head>/i,
+      `  <script type="application/ld+json">${json}</script>\n  </head>`,
+    );
+  }
+
   // Version marker so the deployed script version is verifiable from raw HTML.
   out = out.replace(
     /<\/head>/i,
