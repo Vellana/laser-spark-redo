@@ -195,7 +195,7 @@ function readMetaContent(html, keyAttr, keyValue) {
 
 const PRERENDER_VERSION = "v2";
 
-function transform(html, { title, description, canonical, noindex }) {
+function transform(html, { title, description, canonical, noindex, jsonLd }) {
   let out = html;
 
   // <title>
