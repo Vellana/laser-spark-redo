@@ -33,9 +33,9 @@ const ROUTES = [
   { path: "/gallery", source: "Gallery.tsx" },
   { path: "/about", source: "About.tsx" },
   { path: "/contact", source: "Contact.tsx" },
-  { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx", description: "Laser hair removal in Tysons Corner and Vienna VA using the Lutronic Clarity II laser - safe for all skin types at Virginia Laser Specialists." },
+  { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx" },
   { path: "/laser-skin-resurfacing", source: "LaserSkinResurfacing.tsx" },
-  { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "Tetra Pro laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro CO2 platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
+  { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
   { path: "/faq", source: "FAQ.tsx", faq: "faq" },
 ];
 
