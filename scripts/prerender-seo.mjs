@@ -11,7 +11,7 @@
  * <SEO title="..." description="..." /> props in src/pages/*.tsx, so the
  * prerendered head and the client-side head can never drift apart.
  *
- * Excluded: "/" (root index.html), /admin, /admin/email-list,
+ * Excluded: /admin, /admin/email-list,
  * /unsubscribe (noindex), /services/coolpeel (redirect), and NotFound.
  */
 import { promises as fs } from "node:fs";
@@ -26,6 +26,7 @@ const BASE_URL = "https://virginialaserspecialists.com";
 
 // route -> source page whose <SEO ... /> props are the single source of truth.
 const ROUTES = [
+  { path: "/", source: "Index.tsx" },
   { path: "/booking", source: "Booking.tsx" },
   { path: "/pricing", source: "Pricing.tsx" },
   { path: "/specials", source: "Specials.tsx" },
