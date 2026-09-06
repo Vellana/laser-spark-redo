@@ -27,17 +27,17 @@ const BASE_URL = "https://virginialaserspecialists.com";
 // route -> source page whose <SEO ... /> props are the single source of truth.
 const ROUTES = [
   { path: "/", source: "Index.tsx" },
-  { path: "/booking", source: "Booking.tsx" },
-  { path: "/pricing", source: "Pricing.tsx" },
-  { path: "/specials", source: "Specials.tsx" },
+  { path: "/booking", crumb: "Book Now", source: "Booking.tsx" },
+  { path: "/pricing", crumb: "Pricing", source: "Pricing.tsx" },
+  { path: "/specials", crumb: "Specials", source: "Specials.tsx" },
   { path: "/summer-presale", source: "SummerPresale.tsx", noindex: true },
-  { path: "/gallery", source: "Gallery.tsx" },
-  { path: "/about", source: "About.tsx" },
-  { path: "/contact", source: "Contact.tsx" },
-  { path: "/laser-hair-removal", source: "LaserHairRemoval.tsx" },
-  { path: "/laser-skin-resurfacing", source: "LaserSkinResurfacing.tsx" },
-  { path: "/coolpeel-co2-laser-tysons-va", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
-  { path: "/faq", source: "FAQ.tsx", faq: "faq" },
+  { path: "/gallery", crumb: "Gallery", source: "Gallery.tsx" },
+  { path: "/about", crumb: "About", source: "About.tsx" },
+  { path: "/contact", crumb: "Contact", source: "Contact.tsx" },
+  { path: "/laser-hair-removal", crumb: "Laser Hair Removal", source: "LaserHairRemoval.tsx" },
+  { path: "/laser-skin-resurfacing", crumb: "Laser Skin Resurfacing", source: "LaserSkinResurfacing.tsx" },
+  { path: "/coolpeel-co2-laser-tysons-va", crumb: "CoolPeel CO₂ Tysons VA", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
+  { path: "/faq", crumb: "FAQ", source: "FAQ.tsx", faq: "faq" },
 ];
 
 /**
@@ -196,7 +196,7 @@ function readMetaContent(html, keyAttr, keyValue) {
 
 const PRERENDER_VERSION = "v2";
 
-function transform(html, { title, description, canonical, noindex, jsonLd }) {
+function transform(html, { title, description, canonical, noindex, jsonLd, breadcrumbLd }) {
   let out = html;
 
   // <title>
@@ -241,8 +241,9 @@ function transform(html, { title, description, canonical, noindex, jsonLd }) {
   ensureMeta("name", "twitter:title", title);
 
   // Per-route JSON-LD (crawler-visible without JavaScript).
-  if (jsonLd) {
-    const json = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+  for (const block of [jsonLd, breadcrumbLd]) {
+    if (!block) continue;
+    const json = JSON.stringify(block).replace(/</g, "\\u003c");
     out = out.replace(
       /<\/head>/i,
       `  <script type="application/ld+json">${json}</script>\n  </head>`,
@@ -308,7 +309,21 @@ async function main() {
       }
       jsonLd = faqSchema(entries);
     }
-    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd });
+    // BreadcrumbList. Labels are the page's own nav names, copied verbatim
+    // from src/components/Footer.tsx - nothing invented. The homepage gets
+    // none (a breadcrumb to itself is noise), and neither does the noindex
+    // /summer-presale route.
+    const breadcrumbLd = route.crumb && !route.noindex
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${BASE_URL}/` },
+            { "@type": "ListItem", position: 2, name: route.crumb, item: canonical },
+          ],
+        }
+      : undefined;
+    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, breadcrumbLd });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, "index.html");
