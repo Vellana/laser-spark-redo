@@ -91,14 +91,15 @@ const LocalBusinessSchema = () => {
         "priceRange": "$$",
         "currenciesAccepted": "USD",
         "paymentAccepted": "Cash, Credit Card, Cherry Financing",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "bestRating": "5",
-          "worstRating": "1",
-          "ratingCount": "156",
-          "reviewCount": "127"
-        },
+        // NO aggregateRating. The 4.9 / 156 / 127 figures previously here were
+        // written by the site generator (gpt-engineer-app bot, commit 8934958,
+        // "Changes"), not supplied by the client, and appeared ONLY in structured
+        // data - no visible page copy ever stated a rating or a review count.
+        // Publishing an unverifiable rating is a Google structured-data policy
+        // breach, and it is worse on a medical business. Self-serving reviews on
+        // a business's own site are ineligible for review rich results anyway, so
+        // this markup could never have earned stars. Restore it ONLY with a real
+        // figure Holly confirms, and add matching visible copy at the same time.
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",

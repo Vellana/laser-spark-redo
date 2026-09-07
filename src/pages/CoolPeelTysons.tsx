@@ -69,13 +69,8 @@ const CoolPeelTysonsSchema = () => {
           }
         ],
         "priceRange": "$$",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "bestRating": "5",
-          "worstRating": "1",
-          "ratingCount": "156"
-        },
+        // aggregateRating removed: unverifiable generator-authored figures.
+        // See the note in LocalBusinessSchema.tsx.
         "image": "https://virginialaserspecialists.com/favicon.png",
         "sameAs": [
           "https://www.instagram.com/virginialaserspecialists",

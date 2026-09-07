@@ -55,15 +55,9 @@ const MedicalProcedureSchema = ({
     "relevantSpecialty": {
       "@type": "MedicalSpecialty",
       "name": "Dermatology"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "bestRating": "5",
-      "worstRating": "1",
-      "ratingCount": "156",
-      "reviewCount": "127"
     }
+    // aggregateRating removed: unverifiable generator-authored figures. See the
+    // note in LocalBusinessSchema.tsx. Restore only with a confirmed number.
   };
 
   return (
