@@ -22,7 +22,7 @@ const LaserSkinResurfacing = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="CO2 Laser Resurfacing Vienna VA | Tetra Pro Laser Tysons"
+        title="Fractional CO2 Laser Tysons | CO2 Laser Resurfacing Vienna VA"
         description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA on the DEKA Tetra Pro - acne scars, wrinkles, and stretch mark removal Vienna VA. 703-547-4499."
         canonicalUrl="/laser-skin-resurfacing"
       />
@@ -574,22 +574,22 @@ const LaserSkinResurfacing = () => {
                   Fractional CO2 Laser Tysons and CO2 Laser Resurfacing Vienna VA
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Looking for a fractional CO2 laser Tysons patients travel just minutes to reach? Virginia Laser Specialists is based at 8100 Boone Blvd in Vienna, a short drive from Tysons Corner, McLean, and Falls Church, and we treat with the Cartessa Tetra Pro platform in both CoolPeel and DEKA Pulse modes. That flexibility lets us match the depth of your fractional CO2 session to your skin, your downtime, and your calendar.
+                  Virginia Laser Specialists is based at 8100 Boone Blvd in Vienna, a short drive from Tysons Corner, McLean, and Falls Church. We treat with the Cartessa Tetra Pro platform in both CoolPeel and DEKA Pulse modes, which lets us match the depth of each session to your skin, your downtime, and your calendar.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  As a dedicated provider of laser skin resurfacing Northern Virginia residents trust, we tailor every plan to your skin type, history, and target concerns. Whether you want a quick CoolPeel refresh between meetings or a deeper DEKA Pulse session to address years of sun damage, our team will walk you through preparation, recovery, and realistic expectations during a free consultation.
+                  Every plan is tailored to your skin type, history, and target concerns. Whether you want a quick CoolPeel refresh between meetings or a deeper DEKA Pulse session to address years of sun damage, our team will walk you through preparation, recovery, and realistic expectations during a free consultation.
                 </p>
               </div>
 
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-foreground">
-                  Acne Scar Treatment, Scar Removal, and Stretch Mark Removal Vienna VA
+                  Acne Scars, Surgical Scars, and Stretch Marks
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  For acne scar treatment Vienna VA patients ask about most often, fractional CO2 resurfacing remains one of the most effective in-office options. The DEKA Tetra Pro Vienna platform fires precise microcolumns of CO2 energy into the skin, breaking up scar tissue and triggering fresh collagen to fill in pitted, boxcar, and rolling acne scars over the months after treatment.
+                  For acne scarring, fractional CO2 resurfacing remains one of the most effective in-office options. The Tetra Pro platform fires precise microcolumns of CO2 energy into the skin, breaking up scar tissue and triggering fresh collagen to fill in pitted, boxcar, and rolling scars over the months after treatment.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  The same approach supports scar removal Vienna VA appointments for surgical and traumatic scars, and stretch mark removal Vienna VA sessions that soften the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-547-4499 to schedule a complimentary evaluation.
+                  The same approach treats surgical and traumatic scars, and softens the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-547-4499 to schedule a complimentary evaluation.
                 </p>
               </div>
             </div>
