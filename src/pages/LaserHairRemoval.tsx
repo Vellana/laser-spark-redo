@@ -268,7 +268,7 @@ const LaserHairRemoval = () => {
                   Laser Hair Removal in Tysons Corner and Vienna, VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Experience Clarity II laser hair removal Vienna patients trust for permanent hair reduction. The Lutronic Clarity II is the gold standard dual-wavelength system, safe for all skin types and tones, delivering exceptional results with minimal discomfort across Tysons, Vienna, and McLean.
+                  Experience Clarity II laser hair removal for permanent hair reduction. The Lutronic Clarity II is the gold standard dual-wavelength system, safe for all skin types and tones, delivering exceptional results with minimal discomfort across Tysons, Vienna, and McLean.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
@@ -312,7 +312,7 @@ const LaserHairRemoval = () => {
                 The Clarity II Difference
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Clarity II laser hair removal Vienna clients choose Virginia Laser Specialists for the gold standard dual wavelength system, safe on every skin tone. It also handles hyperpigmentation, spider veins, angiomas, and broken capillaries.
+                Clients choose Clarity II laser hair removal at Virginia Laser Specialists for the gold standard dual wavelength system, safe on every skin tone. It also handles hyperpigmentation, spider veins, angiomas, and broken capillaries.
               </p>
             </div>
           </div>
@@ -488,7 +488,7 @@ const LaserHairRemoval = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-lg text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
-              Book your free consultation today and take the first step toward smooth, hair-free skin. Compare <Link to="/pricing" className="underline hover:no-underline">laser hair removal cost Northern Virginia</Link> options and <Link to="/pricing" className="underline hover:no-underline">laser hair removal packages near me</Link> on our pricing page.
+              Book your free consultation today and take the first step toward smooth, hair-free skin. Compare prices and packages on our <Link to="/pricing" className="underline hover:no-underline">pricing page</Link>.
             </p>
             <CherryFinancingBadge className="mb-6 bg-primary-foreground/10 border-primary-foreground/20" />
             <div>

@@ -93,6 +93,62 @@ const FAQ_BUILDERS = {
   },
 };
 
+// Per-route Service JSON-LD. The pages' own <Helmet>/jsonLd Service blocks never
+// reach production (Helmet is inert on this build), so before this every
+// service page shipped only the sitewide MedicalSpa. Descriptions reuse the
+// sitewide OfferCatalog text and each page's own copy - nothing invented, no
+// prices. provider points at the MedicalSpa @id declared in index.html.
+const PROVIDER = { "@id": `${BASE_URL}/#medspa` };
+const SERVICE_LD = {
+  "/laser-hair-removal": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${BASE_URL}/laser-hair-removal#service`,
+    name: "Laser Hair Removal",
+    alternateName: "Clarity II laser hair removal",
+    serviceType: "Laser hair removal",
+    description:
+      "Permanent hair reduction with the Lutronic Clarity II dual-wavelength laser (Alexandrite and Nd:YAG), safe for all skin types, at our Vienna VA medical spa serving Tysons Corner and McLean.",
+    url: `${BASE_URL}/laser-hair-removal`,
+    provider: PROVIDER,
+    areaServed: ["Vienna, VA", "Tysons Corner, VA", "McLean, VA"],
+  },
+  "/laser-skin-resurfacing": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${BASE_URL}/laser-skin-resurfacing#service`,
+    name: "CO2 Laser Skin Resurfacing",
+    alternateName: "Fractional CO2 laser resurfacing",
+    serviceType: "Laser skin resurfacing",
+    description:
+      "Fractional CO2 laser resurfacing on the Tetra Pro platform: CoolPeel for mild wrinkles, sun damage and uneven texture with minimal downtime, or DEKA Pulse for deep wrinkles, scars and severe sun damage.",
+    url: `${BASE_URL}/laser-skin-resurfacing`,
+    provider: PROVIDER,
+    areaServed: ["Vienna, VA", "Tysons, VA"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Laser skin resurfacing treatments",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Scar Removal", description: "Laser treatment to minimize scars and improve skin texture." } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Acne Scar Treatment", description: "Targeted laser treatment for acne scarring and skin resurfacing." } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Stretch Mark Removal", description: "Laser treatment to reduce the appearance of stretch marks." } },
+      ],
+    },
+  },
+  "/coolpeel-co2-laser-tysons-va": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${BASE_URL}/coolpeel-co2-laser-tysons-va#service`,
+    name: "CoolPeel CO2 Laser Resurfacing",
+    serviceType: "CoolPeel CO2 laser resurfacing",
+    description:
+      "CoolPeel skin resurfacing performed with the Cartessa Tetra Pro fractional CO2 laser. Treats fine lines, sun damage, large pores, and uneven texture with 1-3 days of downtime.",
+    url: `${BASE_URL}/coolpeel-co2-laser-tysons-va`,
+    provider: PROVIDER,
+    areaServed: ["Tysons, VA", "Vienna, VA"],
+  },
+};
+
 function faqSchema(entries) {
   return {
     "@context": "https://schema.org",
@@ -194,9 +250,9 @@ function readMetaContent(html, keyAttr, keyValue) {
   return tag.match(/\bcontent\s*=\s*(["'])(.*?)\1/i)?.[2]?.trim();
 }
 
-const PRERENDER_VERSION = "v2";
+const PRERENDER_VERSION = "v3";
 
-function transform(html, { title, description, canonical, noindex, jsonLd, breadcrumbLd }) {
+function transform(html, { title, description, canonical, noindex, jsonLd, serviceLd, breadcrumbLd }) {
   let out = html;
 
   // <title>
@@ -241,7 +297,7 @@ function transform(html, { title, description, canonical, noindex, jsonLd, bread
   ensureMeta("name", "twitter:title", title);
 
   // Per-route JSON-LD (crawler-visible without JavaScript).
-  for (const block of [jsonLd, breadcrumbLd]) {
+  for (const block of [jsonLd, serviceLd, breadcrumbLd]) {
     if (!block) continue;
     const json = JSON.stringify(block).replace(/</g, "\\u003c");
     out = out.replace(
@@ -323,7 +379,8 @@ async function main() {
           ],
         }
       : undefined;
-    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, breadcrumbLd });
+    const serviceLd = route.noindex ? undefined : SERVICE_LD[route.path];
+    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, serviceLd, breadcrumbLd });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, "index.html");

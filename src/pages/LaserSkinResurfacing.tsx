@@ -97,7 +97,7 @@ const LaserSkinResurfacing = () => {
                   CO2 Laser Resurfacing in Vienna and Tysons, VA
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Laser skin resurfacing Northern Virginia patients trust, powered by the Cartessa Tetra Pro CO2 platform. Choose CoolPeel for minimal downtime or DEKA Pulse for deeper, more dramatic results.
+                  Laser skin resurfacing powered by the Cartessa Tetra Pro CO2 platform. Choose CoolPeel for minimal downtime or DEKA Pulse for deeper, more dramatic results.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
@@ -146,10 +146,10 @@ const LaserSkinResurfacing = () => {
                 className="h-20 mx-auto mb-6"
               />
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-                DEKA Tetra Pro Vienna: The Cartessa Tetra Pro CO2 Platform
+                The Cartessa Tetra Pro CO2 Platform
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                The DEKA Tetra Pro Vienna clients experience at our studio pairs advanced CO2 laser technology with two treatment modes. This versatile system lets us tailor every session to your skin concerns and downtime, from CoolPeel to DEKA Pulse.
+                The Tetra Pro at our Vienna studio pairs advanced CO2 laser technology with two treatment modes. This versatile system lets us tailor every session to your skin concerns and downtime, from CoolPeel to DEKA Pulse.
               </p>
             </div>
           </div>

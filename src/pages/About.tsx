@@ -83,7 +83,7 @@ const About = () => {
                                         ABOUT OUR STUDIO
                                     </span>
                                     <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-                                        Medical Spa Tysons and Medical Spa Vienna VA
+                                        A Medical Spa in Vienna, Minutes from Tysons
                                     </h2>
                                 </div>
 
