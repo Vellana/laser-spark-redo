@@ -125,7 +125,7 @@ const tetraProFAQs: QA[] = [
 const hairRemovalFAQs: QA[] = [
   {
     q: "What areas can be treated?",
-    a: "We can treat almost anywhere that has unwanted hair – however, we want to be very careful when treating around the eyes.",
+    a: "We can treat almost anywhere that has unwanted hair - however, we want to be very careful when treating around the eyes.",
   },
   {
     q: "How many treatments do I need?",
