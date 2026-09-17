@@ -243,10 +243,10 @@ const LaserSkinResurfacing = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center text-foreground mb-8">
-                Acne Scar Treatment Vienna VA and Scar Removal Vienna VA
+                Acne Scar and Scar Removal Treatment in Vienna, VA
               </h2>
               <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-                Fractional CO2 protocols deliver <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">acne scar treatment Vienna VA</Link> patients rely on and <Link to="/laser-skin-resurfacing" className="text-accent hover:underline">scar removal Vienna VA</Link> results that soften surgical, traumatic, and acne scars by stimulating fresh collagen.
+                Fractional CO2 protocols soften surgical, traumatic and acne scars by stimulating fresh collagen, and we plan each series around your skin type and the recovery time you can give it.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {["Fine Lines & Wrinkles", "Sun Damage", "Uneven Skin Texture", "Age Spots", "Acne Scars", "Skin Laxity", "Large Pores", "Dull Skin", "Hyperpigmentation"].map((concern) => (
@@ -571,7 +571,7 @@ const LaserSkinResurfacing = () => {
             <div className="max-w-4xl mx-auto space-y-10">
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold text-foreground">
-                  Fractional CO2 Laser Tysons and CO2 Laser Resurfacing Vienna VA
+                  Visiting Us from Tysons, McLean or Falls Church
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Virginia Laser Specialists is based at 8100 Boone Blvd in Vienna, a short drive from Tysons Corner, McLean, and Falls Church. We treat with the Cartessa Tetra Pro platform in both CoolPeel and DEKA Pulse modes, which lets us match the depth of each session to your skin, your downtime, and your calendar.

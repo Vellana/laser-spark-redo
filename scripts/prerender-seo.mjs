@@ -11,10 +11,46 @@
  * <SEO title="..." description="..." /> props in src/pages/*.tsx, so the
  * prerendered head and the client-side head can never drift apart.
  *
- * Excluded: /admin, /admin/email-list,
- * /unsubscribe (noindex), /services/coolpeel (redirect), and NotFound.
+ * ...AND ITS OWN BODY (Sep 16 2026).
+ *
+ * Until now this script rewrote the HEAD ONLY. The <div id="root"><noscript>
+ * block in dist/index.html was copied verbatim to every route, so all eleven
+ * URLs served the SAME 173-177 words, the same H1 ("Virginia Laser Specialists
+ * - Laser Hair Removal & CoolPeel Skin Resurfacing in Tysons, VA") and the same
+ * three H2s. Measured live on 2026-09-16 across /, /laser-hair-removal,
+ * /laser-skin-resurfacing, /coolpeel-co2-laser-tysons-va, /pricing, /about and
+ * /faq: identical, every one. On /laser-skin-resurfacing the words "acne scar"
+ * and "stretch mark" appeared zero times in the served HTML although both are
+ * in its meta description, and its two money pages were absent from
+ * `site:virginialaserspecialists.com` entirely while /unsubscribe was indexed.
+ *
+ * So every route now gets its OWN crawler body, built from that page's own
+ * source: its real H1, its own static headings and paragraphs, and a link list
+ * scraped from the footer. Nothing is written here by hand and nothing is
+ * invented - if it is not already on the page, it does not reach the body.
+ *
+ * Move Marketing is the proof this works: it ships per-route crawler bodies the
+ * same way and holds #1 for marketing agency DMV, DMV marketing agency,
+ * influencer marketing DMV and UGC content agency DC.
+ *
+ * WHY IT STAYS INSIDE <noscript>. The alternative - putting the block in the
+ * #root shell so a rendering crawler counts it too - would flash unstyled text
+ * on every page load before React mounts, which is a visible change to a site
+ * whose branding is fenced. mm-hub's bodies are in <noscript> and rank, so
+ * <noscript> is demonstrably not the binding constraint.
+ *
+ * FENCES THIS FILE ENFORCES AT BUILD TIME (see the guards near the bottom):
+ *  - no route may ship the homepage H1 (that is the duplicate-body fingerprint)
+ *  - no crawler body may carry a price, a percentage discount or a dated offer
+ *    (operational facts are the client's, not SEO's, and a promo copied into
+ *    eleven pages is eleven places to go stale)
+ *  - no heading may be a glued "<service> <City> <ST> and <service> <City> <ST>"
+ *    keyword chain
+ *
+ * Excluded: /admin, /admin/email-list, /services/coolpeel (redirect), and
+ * NotFound. /unsubscribe is NOT excluded any more - see the ROUTES comment.
  */
-import { promises as fs } from "node:fs";
+import { promises as fs, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -38,6 +74,13 @@ const ROUTES = [
   { path: "/laser-skin-resurfacing", crumb: "Laser Skin Resurfacing", source: "LaserSkinResurfacing.tsx" },
   { path: "/coolpeel-co2-laser-tysons-va", crumb: "CoolPeel CO₂ Tysons VA", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
   { path: "/faq", crumb: "FAQ", source: "FAQ.tsx", faq: "faq" },
+  // /unsubscribe was SKIPPED, which is not the same as excluded. A skipped
+  // route falls back to dist/index.html, so it served the homepage title AND
+  // canonical="https://virginialaserspecialists.com/" with no robots tag -
+  // verified live 2026-09-16, and Google has it indexed while the two service
+  // money pages are not. It is prerendered now for the sole purpose of getting
+  // a real `noindex, follow` and its own canonical.
+  { path: "/unsubscribe", source: "Unsubscribe.tsx", noindex: true },
 ];
 
 /**
@@ -149,6 +192,152 @@ const SERVICE_LD = {
   },
 };
 
+// ---------------------------------------------------------------------------
+// CRAWLER BODIES
+//
+// One per route, built from that route's own page source. See the file header
+// for what was wrong and why this exists.
+// ---------------------------------------------------------------------------
+
+/** Strip JSX/HTML down to the text a reader would actually see. */
+function textOf(fragment) {
+  return fragment
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/\{"\s*"\}/g, " ")     // the {" "} spacer JSX uses between links
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Static elements of one tag from a page source.
+ *
+ * "Static" means no `{expression}` anywhere inside: an interpolated heading or
+ * paragraph depends on runtime state, and half-rendering it into the crawler
+ * layer would produce text no visitor ever sees. Those are skipped, never
+ * guessed at.
+ */
+function staticMatches(source, tag) {
+  const re = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, "g");
+  const out = [];
+  for (const m of source.matchAll(re)) {
+    if (m[1].includes("{")) continue;
+    const text = textOf(m[1]);
+    if (text) out.push({ text, end: m.index + m[0].length });
+  }
+  return out;
+}
+
+function staticTags(source, tag) {
+  return staticMatches(source, tag).map((m) => m.text);
+}
+
+/**
+ * OPERATIONAL FACTS NEVER REACH A CRAWLER BODY.
+ *
+ * Prices, percentage discounts and dated offers belong to the client and change
+ * without telling us. /pricing already carries a "Valid June 15-20, 2026" line
+ * that is three months stale; copying that shape into eleven prerendered files
+ * would create eleven stale copies, and the standing rule is that SEO never
+ * touches a price, an hour, a policy or a promotion. Any paragraph matching
+ * this is dropped from the body - the page still renders it for humans.
+ */
+const OPERATIONAL_RE = /\$\s?\d|\b\d{1,3}\s?%\s?off\b|\bvalid\b|\bfinancing\b|\$0 down|\bcannot be combined\b|\bsale\b/i;
+
+/**
+ * A GLUED KEYWORD CHAIN, not a service area.
+ *
+ * "Serving Tysons, Vienna & McLean" is a sentence. "Acne Scar Treatment Vienna
+ * VA and Scar Removal Vienna VA" is a rank tracker talking. The difference is
+ * the repeated "<phrase> <City> <ST>" shape, so that is what this matches -
+ * counting geo mentions would fire on every honest service-area line.
+ */
+const CITY_ST = "(?:Vienna|Tysons(?: Corner)?|McLean|Fairfax|Falls Church)\\s*,?\\s*VA";
+const CHAIN_RE = new RegExp(`${CITY_ST}\\b[\\s\\S]{0,40}\\band\\b[\\s\\S]{0,40}${CITY_ST}\\b`, "i");
+
+/**
+ * SITEWIDE LINK LIST, appended to every generated body.
+ *
+ * Scraped from the footer's own quickLinks array, so every anchor is a label a
+ * visitor already sees and nothing reads as a keyword chain. It also gives a
+ * JS-free crawler a path into /laser-skin-resurfacing and
+ * /coolpeel-co2-laser-tysons-va from every other page, which matters because
+ * neither is currently in Google's index.
+ */
+const siteLinks = (() => {
+  const src = readFileSync(path.join(ROOT, "src", "components", "Footer.tsx"), "utf8");
+  const m = src.match(/const\s+quickLinks\s*=\s*\[([\s\S]*?)\n\s*\];/);
+  if (!m) throw new Error("[prerender-seo] Footer.tsx: could not find `const quickLinks = [...]` to build the crawler link list.");
+  const links = [...m[1].matchAll(/name:\s*"([^"]+)",\s*href:\s*"([^"]+)"/g)]
+    .map((x) => ({ name: x[1], href: x[2] }))
+    .filter((l) => l.href.startsWith("/") && !l.href.includes("#") && !l.href.startsWith("/admin"));
+  if (links.length < 8) throw new Error(`[prerender-seo] Footer.tsx quickLinks parsed to only ${links.length} links - the scrape broke.`);
+  return links;
+})();
+
+const SITE_LINKS_HTML =
+  "<nav>" +
+  siteLinks.map((l) => `<a href="${escapeAttr(l.href)}">${escapeHtml(l.name)}</a>`).join(" | ") +
+  "</nav>";
+
+/**
+ * Build one route's crawler body. Returns { html, h1 } or throws.
+ *
+ * `maxParagraphs` keeps the block proportionate: it is a fallback for a crawler
+ * that cannot run the page, not a second copy of the site.
+ */
+function buildBody(routePath, source, sourceFile) {
+  const h1s = staticTags(source, "h1");
+  if (!h1s.length) {
+    throw new Error(`[prerender-seo] ${routePath}: no static <h1> in ${sourceFile} to head its crawler body.`);
+  }
+  const h1 = h1s[0];
+  const usable = (p) => p.length > 40 && !OPERATIONAL_RE.test(p);
+
+  const parts = [`<h1>${escapeHtml(h1)}</h1>`];
+  const used = new Set();
+
+  const intro = staticTags(source, "p").find(usable);
+  if (intro) { parts.push(`<p>${escapeHtml(intro)}</p>`); used.add(intro); }
+
+  for (const h2 of staticMatches(source, "h2").slice(0, 8)) {
+    if (h2.text === h1) continue;
+    parts.push(`<h2>${escapeHtml(h2.text)}</h2>`);
+    // The first unused static paragraph that follows this heading IN THE
+    // SOURCE, so the body reads as headings with their own copy rather than a
+    // heading list. Sliced from the heading's own end offset, not searched for
+    // by text.
+    const next = staticTags(source.slice(h2.end), "p").find((p) => usable(p) && !used.has(p));
+    if (next) { parts.push(`<p>${escapeHtml(next)}</p>`); used.add(next); }
+  }
+
+  parts.push(SITE_LINKS_HTML);
+  return { html: `<main>${parts.join("")}</main>`, h1 };
+}
+
+/**
+ * Minimum crawler-body length, in words.
+ *
+ * Content routes must carry real copy. Utility routes genuinely have none -
+ * /booking is a Vagaro widget, /gallery is images, /pricing and /specials are
+ * price tables whose paragraphs are deliberately filtered out by
+ * OPERATIONAL_RE - so holding them to a prose floor would either fail the build
+ * for ever or invite someone to pad them with copy nobody wrote. They still
+ * have to beat the floor that proves the swap happened at all.
+ */
+const THIN_ROUTES = new Set([
+  "/booking", "/gallery", "/pricing", "/specials", "/unsubscribe", "/summer-presale",
+  // /contact is a form and a contact card. Its only prose is one line; the rest
+  // is the address and the opening hours, which are operational facts and stay
+  // on the page rather than being copied into a build artifact.
+  "/contact",
+]);
+const minWordsFor = (p) => (THIN_ROUTES.has(p) ? 25 : 60);
+
 function faqSchema(entries) {
   return {
     "@context": "https://schema.org",
@@ -250,9 +439,19 @@ function readMetaContent(html, keyAttr, keyValue) {
   return tag.match(/\bcontent\s*=\s*(["'])(.*?)\1/i)?.[2]?.trim();
 }
 
-const PRERENDER_VERSION = "v3";
+// v4: every route carries its OWN crawler body, not the homepage's.
+const PRERENDER_VERSION = "v4";
 
-function transform(html, { title, description, canonical, noindex, jsonLd, serviceLd, breadcrumbLd }) {
+/**
+ * The homepage <noscript> H1 from index.html - the fingerprint of a duplicate
+ * body. The "/" output MUST match it (positive control, proving the pattern is
+ * live) and every other route MUST NOT. Written with a raw "&" in index.html
+ * and re-encodable to "&amp;", so the pattern takes either; matching only one
+ * spelling would leave this guard unable to fail.
+ */
+const HOME_H1_RE = /Virginia Laser Specialists - Laser Hair Removal (?:&|&amp;) CoolPeel Skin Resurfacing in Tysons, VA/;
+
+function transform(html, { title, description, canonical, noindex, jsonLd, serviceLd, breadcrumbLd, body }) {
   let out = html;
 
   // <title>
@@ -304,6 +503,17 @@ function transform(html, { title, description, canonical, noindex, jsonLd, servi
       /<\/head>/i,
       `  <script type="application/ld+json">${json}</script>\n  </head>`,
     );
+  }
+
+  // Swap the homepage <noscript> fallback for this route's own body. Matches
+  // the BODY noscript - the one wrapping a <header> inside #root - never the
+  // Google Tag Manager <noscript><iframe> in the head region.
+  if (body) {
+    const before = out;
+    out = out.replace(/<noscript>\s*<header[\s\S]*?<\/noscript>/i, () => `<noscript>${body.html}</noscript>`);
+    if (out === before) {
+      throw new Error("[prerender-seo] could not find the body <noscript> in dist/index.html to replace - the shell changed.");
+    }
   }
 
   // Version marker so the deployed script version is verifiable from raw HTML.
@@ -380,7 +590,12 @@ async function main() {
         }
       : undefined;
     const serviceLd = route.noindex ? undefined : SERVICE_LD[route.path];
-    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, serviceLd, breadcrumbLd });
+
+    // The homepage keeps index.html's hand-written <noscript>; every other
+    // route gets its own, built from its own source.
+    const body = route.path === "/" ? undefined : buildBody(route.path, pageSource, route.source);
+
+    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, serviceLd, breadcrumbLd, body });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, "index.html");
@@ -395,13 +610,60 @@ async function main() {
         `[prerender-seo] ${route.path}: emitted description meta tag is missing or empty`,
       );
     }
-    written.push({ path: route.path, title, description });
+
+    // --- Body guards, asserted against the FILE THAT SHIPS, not the inputs ---
+    const crawlerBody = emitted.match(/<noscript>\s*<(?:header|main)[\s\S]*?<\/noscript>/i)?.[0] ?? "";
+    const crawlerText = textOf(crawlerBody);
+    const words = crawlerText ? crawlerText.split(/\s+/).length : 0;
+
+    if (route.path === "/") {
+      // Positive control. If the homepage stops matching, HOME_H1_RE has gone
+      // stale and the duplicate check below is silently matching nothing.
+      if (!HOME_H1_RE.test(emitted)) {
+        throw new Error("[prerender-seo] /: the homepage <noscript> H1 no longer matches HOME_H1_RE, so the duplicate-body guard below would pass for every route without testing anything.");
+      }
+    } else {
+      if (HOME_H1_RE.test(emitted)) {
+        throw new Error(`[prerender-seo] ${route.path}: the homepage crawler body leaked - this route would read to a JS-free crawler as a copy of the homepage.`);
+      }
+      if (!emitted.includes(`<h1>${escapeHtml(body.h1)}</h1>`)) {
+        throw new Error(`[prerender-seo] ${route.path}: crawler body does not carry its own H1 (${body.h1}).`);
+      }
+      if (words < minWordsFor(route.path)) {
+        throw new Error(`[prerender-seo] ${route.path}: crawler body is only ${words} words (floor ${minWordsFor(route.path)}) - too thin to ship.`);
+      }
+      // Paragraphs only. A HEADING may legitimately name the page - the
+      // /summer-presale H1 is "Summer Pre-Sale: Buy Now, Treat Later" - while a
+      // paragraph is where an actual price or dated offer would be asserted.
+      const crawlerParagraphs = [...crawlerBody.matchAll(/<p>([\s\S]*?)<\/p>/g)]
+        .map((m) => textOf(m[1])).join(" ");
+      if (OPERATIONAL_RE.test(crawlerParagraphs)) {
+        throw new Error(`[prerender-seo] ${route.path}: crawler body carries a price, discount or dated offer ("${crawlerParagraphs.match(OPERATIONAL_RE)[0]}"). Operational facts are the client's; keep them out of the prerendered layer.`);
+      }
+      if (CHAIN_RE.test(crawlerText)) {
+        throw new Error(`[prerender-seo] ${route.path}: crawler body carries a glued keyword chain ("${crawlerText.match(CHAIN_RE)[0]}"). Rewrite the heading on the page so it reads aloud.`);
+      }
+    }
+
+    written.push({ path: route.path, title, description, h1: body?.h1, words });
+  }
+
+  // Every non-home route must have a DISTINCT H1. Two routes sharing one is the
+  // same defect as sharing the homepage's, one step less obvious.
+  const byH1 = new Map();
+  for (const r of written) {
+    if (!r.h1) continue;
+    if (byH1.has(r.h1)) {
+      throw new Error(`[prerender-seo] ${byH1.get(r.h1)} and ${r.path} ship the same crawler H1 ("${r.h1}").`);
+    }
+    byH1.set(r.h1, r.path);
   }
 
   console.log(`[prerender-seo] Wrote ${written.length} route(s):`);
   for (const r of written) {
-    console.log(`  ✓ dist${r.path}/index.html`);
+    console.log(`  ✓ dist${r.path}/index.html  (crawler body ${r.words} words)`);
     console.log(`      title: ${r.title}`);
+    console.log(`      h1:    ${r.h1 ?? "(homepage noscript, unchanged)"}`);
     console.log(`      desc (${r.description.length} chars): ${r.description}`);
   }
   if (skipped.length) {
