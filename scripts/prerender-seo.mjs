@@ -72,7 +72,7 @@ const ROUTES = [
   { path: "/contact", crumb: "Contact", source: "Contact.tsx" },
   { path: "/laser-hair-removal", crumb: "Laser Hair Removal", source: "LaserHairRemoval.tsx" },
   { path: "/laser-skin-resurfacing", crumb: "Laser Skin Resurfacing", source: "LaserSkinResurfacing.tsx" },
-  { path: "/coolpeel-co2-laser-tysons-va", crumb: "CoolPeel CO₂ Tysons VA", source: "CoolPeelTysons.tsx", title: "CoolPeel Vienna VA | Tetra Pro Laser Tysons | Virginia Laser Specialists", description: "CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
+  { path: "/coolpeel-co2-laser-tysons-va", crumb: "CoolPeel CO₂ Tysons VA", source: "CoolPeelTysons.tsx", title: "CoolPeel Skin Resurfacing Tysons | CoolPeel Vienna VA", description: "CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499.", faq: "coolpeel" },
   { path: "/faq", crumb: "FAQ", source: "FAQ.tsx", faq: "faq" },
   // /unsubscribe was SKIPPED, which is not the same as excluded. A skipped
   // route falls back to dist/index.html, so it served the homepage title AND
