@@ -618,7 +618,7 @@ const CoolPeelTysons = () => {
                   Visit Us for CoolPeel in Tysons, VA
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  Conveniently located in Tysons, serving Vienna, McLean, Fairfax, Falls Church, and Northern Virginia
+                  Conveniently located on Boone Blvd in Vienna, minutes from Tysons, serving McLean, Fairfax, Falls Church, and Northern Virginia
                 </p>
               </div>
               
@@ -632,8 +632,8 @@ const CoolPeelTysons = () => {
                       <div>
                         <h3 className="font-bold text-foreground mb-1">Our Location</h3>
                         <p className="text-muted-foreground">
-                          8230 Boone Blvd, Suite 320<br />
-                          Tysons, VA 22182
+                          8100 Boone Blvd, Suite 270<br />
+                          Vienna, VA 22182
                         </p>
                       </div>
                     </div>
@@ -659,8 +659,8 @@ const CoolPeelTysons = () => {
                       <div>
                         <h3 className="font-bold text-foreground mb-1">Hours</h3>
                         <p className="text-muted-foreground">
-                          Monday - Friday: 9:00 AM - 5:00 PM<br />
-                          Saturday & Sunday: Closed
+                          Tuesday - Friday: 10:00 AM - 6:00 PM<br />
+                          Saturday: 9:00 AM - 1:00 PM
                         </p>
                       </div>
                     </div>
@@ -681,14 +681,14 @@ const CoolPeelTysons = () => {
                 {/* Embedded Google Map */}
                 <div className="h-[400px] rounded-xl overflow-hidden shadow-medium">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3106.5835844744707!2d-77.23373892358055!3d38.91983394785829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64a89e9d5c7af%3A0x8e0d9b9b9b9b9b9b!2s8230%20Boone%20Blvd%2C%20Tysons%2C%20VA%2022182!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                    src="https://maps.google.com/maps?q=8100+Boone+Blvd+Suite+270,+Vienna,+VA+22182&z=15&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Virginia Laser Specialists Location in Tysons, VA"
+                    title="Virginia Laser Specialists, 8100 Boone Blvd Suite 270, Vienna VA"
                   ></iframe>
                 </div>
               </div>
