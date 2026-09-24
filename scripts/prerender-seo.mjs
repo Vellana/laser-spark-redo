@@ -227,7 +227,7 @@ function staticMatches(source, tag) {
   for (const m of source.matchAll(re)) {
     if (m[1].includes("{")) continue;
     const text = textOf(m[1]);
-    if (text) out.push({ text, end: m.index + m[0].length });
+    if (text) out.push({ text, start: m.index, end: m.index + m[0].length });
   }
   return out;
 }
@@ -304,14 +304,25 @@ function buildBody(routePath, source, sourceFile) {
   const intro = staticTags(source, "p").find(usable);
   if (intro) { parts.push(`<p>${escapeHtml(intro)}</p>`); used.add(intro); }
 
+  // Every <h2 opening tag, static or interpolated, starts a new page section.
+  const h2Starts = [...source.matchAll(/<h2\b/g)].map((m) => m.index);
+
   for (const h2 of staticMatches(source, "h2").slice(0, 8)) {
     if (h2.text === h1) continue;
     parts.push(`<h2>${escapeHtml(h2.text)}</h2>`);
-    // The first unused static paragraph that follows this heading IN THE
-    // SOURCE, so the body reads as headings with their own copy rather than a
-    // heading list. Sliced from the heading's own end offset, not searched for
-    // by text.
-    const next = staticTags(source.slice(h2.end), "p").find((p) => usable(p) && !used.has(p));
+    // The first unused static paragraph INSIDE THIS HEADING'S OWN SECTION: after
+    // the heading and before the next <h2> in the source, so the body reads as
+    // headings with their own copy. Sliced by offsets, not searched for by text.
+    //
+    // v5 (2026-09-24): until now the search ran to the end of the file, so a
+    // heading with no static paragraph of its own took the NEXT section's. Live
+    // that day, the CoolPeel FAQ heading carried the street address, "Visit Us"
+    // carried the opening hours, and on /laser-hair-removal "Why Choose Us"
+    // carried the Treatment Areas line. A heading with no copy of its own now
+    // ships alone rather than borrowing someone else's.
+    const nextH2 = h2Starts.find((i) => i > h2.start);
+    const section = source.slice(h2.end, nextH2 ?? source.length);
+    const next = staticTags(section, "p").find((p) => usable(p) && !used.has(p));
     if (next) { parts.push(`<p>${escapeHtml(next)}</p>`); used.add(next); }
   }
 
@@ -440,7 +451,8 @@ function readMetaContent(html, keyAttr, keyValue) {
 }
 
 // v4: every route carries its OWN crawler body, not the homepage's.
-const PRERENDER_VERSION = "v4";
+// v5: a crawler-body heading only takes a paragraph from its own section.
+const PRERENDER_VERSION = "v5";
 
 /**
  * The homepage <noscript> H1 from index.html - the fingerprint of a duplicate
