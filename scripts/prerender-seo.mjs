@@ -150,11 +150,24 @@ const SERVICE_LD = {
     name: "Laser Hair Removal",
     alternateName: "Clarity II laser hair removal",
     serviceType: "Laser hair removal",
+    // "Long-lasting", not "permanent": the clinic's own FAQ says "We never say
+    // permanent", and the page copy was aligned to it on 2026-09-24.
     description:
-      "Permanent hair reduction with the Lutronic Clarity II dual-wavelength laser (Alexandrite and Nd:YAG), safe for all skin types, at our Vienna VA medical spa serving Tysons Corner and McLean.",
+      "Long-lasting hair reduction with the Lutronic Clarity II dual-wavelength laser (Alexandrite and Nd:YAG), safe for all skin types, at our Vienna VA medical spa serving Tysons Corner and McLean.",
     url: `${BASE_URL}/laser-hair-removal`,
     provider: PROVIDER,
     areaServed: ["Vienna, VA", "Tysons Corner, VA", "McLean, VA"],
+    // Descriptions are the page's own treatment-area card copy. No prices: those
+    // are the client's to change and stay on the page, never in a build artifact.
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Laser hair removal treatment areas",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Brazilian laser hair removal", description: "Removes all or most pubic hair from the front, sides and back, including the labia and the area between the buttocks." } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Underarm laser hair removal", description: "Includes both underarms for smooth, lasting results." } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Full body laser hair removal", description: "Removes hair from all desired areas (arms, legs, underarms, back, face, hands, feet)." } },
+      ],
+    },
   },
   "/laser-skin-resurfacing": {
     "@context": "https://schema.org",

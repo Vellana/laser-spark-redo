@@ -390,11 +390,11 @@ const LaserSkinResurfacing = () => {
                       <ul className="space-y-4 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">You may feel a warm / sunburn sensation for <strong>2–4+ hours</strong> post-treatment.</span>
+                          <span className="text-muted-foreground">You may feel a warm / sunburn sensation for <strong>2-4+ hours</strong> post-treatment.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Swelling, redness, and mild to moderate sunburn sensation are common (<strong>1–3 days</strong>).</span>
+                          <span className="text-muted-foreground">Swelling, redness, and mild to moderate sunburn sensation are common (<strong>1-3 days</strong>).</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
@@ -406,7 +406,7 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Keep the area moisturized; reapply products <strong>every 3–4 hours</strong> to maintain hydration and until the "sandpaper" texture resolves (<strong>typically 5–7 days</strong>).</span>
+                          <span className="text-muted-foreground">Keep the area moisturized; reapply products <strong>every 3-4 hours</strong> to maintain hydration and until the "sandpaper" texture resolves (<strong>typically 5-7 days</strong>).</span>
                         </li>
                       </ul>
                       
@@ -414,7 +414,7 @@ const LaserSkinResurfacing = () => {
                       <ul className="space-y-3 mb-8">
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Do not use any exfoliants or other products/procedures to address the texture for <strong>5–7 days</strong>.</span>
+                          <span className="text-muted-foreground">Do not use any exfoliants or other products/procedures to address the texture for <strong>5-7 days</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
@@ -442,11 +442,11 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Mineral makeup may be applied after <strong>2–5 days</strong>.</span>
+                          <span className="text-muted-foreground">Mineral makeup may be applied after <strong>2-5 days</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-accent font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. <strong>2–4 days</strong>.</span>
+                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, etc. <strong>2-4 days</strong>.</span>
                         </li>
                       </ul>
                       
@@ -529,7 +529,7 @@ const LaserSkinResurfacing = () => {
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
-                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, for <strong>5–7 days</strong>.</span>
+                          <span className="text-muted-foreground">Avoid exercise, sweating, excessive heat, saunas, hot tubs, for <strong>5-7 days</strong>.</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <span className="text-primary font-bold mt-0.5">•</span>
@@ -589,7 +589,7 @@ const LaserSkinResurfacing = () => {
                   For acne scarring, fractional CO2 resurfacing remains one of the most effective in-office options. The Tetra Pro platform fires precise microcolumns of CO2 energy into the skin, breaking up scar tissue and triggering fresh collagen to fill in pitted, boxcar, and rolling scars over the months after treatment.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  The same approach treats surgical and traumatic scars, and softens the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel skin resurfacing Tysons</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-547-4499 to schedule a complimentary evaluation.
+                  The same approach treats surgical and traumatic scars, and softens the texture and color of older stretch marks. Results build gradually and often require a short series of <Link to="/coolpeel-co2-laser-tysons-va" className="text-accent hover:underline">CoolPeel</Link> sessions or a single deeper DEKA Pulse treatment, depending on depth. Call 703-547-4499 to schedule a complimentary evaluation.
                 </p>
               </div>
             </div>

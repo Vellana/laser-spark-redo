@@ -128,12 +128,20 @@ const hairRemovalFAQs: QA[] = [
     a: "We can treat almost anywhere that has unwanted hair - however, we want to be very careful when treating around the eyes.",
   },
   {
+    q: "What does a Brazilian include?",
+    a: "A Brazilian treats the entire bikini area front, sides and back, including the labia and the area between the buttocks. It can be modified to leave a small, customized amount of hair, such as a landing strip or a triangle in the front. The Brozilian includes the scrotum, perineum and the area around the anus.",
+  },
+  {
     q: "How many treatments do I need?",
     a: "Everyone's body is different but, It takes an average of 5-10 treatments to have really good hair reduction. We never say permanent, but it can be very long lasting.",
   },
   {
     q: "What is the spacing between sessions?",
     a: "Treatments are generally spaced 6-10 weeks apart for best results. After treatment we need to give the hair time to work it's way out of the follicle and new growth to come in before the next treatment.",
+  },
+  {
+    q: "When should I start laser hair removal to be ready for summer?",
+    a: "As early as you can. Sessions are spaced several weeks apart, and treated skin needs protection from the sun for 2 to 4 weeks before and after each session, so fall and winter are a practical time to start a series.",
   },
   {
     q: "Can I wax or tweeze between sessions?",

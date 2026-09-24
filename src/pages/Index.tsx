@@ -33,7 +33,7 @@ const Index = () => {
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              Clarity II Laser Hair Removal in Vienna and Tysons Corner
+              Brazilian and Full-Body Laser Hair Removal
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
               Virginia Laser Specialists provides expert{" "}
@@ -54,7 +54,7 @@ const Index = () => {
         <section className="py-12 bg-secondary/20">
           <div className="container mx-auto px-4 max-w-4xl text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              CO2 Laser Resurfacing in Vienna and Tysons, VA
+              Treatments for Acne Scars, Sun Damage and Fine Lines
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
               Our{" "}

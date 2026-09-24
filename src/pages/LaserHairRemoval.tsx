@@ -52,128 +52,128 @@ const areaStyles: Record<string, { icon: LucideIcon; color: string }> = {
 const treatmentAreas: TreatmentArea[] = [
   {
     name: "Brazilian / Brozilian",
-    summary: "Includes entire bikini area front, sides and back (labia and butt strip) – 8‑10 treatments recommended.",
+    summary: "Includes the entire bikini area front, sides and back (labia and butt strip). 8 to 10 treatments recommended.",
     description: "Removes all or most pubic hair from front, sides and back, including the labia and area between the buttocks; Brozilian includes scrotum, perineum and around anus.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $300; Package of 5 $1,125 (25% off)"
   },
   {
     name: "Underarms",
-    summary: "Both underarms – 8‑10 treatments recommended.",
+    summary: "Both underarms. 8 to 10 treatments recommended.",
     description: "Includes both underarms for smooth, lasting results.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $150; Package of 5 $562.50 (25% off)"
   },
   {
     name: "Legs (Half/Full)",
-    summary: "Both legs, front and back (half or full) – 8‑10 treatments recommended.",
+    summary: "Both legs, front and back (half or full). 8 to 10 treatments recommended.",
     description: "Includes both legs, front and back (half or full leg options available).",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Half-leg single $350; Package of 5 $1,312.50. Full-leg single $500; Package of 5 $1,875 (25% off)"
   },
   {
     name: "Back (Half/Full)",
-    summary: "Half or full back – 8‑10 treatments recommended.",
+    summary: "Half or full back. 8 to 10 treatments recommended.",
     description: "Includes upper or lower back; full back covers the entire back area.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Half-back single $250; Package of 5 $937.50. Full-back single $400; Package of 5 $1,500 (25% off)"
   },
   {
     name: "Chin",
-    summary: "Front and under the chin – 8‑10 treatments recommended.",
+    summary: "Front and under the chin. 8 to 10 treatments recommended.",
     description: "Includes front and under chin (not the neck).",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375 (25% off)"
   },
   {
     name: "Face",
-    summary: "Upper lip, chin, cheeks, sideburns, forehead and hairline – 8‑10 treatments recommended.",
+    summary: "Upper lip, chin, cheeks, sideburns, forehead and hairline. 8 to 10 treatments recommended.",
     description: "Includes upper lip, chin, cheeks, sideburns, forehead and hairline.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $250; Package of 5 $937.50 (25% off)"
   },
   {
     name: "Arms (Half/Full)",
-    summary: "Both arms, front and back (half or full) – 8‑10 treatments recommended.",
+    summary: "Both arms, front and back (half or full). 8 to 10 treatments recommended.",
     description: "Includes both arms front and back (half or full arm options available).",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Half-arms single $300; Package of 5 $1,125. Full-arms single $400; Package of 5 $1,500 (25% off)"
   },
   {
     name: "Chest",
-    summary: "Upper torso (excludes shoulders and abdomen) – 8‑10 treatments recommended.",
+    summary: "Upper torso (excludes shoulders and abdomen). 8 to 10 treatments recommended.",
     description: "Includes upper torso (doesn't include shoulders or abdomen).",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $250; Package of 5 $937.50"
   },
   {
     name: "Abdomen",
-    summary: "Lower torso – 8‑10 treatments recommended.",
+    summary: "Lower torso. 8 to 10 treatments recommended.",
     description: "Includes lower torso (doesn't include chest).",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $250; Package of 5 $937.50"
   },
   {
     name: "Bikini Line",
-    summary: "Hair removal along the top and sides of the bikini line – 8‑10 treatments recommended.",
+    summary: "Hair removal along the top and sides of the bikini line. 8 to 10 treatments recommended.",
     description: "Removes hair along and outside the top and sides of the bikini line.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $250; Package of 5 $937.50"
   },
   {
     name: "Neck (Front or Back)",
-    summary: "Front or back of the neck – 8‑10 treatments recommended.",
+    summary: "Front or back of the neck. 8 to 10 treatments recommended.",
     description: "Front or back of neck (nape) but not chin.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Sideburns",
-    summary: "Area in front of the ears, extending down toward the jawline – 8‑10 treatments recommended.",
+    summary: "Area in front of the ears, extending down toward the jawline. 8 to 10 treatments recommended.",
     description: "Removes hair in front of the ears, extending down toward the jawline.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Upper Lip",
-    summary: "Upper lip and corners of the mouth – 8‑10 treatments recommended.",
+    summary: "Upper lip and corners of the mouth. 8 to 10 treatments recommended.",
     description: "Removes hair from the upper lip and corners of mouth.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Shoulders",
-    summary: "Base of the neck to top of the upper arms and back – 8‑10 treatments recommended.",
+    summary: "Base of the neck to top of the upper arms and back. 8 to 10 treatments recommended.",
     description: "Removes hair from base of neck to top of upper arms and back.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Hands",
-    summary: "Wrist to the tops of the fingers – 8‑10 treatments recommended.",
+    summary: "Wrist to the tops of the fingers. 8 to 10 treatments recommended.",
     description: "Removes hair from wrist to top of fingers.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Feet",
-    summary: "Ankle to the tip of the toes – 8‑10 treatments recommended.",
+    summary: "Ankle to the tip of the toes. 8 to 10 treatments recommended.",
     description: "Removes hair from ankle to toes.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Breasts",
-    summary: "Breast area, including the areolas – 8‑10 treatments recommended.",
+    summary: "Breast area, including the areolas. 8 to 10 treatments recommended.",
     description: "Removes hair on breasts including areolas.",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $100; Package of 5 $375"
   },
   {
     name: "Full Body",
-    summary: "All desired areas from head to toe – 8‑10 treatments recommended.",
+    summary: "All desired areas from head to toe. 8 to 10 treatments recommended.",
     description: "Removes hair from all desired areas (arms, legs, underarms, back, face, hands, feet).",
-    treatments: "8–10 treatments every 6–8 weeks",
+    treatments: "8 to 10 treatments every 6 to 8 weeks",
     pricing: "Single $1,850; Package of 5 $6,937.50"
   }
 ];
@@ -210,8 +210,8 @@ const LaserHairRemoval = () => {
     },
     {
       icon: Zap,
-      title: "Permanent Hair Reduction",
-      description: "FDA-cleared technology for long-lasting smooth skin results"
+      title: "Long-Lasting Hair Reduction",
+      description: "FDA-cleared technology for long-lasting smooth skin"
     },
     {
       icon: Users,
@@ -262,13 +262,13 @@ const LaserHairRemoval = () => {
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
                 <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                  Gold Standard Technology
+                  Brazilian • Underarms • Full Body
                 </span>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
                   Laser Hair Removal in Tysons Corner and Vienna, VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Experience Clarity II laser hair removal for permanent hair reduction. The Lutronic Clarity II is the gold standard dual-wavelength system, safe for all skin types and tones, delivering exceptional results with minimal discomfort across Tysons, Vienna, and McLean.
+                  From a Brazilian to full body, our treatments use the Lutronic Clarity II, a dual-wavelength laser that is safe for all skin types and tones.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
@@ -344,6 +344,17 @@ const LaserHairRemoval = () => {
         <section className="py-12 sm:py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
+              <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                  Brazilian Laser Hair Removal
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  A Brazilian covers the entire bikini area front, sides and back, and 8 to 10 treatments
+                  spaced 6 to 8 weeks apart are recommended. Cryogen cooling on the Clarity II helps keep
+                  sessions comfortable. Treated skin needs protection from the sun for 2 to 4 weeks before
+                  and after each session, which makes fall and winter a practical time to start.
+                </p>
+              </div>
               <div className="text-center mb-8 sm:mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
                   Treatment Areas

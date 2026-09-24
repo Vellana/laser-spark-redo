@@ -41,7 +41,7 @@ const services: ServiceArea[] = [
     description: "Complete and comfortable hair removal for intimate areas.",
     icon: Target,
     color: "text-pink-500 bg-pink-500/10",
-    fullDescription: "Brazilian Includes: Removes all or most of the pubic hair from the front, sides, and back, including the labia and the area between the buttocks. This can be modified to keep a small, customized portion of hair – often a landing strip or a triangle in the front. Brozilian Includes: Removes all or most of the pubic hair from the genital area, including the scrotum, perineum (the area between the scrotum and anus), and around the anus.",
+    fullDescription: "Brazilian Includes: Removes all or most of the pubic hair from the front, sides, and back, including the labia and the area between the buttocks. This can be modified to keep a small, customized portion of hair, often a landing strip or a triangle in the front. Brozilian Includes: Removes all or most of the pubic hair from the genital area, including the scrotum, perineum (the area between the scrotum and anus), and around the anus.",
     singlePrice: "$300",
     packagePrice: "$1,125 (save 25%)",
   },

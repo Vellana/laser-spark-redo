@@ -189,8 +189,8 @@ const benefits = [
   },
   {
     icon: Star,
-    title: "Sun Damage Repair",
-    description: "Reverse years of sun damage and reduce age spots"
+    title: "Softens Sun Damage",
+    description: "Soften the look of sun damage and age spots"
   },
   {
     icon: Shield,
@@ -267,15 +267,15 @@ const CoolPeelTysons = () => {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
                 <span className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-                  CoolPeel • Tysons & Vienna, VA
+                  Acne Scars • Sun Damage • Fine Lines
                 </span>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground">
                   CoolPeel CO₂ Laser Resurfacing in Tysons, VA
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Experience the next generation of skin rejuvenation at Virginia Laser Specialists. 
-                  CoolPeel delivers powerful CO₂ laser benefits with minimal downtime-perfect for 
-                  busy professionals in Tysons, Vienna, and Northern Virginia.
+                  Acne scarring, sun damage, fine lines and uneven texture can all be softened with laser
+                  resurfacing. CoolPeel is our lighter CO₂ treatment, and recovery is typically just 1 to 3
+                  days of mild redness.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
@@ -363,9 +363,9 @@ const CoolPeelTysons = () => {
                 
                 <Card className="border-accent/40">
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-foreground mb-4">Ideal Candidates in Tysons & Vienna</h3>
+                    <h3 className="text-xl font-bold text-foreground mb-4">Concerns We Treat With CoolPeel</h3>
                     <p className="text-muted-foreground mb-4">
-                      CoolPeel treatment is perfect for Northern Virginia residents who want to address:
+                      CoolPeel is a good fit for improving:
                     </p>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
@@ -404,7 +404,7 @@ const CoolPeelTysons = () => {
                 Benefits of CoolPeel CO₂ Laser Resurfacing
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Discover why CoolPeel is the preferred choice for skin rejuvenation in Tysons, Vienna, and Northern Virginia
+                Improvements build over a short series of sessions, with minimal downtime after each one.
               </p>
             </div>
             
@@ -729,10 +729,10 @@ const CoolPeelTysons = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto space-y-4">
               <h2 className="text-3xl font-bold text-foreground">
-                CoolPeel Pricing in Vienna, Tysons, and McLean
+                CoolPeel Pricing
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                CoolPeel sessions are performed at Virginia Laser Specialists on the DEKA Tetra Pro CO2 platform for consistent, tailored resurfacing. CoolPeel laser cost is $750 for a single session and $2,000 for a series of three sessions spaced about one month apart, which is how most patients in Tysons, Vienna, and McLean achieve their best results.
+                CoolPeel sessions are performed at Virginia Laser Specialists on the DEKA Tetra Pro CO2 platform for consistent, tailored resurfacing. CoolPeel laser cost is $750 for a single session and $2,000 for a series of three sessions spaced about one month apart, which is how most patients achieve their best results.
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 We keep pricing transparent and offer Cherry financing with $0 down so you can spread payments across monthly installments. For a full breakdown of single sessions, series pricing, and current promotions, see our <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> page or call 703-547-4499 to book a complimentary skin evaluation at our Vienna office.
