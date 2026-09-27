@@ -142,6 +142,27 @@ const FAQ_BUILDERS = {
 // sitewide OfferCatalog text and each page's own copy - nothing invented, no
 // prices. provider points at the MedicalSpa @id declared in index.html.
 const PROVIDER = { "@id": `${BASE_URL}/#medspa` };
+// Service area, shared by every Service block below and kept IDENTICAL to the
+// MedicalSpa areaServed in index.html, so the two entities never disagree. It is
+// the trade area of MM market_research #86 (primary ~15 min: Tysons/Vienna, McLean,
+// Great Falls, Oakton, Falls Church, with Dunn Loring and Merrifield inside Fairfax
+// County; secondary ~25 min: Fairfax, Reston, Herndon, North Arlington), confirmed by
+// measured demand in "VLS SEO Area Expansion: Northern Virginia Service Areas" (Sep
+// 2026). Invisible layer only: this list never goes into visible copy.
+const AREA_SERVED = [
+  { "@type": "City", name: "Tysons" },
+  { "@type": "City", name: "Vienna" },
+  { "@type": "City", name: "McLean" },
+  { "@type": "City", name: "Falls Church" },
+  { "@type": "City", name: "Arlington" },
+  { "@type": "City", name: "Great Falls" },
+  { "@type": "City", name: "Oakton" },
+  { "@type": "City", name: "Fairfax" },
+  { "@type": "City", name: "Reston" },
+  { "@type": "City", name: "Herndon" },
+  { "@type": "AdministrativeArea", name: "Fairfax County" },
+  { "@type": "Place", name: "Northern Virginia" },
+];
 const SERVICE_LD = {
   "/laser-hair-removal": {
     "@context": "https://schema.org",
@@ -156,7 +177,7 @@ const SERVICE_LD = {
       "Long-lasting hair reduction with the Lutronic Clarity II dual-wavelength laser (Alexandrite and Nd:YAG), safe for all skin types, at our Vienna VA medical spa serving Tysons Corner and McLean.",
     url: `${BASE_URL}/laser-hair-removal`,
     provider: PROVIDER,
-    areaServed: ["Vienna, VA", "Tysons Corner, VA", "McLean, VA"],
+    areaServed: AREA_SERVED,
     // Descriptions are the page's own treatment-area card copy. No prices: those
     // are the client's to change and stay on the page, never in a build artifact.
     hasOfferCatalog: {
@@ -180,7 +201,7 @@ const SERVICE_LD = {
       "Fractional CO2 laser resurfacing on the Tetra Pro platform: CoolPeel for mild wrinkles, sun damage and uneven texture with minimal downtime, or DEKA Pulse for deep wrinkles, scars and severe sun damage.",
     url: `${BASE_URL}/laser-skin-resurfacing`,
     provider: PROVIDER,
-    areaServed: ["Vienna, VA", "Tysons, VA"],
+    areaServed: AREA_SERVED,
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Laser skin resurfacing treatments",
@@ -201,7 +222,7 @@ const SERVICE_LD = {
       "CoolPeel skin resurfacing performed with the Cartessa Tetra Pro fractional CO2 laser. Treats fine lines, sun damage, large pores, and uneven texture with 1-3 days of downtime.",
     url: `${BASE_URL}/coolpeel-co2-laser-tysons-va`,
     provider: PROVIDER,
-    areaServed: ["Tysons, VA", "Vienna, VA"],
+    areaServed: AREA_SERVED,
   },
 };
 

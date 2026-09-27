@@ -414,6 +414,9 @@ const Contact = () => {
                                                     8100 Boone Blvd, Suite 270<br />
                                                     Vienna, VA 22182
                                                 </a>
+                                                <p className="text-sm text-muted-foreground mt-2">
+                                                    Serving Vienna, Tysons, McLean, Fairfax, Falls Church and nearby Northern Virginia.
+                                                </p>
                                             </div>
                                         </div>
 
