@@ -42,3 +42,16 @@ future reconnect points at it. Never force it:
     git merge-base --is-ancestor origin/lovable-sync origin/main && git push origin origin/main:refs/heads/lovable-sync
 
 `_agent-publish` is historical and is 50+ commits behind. Do not build from it.
+
+## 2026-09-27/28: the divergence, measured again
+
+- Lovable Settings > Git > GitHub reads "Lovable and GitHub have diverged: 6 commits in Lovable,
+  8 commits on GitHub". Lovable's side since d1a50e2 is only its three Sep 24 edits, and every
+  change in them is already on `main` (WebSite JSON-LD, previewAuthStorage.ts, client.ts, types.ts
+  14.5, the CoolPeel Tysons NAP fix): checked file by file on 2026-09-28. GitHub's side has the
+  8 commits e0723bd..8d10df0 (Sep 24 SEO, prerender v5, the GBP phone fix).
+- Lovable's docs: when diverged, "the next sync from GitHub replaces Lovable's version of the
+  branch with the GitHub version". Disconnect + Connect (done 2026-09-28 ~00:30 UTC) re-linked
+  this same repo instead of creating a new one, and the divergence stayed.
+- This commit is the test push: if `list_edits` shows it as a developer_update, GitHub -> Lovable
+  works again.
