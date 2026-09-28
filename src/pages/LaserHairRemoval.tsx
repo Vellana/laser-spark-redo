@@ -10,9 +10,7 @@ import { useState } from "react";
 import SEO from "@/components/SEO";
 import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
-import MedicalSpaSchema from "@/components/MedicalSpaSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
-import ServiceSchema from "@/components/ServiceSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
@@ -232,8 +230,11 @@ const LaserHairRemoval = () => {
         description="Laser hair removal Tysons Corner and Vienna VA with the Lutronic Clarity II - safe for all skin types, with free consultations at our Vienna VA medical spa."
         canonicalUrl="/laser-hair-removal"
       />
+      {/* No <MedicalSpaSchema /> or <ServiceSchema /> here: the MedicalSpa
+          entity ships from index.html and this page's Service (#service) from
+          scripts/prerender-seo.mjs SERVICE_LD. Emitting them again from React
+          rendered each one twice. */}
       <LocalBusinessSchema />
-      <MedicalSpaSchema />
       <MedicalProcedureSchema
         name="Laser Hair Removal in Tysons, VA"
         description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with cryogen cooling for comfort."
@@ -242,11 +243,6 @@ const LaserHairRemoval = () => {
         followup="8-10 sessions spaced 6-8 weeks apart for optimal permanent hair reduction results"
         howPerformed="The Lutronic Clarity II laser delivers dual-wavelength energy (755nm Alexandrite and 1064nm Nd:YAG) with integrated cryogen cooling to target hair follicles while protecting surrounding skin."
         outcome="Long-lasting hair reduction with up to 90% permanent hair removal after completing full treatment series"
-        url="/laser-hair-removal"
-      />
-      <ServiceSchema
-        name="Laser Hair Removal in Vienna VA and Tysons Corner"
-        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with integrated cryogen cooling. Serving Vienna, Tysons Corner, McLean, and Northern Virginia."
         url="/laser-hair-removal"
       />
       <BreadcrumbSchema items={[

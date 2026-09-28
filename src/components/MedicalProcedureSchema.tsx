@@ -40,7 +40,7 @@ const MedicalProcedureSchema = ({
     "status": "Available",
     "provider": {
       "@type": ["MedicalBusiness", "LocalBusiness"],
-      "@id": "https://virginialaserspecialists.com/#business",
+      "@id": "https://virginialaserspecialists.com/#medspa",
       "name": "Virginia Laser Specialists",
       "telephone": "+1-703-547-4499",
       "address": {

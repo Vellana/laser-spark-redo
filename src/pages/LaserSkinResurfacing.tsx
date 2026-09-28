@@ -9,7 +9,6 @@ import SEO from "@/components/SEO";
 import { pushEvent } from "@/lib/analytics";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
-import ServiceSchema from "@/components/ServiceSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 import BeforeAfterPreview from "@/components/BeforeAfterPreview";
@@ -37,11 +36,9 @@ const LaserSkinResurfacing = () => {
         outcome="Improved skin texture, reduced fine lines and wrinkles, diminished sun damage, minimized pores, and enhanced collagen production"
         url="/laser-skin-resurfacing"
       />
-      <ServiceSchema
-        name="Fractional CO₂ Laser Skin Resurfacing in Tysons, VA"
-        description="Fractional CO₂ laser skin resurfacing using the Cartessa DEKA Tetra Pro platform. Choose CoolPeel for minimal downtime or DEKA Pulse for dramatic results. Treats fine lines, wrinkles, sun damage, acne scars, and stretch marks. Serving Tysons Corner, Vienna, and Northern Virginia."
-        url="/laser-skin-resurfacing"
-      />
+      {/* No <ServiceSchema /> here: this page's Service (#service) ships from
+          scripts/prerender-seo.mjs SERVICE_LD; a second copy from React rendered
+          it twice. The two sub-services below have their own @ids. */}
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
@@ -54,7 +51,7 @@ const LaserSkinResurfacing = () => {
                 "description": "CO₂ laser skin resurfacing performed with the Cartessa DEKA Tetra Pro platform, offered as CoolPeel for minimal downtime or DEKA Pulse for deeper resurfacing.",
                 "url": "https://virginialaserspecialists.com/laser-skin-resurfacing",
                 "category": "MedicalProcedure",
-                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "provider": { "@id": "https://virginialaserspecialists.com/#medspa" },
                 "areaServed": [
                   { "@type": "City", "name": "Tysons Corner" },
                   { "@type": "City", "name": "Tysons" },
@@ -68,7 +65,7 @@ const LaserSkinResurfacing = () => {
                 "description": "Fractional CO₂ laser treatment for stretch marks using the Cartessa DEKA Tetra Pro platform at Virginia Laser Specialists in Vienna, VA.",
                 "url": "https://virginialaserspecialists.com/laser-skin-resurfacing",
                 "category": "MedicalProcedure",
-                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "provider": { "@id": "https://virginialaserspecialists.com/#medspa" },
                 "areaServed": [
                   { "@type": "City", "name": "Vienna" },
                   { "@type": "City", "name": "Tysons Corner" }

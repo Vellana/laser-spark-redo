@@ -13,7 +13,6 @@ import { Sparkles, Clock, CheckCircle, Star, Calendar, Shield, MapPin, Phone } f
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
-import ServiceSchema from "@/components/ServiceSchema";
 import { Helmet } from "react-helmet-async";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
@@ -26,7 +25,7 @@ const CoolPeelTysonsSchema = () => {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": "https://virginialaserspecialists.com/#business",
+        "@id": "https://virginialaserspecialists.com/#medspa",
         "name": "Virginia Laser Specialists",
         "description": "Virginia Laser Specialists offers CoolPeel CO2 laser resurfacing treatments in Tysons and Vienna, VA. Expert skin rejuvenation with minimal downtime using advanced Cartessa Tetra Pro technology.",
         "url": "https://virginialaserspecialists.com",
@@ -80,54 +79,6 @@ const CoolPeelTysonsSchema = () => {
         ]
       },
       {
-        "@type": "MedicalSpa",
-        "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#medicalspa",
-        "name": "Virginia Laser Specialists - CoolPeel Tysons",
-        "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va",
-        "telephone": "+17035474499",
-        "email": "info@virginialaserspecialists.com",
-        "priceRange": "$$",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "8100 Boone Blvd, Suite 270",
-          "addressLocality": "Vienna",
-          "addressRegion": "VA",
-          "postalCode": "22182",
-          "addressCountry": "US"
-        },
-        "areaServed": [
-          { "@type": "City", "name": "Tysons" },
-          { "@type": "City", "name": "Vienna" },
-          { "@type": "City", "name": "McLean" },
-          { "@type": "City", "name": "Falls Church" },
-          { "@type": "City", "name": "Arlington" },
-          { "@type": "City", "name": "Fairfax" }
-        ],
-        "medicalSpecialty": { "@type": "MedicalSpecialty", "name": "Dermatology" },
-        "availableService": {
-          "@type": "MedicalProcedure",
-          "name": "CoolPeel CO2 Laser Resurfacing Tysons",
-          "procedureType": "NoninvasiveProcedure"
-        }
-      },
-      {
-        "@type": "Service",
-        "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#service",
-        "serviceType": "CoolPeel CO2 Laser Resurfacing",
-        "name": "CoolPeel skin resurfacing Tysons",
-        "alternateName": [
-          "CoolPeel skin resurfacing Tysons",
-          "CoolPeel CO2 laser Tysons",
-          "CoolPeel Vienna VA",
-          "CoolPeel near me Tysons"
-        ],
-        "description": "CoolPeel skin resurfacing Tysons performed with the Cartessa Tetra Pro fractional CO2 laser. Treats fine lines, sun damage, large pores, and uneven texture with 1-3 days of downtime.",
-        "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va",
-        "areaServed": ["Tysons, VA", "Vienna, VA", "McLean, VA", "Falls Church, VA", "Arlington, VA", "Fairfax, VA"],
-        "keywords": "CoolPeel skin resurfacing Tysons, CoolPeel laser cost, CO2 laser Tysons, CO2 laser resurfacing Vienna VA, DEKA Tetra Pro Vienna, laser skin resurfacing Northern Virginia",
-        "provider": { "@id": "https://virginialaserspecialists.com/#business" }
-      },
-      {
         "@type": "MedicalProcedure",
         "@id": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va#procedure",
         "name": "CoolPeel CO2 Laser Resurfacing in Tysons, VA",
@@ -140,32 +91,37 @@ const CoolPeelTysonsSchema = () => {
         "status": "Available",
         "provider": {
           "@type": "LocalBusiness",
-          "@id": "https://virginialaserspecialists.com/#business"
+          "@id": "https://virginialaserspecialists.com/#medspa"
         },
         "relevantSpecialty": {
           "@type": "MedicalSpecialty",
           "name": "Dermatology"
         },
         "outcome": "Improved skin texture, reduced fine lines and wrinkles, diminished sun damage, enhanced collagen production"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": faqs.map((faq) => ({
-          "@type": "Question",
-          "name": faq.question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": faq.answer
-          }
-        }))
       }
     ]
+  };
+
+  // Same shape and key order as the FAQPage scripts/prerender-seo.mjs writes for
+  // this route (built from the same `faqs` array), so the two serialise
+  // identically and Helmet keeps the prerendered copy instead of adding one.
+  const faqData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq.answer },
+    })),
   };
 
   return (
     <Helmet>
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(faqData)}
       </script>
     </Helmet>
   );
@@ -247,16 +203,12 @@ const CoolPeelTysons = () => {
         description="CO2 laser Tysons and CoolPeel skin resurfacing Tysons on the DEKA Tetra Pro platform, plus CoolPeel Vienna VA. 1-3 day recovery. Call 703-547-4499."
         canonicalUrl="/coolpeel-co2-laser-tysons-va"
       />
+      {/* No <ServiceSchema /> here: this page's Service (#service) ships from
+          scripts/prerender-seo.mjs SERVICE_LD; a React copy rendered it twice. */}
       <CoolPeelTysonsSchema />
-      <ServiceSchema
-        name="CoolPeel CO₂ Laser Resurfacing"
-        description="CoolPeel CO₂ laser resurfacing in Tysons and Vienna, VA using Cartessa Tetra Pro technology. Minimal downtime skin rejuvenation that treats fine lines, wrinkles, sun damage, and uneven texture with 1-3 day recovery."
-        url="/coolpeel-co2-laser-tysons-va"
-      />
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
-        { name: "Laser Skin Resurfacing", url: "/laser-skin-resurfacing" },
-        { name: "CoolPeel Tysons VA", url: "/coolpeel-co2-laser-tysons-va" }
+        { name: "CoolPeel CO₂ Tysons VA", url: "/coolpeel-co2-laser-tysons-va" }
       ]} />
       <Navigation />
       

@@ -10,8 +10,9 @@ const Booking = () => {
       <SEO
         title="Book Online | Virginia Laser Specialists - Vienna, VA"
         description="Book your laser hair removal or CoolPeel CO2 resurfacing appointment online with Virginia Laser Specialists in Vienna, VA. Free consultations available."
+        canonicalUrl="/booking"
       />
-      <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Book Online", url: "/booking" }]} />
+      <BreadcrumbSchema items={[{ name: "Home", url: "/" }, { name: "Book Now", url: "/booking" }]} />
       <Navigation />
       <main className="flex-1 pt-32 pb-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

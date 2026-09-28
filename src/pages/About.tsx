@@ -40,7 +40,7 @@ const About = () => {
             <LocalBusinessSchema />
             <BreadcrumbSchema items={[
                 { name: "Home", url: "/" },
-                { name: "About Us", url: "/about" }
+                { name: "About", url: "/about" }
             ]} />
             <Navigation />
             <main className="pt-20">

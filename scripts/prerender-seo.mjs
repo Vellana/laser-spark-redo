@@ -136,11 +136,13 @@ const FAQ_BUILDERS = {
   },
 };
 
-// Per-route Service JSON-LD. The pages' own <Helmet>/jsonLd Service blocks never
-// reach production (Helmet is inert on this build), so before this every
-// service page shipped only the sitewide MedicalSpa. Descriptions reuse the
-// sitewide OfferCatalog text and each page's own copy - nothing invented, no
-// prices. provider points at the MedicalSpa @id declared in index.html.
+// Per-route Service JSON-LD. This is the ONLY Service (#service) block for these
+// routes: the pages no longer render their own <ServiceSchema />, which (once
+// Helmet was live) put a second, different Service next to this one. Before this
+// block existed every service page shipped only the sitewide MedicalSpa.
+// Descriptions reuse the sitewide OfferCatalog text and each page's own copy -
+// nothing invented, no prices. provider points at the MedicalSpa @id declared in
+// index.html, which LocalBusinessSchema.tsx now shares.
 const PROVIDER = { "@id": `${BASE_URL}/#medspa` };
 // Service area, shared by every Service block below and kept IDENTICAL to the
 // MedicalSpa areaServed in index.html, so the two entities never disagree. It is
@@ -484,9 +486,98 @@ function readMetaContent(html, keyAttr, keyValue) {
   return tag.match(/\bcontent\s*=\s*(["'])(.*?)\1/i)?.[2]?.trim();
 }
 
+// ---------------------------------------------------------------------------
+// ONE COPY OF EACH HEAD TAG AFTER HYDRATION (v6, 2026-09-28)
+//
+// react-helmet-async REPLACES a head tag only when the existing one carries
+// data-rh; any other tag it leaves alone and appends its own copy next to it.
+// Rendered with JavaScript (which is how Google indexes), every route therefore
+// carried two canonicals, two descriptions, two of every og:/twitter: tag, and
+// two of each JSON-LD block that a page also renders from React.
+//
+// So every static tag that the route's React tree ALSO emits is stamped
+// data-rh="true" here, and Helmet takes it over instead of duplicating it.
+// Stamp NOTHING that React does not emit: on hydration Helmet deletes every
+// [data-rh] tag it did not render itself, so a wrong stamp would delete
+// og:image:width, geo.*, keywords etc. from the rendered page. That is why the
+// list below is READ from SEO.tsx's <Helmet> block rather than written here.
+// ---------------------------------------------------------------------------
+const HELMET_HEAD = (() => {
+  const src = readFileSync(path.join(ROOT, "src", "components", "SEO.tsx"), "utf8");
+  const block = src.match(/<Helmet>([\s\S]*?)<\/Helmet>/)?.[1];
+  if (!block) throw new Error("[prerender-seo] SEO.tsx: could not find its <Helmet> block to learn which head tags React owns.");
+  const metas = [...block.matchAll(/<meta\s+(name|property)="([^"]+)"/g)].map((m) => ({ attr: m[1], key: m[2] }));
+  const canonical = /<link\s+rel="canonical"/.test(block);
+  if (!canonical || !metas.some((m) => m.key === "description")) {
+    throw new Error("[prerender-seo] SEO.tsx: parsed no canonical/description from its <Helmet> block - the scrape broke, so stamping would be wrong.");
+  }
+  return { metas, canonical };
+})();
+
+const RH = ' data-rh="true"';
+
+/** Add data-rh="true" to every tag in `html` matching `re` (idempotent). */
+function stampAll(html, re) {
+  return html.replace(re, (tag) =>
+    /\sdata-rh\s*=/i.test(tag) ? tag : tag.replace(/\s*(\/?)>$/, (_m, slash) => `${RH}${slash ? " /" : ""}>`),
+  );
+}
+
+/** Stamp the head tags SEO.tsx's <Helmet> also renders. Head only. */
+function stampHelmetHead(html) {
+  const end = html.search(/<\/head>/i);
+  let head = html.slice(0, end);
+  for (const { attr, key } of HELMET_HEAD.metas) {
+    head = stampAll(head, new RegExp(`<meta\\b(?=[^>]*\\b${attr}\\s*=\\s*(["'])${escapeRegExp(key)}\\1)[^>]*>`, "gi"));
+  }
+  if (HELMET_HEAD.canonical) {
+    head = stampAll(head, /<link\b(?=[^>]*\brel\s*=\s*(["'])canonical\1)[^>]*>/gi);
+  }
+  return head + html.slice(end);
+}
+
+/**
+ * Page source minus JSX comments, and block/line comments that start a line
+ * (for detection only). Anchored so a string such as accept="image/*" is never
+ * read as the start of a comment.
+ */
+function stripComments(source) {
+  return source
+    .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, "")
+    .replace(/^\s*\/\*[\s\S]*?\*\//gm, "")
+    .replace(/^\s*\/\/.*$/gm, "");
+}
+
+/**
+ * The page's own <BreadcrumbSchema items={[...]} />, or undefined. The prerender
+ * builds the route's BreadcrumbList from THESE items, so the static block and
+ * the one React renders serialise byte-for-byte alike and Helmet keeps the
+ * static one in place. ROUTES[].crumb is only the fallback for a page without
+ * its own BreadcrumbSchema.
+ */
+function pageBreadcrumbItems(source, routePath) {
+  const m = source.match(/<BreadcrumbSchema\b[\s\S]*?items=\{\s*(\[[\s\S]*?\])\s*\}\s*\/>/);
+  if (!m) return undefined;
+  let items;
+  try {
+    items = new Function(`return (${m[1]});`)();
+  } catch {
+    console.warn(`[prerender-seo] ${routePath}: <BreadcrumbSchema items> is not a plain literal; using ROUTES crumb, unstamped.`);
+    return undefined;
+  }
+  const ok = Array.isArray(items) && items.length >= 2 && items.every((i) => typeof i?.name === "string" && typeof i?.url === "string");
+  if (!ok || items[items.length - 1].url !== routePath) {
+    console.warn(`[prerender-seo] ${routePath}: <BreadcrumbSchema items> does not end at this route; using ROUTES crumb, unstamped.`);
+    return undefined;
+  }
+  return items;
+}
+
 // v4: every route carries its OWN crawler body, not the homepage's.
 // v5: a crawler-body heading only takes a paragraph from its own section.
-const PRERENDER_VERSION = "v5";
+// v6: tags React also renders are stamped data-rh, so each exists once after
+//     hydration; breadcrumbs come from the page's own BreadcrumbSchema.
+const PRERENDER_VERSION = "v6";
 
 /**
  * The homepage <noscript> H1 from index.html - the fingerprint of a duplicate
@@ -497,7 +588,7 @@ const PRERENDER_VERSION = "v5";
  */
 const HOME_H1_RE = /Virginia Laser Specialists - Laser Hair Removal (?:&|&amp;) CoolPeel Skin Resurfacing in Tysons, VA/;
 
-function transform(html, { title, description, canonical, noindex, jsonLd, serviceLd, breadcrumbLd, body }) {
+function transform(html, { title, description, canonical, noindex, jsonLd, serviceLd, breadcrumbLd, body, reactOwns = {} }) {
   let out = html;
 
   // <title>
@@ -541,15 +632,20 @@ function transform(html, { title, description, canonical, noindex, jsonLd, servi
   ensureMeta("property", "og:title", title);
   ensureMeta("name", "twitter:title", title);
 
-  // Per-route JSON-LD (crawler-visible without JavaScript).
-  for (const block of [jsonLd, serviceLd, breadcrumbLd]) {
+  // Per-route JSON-LD (crawler-visible without JavaScript). A block is stamped
+  // data-rh only when the page renders the same entity from React (see
+  // reactOwns in main()), so Helmet replaces it rather than adding a second one.
+  for (const [block, owned] of [[jsonLd, reactOwns.faq], [serviceLd, reactOwns.service], [breadcrumbLd, reactOwns.breadcrumb]]) {
     if (!block) continue;
     const json = JSON.stringify(block).replace(/</g, "\\u003c");
     out = out.replace(
       /<\/head>/i,
-      `  <script type="application/ld+json">${json}</script>\n  </head>`,
+      `  <script type="application/ld+json"${owned ? RH : ""}>${json}</script>\n  </head>`,
     );
   }
+
+  // Head tags SEO.tsx also renders through Helmet.
+  out = stampHelmetHead(out);
 
   // Swap the homepage <noscript> fallback for this route's own body. Matches
   // the BODY noscript - the one wrapping a <header> inside #root - never the
@@ -624,24 +720,43 @@ async function main() {
     // BreadcrumbList. Labels are the page's own nav names, copied verbatim
     // from src/components/Footer.tsx - nothing invented. The homepage gets
     // none (a breadcrumb to itself is noise), and neither does the noindex
-    // /summer-presale route.
+    // /summer-presale route. Built from the page's own <BreadcrumbSchema>
+    // items when it has one (same keys, same order as BreadcrumbSchema.tsx),
+    // else from ROUTES crumb.
+    // Detection reads CODE only: a comment such as "no <ServiceSchema /> here"
+    // must not count as the page rendering one.
+    const pageCode = stripComments(pageSource);
+    const pageCrumbs = route.crumb && !route.noindex ? pageBreadcrumbItems(pageCode, route.path) : undefined;
+    if (pageCrumbs && pageCrumbs[pageCrumbs.length - 1].name !== route.crumb) {
+      console.warn(`[prerender-seo] ${route.path}: page breadcrumb "${pageCrumbs[pageCrumbs.length - 1].name}" differs from ROUTES crumb "${route.crumb}"; the page's label ships.`);
+    }
     const breadcrumbLd = route.crumb && !route.noindex
       ? {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: `${BASE_URL}/` },
-            { "@type": "ListItem", position: 2, name: route.crumb, item: canonical },
-          ],
+          itemListElement: pageCrumbs
+            ? pageCrumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: `${BASE_URL}${c.url}` }))
+            : [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${BASE_URL}/` },
+                { "@type": "ListItem", position: 2, name: route.crumb, item: canonical },
+              ],
         }
       : undefined;
     const serviceLd = route.noindex ? undefined : SERVICE_LD[route.path];
+
+    // Which of those blocks the page ALSO renders from React. Only these get
+    // data-rh; stamping one React does not render would make Helmet delete it.
+    const reactOwns = {
+      breadcrumb: Boolean(pageCrumbs),
+      faq: Boolean(jsonLd) && /"@type":\s*"FAQPage"/.test(pageCode),
+      service: Boolean(serviceLd) && (/<ServiceSchema\b/.test(pageCode) || pageCode.includes(`${route.path}#service"`)),
+    };
 
     // The homepage keeps index.html's hand-written <noscript>; every other
     // route gets its own, built from its own source.
     const body = route.path === "/" ? undefined : buildBody(route.path, pageSource, route.source);
 
-    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, serviceLd, breadcrumbLd, body });
+    const html = transform(template, { title, description, canonical, noindex: route.noindex, jsonLd, serviceLd, breadcrumbLd, body, reactOwns });
     const outDir = path.join(DIST, route.path.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     const outPath = path.join(outDir, "index.html");
@@ -655,6 +770,20 @@ async function main() {
       throw new Error(
         `[prerender-seo] ${route.path}: emitted description meta tag is missing or empty`,
       );
+    }
+
+    // --- Head: every tag Helmet owns is in the file ONCE and carries data-rh.
+    // Warn, not throw: a miss only brings back a duplicate after hydration.
+    {
+      const head = emitted.slice(0, emitted.search(/<\/head>/i));
+      const checks = HELMET_HEAD.metas.map(({ attr, key }) => [`${attr}=${key}`, new RegExp(`<meta\\b(?=[^>]*\\b${attr}\\s*=\\s*(["'])${escapeRegExp(key)}\\1)[^>]*>`, "gi")]);
+      checks.push(["canonical", /<link\b(?=[^>]*\brel\s*=\s*(["'])canonical\1)[^>]*>/gi]);
+      for (const [label, re] of checks) {
+        const tags = head.match(re) ?? [];
+        if (tags.length > 1 || tags.some((t) => !/\sdata-rh="true"/.test(t))) {
+          console.warn(`[prerender-seo] ${route.path}: head tag ${label} x${tags.length}, not all stamped - it will render twice.`);
+        }
+      }
     }
 
     // --- Body guards, asserted against the FILE THAT SHIPS, not the inputs ---

@@ -13,7 +13,6 @@ import Footer from "@/components/Footer";
 import PromoBanner from "@/components/PromoBanner";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
-import MedicalSpaSchema from "@/components/MedicalSpaSchema";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -23,8 +22,10 @@ const Index = () => {
         title="Medical Spa Vienna VA | Medical Spa Tysons Corner - Virginia Laser Specialists"
         description="Virginia Laser Specialists: medical spa Vienna VA and medical spa Tysons offering Clarity II laser hair removal and CoolPeel CO2 resurfacing. Free consults."
       />
+      {/* The MedicalSpa entity ships from index.html on every route, so there is
+          no <MedicalSpaSchema /> here: it rendered a second MedicalSpa for the
+          same business. LocalBusinessSchema shares its @id (#medspa). */}
       <LocalBusinessSchema />
-      <MedicalSpaSchema />
       <PromoBanner />
       <Navigation />
       <main>

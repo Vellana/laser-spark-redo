@@ -1,12 +1,21 @@
 import { Helmet } from "react-helmet-async";
 
+/**
+ * The business, as React renders it on most routes.
+ *
+ * It shares its @id (#medspa) with the MedicalSpa entity that index.html ships on
+ * EVERY route, so crawlers read one business described in two blocks rather than
+ * two businesses. It used to carry its own @id (#business) and a WebSite node;
+ * the WebSite node is gone because index.html already ships the site's WebSite
+ * on every route, and rendering it again gave each page two.
+ */
 const LocalBusinessSchema = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": ["MedicalBusiness", "LocalBusiness"],
-        "@id": "https://virginialaserspecialists.com/#business",
+        "@id": "https://virginialaserspecialists.com/#medspa",
         "name": "Virginia Laser Specialists",
         "alternateName": "VLS Tysons",
         "description": "Premier laser hair removal and CoolPeel CO₂ skin resurfacing clinic in Tysons, Vienna, McLean VA. Using advanced Lutronic Clarity II dual-wavelength laser and Cartessa Tetra Pro CO₂ technology. Safe for all skin types. Board-certified laser specialists.",
@@ -134,7 +143,7 @@ const LocalBusinessSchema = () => {
                 "@type": "Service",
                 "name": "Laser Hair Removal",
                 "description": "Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types with integrated cryogen cooling. Treats face, underarms, legs, arms, bikini, Brazilian, back, chest, and full body.",
-                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "provider": { "@id": "https://virginialaserspecialists.com/#medspa" },
                 "areaServed": "Northern Virginia",
                 "url": "https://virginialaserspecialists.com/laser-hair-removal",
                 "offers": {
@@ -151,7 +160,7 @@ const LocalBusinessSchema = () => {
                 "@type": "Service",
                 "name": "CoolPeel CO₂ Laser Resurfacing",
                 "description": "Revolutionary CO₂ laser skin resurfacing with minimal downtime (1-3 days) using Cartessa Tetra Pro technology. Treats fine lines, wrinkles, sun damage, uneven skin texture, and large pores.",
-                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "provider": { "@id": "https://virginialaserspecialists.com/#medspa" },
                 "areaServed": "Northern Virginia",
                 "url": "https://virginialaserspecialists.com/coolpeel-co2-laser-tysons-va"
               }
@@ -162,7 +171,7 @@ const LocalBusinessSchema = () => {
                 "@type": "Service",
                 "name": "DEKA Pulse CO₂ Laser Resurfacing",
                 "description": "Deep CO₂ laser resurfacing for dramatic skin rejuvenation and collagen stimulation. Intensive treatment for significant aging concerns, deep wrinkles, acne scars, and severe sun damage.",
-                "provider": { "@id": "https://virginialaserspecialists.com/#business" },
+                "provider": { "@id": "https://virginialaserspecialists.com/#medspa" },
                 "areaServed": "Northern Virginia",
                 "url": "https://virginialaserspecialists.com/laser-skin-resurfacing"
               }
@@ -187,23 +196,6 @@ const LocalBusinessSchema = () => {
           "Laser Skin Resurfacing Northern Virginia"
         ],
         "slogan": "Excellence in Laser Technology, Tailored to You"
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://virginialaserspecialists.com/#website",
-        "url": "https://virginialaserspecialists.com",
-        "name": "Virginia Laser Specialists",
-        "description": "Premier laser hair removal and CoolPeel CO₂ skin resurfacing in Tysons, Vienna, McLean VA",
-        "publisher": { "@id": "https://virginialaserspecialists.com/#business" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://virginialaserspecialists.com/?s={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        },
-        "inLanguage": "en-US"
       }
     ]
   };
