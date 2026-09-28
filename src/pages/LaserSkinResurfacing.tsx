@@ -23,7 +23,7 @@ const LaserSkinResurfacing = () => {
     <div className="min-h-screen">
       <SEO 
         title="Fractional CO2 Laser Tysons | CO2 Laser Resurfacing Vienna VA"
-        description="Fractional CO2 laser Tysons and CO2 laser resurfacing Vienna VA on the DEKA Tetra Pro - acne scars, wrinkles, and stretch mark removal Vienna VA. 703-547-4499."
+        description="Fractional CO2 laser Tysons and laser skin resurfacing Vienna VA - acne scar treatment Vienna VA, scar removal and stretch mark removal. 703-547-4499."
         canonicalUrl="/laser-skin-resurfacing"
       />
       <LocalBusinessSchema />
