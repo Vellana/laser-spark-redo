@@ -53,5 +53,24 @@ future reconnect points at it. Never force it:
 - Lovable's docs: when diverged, "the next sync from GitHub replaces Lovable's version of the
   branch with the GitHub version". Disconnect + Connect (done 2026-09-28 ~00:30 UTC) re-linked
   this same repo instead of creating a new one, and the divergence stayed.
-- This commit is the test push: if `list_edits` shows it as a developer_update, GitHub -> Lovable
-  works again.
+- The test push (9d3ec6b) did NOT arrive: Lovable showed "GitHub is 1 commit ahead" and never
+  pulled it. Lovable's GitHub App is not installed on this repo (Vellana's account), so GitHub never
+  notifies Lovable of a push. Lovable -> GitHub still works (its commits land on `main`).
+
+## How a GitHub commit reaches Lovable now (WORKS, 2026-09-28)
+
+Switching the synced branch makes Lovable pull that branch from GitHub on the spot, and it
+resolved the divergence too (Lovable's own commits were already on `main` in content).
+
+1. Push to `main`, then fast-forward `lovable-sync` to it:
+   `git merge-base --is-ancestor origin/lovable-sync origin/main && git push origin origin/main:refs/heads/lovable-sync`
+2. Lovable > project 608084ad > Settings > Git > GitHub > Branch: pick `lovable-sync`. Wait for
+   "In sync with GitHub". Then pick `main` again. Wait for "In sync with GitHub".
+3. Check `read_file` at your sha, then `deploy_project`, then byte-check live.
+4. Edge functions still need their own deploy: ask the Lovable agent to deploy the named
+   functions only ("do not modify any file, do not invoke them"), then probe the `v` marker each
+   one returns on its first rejection (no auth / empty body; nothing is sent).
+
+The switch works only in a visible tab (the Branch menu does not open in a hidden one). The
+permanent fix is outside our reach: Vellana installs the Lovable GitHub App on this repo, or
+transfers the repo to temsagpt-creator.
