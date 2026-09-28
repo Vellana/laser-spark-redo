@@ -39,7 +39,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Length check
     if (!email || email.length > 255) {
-      return new Response(JSON.stringify({ error: "Invalid email" }), {
+      return new Response(JSON.stringify({ error: "Invalid email", v: "gbp-phone-0928" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });

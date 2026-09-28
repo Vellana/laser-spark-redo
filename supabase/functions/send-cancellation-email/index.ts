@@ -50,7 +50,7 @@ serve(async (req: Request) => {
     // Require admin auth
     const authHeader = req.headers.get("Authorization");
     if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      return new Response(JSON.stringify({ error: "Unauthorized", v: "gbp-phone-0928" }), {
         status: 401, headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }

@@ -56,7 +56,7 @@ serve(async (req: Request) => {
     const { firstName, lastName, email, phone, treatmentInterest, notes, date, time } = body;
 
     if (!firstName || !lastName || !email || !date || !time || !treatmentInterest) {
-      return new Response(JSON.stringify({ error: "Missing fields" }), {
+      return new Response(JSON.stringify({ error: "Missing fields", v: "gbp-phone-0928" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });

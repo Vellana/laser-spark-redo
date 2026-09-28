@@ -58,7 +58,7 @@ serve(async (req: Request) => {
     const { appointmentId, oldDate, oldTime } = body;
 
     if (!appointmentId || !oldDate || !oldTime) {
-      return new Response(JSON.stringify({ error: "Missing fields" }), {
+      return new Response(JSON.stringify({ error: "Missing fields", v: "gbp-phone-0928" }), {
         status: 400, headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }

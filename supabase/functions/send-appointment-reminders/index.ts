@@ -33,7 +33,7 @@ serve(async (req: Request) => {
     const authHeader = req.headers.get("Authorization") ?? "";
     const provided = authHeader.replace(/^Bearer\s+/i, "");
     if (!cronSecret || provided !== cronSecret) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      return new Response(JSON.stringify({ error: "Unauthorized", v: "gbp-phone-0928" }), {
         status: 401, headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }
