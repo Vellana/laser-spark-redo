@@ -60,8 +60,8 @@ const Specials = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Laser Specials & Promotions | Tysons VA"
-        description="Limited-time laser specials on CoolPeel & laser hair removal in Tysons VA. Book your free consultation at Virginia Laser Specialists - 703-547-4499."
+        title="Laser Specials & Promotions | Vienna, VA"
+        description="Limited-time laser specials on CoolPeel & laser hair removal in Vienna, VA. Book your free consultation at Virginia Laser Specialists - 703-547-4499."
         canonicalUrl="/specials" 
       />
       <LocalBusinessSchema />

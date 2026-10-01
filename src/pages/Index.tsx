@@ -19,8 +19,8 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Medical Spa Vienna VA | Medical Spa Tysons Corner - Virginia Laser Specialists"
-        description="Virginia Laser Specialists: medical spa Vienna VA and medical spa Tysons offering Clarity II laser hair removal and CoolPeel CO2 resurfacing. Free consults."
+        title="Medical Spa Vienna VA | Serving Tysons & Northern Virginia"
+        description="Medical spa in Vienna, VA serving Fairfax County and Northern Virginia, including Tysons and McLean: Clarity II laser hair removal and CoolPeel. Free consults."
       />
       {/* The MedicalSpa entity ships from index.html on every route, so there is
           no <MedicalSpaSchema /> here: it rendered a second MedicalSpa for the

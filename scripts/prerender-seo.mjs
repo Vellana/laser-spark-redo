@@ -586,7 +586,7 @@ const PRERENDER_VERSION = "v6";
  * and re-encodable to "&amp;", so the pattern takes either; matching only one
  * spelling would leave this guard unable to fail.
  */
-const HOME_H1_RE = /Virginia Laser Specialists - Laser Hair Removal (?:&|&amp;) CoolPeel Skin Resurfacing in Tysons, VA/;
+const HOME_H1_RE = /Virginia Laser Specialists - Laser Hair Removal (?:&|&amp;) CoolPeel Skin Resurfacing in Vienna, VA/;
 
 function transform(html, { title, description, canonical, noindex, jsonLd, serviceLd, breadcrumbLd, body, reactOwns = {} }) {
   let out = html;

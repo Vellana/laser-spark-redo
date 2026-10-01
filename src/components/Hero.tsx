@@ -40,7 +40,7 @@ const Hero = () => {
         <div className="max-w-6xl xl:max-w-7xl mx-auto w-full">
           <div className="w-16 h-1 bg-accent mx-auto mb-4 rounded-full" />
           <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.45)' }}>
-            Laser Hair Removal & CoolPeel Skin Resurfacing in Tysons, VA
+            Laser Hair Removal & CoolPeel Skin Resurfacing in Vienna, VA
           </h1>
         </div>
 

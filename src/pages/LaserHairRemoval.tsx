@@ -226,8 +226,8 @@ const LaserHairRemoval = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Laser Hair Removal Tysons Corner and Vienna VA | Clarity II Laser"
-        description="Laser hair removal Tysons Corner and Vienna VA with the Lutronic Clarity II - safe for all skin types, with free consultations at our Vienna VA medical spa."
+        title="Laser Hair Removal Vienna VA | Serving Tysons & Northern Virginia"
+        description="Laser hair removal in Vienna, VA with the Lutronic Clarity II, safe for all skin types. Serving Tysons Corner, McLean, Fairfax and Northern Virginia."
         canonicalUrl="/laser-hair-removal"
       />
       {/* No <MedicalSpaSchema /> or <ServiceSchema /> here: the MedicalSpa
@@ -261,7 +261,7 @@ const LaserHairRemoval = () => {
                   Brazilian • Underarms • Full Body
                 </span>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">
-                  Laser Hair Removal in Tysons Corner and Vienna, VA
+                  Laser Hair Removal in Vienna, VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
                   From a Brazilian to full body, our treatments use the Lutronic Clarity II, a dual-wavelength laser that is safe for all skin types and tones.
