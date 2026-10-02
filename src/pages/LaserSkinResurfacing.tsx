@@ -11,7 +11,6 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
-import BeforeAfterPreview from "@/components/BeforeAfterPreview";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 import { Helmet } from "react-helmet-async";
@@ -129,9 +128,6 @@ const LaserSkinResurfacing = () => {
             </div>
           </div>
         </section>
-
-        {/* Before & After Preview Section */}
-        <BeforeAfterPreview />
 
         {/* Technology Section */}
         <section className="py-16 bg-secondary/30">

@@ -13,21 +13,20 @@ import exteriorBuilding2 from "@/assets/exterior-building-2.jpg";
 import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
-import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 
-type TabType = "office" | "exterior" | "beforeAfter";
+type TabType = "office" | "exterior";
 
 const Gallery = () => {
   const [searchParams] = useSearchParams();
   const tabFromUrl = searchParams.get("tab") as TabType | null;
   const [activeTab, setActiveTab] = useState<TabType>(
-    tabFromUrl && ["office", "exterior", "beforeAfter"].includes(tabFromUrl) 
+    tabFromUrl && ["office", "exterior"].includes(tabFromUrl) 
       ? tabFromUrl 
       : "office"
   );
 
   useEffect(() => {
-    if (tabFromUrl && ["office", "exterior", "beforeAfter"].includes(tabFromUrl)) {
+    if (tabFromUrl && ["office", "exterior"].includes(tabFromUrl)) {
       setActiveTab(tabFromUrl);
     }
   }, [tabFromUrl]);
@@ -67,7 +66,7 @@ const Gallery = () => {
                 Gallery
               </h1>
               <p className="text-lg text-muted-foreground">
-                Explore our state-of-the-art facility and treatment results
+                Explore our state-of-the-art facility
               </p>
             </div>
 
@@ -90,15 +89,6 @@ const Gallery = () => {
                   }`}
               >
                 Building Exterior
-              </button>
-              <button
-                onClick={() => setActiveTab("beforeAfter")}
-                className={`px-6 py-3 text-base font-semibold rounded-lg border-2 transition-all duration-300 ${activeTab === "beforeAfter"
-                  ? "border-accent bg-accent/10 text-accent shadow-md"
-                  : "border-border/50 bg-transparent text-muted-foreground hover:border-accent/50 hover:text-accent"
-                  }`}
-              >
-                Before & After
               </button>
             </div>
 
@@ -133,12 +123,6 @@ const Gallery = () => {
                       </div>
                     </Card>
                   ))}
-                </div>
-              )}
-
-              {activeTab === "beforeAfter" && (
-                <div className="animate-in fade-in duration-300">
-                  <BeforeAfterGallery />
                 </div>
               )}
             </div>
