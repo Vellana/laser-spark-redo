@@ -252,7 +252,17 @@ const handler = async (req: Request): Promise<Response> => {
         <a href="https://www.vagaro.com/virginialaserspecialists/book-now" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">BOOK AN APPOINTMENT</a>
       </div>
     </div>
-    <div style="background:${navyDark};padding:28px 32px;text-align:center;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${navyDark}" style="width:100%;background:${navyDark};">
+      <tr><td align="center" style="padding:28px 24px;text-align:center;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto 18px;">
+          <tr>
+            <td align="center" valign="middle" style="padding:0 8px;"><a href="https://www.instagram.com/virginialaserspecialists" style="color:${seafoamLight};font-size:12px;text-decoration:underline;"><img src="https://virginialaserspecialists.com/email-assets/social-instagram.png" alt="Instagram" width="28" height="28" style="display:block;width:28px;height:28px;border:0;outline:none;text-decoration:none;" /></a></td>
+            <td align="center" valign="middle" style="padding:0 8px;"><a href="https://www.facebook.com/profile.php?id=61573588844302" style="color:${seafoamLight};font-size:12px;text-decoration:underline;"><img src="https://virginialaserspecialists.com/email-assets/social-facebook.png" alt="Facebook" width="28" height="28" style="display:block;width:28px;height:28px;border:0;outline:none;text-decoration:none;" /></a></td>
+            <td align="center" valign="middle" style="padding:0 8px;"><a href="https://www.tiktok.com/@virginialaserspecialists" style="color:${seafoamLight};font-size:12px;text-decoration:underline;"><img src="https://virginialaserspecialists.com/email-assets/social-tiktok.png" alt="TikTok" width="28" height="28" style="display:block;width:28px;height:28px;border:0;outline:none;text-decoration:none;" /></a></td>
+            <td align="center" valign="middle" style="padding:0 8px;"><a href="https://www.linkedin.com/company/virginia-laser-specialists" style="color:${seafoamLight};font-size:12px;text-decoration:underline;"><img src="https://virginialaserspecialists.com/email-assets/social-linkedin.png" alt="LinkedIn" width="28" height="28" style="display:block;width:28px;height:28px;border:0;outline:none;text-decoration:none;" /></a></td>
+          </tr>
+        </table>
+        <p style="margin:0 0 18px;font-size:13px;line-height:1.5;"><a href="https://virginialaserspecialists.com" style="color:${seafoamLight};text-decoration:underline;">virginialaserspecialists.com</a></p>
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
       <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
@@ -260,7 +270,8 @@ const handler = async (req: Request): Promise<Response> => {
         You're receiving this email because you subscribed to updates from Virginia Laser Specialists.<br>
         <a href="https://virginialaserspecialists.com/unsubscribe" style="color:${seafoamLight};text-decoration:underline;">Unsubscribe</a>
       </p>
-    </div>
+      </td></tr>
+    </table>
   </div>
 </body>
 </html>`;
