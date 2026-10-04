@@ -56,7 +56,7 @@ serve(async (req: Request) => {
     const { firstName, lastName, email, phone, treatmentInterest, notes, date, time } = body;
 
     if (!firstName || !lastName || !email || !date || !time || !treatmentInterest) {
-      return new Response(JSON.stringify({ error: "Missing fields", v: "gbp-phone-0928" }), {
+      return new Response(JSON.stringify({ error: "Missing fields", v: "email-polish-1004" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });
@@ -107,7 +107,7 @@ serve(async (req: Request) => {
 
     const hasNewsletterDiscount = !!emailLead;
 
-    const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
+    const LOGO_URL = "https://virginialaserspecialists.com/email-assets/logo.png";
     const ADMIN_EMAIL = "admin@virginialaserspecialists.com";
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
@@ -135,8 +135,9 @@ serve(async (req: Request) => {
     const clientHtml = `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"></head>
 <body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">Your free consultation is booked for ${formattedDate} at ${formattedTime} ET.</div>
   <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
     <div style="background:${navy};padding:32px 30px;text-align:center;">
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
@@ -148,7 +149,7 @@ serve(async (req: Request) => {
       ${hasNewsletterDiscount ? `
       <div style="background:#e8f5e9;border:2px solid #4caf50;border-radius:10px;padding:16px;margin:0 0 24px;text-align:center;">
         <p style="color:#2e7d32;font-size:14px;font-weight:700;margin:0;">🎉 Your 10% Discount Is Ready!</p>
-        <p style="color:#2e7d32;font-size:13px;margin:6px 0 0;">Code <strong>VLS10</strong> will be applied at your appointment. No need to do anything — just show up!</p>
+        <p style="color:#2e7d32;font-size:13px;margin:6px 0 0;">Code <strong>VLS10</strong> will be applied at your appointment. All you need to do is show up!</p>
         <p style="color:#558b2f;font-size:11px;margin:6px 0 0;">*Cannot be combined with other offers.</p>
       </div>
       ` : ""}
@@ -164,7 +165,7 @@ serve(async (req: Request) => {
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue to Fri 10am to 6pm, Sat 9am to 1pm</p>
     </div>
   </div>
 </body>
@@ -174,7 +175,8 @@ serve(async (req: Request) => {
     await resend.emails.send({
       from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
       to: [email],
-      subject: `Consultation Confirmed — ${formattedDate} at ${formattedTime}`,
+      reply_to: "info@virginialaserspecialists.com",
+      subject: `Consultation Confirmed: ${formattedDate} at ${formattedTime}`,
       html: clientHtml,
       attachments: [
         {
@@ -199,7 +201,7 @@ serve(async (req: Request) => {
       <h2 style="color:${textDark};font-size:18px;margin:0 0 12px;">📅 New Consultation Booking</h2>
       ${hasNewsletterDiscount ? `
       <div style="background:#fff3e0;border:2px solid #ff9800;border-radius:8px;padding:12px;margin:0 0 16px;text-align:center;">
-        <p style="color:#e65100;font-size:14px;font-weight:800;margin:0;">⚠️ NEWSLETTER DISCOUNT — APPLY 10% OFF</p>
+        <p style="color:#e65100;font-size:14px;font-weight:800;margin:0;">⚠️ NEWSLETTER DISCOUNT: APPLY 10% OFF</p>
         <p style="color:#bf360c;font-size:13px;margin:4px 0 0;">This client signed up for the newsletter discount (Code: VLS10) before booking. Apply 10% off their service if not using another special.</p>
       </div>
       ` : ""}
@@ -222,7 +224,7 @@ serve(async (req: Request) => {
     await resend.emails.send({
       from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
       to: [ADMIN_EMAIL],
-      subject: `New Booking: ${fullName} — ${formattedDate} ${formattedTime}`,
+      subject: `New Booking: ${fullName} on ${formattedDate} at ${formattedTime}`,
       html: adminHtml,
       attachments: [
         {
