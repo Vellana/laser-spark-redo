@@ -16,7 +16,6 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { Helmet } from "react-helmet-async";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
-import BeforeAfterSlideshow from "@/components/BeforeAfterSlideshow";
 
 // CoolPeel Tysons/Vienna local SEO schema markup
 const CoolPeelTysonsSchema = () => {
@@ -445,48 +444,6 @@ const CoolPeelTysons = () => {
           </div>
         </section>
 
-        {/* Before/After Gallery */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                CoolPeel Before & After Results
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                See the transformative results our Tysons and Vienna patients have achieved with CoolPeel
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {[1, 2, 3].map((item) => (
-                <Card key={item} className="overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="aspect-[4/3] bg-secondary/50 flex items-center justify-center">
-                      <div className="text-center p-6">
-                        <Sparkles className="w-12 h-12 text-accent mx-auto mb-3" />
-                        <p className="text-muted-foreground text-sm">
-                          Before & After {item}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-2">
-                          Results may vary
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            
-            <div className="text-center mt-8">
-              <Link to="/gallery">
-                <Button variant="outline" className="font-semibold">
-                  View Full Gallery
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
         {/* Aftercare Summary */}
         <section className="py-16 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -666,7 +623,7 @@ const CoolPeelTysons = () => {
                   View Pricing →
                 </Link>
                 <Link to="/gallery" className="text-accent hover:underline font-medium">
-                  Before & After Gallery →
+                  Photo Gallery →
                 </Link>
                 <Link to="/contact" className="text-accent hover:underline font-medium">
                   Contact Us →
@@ -693,13 +650,6 @@ const CoolPeelTysons = () => {
           </div>
         </section>
 
-
-        {/* Before & After Results Section */}
-        <section className="py-16 bg-secondary/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <BeforeAfterSlideshow />
-          </div>
-        </section>
 
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary to-primary/80">

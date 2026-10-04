@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
-import BeforeAfterSlideshow from "@/components/BeforeAfterSlideshow";
 
 import { isSummerSaleActive } from "@/lib/summerSale";
 
@@ -444,8 +443,6 @@ const CoolPeel = () => {
           </Tabs>
         </div>
 
-        {/* Before & After Slideshow */}
-        <BeforeAfterSlideshow />
       </div>
     </section>
   );
