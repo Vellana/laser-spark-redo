@@ -58,7 +58,7 @@ serve(async (req: Request) => {
     const { appointmentId, oldDate, oldTime } = body;
 
     if (!appointmentId || !oldDate || !oldTime) {
-      return new Response(JSON.stringify({ error: "Missing fields", v: "gbp-phone-0928" }), {
+      return new Response(JSON.stringify({ error: "Missing fields", v: "email-polish-1004" }), {
         status: 400, headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     }
@@ -89,7 +89,7 @@ serve(async (req: Request) => {
 
     const esc = (s: any) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-    const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
+    const LOGO_URL = "https://virginialaserspecialists.com/email-assets/logo.png";
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoamLight = "#85ccb3";
@@ -106,8 +106,9 @@ serve(async (req: Request) => {
     const html = `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"></head>
 <body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">Your free consultation is now ${newFormattedDate} at ${newFormattedTime} ET.</div>
   <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
     <div style="background:${navy};padding:32px 30px;text-align:center;">
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
@@ -134,7 +135,7 @@ serve(async (req: Request) => {
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue to Fri 10am to 6pm, Sat 9am to 1pm</p>
     </div>
   </div>
 </body>
@@ -143,7 +144,8 @@ serve(async (req: Request) => {
     await resend.emails.send({
       from: "Virginia Laser Specialists <noreply@virginialaserspecialists.com>",
       to: [email],
-      subject: `Appointment Rescheduled — ${newFormattedDate} at ${newFormattedTime}`,
+      reply_to: "info@virginialaserspecialists.com",
+      subject: `Appointment Rescheduled: ${newFormattedDate} at ${newFormattedTime}`,
       html,
       attachments: [
         { filename: "consultation.ics", content: icsBase64, content_type: "text/calendar" },
