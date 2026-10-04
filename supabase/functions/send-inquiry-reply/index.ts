@@ -19,7 +19,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Verify admin auth
     const authHeader = req.headers.get("Authorization");
     if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(JSON.stringify({ error: "Unauthorized", v: "gbp-phone-0928" }), {
+      return new Response(JSON.stringify({ error: "Unauthorized", v: "email-polish-1004" }), {
         status: 401,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });
@@ -82,7 +82,8 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
+    const LOGO_URL = "https://virginialaserspecialists.com/email-assets/logo.png";
+    const esc = (s: unknown) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoam = "#6dbfa0";
@@ -98,17 +99,18 @@ const handler = async (req: Request): Promise<Response> => {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light">
-  <meta name="supported-color-schemes" content="light">
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
 </head>
 <body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${esc(replyMessage.trim().replace(/\s+/g, " ").slice(0, 120))}</div>
   <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
     <div style="background:${navy};padding:32px 30px;text-align:center;">
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
       <p style="color:${white};margin:0;font-size:20px;letter-spacing:2.5px;text-transform:uppercase;font-family:Georgia,'Times New Roman',serif;font-weight:400;">Virginia Laser Specialists</p>
     </div>
     <div style="padding:40px 32px;">
-      <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">Hello ${inquiry.name},</h1>
+      <h1 style="color:${textDark};font-size:22px;margin:0 0 16px;font-weight:700;">Hello ${esc(inquiry.name)},</h1>
       <p style="color:${textMedium};font-size:15px;line-height:1.7;margin:0 0 24px;">
         Thank you for reaching out to Virginia Laser Specialists. Here is our response to your inquiry:
       </p>
@@ -125,7 +127,7 @@ const handler = async (req: Request): Promise<Response> => {
     <div style="background:${navyDark};padding:28px 32px;text-align:center;">
       <p style="color:${seafoamLight};margin:0 0 6px;font-size:14px;font-weight:700;">Virginia Laser Specialists</p>
       <p style="color:rgba(255,255,255,0.6);margin:0;font-size:12px;">8100 Boone Blvd, Suite 270 · Vienna, VA 22182</p>
-      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue–Fri: 10am–6pm | Sat: 9am–1pm</p>
+      <p style="color:rgba(255,255,255,0.6);margin:4px 0 0;font-size:12px;">703-547-4499 · Tue to Fri 10am to 6pm, Sat 9am to 1pm</p>
     </div>
   </div>
 </body>
