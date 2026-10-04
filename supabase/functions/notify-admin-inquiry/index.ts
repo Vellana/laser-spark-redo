@@ -19,7 +19,7 @@ const handler = async (req: Request): Promise<Response> => {
     const { name, email, phone, service, contactMethod, message } = await req.json();
 
     if (!name || !email) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+      return new Response(JSON.stringify({ error: "Missing required fields", v: "email-polish-1004" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });
@@ -55,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    const LOGO_URL = "https://xdjynkgqksdbtbetmrsj.supabase.co/storage/v1/object/public/email-assets/logo.png";
+    const LOGO_URL = "https://virginialaserspecialists.com/email-assets/logo.png";
     const navy = "#3d5a80";
     const navyDark = "#2c4360";
     const seafoam = "#6dbfa0";
@@ -74,10 +74,11 @@ const handler = async (req: Request): Promise<Response> => {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light">
-  <meta name="supported-color-schemes" content="light">
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
 </head>
 <body style="margin:0;padding:0;background-color:${cream};font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">New inquiry from ${esc(name)}: ${esc(service || "General")}</div>
   <div style="max-width:600px;margin:0 auto;background:${white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(61,90,128,0.10);">
     <div style="background:${navy};padding:32px 30px;text-align:center;">
       <img src="${LOGO_URL}" alt="Virginia Laser Specialists" width="160" style="display:block;margin:0 auto 16px;max-width:160px;height:auto;" />
@@ -116,12 +117,12 @@ const handler = async (req: Request): Promise<Response> => {
         <p style="color:${textMedium};font-size:14px;line-height:1.6;margin:0;white-space:pre-wrap;">${esc(message)}</p>
       </div>` : ""}
       <div style="text-align:center;">
-        <a href="https://laser-spark-redo.lovable.app/admin" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">VIEW IN ADMIN DASHBOARD</a>
+        <a href="https://virginialaserspecialists.com/admin" style="display:inline-block;background:${navy};color:${white};padding:14px 36px;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">VIEW IN ADMIN DASHBOARD</a>
       </div>
     </div>
     <div style="background:${navyDark};padding:20px 32px;text-align:center;">
-      <p style="color:${seafoamLight};margin:0 0 4px;font-size:13px;font-weight:700;">Virginia Laser Specialists – Admin Notification</p>
-      <p style="color:rgba(255,255,255,0.5);margin:0;font-size:11px;">This is an automated notification. Do not reply to this email.</p>
+      <p style="color:${seafoamLight};margin:0 0 4px;font-size:13px;font-weight:700;">Virginia Laser Specialists Admin Notification</p>
+      <p style="color:rgba(255,255,255,0.5);margin:0;font-size:11px;">Automated notice from virginialaserspecialists.com. Answer the inquiry from the admin.</p>
     </div>
   </div>
 </body>
@@ -130,7 +131,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResult = await resend.emails.send({
       from: "Virginia Laser Specialists <info@virginialaserspecialists.com>",
       to: ["info@virginialaserspecialists.com"],
-      subject: `New Inquiry from ${name} – ${service || "General"}`,
+      subject: `New Inquiry from ${name}: ${service || "General"}`,
       html: notificationHtml,
     });
 
