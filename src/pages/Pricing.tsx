@@ -9,31 +9,13 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancing from "@/components/CherryFinancing";
 import { isSummerSaleActive } from "@/lib/summerSale";
+import { usePrices } from "@/lib/prices";
+import PriceDisplay, { DiscountNotice } from "@/components/PriceDisplay";
 const Pricing = () => {
   const summerSaleActive = isSummerSaleActive();
-  const laserHairRemovalPricing = [
-    { area: "Abdomen", single: "$250", package: "$937.50", summerSale: "$750" },
-    { area: "Arms (Half)", single: "$300", package: "$1,125", summerSale: "$900" },
-    { area: "Arms (Full)", single: "$400", package: "$1,500", summerSale: "$1,200" },
-    { area: "Back (Half)", single: "$250", package: "$937.50", summerSale: "$750" },
-    { area: "Back (Full)", single: "$400", package: "$1,500", summerSale: "$1,200" },
-    { area: "Bikini Line", single: "$250", package: "$937.50", summerSale: "$750" },
-    { area: "Brazilian/Brozilian", single: "$300", package: "$1,125", summerSale: "$900" },
-    { area: "Breasts", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Chest", single: "$250", package: "$937.50", summerSale: "$750" },
-    { area: "Chin", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Face (Full)", single: "$250", package: "$937.50", summerSale: "$750" },
-    { area: "Feet", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Hands", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Legs (Half)", single: "$350", package: "$1,312.50", summerSale: "$1,050" },
-    { area: "Legs (Full)", single: "$500", package: "$1,875", summerSale: "$1,500" },
-    { area: "Neck (Front or Back)", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Shoulders", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Sideburns", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Underarms", single: "$150", package: "$562.50", summerSale: "$450" },
-    { area: "Upper Lip", single: "$100", package: "$375", summerSale: "$300" },
-    { area: "Full Body", single: "$1,850", package: "$6,937.50", summerSale: "$5,550" },
-  ];
+  const { prices, discounts, get } = usePrices();
+  const laserHairRemovalPricing = prices.filter((p) => p.category === "laser_hair");
+  const anyLhrDiscount = laserHairRemovalPricing.some((p) => get(p.key, "single").discount || get(p.key, "package").discount);
 
   return (
     <div className="min-h-screen">
@@ -86,54 +68,30 @@ const Pricing = () => {
                             </div>
                           </div>
                         </th>
-                        {summerSaleActive && (
-                          <th className="text-center py-4 px-4 text-foreground font-semibold">
-                            <div className="inline-flex flex-col items-center gap-1.5">
-                              <span className="inline-flex items-center rounded-full bg-destructive/15 text-destructive border border-destructive/40 px-3 py-1 text-xs font-bold uppercase tracking-wide">
-                                Summer Sale · 40% Off
-                              </span>
-                              <div>Package of 5</div>
-                              <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
-                                Valid June 15–20, 2026
-                              </div>
-                            </div>
-                          </th>
-                        )}
                       </tr>
                     </thead>
                     <tbody>
                       {laserHairRemovalPricing.map((item, index) => (
                         <tr
-                          key={item.area}
+                          key={item.key}
                           className={`border-b border-border/50 ${index % 2 === 0 ? "bg-secondary/20" : ""
                             }`}
                         >
                           <td className="py-4 px-4 text-foreground font-medium">
-                            {item.area}
+                            {item.name}
                           </td>
                           <td className="py-4 px-4 text-center text-muted-foreground">
-                            {item.single}
+                            <PriceDisplay result={get(item.key, "single")} />
                           </td>
                           <td className="py-4 px-4 text-center text-accent font-semibold">
-                            {item.package}
+                            <PriceDisplay result={get(item.key, "package")} className="text-accent font-semibold" />
                           </td>
-                          {summerSaleActive && (
-                            <td className="py-4 px-4 text-center text-destructive font-bold">
-                              {item.summerSale}
-                            </td>
-                          )}
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
-                {summerSaleActive && (
-                  <div className="mt-6 p-4 bg-accent/10 rounded-lg text-center">
-                    <p className="text-sm text-foreground">
-                      <strong>Summer Sale pricing:</strong> 40% off all Laser Hair Removal packages of 5. Valid June 15–20, 2026. Cannot be combined with other discounts or promotions.
-                    </p>
-                  </div>
-                )}
+                <DiscountNotice discounts={discounts} />
                 <div className="mt-8 text-center">
                   <a
                     href="/booking"
@@ -166,14 +124,14 @@ const Pricing = () => {
                     <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg">
                       <span className="font-medium text-foreground">Single Session</span>
                       <div className="text-right">
-                        <div className="text-accent font-semibold text-xl">$750</div>
+                        <div className="text-accent font-semibold text-xl"><PriceDisplay result={get("coolpeel", "single")} /></div>
                         <div className="text-sm text-muted-foreground">Per treatment</div>
                       </div>
                     </div>
                     <div className="flex justify-between items-center p-4 bg-secondary/20 rounded-lg border border-accent/40">
                       <span className="font-medium text-foreground">Package of 3</span>
                       <div className="text-right">
-                        {summerSaleActive ? (
+                        {summerSaleActive && !get("coolpeel", "package").discount ? (
                           <>
                             <div className="flex items-baseline justify-end gap-2">
                               <span className="text-accent font-semibold text-xl">$1,500</span>
@@ -182,7 +140,7 @@ const Pricing = () => {
                             <div className="text-xs font-semibold uppercase tracking-wide text-destructive">Summer Sale · Save $500</div>
                           </>
                         ) : (
-                          <div className="text-accent font-semibold text-xl">$2,000</div>
+                          <div className="text-accent font-semibold text-xl"><PriceDisplay result={get("coolpeel", "package")} /></div>
                         )}
                       </div>
                     </div>
