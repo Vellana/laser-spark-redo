@@ -1,0 +1,1 @@
+- Service prices and discounts live in `service_prices`/`price_discounts`, read via `usePrices()` in src/lib/prices.ts with built-in fallback defaults; never hardcode prices in pages - keeps the admin Prices tab the single source.

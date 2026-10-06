@@ -24,6 +24,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
+import { usePrices, keysForName, priceLabel } from "@/lib/prices";
 
 interface ServiceArea {
   name: string;
@@ -201,6 +202,15 @@ const services: ServiceArea[] = [
 ];
 
 const Services = () => {
+  const { get } = usePrices();
+  const priceFor = (name: string, kind: "single" | "package") => {
+    const keys = keysForName(name);
+    if (keys.length === 2) return `${priceLabel(get(keys[0], kind))} (Half) / ${priceLabel(get(keys[1], kind))} (Full)`;
+    return keys[0] ? priceLabel(get(keys[0], kind)) : "";
+  };
+  const livePrice = (svc: { name: string; singlePrice: string; packagePrice: string }, kind: "single" | "package") =>
+    priceFor(svc.name, kind) || (kind === "single" ? svc.singlePrice : svc.packagePrice);
+
   const [selectedService, setSelectedService] = useState<ServiceArea | null>(null);
 
   return (
@@ -275,11 +285,11 @@ const Services = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-muted-foreground">Single Session</p>
-                      <p className="text-lg font-bold text-accent">{selectedService.singlePrice}</p>
+                      <p className="text-lg font-bold text-accent">{livePrice(selectedService, "single")}</p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Package of 5</p>
-                      <p className="text-lg font-bold text-accent">{selectedService.packagePrice}</p>
+                      <p className="text-lg font-bold text-accent">{livePrice(selectedService, "package")}</p>
                     </div>
                   </div>
                 </div>
