@@ -15,7 +15,6 @@ const Pricing = () => {
   const summerSaleActive = isSummerSaleActive();
   const { prices, discounts, get } = usePrices();
   const laserHairRemovalPricing = prices.filter((p) => p.category === "laser_hair");
-  const anyLhrDiscount = laserHairRemovalPricing.some((p) => get(p.key, "single").discount || get(p.key, "package").discount);
 
   return (
     <div className="min-h-screen">

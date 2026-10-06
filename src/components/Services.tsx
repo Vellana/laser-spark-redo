@@ -24,6 +24,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
+import { usePrices, keysForName, priceLabel } from "@/lib/prices";
 
 interface ServiceArea {
   name: string;
@@ -275,11 +276,11 @@ const Services = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-muted-foreground">Single Session</p>
-                      <p className="text-lg font-bold text-accent">{selectedService.singlePrice}</p>
+                      <p className="text-lg font-bold text-accent">{livePrice(selectedService, "single")}</p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Package of 5</p>
-                      <p className="text-lg font-bold text-accent">{selectedService.packagePrice}</p>
+                      <p className="text-lg font-bold text-accent">{livePrice(selectedService, "package")}</p>
                     </div>
                   </div>
                 </div>

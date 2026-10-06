@@ -13,6 +13,7 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import MedicalProcedureSchema from "@/components/MedicalProcedureSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
+import { usePrices, keysForName, priceLabel } from "@/lib/prices";
 import clarityImage from "@/assets/Homepage_Clarityiibox.jpg";
 
 
@@ -412,7 +413,7 @@ const LaserHairRemoval = () => {
                   <Zap className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-medium text-foreground">Pricing</p>
-                    <p className="text-sm text-muted-foreground">{selectedArea?.pricing}</p>
+                    <p className="text-sm text-muted-foreground">{selectedArea ? livePricing(selectedArea) : ""}</p>
                   </div>
                 </div>
               </div>
