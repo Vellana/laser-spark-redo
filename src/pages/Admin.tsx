@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { LogOut, Download, Mail, Calendar, MessageSquare, Send, Inbox, ImagePlus, X, Bold, Italic, Underline, Heading1, Heading2, Link, List, ListOrdered, Minus, AlignCenter, AlignLeft, Palette, CalendarDays, Plus, Trash2, Sparkles } from "lucide-react";
 import SpecialsManager from "@/components/admin/SpecialsManager";
+import PricesManager from "@/components/admin/PricesManager";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -1044,6 +1045,9 @@ const Admin = () => {
             <TabsTrigger value="specials" className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" /> Specials
             </TabsTrigger>
+            <TabsTrigger value="prices" className="flex items-center gap-2">
+              <span className="font-bold">$</span> Prices
+            </TabsTrigger>
             <TabsTrigger value="newsletter" className="flex items-center gap-2">
               <Send className="w-4 h-4" /> Newsletter
             </TabsTrigger>
@@ -1556,6 +1560,10 @@ const Admin = () => {
           {/* Specials Tab */}
           <TabsContent value="specials" className="space-y-4">
             <SpecialsManager />
+          </TabsContent>
+
+          <TabsContent value="prices" className="space-y-4">
+            <PricesManager />
           </TabsContent>
 
           {/* Newsletter Tab */}
