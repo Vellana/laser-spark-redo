@@ -373,6 +373,60 @@ export type Database = {
         }
         Relationships: []
       }
+      price_discounts: {
+        Row: {
+          applies_to: string
+          category: string | null
+          created_at: string
+          discount_type: string
+          end_date: string | null
+          id: string
+          is_active: boolean
+          label: string
+          note: string | null
+          promo_code: string | null
+          scope: string
+          service_keys: string[]
+          start_date: string | null
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          applies_to?: string
+          category?: string | null
+          created_at?: string
+          discount_type?: string
+          end_date?: string | null
+          id?: string
+          is_active?: boolean
+          label?: string
+          note?: string | null
+          promo_code?: string | null
+          scope?: string
+          service_keys?: string[]
+          start_date?: string | null
+          updated_at?: string
+          value?: number
+        }
+        Update: {
+          applies_to?: string
+          category?: string | null
+          created_at?: string
+          discount_type?: string
+          end_date?: string | null
+          id?: string
+          is_active?: boolean
+          label?: string
+          note?: string | null
+          promo_code?: string | null
+          scope?: string
+          service_keys?: string[]
+          start_date?: string | null
+          updated_at?: string
+          value?: number
+        }
+        Relationships: []
+      }
       resend_email_events: {
         Row: {
           created_at: string
@@ -459,6 +513,36 @@ export type Database = {
           status?: string
           subject?: string
           total_count?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_prices: {
+        Row: {
+          category: string
+          display_order: number
+          key: string
+          name: string
+          package_price: number | null
+          single_price: number | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          display_order?: number
+          key: string
+          name: string
+          package_price?: number | null
+          single_price?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          display_order?: number
+          key?: string
+          name?: string
+          package_price?: number | null
+          single_price?: number | null
           updated_at?: string
         }
         Relationships: []
