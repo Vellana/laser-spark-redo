@@ -202,6 +202,15 @@ const services: ServiceArea[] = [
 ];
 
 const Services = () => {
+  const { get } = usePrices();
+  const priceFor = (name: string, kind: "single" | "package") => {
+    const keys = keysForName(name);
+    if (keys.length === 2) return `${priceLabel(get(keys[0], kind))} (Half) / ${priceLabel(get(keys[1], kind))} (Full)`;
+    return keys[0] ? priceLabel(get(keys[0], kind)) : "";
+  };
+  const livePrice = (svc: { name: string; singlePrice: string; packagePrice: string }, kind: "single" | "package") =>
+    priceFor(svc.name, kind) || (kind === "single" ? svc.singlePrice : svc.packagePrice);
+
   const [selectedService, setSelectedService] = useState<ServiceArea | null>(null);
 
   return (

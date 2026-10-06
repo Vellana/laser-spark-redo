@@ -199,6 +199,17 @@ const postTreatmentInstructions = [
 ];
 
 const LaserHairRemoval = () => {
+  const { get } = usePrices();
+  const priceFor = (name: string, kind: "single" | "package") => {
+    const keys = keysForName(name);
+    if (keys.length === 2) return `${priceLabel(get(keys[0], kind))} (Half) / ${priceLabel(get(keys[1], kind))} (Full)`;
+    return keys[0] ? priceLabel(get(keys[0], kind)) : "";
+  };
+  const livePricing = (area: { name: string; pricing: string }) => {
+    const single = priceFor(area.name, "single");
+    return single ? `Single ${single}; Package of 5 ${priceFor(area.name, "package")}` : area.pricing;
+  };
+
   const [selectedArea, setSelectedArea] = useState<TreatmentArea | null>(null);
 
   const benefits = [

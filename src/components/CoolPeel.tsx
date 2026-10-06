@@ -9,9 +9,12 @@ import tetraProLogo from "@/assets/tetra-pro-logo.png";
 import CherryFinancingBadge from "@/components/CherryFinancingBadge";
 
 import { isSummerSaleActive } from "@/lib/summerSale";
+import { usePrices } from "@/lib/prices";
+import PriceDisplay from "@/components/PriceDisplay";
 
 const CoolPeel = () => {
   const summerOffersActive = isSummerSaleActive();
+  const { get } = usePrices();
   const [activeTab, setActiveTab] = useState<"coolpeel" | "dekapulse">("coolpeel");
   const [expandedBenefit, setExpandedBenefit] = useState<string | null>(null);
 
@@ -261,7 +264,7 @@ const CoolPeel = () => {
                         <Tag className="w-5 h-5" />
                         <span className="font-semibold">Single Session</span>
                       </div>
-                      <p className="text-2xl font-bold text-foreground">$750</p>
+                      <p className="text-2xl font-bold text-foreground"><PriceDisplay result={get("coolpeel", "single")} /></p>
                       <p className="text-sm text-muted-foreground">Per CoolPeel treatment</p>
                     </div>
                     <div className="p-5 bg-secondary/30 rounded-xl border border-accent/40 space-y-2 relative">
@@ -282,7 +285,7 @@ const CoolPeel = () => {
                         </>
                       ) : (
                         <>
-                          <p className="text-2xl font-bold text-foreground">$2,000</p>
+                          <p className="text-2xl font-bold text-foreground"><PriceDisplay result={get("coolpeel", "package")} /></p>
                           <p className="text-sm text-muted-foreground">3 CoolPeel treatments</p>
                         </>
                       )}
