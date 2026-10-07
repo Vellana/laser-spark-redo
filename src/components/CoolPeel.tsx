@@ -14,7 +14,10 @@ import PriceDisplay from "@/components/PriceDisplay";
 
 const CoolPeel = () => {
   const summerOffersActive = isSummerSaleActive();
-  const { get } = usePrices();
+  const { prices, get } = usePrices();
+  // CoolPeel by area, series of 3 only; DEKA Pulse single sessions by area (Holly, 7 Oct 2026).
+  const coolpeelPrices = prices.filter((p) => p.category === "coolpeel");
+  const dekaPrices = prices.filter((p) => p.category === "deka");
   const [activeTab, setActiveTab] = useState<"coolpeel" | "dekapulse">("coolpeel");
   const [expandedBenefit, setExpandedBenefit] = useState<string | null>(null);
 
@@ -258,37 +261,18 @@ const CoolPeel = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 grid md:grid-cols-2 gap-4">
-                    <div className="p-5 bg-secondary/30 rounded-xl border border-border/50 space-y-2">
-                      <div className="flex items-center gap-2 text-accent">
-                        <Tag className="w-5 h-5" />
-                        <span className="font-semibold">Single Session</span>
-                      </div>
-                      <p className="text-2xl font-bold text-foreground"><PriceDisplay result={get("coolpeel", "single")} /></p>
-                      <p className="text-sm text-muted-foreground">Per CoolPeel treatment</p>
+                  <div className="mt-6 p-5 bg-secondary/30 rounded-xl border border-accent/40 space-y-3">
+                    <div className="flex items-center gap-2 text-accent">
+                      <Package className="w-5 h-5" />
+                      <span className="font-semibold">Series of 3</span>
                     </div>
-                    <div className="p-5 bg-secondary/30 rounded-xl border border-accent/40 space-y-2 relative">
-                      {summerOffersActive && (
-                        <span className="absolute top-2 right-2 text-[10px] font-bold uppercase tracking-wider bg-destructive text-destructive-foreground px-2 py-0.5 rounded">Summer Sale</span>
-                      )}
-                      <div className="flex items-center gap-2 text-accent">
-                        <Package className="w-5 h-5" />
-                        <span className="font-semibold">Package of 3</span>
-                      </div>
-                      {summerOffersActive ? (
-                        <>
-                          <div className="flex items-baseline gap-2">
-                            <p className="text-2xl font-bold text-foreground">$1,500</p>
-                            <p className="text-base text-muted-foreground line-through">$2,000</p>
-                          </div>
-                          <p className="text-sm text-accent font-medium">$500 off - Summer Pre-Sale (June 15-28, 2026)</p>
-                        </>
-                      ) : (
-                        <>
-                          <p className="text-2xl font-bold text-foreground"><PriceDisplay result={get("coolpeel", "package")} /></p>
-                          <p className="text-sm text-muted-foreground">3 CoolPeel treatments</p>
-                        </>
-                      )}
+                    <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
+                      {coolpeelPrices.map((item) => (
+                        <div key={item.key} className="flex items-baseline justify-between gap-4">
+                          <span className="text-foreground">{item.name}</span>
+                          <span className="text-xl font-bold text-foreground"><PriceDisplay result={get(item.key, "package")} /></span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -345,6 +329,23 @@ const CoolPeel = () => {
                     </div>
                   </div>
 
+                  {dekaPrices.length > 0 && (
+                    <div className="mt-6 p-5 bg-secondary/30 rounded-xl border border-primary/40 space-y-3">
+                      <div className="flex items-center gap-2 text-primary">
+                        <Tag className="w-5 h-5" />
+                        <span className="font-semibold">Single Session</span>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
+                        {dekaPrices.map((item) => (
+                          <div key={item.key} className="flex items-baseline justify-between gap-4">
+                            <span className="text-foreground">{item.name}</span>
+                            <span className="text-xl font-bold text-foreground"><PriceDisplay result={get(item.key, "single")} /></span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="mt-6 p-4 bg-primary/10 rounded-lg flex items-start gap-2">
                     <AlertCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-foreground">
@@ -355,95 +356,6 @@ const CoolPeel = () => {
               </Card>
             )}
           </div>
-        </div>
-
-        {/* Care Instructions Tabs - Dynamic based on selected treatment */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold text-center text-foreground mb-8">
-            {activeTab === "coolpeel" ? "CoolPeel" : "Deka Pulse"} Care Instructions
-          </h3>
-
-          <Tabs defaultValue="pre-treatment" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-secondary/50 p-1 rounded-lg h-auto">
-              <TabsTrigger 
-                value="pre-treatment" 
-                className="text-base py-3 px-6 data-[state=active]:bg-accent data-[state=active]:text-primary data-[state=active]:shadow-md rounded-md transition-all"
-              >
-                Pre-Treatment
-              </TabsTrigger>
-              <TabsTrigger 
-                value="post-treatment" 
-                className="text-base py-3 px-6 data-[state=active]:bg-accent data-[state=active]:text-primary data-[state=active]:shadow-md rounded-md transition-all"
-              >
-                Post-Treatment
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="pre-treatment" className="animate-in fade-in duration-300">
-              <Card className="border-accent/40">
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-accent" />
-                    </div>
-                    <h4 className="text-xl font-bold text-foreground">Pre-Treatment Instructions</h4>
-                  </div>
-                  <ul className="space-y-3 text-muted-foreground">
-                    {preTreatmentInstructions.map((instruction, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-accent mt-0.5">•</span>
-                        <span>{instruction}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="post-treatment" className="animate-in fade-in duration-300">
-              <Card className={activeTab === "coolpeel" ? "border-accent/40" : "border-primary/40"}>
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${activeTab === "coolpeel" ? "bg-accent/20" : "bg-primary/20"}`}>
-                      {activeTab === "coolpeel" ? (
-                        <Heart className="w-5 h-5 text-accent" />
-                      ) : (
-                        <TrendingUp className="w-5 h-5 text-primary" />
-                      )}
-                    </div>
-                    <h4 className="text-xl font-bold text-foreground">
-                      {activeTab === "coolpeel" ? "CoolPeel" : "Deka Pulse"} Post-Treatment Care
-                    </h4>
-                  </div>
-                  
-                  {activeTab === "coolpeel" ? (
-                    <>
-                      <h5 className="font-semibold text-foreground mb-3">Day of treatment:</h5>
-                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (1-3 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
-                      <h5 className="font-semibold text-foreground mb-3">After the treatment:</h5>
-                    </>
-                  ) : (
-                    <>
-                      <h5 className="font-semibold text-foreground mb-3">Day of treatment:</h5>
-                      <p className="text-muted-foreground mb-6">You may feel a warm / sunburn sensation for 2-4+ hours post-treatment. Swelling, redness, and mild to moderate sunburn sensation are common (3-7 days). Use a cool misting spray or sterile cool compress (not ice) to reduce the sensation of heat.</p>
-                      <h5 className="font-semibold text-foreground mb-3">After the treatment:</h5>
-                    </>
-                  )}
-                  
-                  <ul className="space-y-3 text-muted-foreground">
-                    {(activeTab === "coolpeel" ? coolPeelPostInstructions : dekaPostInstructions).map((instruction, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className={`mt-0.5 ${activeTab === "coolpeel" ? "text-accent" : "text-primary"}`}>•</span>
-                        <span>{instruction}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <p className="text-foreground font-semibold mt-6">PLEASE CONTACT YOUR PROVIDER WITH ANY QUESTIONS/CONCERNS DURING YOUR RECOVERY PERIOD</p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
         </div>
 
       </div>
