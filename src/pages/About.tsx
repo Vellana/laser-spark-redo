@@ -92,7 +92,7 @@ const About = () => {
                                 </p>
 
                                 <p className="text-lg text-muted-foreground leading-relaxed">
-                                    With over 12 years of combined experience and the most advanced laser
+                                    With over 15 years of combined experience and the most advanced laser
                                     technology available, we offer personalized treatment plans tailored to
                                     your unique skin type, concerns, and goals.
                                 </p>
@@ -173,7 +173,7 @@ const About = () => {
                                     <p className="text-lg text-muted-foreground leading-relaxed">
                                         The Lutronic Clarity II laser is the gold standard for laser hair
                                         removal. Its dual wavelength system means that it is safe for use on
-                                        all skin types and tones. It is also exceptionally capable of
+                                        all skin types. It is also exceptionally capable of
                                         treating a variety of skin issues, from hyperpigmentation to spider
                                         veins to angiomas and broken capillaries.
                                     </p>
@@ -184,7 +184,7 @@ const About = () => {
                                             </h4>
                                             <p className="text-sm text-muted-foreground">
                                                 Dual wavelength technology ensures effective treatment across all
-                                                skin tones
+                                                skin types
                                             </p>
                                         </div>
                                         <div className="bg-secondary/50 p-4 rounded-lg">

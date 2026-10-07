@@ -35,7 +35,7 @@ const coolpeelFAQs: QA[] = [
   },
   {
     q: "What makes CoolPeel different?",
-    a: "Traditional CO2 lasers have long been considered the gold standard for improving wrinkles, age spots, acne scars, blemishes as well as tighten skin and balance tone. They work by removing damaged skin and stimulating collagen production. To achieve these results there is significant injury to the skin causing considerable downtime and risk while the damaged skin heals. That's where CoolPeel comes in. CoolPeel offers the same results with no downtime due to the fractional ablative technology that no other CO2 device has. You can enjoy tighter, brighter and healthier looking skin with minimal risk of hyperpigmentation, and a healthier-looking complexion with far less recovery time compared to traditional CO2 treatments.",
+    a: "Traditional CO2 lasers have long been considered the gold standard for improving wrinkles, age spots, acne scars, blemishes as well as tighten skin and balance tone. They work by removing damaged skin and stimulating collagen production. To achieve these results there is significant injury to the skin causing considerable downtime and risk while the damaged skin heals. That's where CoolPeel comes in. CoolPeel offers the same results with minimal downtime due to the fractional ablative technology that no other CO2 device has. You can enjoy tighter, brighter and healthier looking skin with minimal risk of hyperpigmentation, and a healthier-looking complexion with far less recovery time compared to traditional CO2 treatments.",
   },
   {
     q: "Who is a good candidate for CoolPeel?",
@@ -43,7 +43,7 @@ const coolpeelFAQs: QA[] = [
   },
   {
     q: "What is the recovery time for CoolPeel?",
-    a: "One of the main benefits of a CoolPeel, is that there is minimal to no downtime. You should expect to be a little red, as if you have a sunburn, for a day, or two, but nothing should prevent you from returning to your normal daily activities. Your skin may feel dry and scaly as it heals so it is important to keep your skin hydrated.",
+    a: "One of the main benefits of a CoolPeel, is that there is minimal downtime. You should expect to be a little red, as if you have a sunburn, for a day, or two, but nothing should prevent you from returning to your normal daily activities. Your skin may feel dry and scaly as it heals so it is important to keep your skin hydrated.",
   },
   {
     q: "How many treatments will I need?",
@@ -69,15 +69,15 @@ const coolpeelFAQs: QA[] = [
 
 const tetraProFAQs: QA[] = [
   {
-    q: "What is a Tetra Pro CO2 treatment?",
-    a: "Tetra Pro is an advanced CO2 laser treatment designed to target deeper skin concerns like wrinkles, sun damage, uneven texture, and scars. It removes damaged skin layers and stimulates collagen remodeling for smoother, firmer, more youthful-looking skin.",
+    q: "What is a DEKA Pulse CO2 treatment?",
+    a: "DEKA Pulse is an advanced CO2 laser treatment designed to target deeper skin concerns like wrinkles, sun damage, uneven texture, and scars. It removes damaged skin layers and stimulates collagen remodeling for smoother, firmer, more youthful-looking skin.",
   },
   {
     q: "How is this different from CoolPeel?",
-    a: "CoolPeel is a gentler, more superficial CO2 treatment with little to no downtime. Tetra Pro goes deeper into the skin to deliver more dramatic results in fewer sessions - making it ideal for those looking to address more advanced signs of aging or texture concerns.",
+    a: "CoolPeel is a gentler, more superficial CO2 treatment with minimal downtime. DEKA Pulse goes deeper into the skin to deliver more dramatic results in fewer sessions - making it ideal for those looking to address more advanced signs of aging or texture concerns.",
   },
   {
-    q: "What concerns does Tetra Pro treat?",
+    q: "What concerns does DEKA Pulse treat?",
     a: {
       bullets: [
         "Wrinkles and fine lines",
@@ -113,7 +113,7 @@ const tetraProFAQs: QA[] = [
     a: "Expect redness, pinpoint bleeding, swelling, and a sensation similar to a sunburn. Your provider will recommend specific post treatment guidance that is important to follow to ensure the best outcome and recovery.",
   },
   {
-    q: "Is Tetra Pro safe for all skin types?",
+    q: "Is DEKA Pulse safe for all skin types?",
     a: "Moderate to aggressive CO2 treatments are best suited for lighter skin types (Fitzpatrick I-III). Your provider will assess your skin type and recommend the safest, most effective approach.",
   },
   {
@@ -133,15 +133,11 @@ const hairRemovalFAQs: QA[] = [
   },
   {
     q: "How many treatments do I need?",
-    a: "Everyone's body is different but, It takes an average of 5-10 treatments to have really good hair reduction. We never say permanent, but it can be very long lasting.",
+    a: "Everyone's body is different but, It takes an average of 8-10 treatments to have really good hair reduction. We never say permanent, but it can be very long lasting.",
   },
   {
     q: "What is the spacing between sessions?",
     a: "Treatments are generally spaced 6-10 weeks apart for best results. After treatment we need to give the hair time to work it's way out of the follicle and new growth to come in before the next treatment.",
-  },
-  {
-    q: "When should I start laser hair removal to be ready for summer?",
-    a: "As early as you can. Sessions are spaced several weeks apart, and treated skin needs protection from the sun for 2 to 4 weeks before and after each session, so fall and winter are a practical time to start a series.",
   },
   {
     q: "Can I wax or tweeze between sessions?",
@@ -176,7 +172,7 @@ const hairRemovalFAQs: QA[] = [
 const sections: { id: string; title: string; items: QA[]; keyPrefix: string }[] = [
   { id: "general-faq", title: "General", items: generalFAQs, keyPrefix: "gn" },
   { id: "coolpeel-faq", title: "CoolPeel", items: coolpeelFAQs, keyPrefix: "cp" },
-  { id: "tetrapro-faq", title: "Tetra Pro Advanced Treatments", items: tetraProFAQs, keyPrefix: "tp" },
+  { id: "tetrapro-faq", title: "DEKA Pulse Treatments", items: tetraProFAQs, keyPrefix: "tp" },
   { id: "lhr-faq", title: "Laser Hair Removal", items: hairRemovalFAQs, keyPrefix: "hr" },
 ];
 
@@ -210,7 +206,7 @@ const FAQ = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Laser Treatment FAQ | Tysons VA"
-        description="CoolPeel, Tetra Pro & laser hair removal FAQs for Tysons VA patients. Book your free consultation at Virginia Laser Specialists - 703-547-4499."
+        description="CoolPeel, DEKA Pulse & laser hair removal FAQs for Tysons VA patients. Book your free consultation at Virginia Laser Specialists - 703-547-4499."
         canonicalUrl="/faq"
       />
       <LocalBusinessSchema />
@@ -232,7 +228,7 @@ const FAQ = () => {
               Frequently Asked Questions
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Answers about CoolPeel, Tetra Pro advanced CO₂ treatments, and laser hair removal at Virginia Laser Specialists in Tysons, VA.
+              Answers about CoolPeel, DEKA Pulse treatments, and laser hair removal at Virginia Laser Specialists in Tysons, VA.
             </p>
           </header>
 
