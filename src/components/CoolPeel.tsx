@@ -23,7 +23,7 @@ const CoolPeel = () => {
       icon: Sparkles,
       title: "Revolutionary Technology",
       description: "Advanced CO2 laser resurfaces skin with customizable intensity",
-      details: "The DEKA SmartXide CO2 laser platform resurfacing technology allows customizable intensity and offers two modes-CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing-to stimulate collagen production and rejuvenate skin.",
+      details: "The Cartessa Tetra Pro CO2 laser platform resurfacing technology allows customizable intensity and offers two modes-CoolPeel for minimal downtime and Deka Pulse for deeper resurfacing-to stimulate collagen production and rejuvenate skin.",
     },
     {
       icon: Zap,
@@ -35,7 +35,7 @@ const CoolPeel = () => {
       icon: Heart,
       title: "Safe & Effective",
       description: "Suitable for all skin types with proven results",
-      details: "The DEKA SmartXide CO2 laser has proven safety for all skin types and produces lasting results by stimulating collagen and improving skin texture.",
+      details: "The Cartessa Tetra Pro CO2 laser has proven safety for all skin types and produces lasting results by stimulating collagen and improving skin texture.",
     },
     {
       icon: Clock,
@@ -106,7 +106,7 @@ const CoolPeel = () => {
             </h2>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              The DEKA SmartXide CO2 laser platform offers two powerful treatments: CoolPeel for
+              The Cartessa Tetra Pro CO2 laser platform offers two powerful treatments: CoolPeel for
               minimal downtime and Deka Pulse for deeper, more dramatic results. Both stimulate
               collagen production for smoother, more youthful-looking skin.
             </p>
@@ -171,7 +171,7 @@ const CoolPeel = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-medium bg-white/95 p-12 flex items-center justify-center">
               <img
                 src={tetraProLogo}
-                alt="CoolPeel CO2 laser treatment results with advanced DEKA SmartXide CO2 technology for minimal downtime skin resurfacing"
+                alt="CoolPeel CO2 laser treatment results with advanced Cartessa Tetra Pro CO2 technology for minimal downtime skin resurfacing"
                 className="w-full max-w-md h-auto object-contain"
               />
             </div>
@@ -187,7 +187,7 @@ const CoolPeel = () => {
             Compare Our Treatments
           </h3>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Both treatments use the DEKA SmartXide CO2 laser. Choose based on your skin concerns and preferred downtime.
+            Both treatments use the Cartessa Tetra Pro CO2 laser. Choose based on your skin concerns and preferred downtime.
           </p>
 
           {/* Custom Button Selector */}
