@@ -115,7 +115,7 @@ const Pricing = () => {
                     CoolPeel Laser Cost
                   </h2>
                   <p className="text-center text-muted-foreground">
-                    DEKA SmartXide CO2 laser · Series of 3, spaced 1 month apart
+                    Cartessa Tetra Pro CO2 laser · Series of 3, spaced 1 month apart
                   </p>
                 </CardHeader>
                 <CardContent>

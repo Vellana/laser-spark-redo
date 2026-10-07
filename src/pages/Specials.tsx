@@ -6,6 +6,8 @@ import SEO from "@/components/SEO";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { pushEvent } from "@/lib/analytics";
 
 
 interface Special {
@@ -127,6 +129,18 @@ const Specials = () => {
                           ))}
                         </div>
                       )}
+                      <div>
+                        <a
+                          href="/booking"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => pushEvent("free_consult_booking")}
+                        >
+                          <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold">
+                            Book Now
+                          </Button>
+                        </a>
+                      </div>
                       {special.disclaimer && (
                         <p className="text-xs text-muted-foreground italic">{special.disclaimer}</p>
                       )}
