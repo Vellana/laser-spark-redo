@@ -216,7 +216,7 @@ const LaserHairRemoval = () => {
     {
       icon: Shield,
       title: "Safe for All Skin Types",
-      description: "Dual wavelength technology ensures effective treatment across all skin tones"
+      description: "Dual wavelength technology ensures effective treatment across all skin types"
     },
     {
       icon: Zap,
@@ -249,7 +249,7 @@ const LaserHairRemoval = () => {
       <LocalBusinessSchema />
       <MedicalProcedureSchema
         name="Laser Hair Removal in Tysons, VA"
-        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types and tones with cryogen cooling for comfort."
+        description="Permanent hair reduction using the dual-wavelength Lutronic Clarity II laser with Alexandrite and Nd:YAG technology. Safe for all skin types with cryogen cooling for comfort."
         bodyLocation="Face, underarms, legs, arms, bikini area, back, chest, and full body"
         preparation="Shave treatment area 24 hours before. Avoid sun exposure, waxing, and tweezing for 4-6 weeks prior."
         followup="8-10 sessions spaced 6-8 weeks apart for optimal permanent hair reduction results"
@@ -276,7 +276,7 @@ const LaserHairRemoval = () => {
                   Laser Hair Removal in Vienna, VA
                 </h1>
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  From a Brazilian to full body, our treatments use the Lutronic Clarity II, a dual-wavelength laser that is safe for all skin types and tones.
+                  From a Brazilian to full body, our treatments use the Lutronic Clarity II, a dual-wavelength laser that is safe for all skin types.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
@@ -360,7 +360,7 @@ const LaserHairRemoval = () => {
                   A Brazilian covers the entire bikini area front, sides and back, and 8 to 10 treatments
                   spaced 6 to 8 weeks apart are recommended. Cryogen cooling on the Clarity II helps keep
                   sessions comfortable. Treated skin needs protection from the sun for 2 to 4 weeks before
-                  and after each session, which makes fall and winter a practical time to start.
+                  and after each session.
                 </p>
               </div>
               <div className="text-center mb-8 sm:mb-12">

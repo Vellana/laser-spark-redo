@@ -24,6 +24,9 @@ const Booking = () => {
               Schedule your free consultation or treatment directly below. Questions?
               Call <a href="tel:703-547-4499" className="text-accent hover:underline font-medium">703-547-4499</a>.
             </p>
+            <p className="mt-6 p-4 bg-accent/10 rounded-lg text-sm text-foreground">
+              <strong>Fall Special:</strong> use code <span className="font-mono font-bold">FALL</span> when you book.
+            </p>
           </div>
 
           <div className="max-w-4xl mx-auto bg-card rounded-xl shadow-lg p-4 sm:p-6 border border-border">
