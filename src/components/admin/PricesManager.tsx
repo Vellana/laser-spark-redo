@@ -118,7 +118,7 @@ const PricesManager = () => {
             <div key={cat} className="mb-6">
               <h3 className="font-semibold text-foreground mb-2">{CATEGORY_LABELS[cat]}</h3>
               <div className="grid grid-cols-[1fr_110px_110px] gap-2 text-xs font-medium text-muted-foreground px-1 mb-1">
-                <span>Service</span><span>Single ($)</span><span>{cat === "coolpeel" ? "Package of 3 ($)" : "Package of 5 ($)"}</span>
+                <span>Service</span><span>Single ($)</span><span>{cat === "coolpeel" ? "Package of 3 ($)" : cat === "deka" ? "Package ($)" : "Package of 5 ($)"}</span>
               </div>
               {prices.filter((p) => p.category === cat).map((p) => (
                 <div key={p.key} className={`grid grid-cols-[1fr_110px_110px] gap-2 items-center py-1 px-1 rounded ${dirty.has(p.key) ? "bg-accent/10" : ""}`}>
