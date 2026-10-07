@@ -101,7 +101,7 @@ const Index = () => {
               <Link to="/about" className="text-accent hover:underline">
                 visit our medical spa
               </Link>{" "}
-              in Vienna, minutes from Tysons Corner, McLean, and Falls Church.
+              in Vienna, in the heart of Tysons Corner, minutes from McLean and Falls Church.
             </p>
           </div>
         </section>

@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { Helmet } from "react-helmet-async";
+import { priceLabel, usePrices } from "@/lib/prices";
 import coolPeelImage from "@/assets/Homepage_CoolPeelbox.jpg";
 import tetraProLogo from "@/assets/tetra-pro-logo.png";
 
@@ -195,6 +196,12 @@ const faqs = [
 ];
 
 const CoolPeelTysons = () => {
+  // CoolPeel by area, series of 3 only (Holly, 7 Oct 2026), from the price list, with a live sale shown as "$1,260 (was $1,800, ...)".
+  const { prices, get } = usePrices();
+  const coolpeelSeries = prices
+    .filter((p) => p.category === "coolpeel")
+    .map((p) => `${p.name} ${priceLabel(get(p.key, "package"))}`)
+    .join("; ");
   return (
     <div className="min-h-screen">
       <SEO 
@@ -444,52 +451,6 @@ const CoolPeelTysons = () => {
           </div>
         </section>
 
-        {/* Aftercare Summary */}
-        <section className="py-16 bg-secondary/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground text-center mb-8">
-                CoolPeel Post-Treatment Instructions
-              </h2>
-              
-              <Card className="border-accent/40">
-                <CardContent className="p-6 sm:p-8">
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">Apply a thin layer of Aquaphor to the treated area and reapply as needed for the first 48-72 hours.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">Avoid makeup and sunscreen for 48 hours post-treatment.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">Keep your head elevated while sleeping; use a clean pillowcase and change it frequently.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">Do not apply active skin-care products (AHAs, BHAs, retinols, vitamin C serums) for one week.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">Avoid strenuous exercise for 24 hours post-treatment.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">Stay out of hot tubs, saunas, and swimming pools for at least one week.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground font-medium">Watch for signs of infection (increasing redness, swelling, warmth, fever, or discharge). Contact your provider immediately if any occur.</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
         {/* FAQ Section */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -641,7 +602,7 @@ const CoolPeelTysons = () => {
                 CoolPeel Pricing
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                CoolPeel sessions are performed at Virginia Laser Specialists on the DEKA Tetra Pro CO2 platform for consistent, tailored resurfacing. CoolPeel laser cost is $750 for a single session and $2,000 for a series of three sessions spaced about one month apart, which is how most patients achieve their best results.
+                CoolPeel sessions are performed at Virginia Laser Specialists on the Cartessa Tetra Pro CO2 platform for consistent, tailored resurfacing. CoolPeel is priced by treatment area for a series of three sessions spaced about one month apart, which is how most patients achieve their best results: {coolpeelSeries}.
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 We keep pricing transparent and offer Cherry financing with $0 down so you can spread payments across monthly installments. For a full breakdown of single sessions, series pricing, and current promotions, see our <Link to="/pricing" className="text-accent hover:underline">CoolPeel laser cost</Link> page or call 703-547-4499 to book a complimentary skin evaluation at our Vienna office.

@@ -226,12 +226,12 @@ const LaserHairRemoval = () => {
     {
       icon: Users,
       title: "Expert Technicians",
-      description: "12+ years combined experience with advanced laser systems"
+      description: "15+ years combined experience with advanced laser systems"
     },
     {
       icon: Clock,
       title: "Quick Sessions",
-      description: "Most areas treated in 15-30 minutes with minimal discomfort"
+      description: "Most areas treated in 5-30 minutes with minimal discomfort"
     }
   ];
 
