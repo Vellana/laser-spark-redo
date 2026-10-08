@@ -73,7 +73,7 @@ const About = () => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
                                 </div>
                                 {/* Decorative Element */}
-                                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent rounded-2xl -z-10" />
+                                <div className="absolute -bottom-6 -right-3 sm:-right-6 w-32 h-32 bg-accent rounded-2xl -z-10" />
                             </div>
 
                             {/* Content Side */}
