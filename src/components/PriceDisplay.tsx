@@ -11,7 +11,7 @@ const PriceDisplay = ({ result, className = "", showCode = true }: { result: Pri
         <span className={className}>{fmt(result.final)}</span>
         <span className="text-sm text-muted-foreground line-through font-normal">{fmt(result.original)}</span>
       </span>
-      <span className="text-[11px] font-semibold uppercase tracking-wide text-destructive">
+      <span className="text-[0.8rem] font-semibold uppercase tracking-wide text-destructive">
         {result.discount!.label}
         {showCode && result.discount!.promo_code ? ` · Code ${result.discount!.promo_code}` : ""}
       </span>

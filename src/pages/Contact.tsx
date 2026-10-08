@@ -359,7 +359,7 @@ const Contact = () => {
                                                 {errors.message && (
                                                     <p id="message-error" className="text-sm text-destructive">{errors.message}</p>
                                                 )}
-                                                <p className="text-xs text-muted-foreground text-right">
+                                                <p className="text-[0.8rem] text-muted-foreground text-right">
                                                     {formData.message?.length || 0}/2000 characters
                                                 </p>
                                             </div>

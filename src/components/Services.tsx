@@ -253,7 +253,7 @@ const Services = () => {
                   <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-accent transition-colors mb-1 sm:mb-2">
                     {service.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3">{service.description}</p>
+                  <p className="text-[0.8rem] sm:text-sm text-muted-foreground line-clamp-3">{service.description}</p>
                 </div>
               </CardContent>
             </Card>

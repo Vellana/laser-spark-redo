@@ -70,7 +70,7 @@ const Pricing = () => {
                         <th className="text-center py-4 px-4 text-foreground font-semibold">
                           <div className="inline-flex flex-col items-center gap-1.5">
                             <div>Package of 5</div>
-                            <div className="text-xs font-normal text-muted-foreground max-w-[180px]">
+                            <div className="text-[0.8rem] font-normal text-muted-foreground max-w-[180px]">
                               Save on a series of 5 treatments
                             </div>
                           </div>

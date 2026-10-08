@@ -152,7 +152,7 @@ const SpecialsPopup = () => {
               <p className="text-xs text-muted-foreground">Your discount code:</p>
               <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
               <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
-              <p className="text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
+              <p className="text-[0.8rem] text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <a
@@ -250,7 +250,7 @@ const SpecialsPopup = () => {
             <div className="border-t border-border pt-4 mt-4 space-y-3">
               <p className="text-sm font-medium text-foreground text-center">
                 Get <span className="text-accent font-bold">10% off</span> your next service when you join our email list!
-                <span className="block text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</span>
+                <span className="block text-[0.8rem] text-muted-foreground mt-1">*Cannot be combined with other offers.</span>
               </p>
               <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-sm mx-auto w-full">
                 <Input type="email" placeholder="Your email address" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1 bg-background text-foreground placeholder:text-muted-foreground" aria-label="Email for newsletter" />
@@ -264,7 +264,7 @@ const SpecialsPopup = () => {
                 <p className="text-xs text-muted-foreground">Your discount code:</p>
                 <p className="text-2xl font-bold text-accent tracking-widest">VLS10</p>
                 <p className="text-xs text-muted-foreground mt-1">Mention this code when booking or at your appointment</p>
-                <p className="text-xs text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
+                <p className="text-[0.8rem] text-muted-foreground mt-1">*Cannot be combined with other offers.</p>
               </div>
             </div>
           )}

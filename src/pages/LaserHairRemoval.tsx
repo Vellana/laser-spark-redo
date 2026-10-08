@@ -385,7 +385,7 @@ const LaserHairRemoval = () => {
                         <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
                       </div>
                       <span className="text-sm sm:text-base text-foreground font-semibold mb-2">{area.name}</span>
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-[0.8rem] sm:text-sm text-muted-foreground leading-relaxed">
                         {area.summary}
                       </p>
                     </button>
