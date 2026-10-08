@@ -9,15 +9,19 @@ import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CherryFinancing from "@/components/CherryFinancing";
 import { usePrices } from "@/lib/prices";
-import PriceDisplay, { DiscountNotice } from "@/components/PriceDisplay";
+import PriceDisplay, { DiscountNotice, DiscountWords } from "@/components/PriceDisplay";
 const Pricing = () => {
   const { prices, discounts, get } = usePrices();
   const laserHairRemovalPricing = prices.filter((p) => p.category === "laser_hair");
   // CoolPeel by area, series of 3 only; DEKA Pulse single sessions by area (Holly, 7 Oct 2026).
   const coolpeelPricing = prices.filter((p) => p.category === "coolpeel");
   const dekaPricing = prices.filter((p) => p.category === "deka");
-  // Holly's line while the fall special (code FALL) is live; it goes by itself after its last day, 23 Oct 2026.
-  const fallSpecial = discounts.some((d) => d.promo_code === "FALL");
+  // In place of Holly's typed fall line (Oct 7): each live discount that lowers a laser hair removal price, in its
+  // own record's words (name, code, last day, note; Admin > Prices). It goes by itself after its last day or when it
+  // is switched off, with no change to the site (Julien, 8 Oct 2026: codes "auto end after that date").
+  const hairDiscounts = discounts.filter((d) =>
+    laserHairRemovalPricing.some((p) => get(p.key, "single").discount?.id === d.id || get(p.key, "package").discount?.id === d.id),
+  );
 
   return (
     <div className="min-h-screen">
@@ -50,11 +54,11 @@ const Pricing = () => {
                 <CardTitle className="text-3xl text-center">
                   Laser Hair Removal Pricing
                 </CardTitle>
-                {fallSpecial && (
-                  <p className="text-center text-accent font-semibold">
-                    Special Fall promotional pricing until 10/23/2026! 30% off all laser hair removal packages with code FALL
+                {hairDiscounts.map((d) => (
+                  <p key={d.id} className="text-center text-accent font-semibold">
+                    <DiscountWords d={d} />
                   </p>
-                )}
+                ))}
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -98,7 +102,8 @@ const Pricing = () => {
                     </tbody>
                   </table>
                 </div>
-                <DiscountNotice discounts={discounts} />
+                {/* A discount already set out under the heading is not repeated here. */}
+                <DiscountNotice discounts={discounts.filter((d) => !hairDiscounts.includes(d))} />
                 <div className="mt-8 text-center">
                   <a
                     href="/booking"

@@ -21,17 +21,26 @@ const PriceDisplay = ({ result, className = "", showCode = true }: { result: Pri
 
 export default PriceDisplay;
 
+type DiscountWordsInput = { id: string; label: string; promo_code: string | null; note: string | null; end_date: string | null };
+
+/** One live discount in words, all from its record: name, code, last day and note (Admin > Prices). */
+export const DiscountWords = ({ d }: { d: DiscountWordsInput }) => (
+  <>
+    <strong>{d.label}</strong>
+    {d.promo_code ? <> - use code <span className="font-mono font-bold">{d.promo_code}</span> when booking</> : null}
+    {d.end_date ? <> (ends {new Date(d.end_date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })})</> : null}
+    {d.note ? <>. {d.note}</> : null}
+  </>
+);
+
 /** Lists live discounts that have codes or notes, so customers know what to enter in Vagaro. */
-export const DiscountNotice = ({ discounts }: { discounts: { id: string; label: string; promo_code: string | null; note: string | null; end_date: string | null }[] }) => {
+export const DiscountNotice = ({ discounts }: { discounts: DiscountWordsInput[] }) => {
   if (!discounts.length) return null;
   return (
     <div className="mt-6 p-4 bg-accent/10 rounded-lg text-center space-y-1">
       {discounts.map((d) => (
         <p key={d.id} className="text-sm text-foreground">
-          <strong>{d.label}</strong>
-          {d.promo_code ? <> - use code <span className="font-mono font-bold">{d.promo_code}</span> when booking</> : null}
-          {d.end_date ? <> (ends {new Date(d.end_date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })})</> : null}
-          {d.note ? <>. {d.note}</> : null}
+          <DiscountWords d={d} />
         </p>
       ))}
     </div>
